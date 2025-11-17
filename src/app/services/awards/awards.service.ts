@@ -29,9 +29,12 @@ export class AwardsService {
     return this.http.get<ApiResponse<Award[]>>(`${this.baseUrl}/list`);
   }
 
-  searchByName(awardName: string): Observable<ApiResponse<Award[]>> {
-    const params = new HttpParams().set('awardName', awardName);
-    return this.http.get<ApiResponse<Award[]>>(`${this.baseUrl}/search/name`, { params });
+  getByName(awardName: string): Observable<ApiResponse<Award>> {
+    return this.http.get<ApiResponse<Award>>(`${this.baseUrl}/name/${awardName}`);
+  }
+
+  listByType(awardType: string): Observable<ApiResponse<Award[]>> {
+    return this.http.get<ApiResponse<Award[]>>(`${this.baseUrl}/type/${awardType}`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {
