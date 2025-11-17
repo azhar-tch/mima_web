@@ -1,4 +1,4 @@
-import { AgentStatus } from './enums';
+import { MarinerStatus, MaritimeRank, MaritimeSpecialty, VesselType } from './enums';
 import { Units } from './Units';
 
 export interface Agents {
@@ -6,12 +6,31 @@ export interface Agents {
     registrationNo: string;
     firstName: string;
     lastName: string;
-    rank: string;
+
+    // Informations maritimes
+    maritimeRank: MaritimeRank;
+    specialty: MaritimeSpecialty;
+    seafarerBookNumber?: string;
+    seamanLicenseNumber?: string;
+    medicalCertificateExpiry?: string;
+    maritimeQualifications?: string;
+    qualifiedVesselType?: VesselType;
+    yearsOfSeaExperience?: number;
+    lastSeaDutyDate?: string;
+    certifications?: string;
+
     unit?: Units;
     unitTrackingId?: string;
+    unitName?: string;
     availability: boolean;
-    status: AgentStatus;
+    status: MarinerStatus;
     createDate?: string;
+
+    // Informations personnelles
+    sex?: string;
+    dateOfBirth?: string;
+    email?: string;
+    phoneNumber?: string;
     nationality?: string;
     city?: string;
     emergencyContact?: string;
@@ -29,10 +48,28 @@ export interface AgentsRequest {
     registrationNo: string;
     firstName: string;
     lastName: string;
-    rank: string;
+
+    // Informations maritimes
+    maritimeRank: MaritimeRank;
+    specialty: MaritimeSpecialty;
+    seafarerBookNumber?: string;
+    seamanLicenseNumber?: string;
+    medicalCertificateExpiry?: string;
+    maritimeQualifications?: string;
+    qualifiedVesselType?: VesselType;
+    yearsOfSeaExperience?: number;
+    lastSeaDutyDate?: string;
+    certifications?: string;
+
     unitTrackingId: string;
     availability?: boolean;
-    status?: AgentStatus;
+    status?: MarinerStatus;
+
+    // Informations personnelles
+    sex?: string;
+    dateOfBirth?: string;
+    email?: string;
+    phoneNumber?: string;
     nationality?: string;
     city?: string;
     emergencyContact?: string;
@@ -51,12 +88,30 @@ export interface AgentsResponse {
     registrationNo: string;
     firstName: string;
     lastName: string;
-    rank: string;
+
+    // Informations maritimes
+    maritimeRank: MaritimeRank;
+    specialty: MaritimeSpecialty;
+    seafarerBookNumber?: string;
+    seamanLicenseNumber?: string;
+    medicalCertificateExpiry?: string;
+    maritimeQualifications?: string;
+    qualifiedVesselType?: VesselType;
+    yearsOfSeaExperience?: number;
+    lastSeaDutyDate?: string;
+    certifications?: string;
+
     unitName?: string;
     unitTrackingId?: string;
     availability: boolean;
-    status: AgentStatus;
+    status: MarinerStatus;
     createDate?: string;
+
+    // Informations personnelles
+    sex?: string;
+    dateOfBirth?: string;
+    email?: string;
+    phoneNumber?: string;
     nationality?: string;
     city?: string;
     emergencyContact?: string;
