@@ -16,7 +16,20 @@ import {
   BarChart3,
   Anchor,
   LogOut,
-  X
+  X,
+  Ship,
+  Award,
+  GraduationCap,
+  Briefcase,
+  Building2,
+  History,
+  BookOpen,
+  ShieldAlert,
+  MapPin,
+  AlertTriangle,
+  Boxes,
+  FileCheck,
+  DollarSign
 } from 'lucide-angular';
 
 @Component({
@@ -44,18 +57,80 @@ export class SideBarComponent {
   readonly Anchor = Anchor;
   readonly LogOut = LogOut;
   readonly X = X;
+  readonly Ship = Ship;
+  readonly Award = Award;
+  readonly GraduationCap = GraduationCap;
+  readonly Briefcase = Briefcase;
+  readonly Building2 = Building2;
+  readonly History = History;
+  readonly BookOpen = BookOpen;
+  readonly ShieldAlert = ShieldAlert;
+  readonly MapPin = MapPin;
+  readonly AlertTriangle = AlertTriangle;
+  readonly Boxes = Boxes;
+  readonly FileCheck = FileCheck;
+  readonly DollarSign = DollarSign;
 
-  navItems = [
-    { label: 'Dashboard', icon: 'LayoutDashboard', href: '/dashboard' },
-    { label: 'Agents', icon: 'Users', href: '/agents' },
-    { label: 'Unités', icon: 'Network', href: '/units' },
-    { label: 'Missions', icon: 'Target', href: '/missions' },
-    { label: 'Gardes', icon: 'Shield', href: '/duties' },
-    { label: 'Absences', icon: 'Calendar', href: '/absences' },
-    { label: 'Règles', icon: 'FileText', href: '/managementRules' },
-    { label: 'Historique', icon: 'BarChart3', href: '/histories' },
-    { label: 'Notifications', icon: 'Bell', href: '/notifications' },
+  navSections = [
+    {
+      title: 'Système de Gestion',
+      items: [
+        { label: 'Dashboard', icon: 'LayoutDashboard', href: '/dashboard' },
+        { label: 'Agents', icon: 'Users', href: '/agents' },
+        { label: 'Unités', icon: 'Network', href: '/units' },
+        { label: 'Missions', icon: 'Target', href: '/missions' },
+        { label: 'Gardes', icon: 'Shield', href: '/duties' },
+        { label: 'Absences', icon: 'Calendar', href: '/absences' },
+        { label: 'Règles', icon: 'FileText', href: '/managementRules' },
+        { label: 'Historique', icon: 'BarChart3', href: '/histories' },
+        { label: 'Notifications', icon: 'Bell', href: '/notifications' },
+      ]
+    },
+    {
+      title: 'Opérations Maritimes',
+      items: [
+        { label: 'Navires Commerciaux', icon: 'Ship', href: '/commercial-ships' },
+        { label: 'Navires Militaires', icon: 'Anchor', href: '/naval-vessels' },
+        { label: 'Agences Sécurité', icon: 'ShieldAlert', href: '/security-agencies' },
+        { label: 'Gardes Armés', icon: 'Shield', href: '/armed-guard-missions' },
+        { label: 'Escortes', icon: 'Target', href: '/escort-missions' },
+        { label: 'Arrivées/Départs', icon: 'MapPin', href: '/ship-arrival-departures' },
+        { label: 'Entrées/Sorties PAL', icon: 'MapPin', href: '/pal-entry-exits' },
+        { label: 'Incidents', icon: 'AlertTriangle', href: '/ship-incidents' },
+        { label: 'Avitaillements', icon: 'Boxes', href: '/ship-provisionings' },
+        { label: 'Opérations STS', icon: 'Boxes', href: '/sts-operations' },
+        { label: 'Saisies', icon: 'AlertCircle', href: '/conservator-seizures' },
+        { label: 'Indemnités', icon: 'DollarSign', href: '/personnel-allowances' },
+      ]
+    },
+    {
+      title: 'Gestion RH',
+      items: [
+        { label: 'Grades', icon: 'Award', href: '/hr-grades' },
+        { label: 'Fonctions', icon: 'Briefcase', href: '/hr-functions' },
+        { label: 'Formations', icon: 'GraduationCap', href: '/trainings' },
+        { label: 'Distinctions', icon: 'Award', href: '/awards' },
+        { label: 'Postes Service', icon: 'FileCheck', href: '/service-positions' },
+        { label: 'Autres Postes', icon: 'FileCheck', href: '/other-positions' },
+        { label: 'Compagnies BML', icon: 'Building2', href: '/bml-companies' },
+      ]
+    },
+    {
+      title: 'Historiques Agents',
+      items: [
+        { label: 'Hist. Grades', icon: 'History', href: '/agent-grade-history' },
+        { label: 'Hist. Formations', icon: 'History', href: '/agent-training-history' },
+        { label: 'Hist. Distinctions', icon: 'History', href: '/agent-award-history' },
+        { label: 'Hist. Fonctions', icon: 'History', href: '/agent-function-history' },
+        { label: 'Hist. Compagnies', icon: 'History', href: '/agent-company-history' },
+        { label: 'Hist. Postes Service', icon: 'History', href: '/agent-service-position-history' },
+        { label: 'Hist. Autres Postes', icon: 'History', href: '/agent-other-position-history' },
+      ]
+    }
   ];
+
+  // Keep for backward compatibility
+  navItems = this.navSections[0].items;
 
   constructor(private authService: AuthService) {}
 
@@ -84,6 +159,19 @@ export class SideBarComponent {
       'Bell': this.Bell,
       'BarChart3': this.BarChart3,
       'Anchor': this.Anchor,
+      'Ship': this.Ship,
+      'Award': this.Award,
+      'GraduationCap': this.GraduationCap,
+      'Briefcase': this.Briefcase,
+      'Building2': this.Building2,
+      'History': this.History,
+      'BookOpen': this.BookOpen,
+      'ShieldAlert': this.ShieldAlert,
+      'MapPin': this.MapPin,
+      'AlertTriangle': this.AlertTriangle,
+      'Boxes': this.Boxes,
+      'FileCheck': this.FileCheck,
+      'DollarSign': this.DollarSign,
     };
     return iconMap[iconName];
   }
