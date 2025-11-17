@@ -30,11 +30,19 @@ export class AgentCompanyHistoryService {
   }
 
   listByAgent(agentTrackingId: string): Observable<ApiResponse<AgentCompanyHistory[]>> {
-    return this.http.get<ApiResponse<AgentCompanyHistory[]>>(`${this.baseUrl}/list/agent/${agentTrackingId}`);
+    return this.http.get<ApiResponse<AgentCompanyHistory[]>>(`${this.baseUrl}/agent/${agentTrackingId}`);
   }
 
   listByCompany(companyTrackingId: string): Observable<ApiResponse<AgentCompanyHistory[]>> {
-    return this.http.get<ApiResponse<AgentCompanyHistory[]>>(`${this.baseUrl}/list/company/${companyTrackingId}`);
+    return this.http.get<ApiResponse<AgentCompanyHistory[]>>(`${this.baseUrl}/company/${companyTrackingId}`);
+  }
+
+  listByStartDateRange(startDate: string, endDate: string): Observable<ApiResponse<AgentCompanyHistory[]>> {
+    return this.http.get<ApiResponse<AgentCompanyHistory[]>>(`${this.baseUrl}/start-date-range/${startDate}/${endDate}`);
+  }
+
+  getCurrentCompanyByAgent(agentTrackingId: string): Observable<ApiResponse<AgentCompanyHistory>> {
+    return this.http.get<ApiResponse<AgentCompanyHistory>>(`${this.baseUrl}/agent/${agentTrackingId}/current`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

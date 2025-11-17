@@ -30,11 +30,19 @@ export class AgentAwardHistoryService {
   }
 
   listByAgent(agentTrackingId: string): Observable<ApiResponse<AgentAwardHistory[]>> {
-    return this.http.get<ApiResponse<AgentAwardHistory[]>>(`${this.baseUrl}/list/agent/${agentTrackingId}`);
+    return this.http.get<ApiResponse<AgentAwardHistory[]>>(`${this.baseUrl}/agent/${agentTrackingId}`);
   }
 
   listByAward(awardTrackingId: string): Observable<ApiResponse<AgentAwardHistory[]>> {
-    return this.http.get<ApiResponse<AgentAwardHistory[]>>(`${this.baseUrl}/list/award/${awardTrackingId}`);
+    return this.http.get<ApiResponse<AgentAwardHistory[]>>(`${this.baseUrl}/award/${awardTrackingId}`);
+  }
+
+  listByAwardDateRange(startDate: string, endDate: string): Observable<ApiResponse<AgentAwardHistory[]>> {
+    return this.http.get<ApiResponse<AgentAwardHistory[]>>(`${this.baseUrl}/award-date-range/${startDate}/${endDate}`);
+  }
+
+  countByAgent(agentTrackingId: string): Observable<ApiResponse<number>> {
+    return this.http.get<ApiResponse<number>>(`${this.baseUrl}/agent/${agentTrackingId}/count`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

@@ -30,11 +30,19 @@ export class AgentFunctionHistoryService {
   }
 
   listByAgent(agentTrackingId: string): Observable<ApiResponse<AgentFunctionHistory[]>> {
-    return this.http.get<ApiResponse<AgentFunctionHistory[]>>(`${this.baseUrl}/list/agent/${agentTrackingId}`);
+    return this.http.get<ApiResponse<AgentFunctionHistory[]>>(`${this.baseUrl}/agent/${agentTrackingId}`);
   }
 
   listByFunction(functionTrackingId: string): Observable<ApiResponse<AgentFunctionHistory[]>> {
-    return this.http.get<ApiResponse<AgentFunctionHistory[]>>(`${this.baseUrl}/list/function/${functionTrackingId}`);
+    return this.http.get<ApiResponse<AgentFunctionHistory[]>>(`${this.baseUrl}/function/${functionTrackingId}`);
+  }
+
+  listByStartDateRange(startDate: string, endDate: string): Observable<ApiResponse<AgentFunctionHistory[]>> {
+    return this.http.get<ApiResponse<AgentFunctionHistory[]>>(`${this.baseUrl}/start-date-range/${startDate}/${endDate}`);
+  }
+
+  getCurrentFunctionByAgent(agentTrackingId: string): Observable<ApiResponse<AgentFunctionHistory>> {
+    return this.http.get<ApiResponse<AgentFunctionHistory>>(`${this.baseUrl}/agent/${agentTrackingId}/current`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

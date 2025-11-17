@@ -30,11 +30,19 @@ export class AgentTrainingHistoryService {
   }
 
   listByAgent(agentTrackingId: string): Observable<ApiResponse<AgentTrainingHistory[]>> {
-    return this.http.get<ApiResponse<AgentTrainingHistory[]>>(`${this.baseUrl}/list/agent/${agentTrackingId}`);
+    return this.http.get<ApiResponse<AgentTrainingHistory[]>>(`${this.baseUrl}/agent/${agentTrackingId}`);
   }
 
   listByTraining(trainingTrackingId: string): Observable<ApiResponse<AgentTrainingHistory[]>> {
-    return this.http.get<ApiResponse<AgentTrainingHistory[]>>(`${this.baseUrl}/list/training/${trainingTrackingId}`);
+    return this.http.get<ApiResponse<AgentTrainingHistory[]>>(`${this.baseUrl}/training/${trainingTrackingId}`);
+  }
+
+  listByStartDateRange(startDate: string, endDate: string): Observable<ApiResponse<AgentTrainingHistory[]>> {
+    return this.http.get<ApiResponse<AgentTrainingHistory[]>>(`${this.baseUrl}/start-date-range/${startDate}/${endDate}`);
+  }
+
+  getOngoingTrainingsByAgent(agentTrackingId: string): Observable<ApiResponse<AgentTrainingHistory[]>> {
+    return this.http.get<ApiResponse<AgentTrainingHistory[]>>(`${this.baseUrl}/agent/${agentTrackingId}/ongoing`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

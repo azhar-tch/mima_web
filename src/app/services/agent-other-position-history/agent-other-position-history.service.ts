@@ -30,11 +30,19 @@ export class AgentOtherPositionHistoryService {
   }
 
   listByAgent(agentTrackingId: string): Observable<ApiResponse<AgentOtherPositionHistory[]>> {
-    return this.http.get<ApiResponse<AgentOtherPositionHistory[]>>(`${this.baseUrl}/list/agent/${agentTrackingId}`);
+    return this.http.get<ApiResponse<AgentOtherPositionHistory[]>>(`${this.baseUrl}/agent/${agentTrackingId}`);
   }
 
   listByPosition(otherPositionTrackingId: string): Observable<ApiResponse<AgentOtherPositionHistory[]>> {
-    return this.http.get<ApiResponse<AgentOtherPositionHistory[]>>(`${this.baseUrl}/list/position/${otherPositionTrackingId}`);
+    return this.http.get<ApiResponse<AgentOtherPositionHistory[]>>(`${this.baseUrl}/other-position/${otherPositionTrackingId}`);
+  }
+
+  listByStartDateRange(startDate: string, endDate: string): Observable<ApiResponse<AgentOtherPositionHistory[]>> {
+    return this.http.get<ApiResponse<AgentOtherPositionHistory[]>>(`${this.baseUrl}/start-date-range/${startDate}/${endDate}`);
+  }
+
+  getOngoingPositionsByAgent(agentTrackingId: string): Observable<ApiResponse<AgentOtherPositionHistory[]>> {
+    return this.http.get<ApiResponse<AgentOtherPositionHistory[]>>(`${this.baseUrl}/agent/${agentTrackingId}/ongoing`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

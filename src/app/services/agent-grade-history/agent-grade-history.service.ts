@@ -30,11 +30,19 @@ export class AgentGradeHistoryService {
   }
 
   listByAgent(agentTrackingId: string): Observable<ApiResponse<AgentGradeHistory[]>> {
-    return this.http.get<ApiResponse<AgentGradeHistory[]>>(`${this.baseUrl}/list/agent/${agentTrackingId}`);
+    return this.http.get<ApiResponse<AgentGradeHistory[]>>(`${this.baseUrl}/agent/${agentTrackingId}`);
   }
 
   listByGrade(gradeTrackingId: string): Observable<ApiResponse<AgentGradeHistory[]>> {
-    return this.http.get<ApiResponse<AgentGradeHistory[]>>(`${this.baseUrl}/list/grade/${gradeTrackingId}`);
+    return this.http.get<ApiResponse<AgentGradeHistory[]>>(`${this.baseUrl}/grade/${gradeTrackingId}`);
+  }
+
+  listByPromotionDateRange(startDate: string, endDate: string): Observable<ApiResponse<AgentGradeHistory[]>> {
+    return this.http.get<ApiResponse<AgentGradeHistory[]>>(`${this.baseUrl}/promotion-date-range/${startDate}/${endDate}`);
+  }
+
+  getLatestGradeByAgent(agentTrackingId: string): Observable<ApiResponse<AgentGradeHistory>> {
+    return this.http.get<ApiResponse<AgentGradeHistory>>(`${this.baseUrl}/agent/${agentTrackingId}/latest`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {
