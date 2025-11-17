@@ -29,22 +29,27 @@ export class ArmedGuardMissionsService {
     return this.http.get<ApiResponse<ArmedGuardMission[]>>(`${this.baseUrl}/list`);
   }
 
-  listByShip(commercialShipTrackingId: string): Observable<ApiResponse<ArmedGuardMission[]>> {
-    return this.http.get<ApiResponse<ArmedGuardMission[]>>(`${this.baseUrl}/list/ship/${commercialShipTrackingId}`);
-  }
-
-  listByAgency(securityAgencyTrackingId: string): Observable<ApiResponse<ArmedGuardMission[]>> {
-    return this.http.get<ApiResponse<ArmedGuardMission[]>>(`${this.baseUrl}/list/agency/${securityAgencyTrackingId}`);
+  getByMissionNumber(missionNumber: string): Observable<ApiResponse<ArmedGuardMission>> {
+    return this.http.get<ApiResponse<ArmedGuardMission>>(`${this.baseUrl}/get/mission-number/${missionNumber}`);
   }
 
   listByStatus(status: string): Observable<ApiResponse<ArmedGuardMission[]>> {
-    const params = new HttpParams().set('status', status);
-    return this.http.get<ApiResponse<ArmedGuardMission[]>>(`${this.baseUrl}/list/status`, { params });
+    return this.http.get<ApiResponse<ArmedGuardMission[]>>(`${this.baseUrl}/list/status/${status}`);
   }
 
-  searchByMissionNumber(missionNumber: string): Observable<ApiResponse<ArmedGuardMission>> {
-    const params = new HttpParams().set('missionNumber', missionNumber);
-    return this.http.get<ApiResponse<ArmedGuardMission>>(`${this.baseUrl}/search/number`, { params });
+  listByPeriod(startDate: string, endDate: string): Observable<ApiResponse<ArmedGuardMission[]>> {
+    const params = new HttpParams()
+      .set('startDate', startDate)
+      .set('endDate', endDate);
+    return this.http.get<ApiResponse<ArmedGuardMission[]>>(`${this.baseUrl}/list/period`, { params });
+  }
+
+  listByCommercialShip(shipTrackingId: string): Observable<ApiResponse<ArmedGuardMission[]>> {
+    return this.http.get<ApiResponse<ArmedGuardMission[]>>(`${this.baseUrl}/list/commercial-ship/${shipTrackingId}`);
+  }
+
+  listBySecurityAgency(agencyTrackingId: string): Observable<ApiResponse<ArmedGuardMission[]>> {
+    return this.http.get<ApiResponse<ArmedGuardMission[]>>(`${this.baseUrl}/list/security-agency/${agencyTrackingId}`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

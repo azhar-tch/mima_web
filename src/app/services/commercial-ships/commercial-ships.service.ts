@@ -29,18 +29,27 @@ export class CommercialShipsService {
     return this.http.get<ApiResponse<CommercialShip[]>>(`${this.baseUrl}/list`);
   }
 
-  listActive(): Observable<ApiResponse<CommercialShip[]>> {
-    return this.http.get<ApiResponse<CommercialShip[]>>(`${this.baseUrl}/list/active`);
+  getByImo(imoNumber: string): Observable<ApiResponse<CommercialShip>> {
+    return this.http.get<ApiResponse<CommercialShip>>(`${this.baseUrl}/get/imo/${imoNumber}`);
   }
 
-  searchByName(shipName: string): Observable<ApiResponse<CommercialShip[]>> {
-    const params = new HttpParams().set('shipName', shipName);
-    return this.http.get<ApiResponse<CommercialShip[]>>(`${this.baseUrl}/search/name`, { params });
+  listByType(shipType: string): Observable<ApiResponse<CommercialShip[]>> {
+    return this.http.get<ApiResponse<CommercialShip[]>>(`${this.baseUrl}/list/type/${shipType}`);
   }
 
-  searchByImo(imoNumber: string): Observable<ApiResponse<CommercialShip>> {
-    const params = new HttpParams().set('imoNumber', imoNumber);
-    return this.http.get<ApiResponse<CommercialShip>>(`${this.baseUrl}/search/imo`, { params });
+  listByStatus(status: string): Observable<ApiResponse<CommercialShip[]>> {
+    return this.http.get<ApiResponse<CommercialShip[]>>(`${this.baseUrl}/list/status/${status}`);
+  }
+
+  listByFlag(flag: string): Observable<ApiResponse<CommercialShip[]>> {
+    return this.http.get<ApiResponse<CommercialShip[]>>(`${this.baseUrl}/list/flag/${flag}`);
+  }
+
+  listByArrivalPeriod(startDate: string, endDate: string): Observable<ApiResponse<CommercialShip[]>> {
+    const params = new HttpParams()
+      .set('startDate', startDate)
+      .set('endDate', endDate);
+    return this.http.get<ApiResponse<CommercialShip[]>>(`${this.baseUrl}/list/arrivals`, { params });
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

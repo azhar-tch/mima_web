@@ -29,17 +29,35 @@ export class STSOperationsService {
     return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list`);
   }
 
-  listCompleted(): Observable<ApiResponse<STSOperation[]>> {
-    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/completed`);
+  getByOperationNumber(operationNumber: string): Observable<ApiResponse<STSOperation>> {
+    return this.http.get<ApiResponse<STSOperation>>(`${this.baseUrl}/get/operation-number/${operationNumber}`);
   }
 
-  listWithPollution(): Observable<ApiResponse<STSOperation[]>> {
-    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/pollution`);
+  listByMotherVessel(vesselTrackingId: string): Observable<ApiResponse<STSOperation[]>> {
+    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/mother-vessel/${vesselTrackingId}`);
   }
 
-  searchByOperationNumber(operationNumber: string): Observable<ApiResponse<STSOperation>> {
-    const params = new HttpParams().set('operationNumber', operationNumber);
-    return this.http.get<ApiResponse<STSOperation>>(`${this.baseUrl}/search/number`, { params });
+  listByReceivingVessel(vesselTrackingId: string): Observable<ApiResponse<STSOperation[]>> {
+    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/receiving-vessel/${vesselTrackingId}`);
+  }
+
+  listBySupervisingVessel(vesselTrackingId: string): Observable<ApiResponse<STSOperation[]>> {
+    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/supervising-vessel/${vesselTrackingId}`);
+  }
+
+  listOngoing(): Observable<ApiResponse<STSOperation[]>> {
+    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/ongoing`);
+  }
+
+  listByStatus(status: string): Observable<ApiResponse<STSOperation[]>> {
+    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/status/${status}`);
+  }
+
+  listByPeriod(startDate: string, endDate: string): Observable<ApiResponse<STSOperation[]>> {
+    const params = new HttpParams()
+      .set('startDate', startDate)
+      .set('endDate', endDate);
+    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/period`, { params });
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

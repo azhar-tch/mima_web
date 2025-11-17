@@ -29,18 +29,16 @@ export class SecurityAgenciesService {
     return this.http.get<ApiResponse<SecurityAgency[]>>(`${this.baseUrl}/list`);
   }
 
-  listActive(): Observable<ApiResponse<SecurityAgency[]>> {
-    return this.http.get<ApiResponse<SecurityAgency[]>>(`${this.baseUrl}/list/active`);
+  getByAgencyNumber(agencyNumber: string): Observable<ApiResponse<SecurityAgency>> {
+    return this.http.get<ApiResponse<SecurityAgency>>(`${this.baseUrl}/get/agency-number/${agencyNumber}`);
   }
 
   searchByName(agencyName: string): Observable<ApiResponse<SecurityAgency[]>> {
-    const params = new HttpParams().set('agencyName', agencyName);
-    return this.http.get<ApiResponse<SecurityAgency[]>>(`${this.baseUrl}/search/name`, { params });
+    return this.http.get<ApiResponse<SecurityAgency[]>>(`${this.baseUrl}/list/name/${agencyName}`);
   }
 
-  searchByAgencyNumber(agencyNumber: string): Observable<ApiResponse<SecurityAgency>> {
-    const params = new HttpParams().set('agencyNumber', agencyNumber);
-    return this.http.get<ApiResponse<SecurityAgency>>(`${this.baseUrl}/search/number`, { params });
+  listActive(): Observable<ApiResponse<SecurityAgency[]>> {
+    return this.http.get<ApiResponse<SecurityAgency[]>>(`${this.baseUrl}/list/active`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

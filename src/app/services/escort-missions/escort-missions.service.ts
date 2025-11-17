@@ -29,26 +29,31 @@ export class EscortMissionsService {
     return this.http.get<ApiResponse<EscortMission[]>>(`${this.baseUrl}/list`);
   }
 
-  listByShip(commercialShipTrackingId: string): Observable<ApiResponse<EscortMission[]>> {
-    return this.http.get<ApiResponse<EscortMission[]>>(`${this.baseUrl}/list/ship/${commercialShipTrackingId}`);
+  getByMissionNumber(missionNumber: string): Observable<ApiResponse<EscortMission>> {
+    return this.http.get<ApiResponse<EscortMission>>(`${this.baseUrl}/get/mission-number/${missionNumber}`);
   }
 
-  listByNavalVessel(navalVesselTrackingId: string): Observable<ApiResponse<EscortMission[]>> {
-    return this.http.get<ApiResponse<EscortMission[]>>(`${this.baseUrl}/list/vessel/${navalVesselTrackingId}`);
+  listByStatus(status: string): Observable<ApiResponse<EscortMission[]>> {
+    return this.http.get<ApiResponse<EscortMission[]>>(`${this.baseUrl}/list/status/${status}`);
+  }
+
+  listByPeriod(startDate: string, endDate: string): Observable<ApiResponse<EscortMission[]>> {
+    const params = new HttpParams()
+      .set('startDate', startDate)
+      .set('endDate', endDate);
+    return this.http.get<ApiResponse<EscortMission[]>>(`${this.baseUrl}/list/period`, { params });
+  }
+
+  listByCommercialShip(shipTrackingId: string): Observable<ApiResponse<EscortMission[]>> {
+    return this.http.get<ApiResponse<EscortMission[]>>(`${this.baseUrl}/list/commercial-ship/${shipTrackingId}`);
+  }
+
+  listByNavalVessel(vesselTrackingId: string): Observable<ApiResponse<EscortMission[]>> {
+    return this.http.get<ApiResponse<EscortMission[]>>(`${this.baseUrl}/list/naval-vessel/${vesselTrackingId}`);
   }
 
   listByCommander(commanderTrackingId: string): Observable<ApiResponse<EscortMission[]>> {
     return this.http.get<ApiResponse<EscortMission[]>>(`${this.baseUrl}/list/commander/${commanderTrackingId}`);
-  }
-
-  listByStatus(status: string): Observable<ApiResponse<EscortMission[]>> {
-    const params = new HttpParams().set('status', status);
-    return this.http.get<ApiResponse<EscortMission[]>>(`${this.baseUrl}/list/status`, { params });
-  }
-
-  searchByMissionNumber(missionNumber: string): Observable<ApiResponse<EscortMission>> {
-    const params = new HttpParams().set('missionNumber', missionNumber);
-    return this.http.get<ApiResponse<EscortMission>>(`${this.baseUrl}/search/number`, { params });
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

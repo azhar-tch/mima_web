@@ -29,22 +29,24 @@ export class NavalVesselsService {
     return this.http.get<ApiResponse<NavalVessel[]>>(`${this.baseUrl}/list`);
   }
 
-  listActive(): Observable<ApiResponse<NavalVessel[]>> {
-    return this.http.get<ApiResponse<NavalVessel[]>>(`${this.baseUrl}/list/active`);
+  getByVesselNumber(vesselNumber: string): Observable<ApiResponse<NavalVessel>> {
+    return this.http.get<ApiResponse<NavalVessel>>(`${this.baseUrl}/get/vessel-number/${vesselNumber}`);
   }
 
-  listOperational(): Observable<ApiResponse<NavalVessel[]>> {
-    return this.http.get<ApiResponse<NavalVessel[]>>(`${this.baseUrl}/list/operational`);
+  listByType(vesselType: string): Observable<ApiResponse<NavalVessel[]>> {
+    return this.http.get<ApiResponse<NavalVessel[]>>(`${this.baseUrl}/list/type/${vesselType}`);
   }
 
-  searchByName(vesselName: string): Observable<ApiResponse<NavalVessel[]>> {
-    const params = new HttpParams().set('vesselName', vesselName);
-    return this.http.get<ApiResponse<NavalVessel[]>>(`${this.baseUrl}/search/name`, { params });
+  listByStatus(status: string): Observable<ApiResponse<NavalVessel[]>> {
+    return this.http.get<ApiResponse<NavalVessel[]>>(`${this.baseUrl}/list/status/${status}`);
   }
 
-  searchByVesselNumber(vesselNumber: string): Observable<ApiResponse<NavalVessel>> {
-    const params = new HttpParams().set('vesselNumber', vesselNumber);
-    return this.http.get<ApiResponse<NavalVessel>>(`${this.baseUrl}/search/number`, { params });
+  listAvailable(): Observable<ApiResponse<NavalVessel[]>> {
+    return this.http.get<ApiResponse<NavalVessel[]>>(`${this.baseUrl}/list/available`);
+  }
+
+  listPatrol(): Observable<ApiResponse<NavalVessel[]>> {
+    return this.http.get<ApiResponse<NavalVessel[]>>(`${this.baseUrl}/list/patrol`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {
