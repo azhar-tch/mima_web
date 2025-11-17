@@ -133,3 +133,35 @@ export enum ActionType {
     DELETE = 'DELETE',
     VALIDATE = 'VALIDATE'
 }
+
+// System 3 - Maritime/Commercial Ships Enums
+
+export enum NavalVesselType {
+    PHM = 'PHM',
+    VDT_RAPIDE = 'VDT_RAPIDE',
+    VDT_COTIERE = 'VDT_COTIERE',
+    VDT = 'VDT',
+    EMB_RAPIDE = 'EMB_RAPIDE',
+    EMB_RADE = 'EMB_RADE',
+    SALLE_COM = 'SALLE_COM'
+}
+
+export enum NavalVesselStatus {
+    OPERATIONAL = 'OPERATIONAL',
+    IN_MAINTENANCE = 'IN_MAINTENANCE',
+    IN_REPAIR = 'IN_REPAIR',
+    ON_MISSION = 'ON_MISSION',
+    IN_PORT = 'IN_PORT',
+    REFITTING = 'REFITTING',
+    DECOMMISSIONED = 'DECOMMISSIONED',
+    UNAVAILABLE = 'UNAVAILABLE'
+}
+
+export enum EscortType {
+    STANDARD = 'STANDARD',
+    HAUTE_SECURITE = 'HAUTE_SECURITE',
+    INTERNATIONALE = 'INTERNATIONALE',
+    COTIERE = 'COTIERE',
+    HAUTURIERE = 'HAUTURIERE',
+    URGENCE = 'URGENCE'
+}
