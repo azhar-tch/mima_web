@@ -1,0 +1,156 @@
+<div class="space-y-6">
+  <!-- Header -->
+  <div class="flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Missions</h1>
+      <p class="text-gray-600 mt-1">Gérer les missions maritimes</p>
+    </div>
+    <button
+      (click)="openAddDialog()"
+      class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
+      <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
+      Nouvelle mission
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="relative">
+        <lucide-icon [img]="Search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></lucide-icon>
+        <input
+          [(ngModel)]="searchTerm"
+          type="text"
+          placeholder="Rechercher une mission..."
+          class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+      </div>
+      <select [(ngModel)]="statusFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+        <option>Toutes</option>
+        <option>Planifiée</option>
+        <option>En cours</option>
+        <option>Terminée</option>
+        <option>Annulée</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Missions Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div *ngFor="let mission of filteredMissions" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+      <!-- Title and Type -->
+      <div class="flex items-start justify-between mb-3">
+        <h3 class="text-xl font-bold text-gray-900">{{ mission.title }}</h3>
+        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-purple-600 text-white">
+          {{ mission.type }}
+        </span>
+      </div>
+
+      <!-- Ship name -->
+      <p *ngIf="mission.shipName" class="text-sm font-medium text-gray-700 mb-2">
+        Navire: {{ mission.shipName }}
+      </p>
+
+      <!-- Date range -->
+      <p class="text-sm text-gray-600 mb-3">
+        {{ formatDate(mission.plannedStartDate) }} - {{ formatDate(mission.plannedEndDate) }}
+      </p>
+
+      <!-- Units -->
+      <div class="mb-3" *ngIf="mission.unitNames && mission.unitNames.length > 0">
+        <p class="text-xs text-gray-500 mb-1">Unités assignées ({{ mission.unitNames.length }})</p>
+        <div class="flex flex-wrap gap-1">
+          <span *ngFor="let unitName of mission.unitNames" class="inline-flex px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+            {{ unitName }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Agents -->
+      <div class="mb-3" *ngIf="mission.agentNames && mission.agentNames.length > 0">
+        <p class="text-xs text-gray-500 mb-1">Agents assignés ({{ mission.agentNames.length }})</p>
+        <div class="flex flex-wrap gap-1">
+          <span *ngFor="let agentName of mission.agentNames" class="inline-flex px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+            {{ agentName }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Fallback for old format (backward compatibility) -->
+      <div class="mb-3" *ngIf="(!mission.unitNames || mission.unitNames.length === 0) && (!mission.agentNames || mission.agentNames.length === 0)">
+        <p class="text-xs text-gray-500 mb-1">Unité/Agent assigné</p>
+        <span class="inline-flex px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full">
+          {{ mission.unitName || 'Non défini' }}
+        </span>
+      </div>
+
+      <!-- Status badge -->
+      <div class="flex items-center gap-2 mb-4">
+        <span [class]="'inline-flex px-3 py-1 text-xs font-semibold rounded-full text-white ' + getStatusColor(mission.status)">
+          {{ getStatusLabel(mission.status) }}
+        </span>
+      </div>
+
+      <!-- Objective -->
+      <p *ngIf="mission.objective" class="text-sm text-gray-900 mb-2 line-clamp-2">{{ mission.objective }}</p>
+
+      <!-- Location -->
+      <p class="text-xs text-gray-500 mb-4 flex items-center gap-1">
+        <lucide-icon [img]="MapPin" [size]="12"></lucide-icon>
+        {{ mission.location }}
+      </p>
+
+      <!-- Actions -->
+      <div class="flex gap-2 pt-4 border-t border-gray-200">
+        <button
+          (click)="openDetailsDialog(mission)"
+          class="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm">
+          <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
+          Détails
+        </button>
+        <button
+          (click)="openEditDialog(mission)"
+          class="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors text-sm">
+          <lucide-icon [img]="Edit" [size]="16"></lucide-icon>
+          Modifier
+        </button>
+        <button
+          (click)="openDeleteDialog(mission)"
+          class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors">
+          <lucide-icon [img]="Trash2" [size]="16"></lucide-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="filteredMissions.length === 0" class="text-center py-12">
+    <p class="text-gray-500">Aucune mission trouvée</p>
+  </div>
+</div>
+
+<!-- Dialogs -->
+<app-add-mission-dialog
+  [open]="showAddDialog"
+  (openChange)="showAddDialog = $event"
+  (add)="onMissionAdded($event)">
+</app-add-mission-dialog>
+
+<app-edit-mission-dialog
+  [open]="showEditDialog"
+  [mission]="selectedMission"
+  (openChange)="showEditDialog = $event"
+  (missionUpdated)="onMissionUpdated($event)">
+</app-edit-mission-dialog>
+
+<app-delete-mission-confirmation
+  [open]="showDeleteDialog"
+  [mission]="selectedMission"
+  (openChange)="showDeleteDialog = $event"
+  (confirm)="onMissionDeleted()">
+</app-delete-mission-confirmation>
+
+<app-missions-details-dialog
+  [open]="showDetailsDialog"
+  [mission]="selectedMission"
+  (openChange)="showDetailsDialog = $event">
+</app-missions-details-dialog>

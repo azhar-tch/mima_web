@@ -1,0 +1,219 @@
+<div *ngIf="open && formData" class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleOpenChange(false)"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Modifier la mission</h2>
+          <p class="text-sm text-gray-500 mt-1">Mettez à jour les informations de la mission maritime</p>
+        </div>
+        <button
+          (click)="handleOpenChange(false)"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="grid gap-4">
+      <!-- Type de mission -->
+      <div class="grid gap-2">
+        <label for="type" class="text-sm font-medium text-gray-700">Type de mission</label>
+        <select
+          id="type"
+          [(ngModel)]="formData.type"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['type'] ? 'border-red-500' : 'border-gray-300')"
+        >
+          <option value="">Sélectionner</option>
+          <option value="Transport">Transport</option>
+          <option value="Surveillance">Surveillance</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Urgence">Urgence</option>
+          <option value="Patrol">Patrouille</option>
+          <option value="Rescue">Sauvetage</option>
+        </select>
+        <p *ngIf="errors['type']" class="text-red-500 text-sm">{{ errors['type'] }}</p>
+      </div>
+
+      <!-- Titre -->
+      <div class="grid gap-2">
+        <label for="title" class="text-sm font-medium text-gray-700">Titre de la mission</label>
+        <input
+          id="title"
+          type="text"
+          placeholder="Ex: Transport de matériel vers la base"
+          [(ngModel)]="formData.title"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['title'] ? 'border-red-500' : 'border-gray-300')"
+        />
+        <p *ngIf="errors['title']" class="text-red-500 text-sm">{{ errors['title'] }}</p>
+      </div>
+
+      <!-- Nom du navire -->
+      <div class="grid gap-2">
+        <label for="shipName" class="text-sm font-medium text-gray-700">Nom du navire (optionnel)</label>
+        <input
+          id="shipName"
+          type="text"
+          placeholder="Ex: Navire Atlantique"
+          [(ngModel)]="formData.shipName"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Localisation -->
+      <div class="grid gap-2">
+        <label for="location" class="text-sm font-medium text-gray-700">Localisation</label>
+        <div class="relative">
+          <lucide-icon [img]="MapPin" [size]="16" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></lucide-icon>
+          <input
+            id="location"
+            type="text"
+            placeholder="Ex: Port de Marseille"
+            [(ngModel)]="formData.location"
+            [class]="'w-full pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['location'] ? 'border-red-500' : 'border-gray-300')"
+          />
+        </div>
+        <p *ngIf="errors['location']" class="text-red-500 text-sm">{{ errors['location'] }}</p>
+      </div>
+
+      <!-- Objectif -->
+      <div class="grid gap-2">
+        <label for="objective" class="text-sm font-medium text-gray-700">Objectif de la mission (optionnel)</label>
+        <textarea
+          id="objective"
+          placeholder="Décrivez l'objectif de la mission..."
+          [(ngModel)]="formData.objective"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Dates -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-2">
+          <label for="plannedStartDate" class="text-sm font-medium text-gray-700">Date de début prévue</label>
+          <input
+            id="plannedStartDate"
+            type="datetime-local"
+            [(ngModel)]="formData.plannedStartDate"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['plannedStartDate'] ? 'border-red-500' : 'border-gray-300')"
+          />
+          <p *ngIf="errors['plannedStartDate']" class="text-red-500 text-sm">{{ errors['plannedStartDate'] }}</p>
+        </div>
+        <div class="grid gap-2">
+          <label for="plannedEndDate" class="text-sm font-medium text-gray-700">Date de fin prévue</label>
+          <input
+            id="plannedEndDate"
+            type="datetime-local"
+            [(ngModel)]="formData.plannedEndDate"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['plannedEndDate'] ? 'border-red-500' : 'border-gray-300')"
+          />
+          <p *ngIf="errors['plannedEndDate']" class="text-red-500 text-sm">{{ errors['plannedEndDate'] }}</p>
+        </div>
+      </div>
+
+      <!-- Unités -->
+      <div class="grid gap-2">
+        <label class="text-sm font-medium text-gray-700">
+          Unités assignées
+          <span *ngIf="selectedUnitIds.length > 0" class="ml-2 text-xs text-blue-600">({{ selectedUnitIds.length }} sélectionnée(s))</span>
+        </label>
+        <div [class]="'border rounded-md p-3 max-h-40 overflow-y-auto ' + (errors['units'] ? 'border-red-500' : 'border-gray-300')">
+          <div *ngIf="units.length === 0" class="text-gray-500 text-sm">Aucune unité disponible</div>
+          <div *ngFor="let unit of units" class="flex items-center mb-2 last:mb-0">
+            <input
+              type="checkbox"
+              [id]="'unit-' + unit.trackingId"
+              [checked]="selectedUnitIds.includes(unit.trackingId)"
+              (change)="onUnitChange($event, unit.trackingId)"
+              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label [for]="'unit-' + unit.trackingId" class="ml-2 text-sm text-gray-700 cursor-pointer">
+              {{ unit.name }}
+            </label>
+          </div>
+        </div>
+        <p *ngIf="errors['units']" class="text-red-500 text-sm">{{ errors['units'] }}</p>
+      </div>
+
+      <!-- Statut -->
+      <div class="grid gap-2">
+        <label for="status" class="text-sm font-medium text-gray-700">Statut</label>
+        <select
+          id="status"
+          [(ngModel)]="formData.status"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="PLANNED">Planifiée</option>
+          <option value="IN_PROGRESS">En cours</option>
+          <option value="COMPLETED">Terminée</option>
+          <option value="CANCELLED">Annulée</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Agents assignés -->
+<!-- Agents assignés -->
+<div class="grid gap-2">
+  <label class="text-sm font-medium text-gray-700">
+    Agents assignés
+    <span *ngIf="selectedAgentIds.length > 0" class="ml-2 text-xs text-blue-600">
+      ({{ selectedAgentIds.length }} sélectionné(s))
+    </span>
+  </label>
+
+  <div
+    [class]="'border rounded-md p-3 max-h-40 overflow-y-auto ' +
+    (errors['agents'] ? 'border-red-500' : 'border-gray-300')"
+  >
+    <div *ngIf="agents.length === 0" class="text-gray-500 text-sm">
+      Aucun agent disponible
+    </div>
+
+    <div *ngFor="let agent of agents" class="flex items-center mb-2 last:mb-0">
+      <input
+        type="checkbox"
+        [id]="'agent-' + agent.trackingId"
+        [checked]="selectedAgentIds.includes(agent.trackingId)"
+        (change)="onAgentChange($event, agent.trackingId)"
+        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+      />
+
+      <label
+        [for]="'agent-' + agent.trackingId"
+        class="ml-2 text-sm text-gray-700 cursor-pointer"
+      >
+        {{ agent.firstName }} {{ agent.lastName }}
+      </label>
+    </div>
+  </div>
+
+  <p *ngIf="errors['agents']" class="text-red-500 text-sm">
+    {{ errors['agents'] }}
+  </p>
+</div>
+
+
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleOpenChange(false)"
+        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+      >
+        Annuler
+      </button>
+      <button
+        (click)="handleSubmit()"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors"
+      >
+        Enregistrer
+      </button>
+    </div>
+  </div>
+</div>

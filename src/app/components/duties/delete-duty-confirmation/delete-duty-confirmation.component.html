@@ -1,0 +1,39 @@
+<div *ngIf="duty" class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-md w-full mx-4 p-6 z-50">
+    <!-- Header -->
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-semibold text-gray-900">Supprimer la garde</h2>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+      <p class="text-sm text-gray-500 mt-2">
+        Êtes-vous sûr de vouloir supprimer la garde de <strong>{{ duty.agentName }}</strong>
+        au poste <strong>{{ duty.position }}</strong> ? Cette action ne peut pas être annulée.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+      >
+        Annuler
+      </button>
+      <button
+        (click)="handleConfirm()"
+        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+      >
+        Supprimer
+      </button>
+    </div>
+  </div>
+</div>

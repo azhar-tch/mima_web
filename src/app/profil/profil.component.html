@@ -1,0 +1,186 @@
+<div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-900">Mon Profil</h1>
+      <p class="text-gray-600 mt-1">Gérez vos informations personnelles et professionnelles</p>
+    </div>
+
+    <div *ngIf="user" class="space-y-6">
+      <!-- Photo et informations principales -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex flex-col md:flex-row gap-6 items-start md:items-center">
+          <!-- Photo de profil avec initiales -->
+          <div class="w-32 h-32 rounded-full bg-maritime-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-4xl">
+              {{ getInitials(user.firstName, user.lastName) }}
+            </span>
+          </div>
+
+          <!-- Informations principales -->
+          <div class="flex-1">
+            <div *ngIf="!isEditing">
+              <h2 class="text-2xl font-bold text-gray-900">{{ user.firstName }} {{ user.lastName }}</h2>
+              <p class="text-maritime-600 font-medium mt-1">{{ user.rank }}</p>
+              <p class="text-gray-600 mt-1">{{ user.email }}</p>
+            </div>
+            <div *ngIf="isEditing" class="space-y-3">
+              <div class="flex gap-3">
+                <input
+                  type="text"
+                  [(ngModel)]="editedUser.firstName"
+                  placeholder="Prénom"
+                  class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maritime-500 focus:border-transparent"
+                >
+                <input
+                  type="text"
+                  [(ngModel)]="editedUser.lastName"
+                  placeholder="Nom"
+                  class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maritime-500 focus:border-transparent"
+                >
+              </div>
+              <input
+                type="text"
+                [(ngModel)]="editedUser.rank"
+                placeholder="Grade"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maritime-500 focus:border-transparent"
+              >
+            </div>
+          </div>
+
+          <!-- Boutons d'action -->
+          <div class="flex gap-2">
+            <button
+              *ngIf="!isEditing"
+              (click)="toggleEdit()"
+              class="px-4 py-2 bg-maritime-600 text-white rounded-lg hover:bg-maritime-700 transition-colors"
+            >
+              Modifier
+            </button>
+            <div *ngIf="isEditing" class="flex gap-2">
+              <button
+                (click)="saveProfile()"
+                class="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                <lucide-icon [img]="Save" class="w-4 h-4"></lucide-icon>
+                Enregistrer
+              </button>
+              <button
+                (click)="toggleEdit()"
+                class="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+              >
+                <lucide-icon [img]="X" class="w-4 h-4"></lucide-icon>
+                Annuler
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informations de contact -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Informations de contact</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Email -->
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-maritime-100 rounded-lg">
+              <lucide-icon [img]="Mail" class="w-5 h-5 text-maritime-600"></lucide-icon>
+            </div>
+            <div class="flex-1">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input
+                *ngIf="isEditing"
+                type="email"
+                [(ngModel)]="editedUser.email"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maritime-500 focus:border-transparent"
+              >
+              <p *ngIf="!isEditing" class="text-gray-900">{{ user.email }}</p>
+            </div>
+          </div>
+
+          <!-- Téléphone -->
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-maritime-100 rounded-lg">
+              <lucide-icon [img]="Phone" class="w-5 h-5 text-maritime-600"></lucide-icon>
+            </div>
+            <div class="flex-1">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+              <input
+                *ngIf="isEditing"
+                type="tel"
+                [(ngModel)]="editedUser.phone"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maritime-500 focus:border-transparent"
+              >
+              <p *ngIf="!isEditing" class="text-gray-900">{{ user.phone }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informations professionnelles -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Informations professionnelles</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Matricule -->
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-maritime-100 rounded-lg">
+              <lucide-icon [img]="Hash" class="w-5 h-5 text-maritime-600"></lucide-icon>
+            </div>
+            <div class="flex-1">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Matricule</label>
+              <p class="text-gray-900">{{ user.matricule }}</p>
+            </div>
+          </div>
+
+          <!-- Grade -->
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-maritime-100 rounded-lg">
+              <lucide-icon [img]="Briefcase" class="w-5 h-5 text-maritime-600"></lucide-icon>
+            </div>
+            <div class="flex-1">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Grade</label>
+              <input
+                *ngIf="isEditing"
+                type="text"
+                [(ngModel)]="editedUser.rank"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maritime-500 focus:border-transparent"
+              >
+              <p *ngIf="!isEditing" class="text-gray-900">{{ user.rank }}</p>
+            </div>
+          </div>
+
+          <!-- Département -->
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-maritime-100 rounded-lg">
+              <lucide-icon [img]="Building" class="w-5 h-5 text-maritime-600"></lucide-icon>
+            </div>
+            <div class="flex-1">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Département</label>
+              <input
+                *ngIf="isEditing"
+                type="text"
+                [(ngModel)]="editedUser.department"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maritime-500 focus:border-transparent"
+              >
+              <p *ngIf="!isEditing" class="text-gray-900">{{ user.department }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sécurité et confidentialité -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Sécurité et confidentialité</h3>
+        <div class="space-y-3">
+          <button class="w-full md:w-auto px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+            Modifier le mot de passe
+          </button>
+        </div>
+      </div>
+    </div>
+
+  <!-- Message si pas d'utilisateur -->
+  <div *ngIf="!user" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
+    <lucide-icon [img]="User" class="w-16 h-16 text-gray-400 mx-auto mb-4"></lucide-icon>
+    <p class="text-gray-600">Aucune information utilisateur disponible</p>
+  </div>
+</div>

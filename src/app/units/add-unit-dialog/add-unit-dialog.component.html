@@ -1,0 +1,92 @@
+<div *ngIf="open" class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleOpenChange(false)"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-md w-full mx-4 p-6 z-50">
+    <!-- Header -->
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Ajouter une nouvelle unité</h2>
+          <p class="text-sm text-gray-500 mt-1">Remplissez les informations de la nouvelle unité maritime</p>
+        </div>
+        <button
+          (click)="handleOpenChange(false)"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="grid gap-4">
+      <!-- Name -->
+      <div class="grid gap-2">
+        <label for="name" class="text-sm font-medium text-gray-700">Nom de l'unité</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Ex: Unité Nord"
+          [(ngModel)]="formData.name"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['name'] ? 'border-red-500' : 'border-gray-300')"
+        />
+        <p *ngIf="errors['name']" class="text-red-500 text-sm">{{ errors['name'] }}</p>
+      </div>
+      <!-- Description -->
+      <div class="grid gap-2">
+        <label for="description" class="text-sm font-medium text-gray-700">Description</label>
+        <textarea
+          id="description"
+          [(ngModel)]="formData.description"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Ex: Unité spécialisée dans les opérations côtières"
+        ></textarea>
+      </div>
+
+      <!-- Type -->
+      <div class="grid gap-2">
+        <label for="type" class="text-sm font-medium text-gray-700">Type d'unité</label>
+        <select
+          id="type"
+          [(ngModel)]="formData.type"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option *ngFor="let t of unitTypes" [value]="t">{{ t }}</option>
+        </select>
+        <p *ngIf="errors['type']" class="text-red-500 text-sm">{{ errors['type'] }}</p>
+      </div>
+
+      <!-- Chef (optionnel) -->
+      <div class="grid gap-2">
+        <label for="chief" class="text-sm font-medium text-gray-700">Chef d'unité (optionnel)</label>
+        <select
+          id="chief"
+          [(ngModel)]="formData.chiefTrackingId"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">-- Aucun --</option>
+          <option *ngFor="let agent of agents" [value]="agent.trackingId">
+            {{ agent.rank }} {{ agent.firstName }} {{ agent.lastName }} ({{ agent.registrationNo }})
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleOpenChange(false)"
+        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+      >
+        Annuler
+      </button>
+      <button
+        (click)="handleSubmit()"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors"
+      >
+        Ajouter
+      </button>
+    </div>
+  </div>
+</div>

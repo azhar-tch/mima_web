@@ -1,0 +1,189 @@
+<div *ngIf="duty" class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+  <div class="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6 max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl font-bold text-gray-900">Modifier la Garde</h2>
+      <button
+        (click)="handleClose()"
+        class="h-6 w-6 p-0 text-gray-400 hover:text-gray-600 transition-colors"
+      >
+        <lucide-icon [img]="X" [size]="16"></lucide-icon>
+      </button>
+    </div>
+
+    <form (submit)="$event.preventDefault(); handleSubmit()" class="space-y-4">
+      <!-- Agent -->
+      <div>
+        <label class="block text-sm font-medium text-gray-900 mb-2">
+          Agent <span class="text-red-500">*</span>
+        </label>
+        <select
+          [(ngModel)]="formData.agentTrackingId"
+          name="agentTrackingId"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class.border-red-500]="errors['agentTrackingId']"
+        >
+          <option value="">Sélectionner un agent</option>
+          <option *ngFor="let agent of availableAgents" [value]="agent.trackingId">
+            {{ agent.firstName }} {{ agent.lastName }} - {{ agent.registrationNo }}
+          </option>
+        </select>
+        <p *ngIf="errors['agentTrackingId']" class="text-red-500 text-xs mt-1">{{ errors['agentTrackingId'] }}</p>
+      </div>
+
+      <!-- Unité -->
+      <div>
+        <label class="block text-sm font-medium text-gray-900 mb-2">
+          Unité <span class="text-red-500">*</span>
+        </label>
+        <select
+          [(ngModel)]="formData.unitTrackingId"
+          name="unitTrackingId"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class.border-red-500]="errors['unitTrackingId']"
+        >
+          <option value="">Sélectionner une unité</option>
+          <option *ngFor="let unit of availableUnits" [value]="unit.trackingId">
+            {{ unit.name }} ({{ unit.type }})
+          </option>
+        </select>
+        <p *ngIf="errors['unitTrackingId']" class="text-red-500 text-xs mt-1">{{ errors['unitTrackingId'] }}</p>
+      </div>
+
+      <!-- Poste -->
+      <div>
+        <label class="block text-sm font-medium text-gray-900 mb-2">
+          Poste <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          [(ngModel)]="formData.position"
+          name="position"
+          placeholder="Ex: Officier de quart, Chef mécanicien..."
+          class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class.border-red-500]="errors['position']"
+        />
+        <p *ngIf="errors['position']" class="text-red-500 text-xs mt-1">{{ errors['position'] }}</p>
+      </div>
+
+      <!-- Type de garde -->
+      <div>
+        <label class="block text-sm font-medium text-gray-900 mb-2">
+          Type de garde <span class="text-red-500">*</span>
+        </label>
+        <select
+          [(ngModel)]="formData.dutyType"
+          name="dutyType"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class.border-red-500]="errors['dutyType']"
+        >
+          <option *ngFor="let type of dutyTypes" [value]="type">
+            {{ getTypeLabel(type) }}
+          </option>
+        </select>
+        <p *ngIf="errors['dutyType']" class="text-red-500 text-xs mt-1">{{ errors['dutyType'] }}</p>
+      </div>
+
+      <!-- Statut -->
+      <div>
+        <label class="block text-sm font-medium text-gray-900 mb-2">
+          Statut
+        </label>
+        <select
+          [(ngModel)]="formData.status"
+          name="status"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option [value]="DutyStatus.PLANNED">Planifiée</option>
+          <option [value]="DutyStatus.ACTIVE">Active</option>
+          <option [value]="DutyStatus.COMPLETED">Terminée</option>
+          <option [value]="DutyStatus.REPLACED">Remplacée</option>
+          <option [value]="DutyStatus.CANCELLED">Annulée</option>
+        </select>
+      </div>
+
+      <!-- Date et heure de début -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">
+            Date de début <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="date"
+            [(ngModel)]="formData.startDate"
+            name="startDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="errors['startDate']"
+          />
+          <p *ngIf="errors['startDate']" class="text-red-500 text-xs mt-1">{{ errors['startDate'] }}</p>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">
+            Heure de début <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="time"
+            [(ngModel)]="formData.startTime"
+            name="startTime"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="errors['startTime']"
+          />
+          <p *ngIf="errors['startTime']" class="text-red-500 text-xs mt-1">{{ errors['startTime'] }}</p>
+        </div>
+      </div>
+
+      <!-- Date et heure de fin -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">
+            Date de fin <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="date"
+            [(ngModel)]="formData.endDate"
+            name="endDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="errors['endDate']"
+          />
+          <p *ngIf="errors['endDate']" class="text-red-500 text-xs mt-1">{{ errors['endDate'] }}</p>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">
+            Heure de fin <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="time"
+            [(ngModel)]="formData.endTime"
+            name="endTime"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            [class.border-red-500]="errors['endTime']"
+          />
+          <p *ngIf="errors['endTime']" class="text-red-500 text-xs mt-1">{{ errors['endTime'] }}</p>
+        </div>
+      </div>
+
+      <!-- Durée calculée -->
+      <div *ngIf="formData.startDate && formData.startTime && formData.endDate && formData.endTime" class="bg-blue-50 border border-blue-200 rounded-md p-3">
+        <p class="text-sm text-blue-900">
+          <span class="font-medium">Durée de la garde:</span> {{ calculateDuration() }} heures
+        </p>
+      </div>
+
+      <!-- Boutons -->
+      <div class="flex gap-2 pt-4">
+        <button
+          type="button"
+          (click)="handleClose()"
+          class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          Annuler
+        </button>
+        <button
+          type="submit"
+          class="flex-1 px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded-md transition-colors"
+        >
+          Enregistrer les modifications
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

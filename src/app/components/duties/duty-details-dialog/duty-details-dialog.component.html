@@ -1,0 +1,99 @@
+<div *ngIf="duty" class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+  <div class="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-gray-900">Détails de la Garde</h2>
+      <button
+        (click)="handleClose()"
+        class="text-gray-400 hover:text-gray-600 transition-colors">
+        <lucide-icon [img]="X" [size]="20"></lucide-icon>
+      </button>
+    </div>
+
+    <!-- Badges -->
+    <div class="flex gap-2 mb-6">
+      <span [class]="'inline-flex px-3 py-1 text-xs font-semibold rounded-full ' + getStatusBadgeStyle(duty.status)">
+        {{ getStatusLabel(duty.status) }}
+      </span>
+      <span [class]="'inline-flex px-3 py-1 text-xs font-semibold rounded-full ' + getTypeBadgeStyle(duty.dutyType)">
+        {{ getTypeLabel(duty.dutyType) }}
+      </span>
+    </div>
+
+    <!-- Details Grid -->
+    <div class="space-y-4">
+      <!-- Agent -->
+      <div class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+        <lucide-icon [img]="User" class="text-gray-600 mt-1" [size]="20"></lucide-icon>
+        <div>
+          <p class="text-sm font-medium text-gray-500">Agent</p>
+          <p class="text-base font-semibold text-gray-900">{{ duty.agentName || 'N/A' }}</p>
+        </div>
+      </div>
+
+      <!-- Poste -->
+      <div class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+        <lucide-icon [img]="Building" class="text-gray-600 mt-1" [size]="20"></lucide-icon>
+        <div>
+          <p class="text-sm font-medium text-gray-500">Poste</p>
+          <p class="text-base font-semibold text-gray-900">{{ duty.position }}</p>
+        </div>
+      </div>
+
+      <!-- Unité -->
+      <div class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+        <lucide-icon [img]="Building" class="text-gray-600 mt-1" [size]="20"></lucide-icon>
+        <div>
+          <p class="text-sm font-medium text-gray-500">Unité</p>
+          <p class="text-base font-semibold text-gray-900">{{ duty.unitName || 'N/A' }}</p>
+        </div>
+      </div>
+
+      <!-- Dates -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+          <lucide-icon [img]="Calendar" class="text-gray-600 mt-1" [size]="20"></lucide-icon>
+          <div>
+            <p class="text-sm font-medium text-gray-500">Début</p>
+            <p class="text-base font-semibold text-gray-900">{{ formatDateTime(duty.startDate) }}</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+          <lucide-icon [img]="Calendar" class="text-gray-600 mt-1" [size]="20"></lucide-icon>
+          <div>
+            <p class="text-sm font-medium text-gray-500">Fin</p>
+            <p class="text-base font-semibold text-gray-900">{{ formatDateTime(duty.endDate) }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Durée -->
+      <div class="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <lucide-icon [img]="Clock" class="text-blue-600 mt-1" [size]="20"></lucide-icon>
+        <div>
+          <p class="text-sm font-medium text-blue-700">Durée totale</p>
+          <p class="text-base font-semibold text-blue-900">{{ calculateDuration(duty.startDate, duty.endDate) }}</p>
+        </div>
+      </div>
+
+      <!-- Date de création -->
+      <div *ngIf="duty.createDate" class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+        <lucide-icon [img]="Calendar" class="text-gray-600 mt-1" [size]="20"></lucide-icon>
+        <div>
+          <p class="text-sm font-medium text-gray-500">Date de création</p>
+          <p class="text-base font-semibold text-gray-900">{{ formatDateTime(duty.createDate) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-6 flex justify-end">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors"
+      >
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>

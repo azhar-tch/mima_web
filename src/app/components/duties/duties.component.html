@@ -1,0 +1,220 @@
+<div class="max-w-7xl mx-auto">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Gestion des Gardes</h1>
+      <p class="text-gray-600 mt-1">Gérez les quarts et les gardes du personnel maritime</p>
+    </div>
+    <button
+      (click)="openAddDialog = true"
+      class="flex items-center gap-2 px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded-md transition-colors"
+    >
+      <lucide-icon [img]="Plus" [size]="16"></lucide-icon>
+      Nouvelle garde
+    </button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="bg-white rounded-lg shadow mb-6 p-6">
+    <div class="relative">
+      <lucide-icon
+        [img]="Search"
+        [size]="16"
+        class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></lucide-icon>
+      <input
+        type="text"
+        placeholder="Rechercher par agent, poste ou unité..."
+        [(ngModel)]="searchTerm"
+        class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+  </div>
+
+  <!-- Status Filters -->
+  <div class="bg-white rounded-lg shadow mb-6 p-6">
+    <div class="flex gap-2 flex-wrap mb-4">
+      <button
+        (click)="statusFilter = 'all'"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === 'all' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        Toutes
+      </button>
+      <button
+        (click)="statusFilter = DutyStatus.PLANNED"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === DutyStatus.PLANNED ? 'bg-blue-500 text-white hover:bg-blue-600' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        {{ getStatusLabel(DutyStatus.PLANNED) }}
+      </button>
+      <button
+        (click)="statusFilter = DutyStatus.COMPLETED"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === DutyStatus.COMPLETED ? 'bg-green-600 text-white hover:bg-green-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        {{ getStatusLabel(DutyStatus.COMPLETED) }}
+      </button>
+      <button
+        (click)="statusFilter = DutyStatus.REPLACED"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === DutyStatus.REPLACED ? 'bg-orange-500 text-white hover:bg-orange-600' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        {{ getStatusLabel(DutyStatus.REPLACED) }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Type Filters -->
+  <div class="bg-white rounded-lg shadow mb-6 p-6">
+    <div class="flex gap-2 flex-wrap">
+      <button
+        (click)="typeFilter = 'all'"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'all' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        Tous types
+      </button>
+      <button
+        (click)="typeFilter = DutyType.WATCH"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === DutyType.WATCH ? 'bg-purple-500 text-white hover:bg-purple-600' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        {{ getTypeLabel(DutyType.WATCH) }}
+      </button>
+      <button
+        (click)="typeFilter = DutyType.BRIDGE_WATCH"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === DutyType.BRIDGE_WATCH ? 'bg-indigo-500 text-white hover:bg-indigo-600' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        {{ getTypeLabel(DutyType.BRIDGE_WATCH) }}
+      </button>
+      <button
+        (click)="typeFilter = DutyType.ENGINE_WATCH"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === DutyType.ENGINE_WATCH ? 'bg-yellow-600 text-white hover:bg-yellow-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        {{ getTypeLabel(DutyType.ENGINE_WATCH) }}
+      </button>
+      <button
+        (click)="typeFilter = DutyType.ANCHOR_WATCH"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === DutyType.ANCHOR_WATCH ? 'bg-cyan-500 text-white hover:bg-cyan-600' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        {{ getTypeLabel(DutyType.ANCHOR_WATCH) }}
+      </button>
+      <button
+        (click)="typeFilter = DutyType.PORT_WATCH"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === DutyType.PORT_WATCH ? 'bg-teal-500 text-white hover:bg-teal-600' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        {{ getTypeLabel(DutyType.PORT_WATCH) }}
+      </button>
+      <button
+        (click)="typeFilter = DutyType.STANDBY"
+        [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === DutyType.STANDBY ? 'bg-gray-500 text-white hover:bg-gray-600' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+      >
+        {{ getTypeLabel(DutyType.STANDBY) }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Duties Table -->
+  <div class="bg-white rounded-lg shadow">
+    <div class="p-6">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-3 px-4 font-semibold text-gray-900">Agent</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-900">Poste</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-900">Type</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-900">Unité</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-900">Début</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-900">Fin</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-900">Durée</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-900">Statut</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-900">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="filteredDuties.length === 0">
+              <td colspan="9" class="text-center py-8 text-gray-500">
+                Aucune garde trouvée
+              </td>
+            </tr>
+            <tr *ngFor="let duty of filteredDuties" class="border-b border-gray-100 hover:bg-gray-50">
+              <td class="py-3 px-4">
+                <div class="flex items-center gap-3">
+                  <div class="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center text-sm font-bold text-gray-700">
+                    {{ getAgentInitials(duty.agentName) }}
+                  </div>
+                  <span class="font-medium text-gray-900">{{ duty.agentName }}</span>
+                </div>
+              </td>
+              <td class="py-3 px-4 text-gray-700">{{ duty.position }}</td>
+              <td class="py-3 px-4">
+                <span [class]="'px-2 py-1 rounded text-xs font-medium ' + getTypeBadgeStyle(duty.dutyType)">
+                  {{ getTypeLabel(duty.dutyType) }}
+                </span>
+              </td>
+              <td class="py-3 px-4 text-gray-700">{{ duty.unitName }}</td>
+              <td class="py-3 px-4 text-gray-700">{{ formatDateTime(duty.startDate) }}</td>
+              <td class="py-3 px-4 text-gray-700">{{ formatDateTime(duty.endDate) }}</td>
+              <td class="py-3 px-4 text-gray-700">{{ calculateDuration(duty.startDate, duty.endDate) }}</td>
+              <td class="py-3 px-4">
+                <span [class]="'px-2 py-1 rounded text-xs font-medium ' + getStatusBadgeStyle(duty.status)">
+                  {{ getStatusLabel(duty.status) }}
+                </span>
+              </td>
+              <td class="py-3 px-4">
+                <div class="flex gap-2">
+                  <button
+                    (click)="handleViewDetails(duty)"
+                    title="Voir les détails"
+                    class="p-1 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded transition-colors"
+                  >
+                    <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
+                  </button>
+                  <button
+                    *ngIf="duty.status === DutyStatus.PLANNED"
+                    (click)="handleEditAction(duty)"
+                    title="Modifier"
+                    class="p-1 text-orange-600 hover:text-orange-700 hover:bg-orange-50 rounded transition-colors"
+                  >
+                    <lucide-icon [img]="Pencil" [size]="16"></lucide-icon>
+                  </button>
+                  <button
+                    *ngIf="duty.status === DutyStatus.PLANNED"
+                    (click)="handleDeleteAction(duty)"
+                    title="Supprimer"
+                    class="p-1 text-red-600 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
+                  >
+                    <lucide-icon [img]="Trash2" [size]="16"></lucide-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dialogs -->
+<app-add-duty-dialog
+  *ngIf="openAddDialog"
+  (close)="openAddDialog = false"
+  (add)="handleAddDuty($event)"
+></app-add-duty-dialog>
+
+<app-edit-duty-dialog
+  *ngIf="openEditDialog"
+  [duty]="selectedDuty"
+  (close)="openEditDialog = false"
+  (save)="handleEditDuty($event)"
+></app-edit-duty-dialog>
+
+<app-delete-duty-confirmation
+  *ngIf="openDeleteDialog"
+  [duty]="selectedDuty"
+  (close)="openDeleteDialog = false"
+  (confirm)="handleDeleteDuty()"
+></app-delete-duty-confirmation>
+
+<app-duty-details-dialog
+  *ngIf="openDetailsDialog"
+  [duty]="selectedDuty"
+  (close)="openDetailsDialog = false"
+></app-duty-details-dialog>

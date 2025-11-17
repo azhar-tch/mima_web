@@ -1,0 +1,106 @@
+<div *ngIf="absence" class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Détails de l'absence</h2>
+          <p class="text-sm text-gray-500 mt-1">Information complète de la demande d'absence</p>
+        </div>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="space-y-4">
+      <!-- Agent Section -->
+      <div class="flex items-center gap-4 pb-4 border-b">
+        <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold text-lg">
+          {{ getAgentInitials(absence.agentName) }}
+        </div>
+        <div>
+          <p class="font-semibold text-gray-900">{{ absence.agentName }}</p>
+          <span class="inline-block bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium mt-1">
+            {{ getTypeLabel(absence.absenceType) }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Dates -->
+      <div class="grid grid-cols-2 gap-4 py-4 border-b">
+        <div>
+          <p class="text-sm text-gray-500 mb-1">Date de début</p>
+          <p class="font-medium text-gray-900">{{ formatDate(absence.startDate) }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 mb-1">Date de fin</p>
+          <p class="font-medium text-gray-900">{{ formatDate(absence.endDate) }}</p>
+        </div>
+      </div>
+
+      <!-- Days and Status -->
+      <div class="grid grid-cols-2 gap-4 py-4 border-b">
+        <div>
+          <p class="text-sm text-gray-500 mb-1">Nombre de jours</p>
+          <p class="font-medium text-gray-900">{{ calculateDays(absence.startDate, absence.endDate) }} jours</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 mb-1">Statut</p>
+          <span [class]="'inline-block px-3 py-1 rounded-full text-xs font-medium ' + getStatusBadgeStyle(absence.status)">
+            {{ getStatusLabel(absence.status) }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Reason -->
+      <div class="py-4 border-b">
+        <p class="text-sm text-gray-500 mb-2">Motif</p>
+        <p class="text-gray-900">{{ absence.reason || 'Aucun motif spécifié' }}</p>
+      </div>
+
+      <!-- Justification -->
+      <div *ngIf="absence.justification" class="py-4 border-b">
+        <p class="text-sm text-gray-500 mb-2">Justification</p>
+        <p class="text-gray-900">{{ absence.justification }}</p>
+      </div>
+
+      <!-- Supervisor Comment -->
+      <div *ngIf="absence.supervisorComment" class="py-4">
+        <p class="text-sm text-gray-500 mb-2">Commentaire du superviseur</p>
+        <p class="text-gray-900">{{ absence.supervisorComment }}</p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end gap-3 mt-6">
+      <ng-container *ngIf="absence.status === AbsenceStatus.PENDING">
+        <button
+          (click)="handleReject()"
+          class="px-4 py-2 border border-red-300 text-red-600 rounded-md hover:bg-red-50 transition-colors"
+        >
+          Refuser
+        </button>
+        <button
+          (click)="handleApprove()"
+          class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+        >
+          Approuver
+        </button>
+      </ng-container>
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+      >
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>

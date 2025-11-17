@@ -1,0 +1,118 @@
+<div class="max-w-2xl mx-auto">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Notifications</h1>
+      <button
+        *ngIf="unreadCount > 0"
+        (click)="markAllAsRead()"
+        class="text-blue-600 hover:text-blue-700 font-medium text-sm"
+      >
+        Tout marquer comme lu
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="mb-6">
+      <!-- Status Filters -->
+      <div class="flex gap-2 mb-4">
+        <button
+          (click)="statusFilter = 'all'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === 'all' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Toutes
+        </button>
+        <button
+          (click)="statusFilter = 'unread'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === 'unread' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Non lues
+        </button>
+        <button
+          (click)="statusFilter = 'read'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === 'read' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Lues
+        </button>
+      </div>
+
+      <!-- Type Filters -->
+      <div class="flex gap-2 flex-wrap">
+        <button
+          (click)="typeFilter = 'all'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'all' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Tous types
+        </button>
+        <button
+          (click)="typeFilter = 'missions'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'missions' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Missions
+        </button>
+        <button
+          (click)="typeFilter = 'gardes'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'gardes' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Gardes
+        </button>
+        <button
+          (click)="typeFilter = 'absences'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'absences' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Absences
+        </button>
+        <button
+          (click)="typeFilter = 'systeme'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'systeme' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Système
+        </button>
+      </div>
+    </div>
+
+    <!-- Notifications List -->
+    <div class="space-y-3">
+      <div *ngIf="filteredNotifications.length === 0" class="flex items-center justify-center py-12">
+        <p class="text-gray-500 text-center">Aucune notification</p>
+      </div>
+
+      <div
+        *ngFor="let notif of filteredNotifications"
+        (click)="toggleNotificationRead(notif.trackingId)"
+        [class]="'p-4 rounded-lg border cursor-pointer transition-all hover:shadow-md ' + (notif.isRead ? 'bg-white border-gray-200 opacity-75' : 'bg-blue-50 border-blue-200')"
+      >
+        <div class="flex gap-4">
+          <!-- Unread Indicator -->
+          <div class="flex-shrink-0 mt-1">
+            <div *ngIf="!notif.isRead" class="w-3 h-3 rounded-full bg-blue-600"></div>
+          </div>
+
+          <!-- Icon -->
+          <lucide-icon
+            [img]="getNotificationIcon(notif.notificationType)"
+            [size]="20"
+            [class]="'flex-shrink-0 mt-0.5 ' + getNotificationColor(notif.notificationType)"
+          ></lucide-icon>
+
+          <!-- Content -->
+          <div class="flex-1 min-w-0">
+            <h3 [class]="'text-gray-900 ' + (notif.isRead ? 'font-semibold' : 'font-bold')">
+              {{ notif.notificationType }}
+            </h3>
+            <p class="text-sm text-gray-600 mt-1 line-clamp-2">{{ notif.message }}</p>
+            <p class="text-xs text-gray-500 mt-2">{{ formatTimestamp(notif.createDate || '') }}</p>
+          </div>
+
+          <!-- Mark as Read Button -->
+          <button
+            *ngIf="!notif.isRead"
+            (click)="toggleNotificationRead(notif.trackingId); $event.stopPropagation()"
+            class="flex-shrink-0 text-blue-600 hover:text-blue-700"
+            title="Mark as read"
+          >
+            <lucide-icon [img]="Check" [size]="20"></lucide-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

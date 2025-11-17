@@ -1,0 +1,94 @@
+<div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Gestion des Unités</h1>
+        <p class="text-gray-600 mt-1">Gérez les unités maritimes et leurs agents</p>
+      </div>
+      <button (click)="openAddDialog()" class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors">
+        <lucide-icon [img]="Plus" [size]="16"></lucide-icon>
+        Ajouter unité
+      </button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+      <div class="relative">
+        <lucide-icon [img]="Search" [size]="16" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></lucide-icon>
+        <input
+          type="text"
+          placeholder="Rechercher par nom ou description..."
+          [(ngModel)]="searchTerm"
+          class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    </div>
+
+    <!-- Units Table -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <table class="w-full">
+  <thead class="bg-gray-50 border-b border-gray-200">
+    <tr>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chef</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    <tr *ngFor="let unit of filteredUnits">
+      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ unit.name }}</td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ unit.type }}</td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ unit.chiefName || '-' }}</td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm">
+        <div class="flex gap-2">
+          <button (click)="openDetailsDialog(unit)" title="Voir les détails" class="p-1 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded transition-colors">
+            <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
+          </button>
+          <button (click)="openEditDialog(unit)" title="Modifier" class="p-1 text-orange-600 hover:text-orange-700 hover:bg-orange-50 rounded transition-colors">
+            <lucide-icon [img]="Edit" [size]="16"></lucide-icon>
+          </button>
+          <button (click)="openDeleteDialog(unit)" title="Supprimer" class="p-1 text-red-600 hover:text-red-700 hover:bg-red-50 rounded transition-colors">
+            <lucide-icon [img]="Trash2" [size]="16"></lucide-icon>
+          </button>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="filteredUnits.length === 0">
+      <td colspan="4" class="px-6 py-8 text-center text-gray-500">
+        Aucune unité trouvée
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+  </div>
+
+  <!-- Dialogs -->
+  <app-add-unit-dialog
+  [open]="showAddDialog"
+  (openChange)="showAddDialog = $event"
+  (add)="onUnitAdded($event)">
+</app-add-unit-dialog>
+
+
+  <app-edit-unit-dialog
+    [open]="showEditDialog"
+    [unit]="selectedUnit"
+    (openChange)="showEditDialog = $event"
+    (save)="onUnitUpdated($event)">
+  </app-edit-unit-dialog>
+
+  <app-delete-unit-confirmation
+    [open]="showDeleteDialog"
+    [unit]="selectedUnit"
+    (openChange)="showDeleteDialog = $event"
+    (confirm)="onUnitDeleted()">
+  </app-delete-unit-confirmation>
+
+<app-unit-details-dialog
+  [open]="showDetailsDialog"
+  [unit]="selectedUnit"
+  (openChange)="showDetailsDialog = $event">
+</app-unit-details-dialog>

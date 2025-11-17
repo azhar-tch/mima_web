@@ -1,0 +1,81 @@
+<div *ngIf="open && formData" class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleOpenChange(false)"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-md w-full mx-4 p-6 z-50">
+    <!-- Header -->
+    <div class="mb-4 flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900">Modifier l'unité</h2>
+        <p class="text-sm text-gray-500 mt-1">Mettez à jour les informations de l'unité maritime</p>
+      </div>
+      <button (click)="handleOpenChange(false)" class="text-gray-400 hover:text-gray-600 transition-colors">
+        <lucide-icon [img]="X" [size]="20"></lucide-icon>
+      </button>
+    </div>
+
+    <!-- Form -->
+    <div class="grid gap-4">
+      <!-- Name -->
+      <div class="grid gap-2">
+        <label class="text-sm font-medium text-gray-700">Nom de l'unité</label>
+        <input type="text" [(ngModel)]="formData.name"
+               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+               [class.border-red-500]="errors['name']" />
+        <p *ngIf="errors['name']" class="text-red-500 text-sm">{{ errors['name'] }}</p>
+      </div>
+
+      <!-- Description -->
+      <div class="grid gap-2">
+        <label class="text-sm font-medium text-gray-700">Description</label>
+        <input type="text" [(ngModel)]="formData.description"
+               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+               [class.border-red-500]="errors['description']" />
+        <p *ngIf="errors['description']" class="text-red-500 text-sm">{{ errors['description'] }}</p>
+      </div>
+
+      <!-- Type -->
+      <div class="grid gap-2">
+        <label class="text-sm font-medium text-gray-700">Type</label>
+        <select [(ngModel)]="formData.type"
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option *ngFor="let t of unitTypes" [value]="t">{{ t }}</option>
+        </select>
+      </div>
+
+      <!-- Status -->
+      <div class="grid gap-2">
+        <label class="text-sm font-medium text-gray-700">Statut</label>
+        <select [(ngModel)]="formData.status"
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option *ngFor="let s of unitStatuses" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+
+      <!-- Chef (optionnel) -->
+      <div class="grid gap-2">
+        <label class="text-sm font-medium text-gray-700">Chef d'unité (optionnel)</label>
+        <select [(ngModel)]="formData.chiefTrackingId"
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">-- Aucun --</option>
+          <option *ngFor="let agent of agents" [value]="agent.trackingId">
+            {{ agent.rank }} {{ agent.firstName }} {{ agent.lastName }} ({{ agent.registrationNo }})
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button (click)="handleOpenChange(false)"
+              class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+        Annuler
+      </button>
+      <button (click)="handleSubmit()"
+              class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors">
+        Enregistrer
+      </button>
+    </div>
+  </div>
+</div>

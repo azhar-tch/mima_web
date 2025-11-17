@@ -1,0 +1,77 @@
+<div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-6">Alertes</h1>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap gap-3">
+        <button
+          (click)="filterType = 'toutes'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (filterType === 'toutes' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Toutes
+        </button>
+        <button
+          (click)="filterType = 'critique'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (filterType === 'critique' ? 'bg-red-600 text-white hover:bg-red-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Critiques
+        </button>
+        <button
+          (click)="filterType = 'important'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (filterType === 'important' ? 'bg-orange-600 text-white hover:bg-orange-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Importantes
+        </button>
+        <button
+          (click)="filterType = 'info'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (filterType === 'info' ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Informations
+        </button>
+      </div>
+    </div>
+
+    <!-- Alerts List -->
+    <div *ngIf="filteredAlerts.length === 0" class="text-center py-12">
+      <p class="text-gray-500 text-lg">Aucune alerte</p>
+    </div>
+
+    <div *ngIf="filteredAlerts.length > 0" class="space-y-4">
+      <div
+        *ngFor="let alert of filteredAlerts"
+        [class]="'flex items-start gap-4 p-4 rounded-lg border-l-4 transition-opacity ' + getAlertBorderColor(alert.type) + ' ' + getAlertBgColor(alert.type) + ' ' + (alert.isRead ? 'opacity-60' : 'opacity-100')"
+      >
+        <!-- Icon -->
+        <div [class]="'flex-shrink-0 mt-1 ' + getAlertTextColor(alert.type)">
+          <lucide-icon [img]="getAlertIcon(alert.type)" [size]="20"></lucide-icon>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-grow min-w-0">
+          <h3 [class]="'font-bold text-base mb-1 ' + getAlertTextColor(alert.type)">{{ alert.title }}</h3>
+          <p [class]="'text-sm mb-2 opacity-90 ' + getAlertTextColor(alert.type)">{{ alert.description }}</p>
+          <p [class]="'text-xs opacity-70 ' + getAlertTextColor(alert.type)">{{ formatTime(alert.timestamp) }}</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex-shrink-0 flex items-center gap-3">
+          <label class="flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              [checked]="alert.isRead"
+              (change)="toggleRead(alert.id)"
+              class="w-4 h-4 rounded cursor-pointer"
+            />
+          </label>
+          <button
+            (click)="dismissAlert(alert.id)"
+            [class]="'p-1 rounded hover:bg-black/10 transition-colors ' + getAlertTextColor(alert.type)"
+            aria-label="Dismiss alert"
+          >
+            <lucide-icon [img]="X" [size]="16"></lucide-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

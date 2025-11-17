@@ -1,0 +1,82 @@
+<div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Règles de Gestion</h1>
+        <p class="text-gray-600 mt-1">Gérez les règles et paramètres maritimes</p>
+      </div>
+      <button
+        (click)="openAddDialog = true"
+        class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors">
+        <lucide-icon [img]="Plus" [size]="18"></lucide-icon>
+        Ajouter règle
+      </button>
+    </div>
+
+    <!-- Rules Table -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="bg-gray-100 border-b border-gray-200">
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Titre de la règle</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Valeur</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Unité</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Description</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="rules.length === 0" class="border-b border-gray-200">
+              <td colspan="5" class="px-6 py-8 text-center text-gray-500">
+                Aucune règle trouvée
+              </td>
+            </tr>
+            <tr *ngFor="let rule of rules" class="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+              <td class="px-6 py-4 font-medium text-gray-900">{{ rule.title }}</td>
+              <td class="px-6 py-4 text-gray-700">{{ rule.value }}</td>
+              <td class="px-6 py-4 text-gray-700">{{ rule.unit }}</td>
+              <td class="px-6 py-4 text-gray-700 max-w-xs">{{ rule.description }}</td>
+              <td class="px-6 py-4">
+                <div class="flex gap-2">
+                  <button
+                    (click)="handleEditAction(rule)"
+                    title="Modifier"
+                    class="p-2 text-orange-600 hover:text-orange-700 hover:bg-orange-50 rounded transition-colors">
+                    <lucide-icon [img]="Pencil" [size]="18"></lucide-icon>
+                  </button>
+                  <button
+                    (click)="handleDeleteAction(rule)"
+                    title="Supprimer"
+                    class="p-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded transition-colors">
+                    <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dialogs -->
+  <app-add-rules-dialog
+    [open]="openAddDialog"
+    (openChange)="openAddDialog = $event"
+    (add)="handleAddRule($event)"
+  ></app-add-rules-dialog>
+
+  <app-edit-rules-dialog
+    [open]="openEditDialog"
+    [rule]="selectedRule"
+    (openChange)="openEditDialog = $event"
+    (save)="handleEditRule($event)"
+  ></app-edit-rules-dialog>
+
+<app-delete-rules-confirmation
+  [open]="openDeleteDialog"
+  [rule]="selectedRule"
+  (openChange)="openDeleteDialog = $event"
+  (confirm)="handleDeleteRule()"
+></app-delete-rules-confirmation>

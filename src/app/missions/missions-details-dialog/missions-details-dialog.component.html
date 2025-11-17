@@ -1,0 +1,130 @@
+<div *ngIf="open && mission" class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleOpenChange(false)"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">{{ mission.title }}</h2>
+          <p class="text-sm text-gray-500 mt-1">Détails de la mission</p>
+        </div>
+        <button
+          (click)="handleOpenChange(false)"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Details -->
+    <div class="space-y-4">
+      <!-- Type -->
+      <div>
+        <p class="text-sm text-gray-500 mb-1">Type de mission</p>
+        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-purple-600 text-white">
+          {{ mission.type }}
+        </span>
+      </div>
+
+      <!-- Ship Name -->
+      <div *ngIf="mission.shipName">
+        <p class="text-sm text-gray-500 mb-1">Nom du navire</p>
+        <p class="text-sm text-gray-700">{{ mission.shipName }}</p>
+      </div>
+
+      <!-- Objective -->
+      <div *ngIf="mission.objective">
+        <p class="text-sm text-gray-500 mb-1">Objectif</p>
+        <p class="text-sm text-gray-700">{{ mission.objective }}</p>
+      </div>
+
+      <!-- Dates -->
+      <div>
+        <p class="text-sm text-gray-500 mb-1">Période prévue</p>
+        <p class="text-sm text-gray-700 flex items-center gap-1">
+          <lucide-icon [img]="Calendar" [size]="14"></lucide-icon>
+          {{ formatDate(mission.plannedStartDate) }} - {{ formatDate(mission.plannedEndDate) }}
+        </p>
+      </div>
+
+      <!-- Actual Dates (if different) -->
+      <div *ngIf="mission.actualStartDate || mission.actualEndDate">
+        <p class="text-sm text-gray-500 mb-1">Période réelle</p>
+        <p class="text-sm text-gray-700 flex items-center gap-1">
+          <lucide-icon [img]="Calendar" [size]="14"></lucide-icon>
+          {{ formatDate(mission.actualStartDate || '') }} - {{ formatDate(mission.actualEndDate || '') }}
+        </p>
+      </div>
+
+      <!-- Location -->
+      <div>
+        <p class="text-sm text-gray-500 mb-1">Localisation</p>
+        <p class="text-sm text-gray-700 flex items-center gap-1">
+          <lucide-icon [img]="MapPin" [size]="14"></lucide-icon>
+          {{ mission.location }}
+        </p>
+      </div>
+
+      <!-- Units -->
+      <div *ngIf="mission.unitNames && mission.unitNames.length > 0">
+        <p class="text-sm text-gray-500 mb-1">Unités assignées ({{ mission.unitNames.length }})</p>
+        <div class="flex flex-wrap gap-2">
+          <span *ngFor="let unitName of mission.unitNames" class="inline-flex px-3 py-1 text-sm font-medium bg-blue-100 text-blue-800 rounded-full">
+            {{ unitName }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Agents -->
+      <div *ngIf="mission.agentNames && mission.agentNames.length > 0">
+        <p class="text-sm text-gray-500 mb-1">Agents assignés ({{ mission.agentNames.length }})</p>
+        <div class="flex flex-wrap gap-2">
+          <span *ngFor="let agentName of mission.agentNames" class="inline-flex px-3 py-1 text-sm font-medium bg-green-100 text-green-800 rounded-full">
+            {{ agentName }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Fallback for old format (backward compatibility) -->
+      <div *ngIf="(!mission.unitNames || mission.unitNames.length === 0) && (!mission.agentNames || mission.agentNames.length === 0)">
+        <p class="text-sm text-gray-500 mb-1">Unité/Agent assigné</p>
+        <span class="inline-flex px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full">
+          {{ mission.unitName || 'Non défini' }}
+        </span>
+      </div>
+
+      <!-- Status -->
+      <div>
+        <p class="text-sm text-gray-500 mb-1">Statut</p>
+        <span [class]="'inline-flex px-3 py-1 text-xs font-semibold rounded-full text-white ' + getStatusColor(mission.status)">
+          {{ getStatusLabel(mission.status) }}
+        </span>
+      </div>
+
+      <!-- Created/Updated Dates -->
+      <div *ngIf="mission.createdAt || mission.updatedAt" class="border-t border-gray-200 pt-4 mt-4">
+        <div *ngIf="mission.createdAt" class="flex justify-between mb-2">
+          <span class="text-xs text-gray-500">Créée le:</span>
+          <span class="text-xs text-gray-700">{{ formatDate(mission.createdAt) }}</span>
+        </div>
+        <div *ngIf="mission.updatedAt" class="flex justify-between">
+          <span class="text-xs text-gray-500">Dernière modification:</span>
+          <span class="text-xs text-gray-700">{{ formatDate(mission.updatedAt) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end mt-6">
+      <button
+        (click)="handleOpenChange(false)"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors"
+      >
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>

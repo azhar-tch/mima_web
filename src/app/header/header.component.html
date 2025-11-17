@@ -1,0 +1,101 @@
+<header class="bg-white border-b border-gray-200 shadow-sm">
+  <div class="flex items-center justify-between h-16 px-6">
+    <!-- Left: Menu and Search -->
+    <div class="flex items-center gap-4 flex-1">
+      <!-- Mobile menu button -->
+      <button 
+        (click)="onMenuClick()" 
+        class="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+      >
+        <lucide-icon [img]="Menu" class="w-6 h-6 text-gray-900"></lucide-icon>
+      </button>
+
+      <!-- Search -->
+      <div class="hidden sm:flex items-center gap-2 bg-gray-50 rounded-lg px-4 py-2 flex-1 max-w-md">
+        <lucide-icon [img]="Search" class="w-4 h-4 text-gray-500"></lucide-icon>
+        <input
+          type="text"
+          placeholder="Rechercher..."
+          class="bg-transparent outline-none text-sm w-full placeholder-gray-500"
+        />
+      </div>
+    </div>
+
+    <!-- Right: Notifications and User Menu -->
+    <div class="flex items-center gap-6">
+      <!-- Notifications -->
+      <button
+        (click)="navigateToNotifications()"
+        class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors"
+      >
+        <lucide-icon [img]="Bell" class="w-5 h-5 text-gray-900"></lucide-icon>
+        <span
+          *ngIf="notificationCount > 0"
+          class="absolute -top-1 -right-1 min-w-[20px] h-5 bg-red-500 rounded-full flex items-center justify-center px-1"
+        >
+          <span class="text-white text-xs font-bold">{{ notificationCount > 99 ? '99+' : notificationCount }}</span>
+        </span>
+      </button>
+
+      <!-- User Menu -->
+      <div class="relative">
+        <button
+          (click)="toggleUserMenu()"
+          class="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+        >
+          <div class="text-right hidden sm:block">
+            <p class="text-sm font-medium text-gray-900">{{ getUserFullName() }}</p>
+            <p class="text-xs text-gray-500">{{ getUserRole() }}</p>
+          </div>
+          <div class="w-8 h-8 bg-maritime-950 rounded-full flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-xs">{{ getUserInitials() }}</span>
+          </div>
+          <lucide-icon
+            [img]="ChevronDown"
+            [class]="'w-4 h-4 text-gray-500 transition-transform ' + (isUserMenuOpen ? 'rotate-180' : '')"
+          ></lucide-icon>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div
+          *ngIf="isUserMenuOpen"
+          class="absolute right-0 mt-2 w-48 bg-white rounded-lg border border-gray-200 shadow-lg z-50"
+        >
+          <div class="p-3 border-b border-gray-200">
+            <p class="text-sm font-medium text-gray-900">{{ getUserFullName() }}</p>
+            <p class="text-xs text-gray-500">{{ getUserEmail() }}</p>
+          </div>
+          <div class="p-2 space-y-1">
+            <button 
+              (click)="navigateToProfile()"
+              class="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 rounded-md transition-colors text-gray-900"
+            >
+              Profil
+            </button>
+            <button 
+              (click)="navigateToSettings()"
+              class="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 rounded-md transition-colors text-gray-900"
+            >
+              Paramètres
+            </button>
+          </div>
+          <div class="p-2 border-t border-gray-200">
+            <button 
+              (click)="logout()"
+              class="w-full text-left px-3 py-2 text-sm hover:bg-red-50 rounded-md transition-colors text-red-600 font-medium"
+            >
+              Déconnexion
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Click outside to close dropdown -->
+<div 
+  *ngIf="isUserMenuOpen" 
+  (click)="toggleUserMenu()" 
+  class="fixed inset-0 z-40"
+></div>

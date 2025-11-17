@@ -1,0 +1,195 @@
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+    <p class="text-gray-600 mt-1">Vue d'ensemble de la gestion du personnel maritime</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="flex justify-center items-center py-12">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900"></div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="bg-red-50 border border-red-200 rounded-lg p-4">
+    <p class="text-red-800">{{ error }}</p>
+    <button (click)="loadStatistics()" class="mt-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+      Réessayer
+    </button>
+  </div>
+
+  <!-- KPI Cards -->
+  <div *ngIf="!loading && !error && stats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Card 1: Agents disponibles -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow" (click)="navigateToAgents()">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Agents disponibles</p>
+          <p class="text-3xl font-bold text-green-600 mt-2">{{ stats.availableAgents }}</p>
+        </div>
+        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center text-sm">
+        <span class="text-gray-600">Total: {{ stats.totalAgents }} agents</span>
+      </div>
+    </div>
+
+    <!-- Card 2: Missions en cours -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow" (click)="navigateToMissions()">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Missions en cours</p>
+          <p class="text-3xl font-bold text-blue-600 mt-2">{{ stats.ongoingMissions }}</p>
+        </div>
+        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center text-sm">
+        <span class="text-blue-600 font-medium">{{ stats.newMissionsThisWeek }}</span>
+        <span class="text-gray-600 ml-2">nouvelles cette semaine</span>
+      </div>
+    </div>
+
+    <!-- Card 3: Gardes cette semaine -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow" (click)="navigateToDuties()">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Gardes cette semaine</p>
+          <p class="text-3xl font-bold text-orange-600 mt-2">{{ stats.dutiesThisWeek }}</p>
+        </div>
+        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center text-sm">
+        <span class="text-orange-600 font-medium">{{ stats.upcomingDutiesThisWeek }}</span>
+        <span class="text-gray-600 ml-2">à venir cette semaine</span>
+      </div>
+    </div>
+
+    <!-- Card 4: Absences en attente -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 cursor-pointer hover:shadow-md transition-shadow" (click)="navigateToAbsences()">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Absences en attente</p>
+          <p class="text-3xl font-bold text-red-600 mt-2">{{ stats.pendingAbsences }}</p>
+        </div>
+        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center text-sm">
+        <span class="text-red-600 font-medium">Urgent</span>
+        <span class="text-gray-600 ml-2">nécessite validation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistics Details -->
+  <div *ngIf="!loading && !error && stats" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Statut des agents -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4">Statut des agents</h2>
+      <div class="space-y-3">
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">Disponibles</span>
+          <span class="text-sm font-semibold text-green-600">{{ stats.availableAgents }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">En mission</span>
+          <span class="text-sm font-semibold text-blue-600">{{ stats.agentsOnMission }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">En garde</span>
+          <span class="text-sm font-semibold text-orange-600">{{ stats.agentsOnDuty }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">Au repos</span>
+          <span class="text-sm font-semibold text-purple-600">{{ stats.agentsResting }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">Absents</span>
+          <span class="text-sm font-semibold text-red-600">{{ stats.agentsAbsent }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Missions -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4">Missions</h2>
+      <div class="space-y-3">
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">Planifiées</span>
+          <span class="text-sm font-semibold text-blue-600">{{ stats.plannedMissions }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">En cours</span>
+          <span class="text-sm font-semibold text-orange-600">{{ stats.ongoingMissions }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">Terminées</span>
+          <span class="text-sm font-semibold text-green-600">{{ stats.completedMissions }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">Annulées</span>
+          <span class="text-sm font-semibold text-red-600">{{ stats.cancelledMissions }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Absences -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4">Absences</h2>
+      <div class="space-y-3">
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">En attente</span>
+          <span class="text-sm font-semibold text-orange-600">{{ stats.pendingAbsences }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">Approuvées</span>
+          <span class="text-sm font-semibold text-green-600">{{ stats.approvedAbsences }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-gray-600">Rejetées</span>
+          <span class="text-sm font-semibold text-red-600">{{ stats.rejectedAbsences }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div *ngIf="!loading && !error" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">Actions rapides</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <button (click)="navigateToMissions()" class="flex items-center justify-center gap-3 px-6 py-4 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        <span class="font-medium">Nouvelle mission</span>
+      </button>
+      <button (click)="navigateToDuties()" class="flex items-center justify-center gap-3 px-6 py-4 bg-orange-600 text-white rounded-lg hover:bg-orange-500 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <span class="font-medium">Enregistrer garde</span>
+      </button>
+      <button (click)="navigateToAbsences()" class="flex items-center justify-center gap-3 px-6 py-4 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span class="font-medium">Valider absence</span>
+      </button>
+    </div>
+  </div>
+</div>

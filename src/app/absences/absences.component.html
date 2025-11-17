@@ -1,0 +1,230 @@
+<div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Gestion des Absences</h1>
+        <p class="text-gray-600 mt-1">Gérez les demandes d'absences du personnel maritime</p>
+      </div>
+      <button
+        (click)="openAddDialog = true"
+        class="flex items-center gap-2 px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded-md transition-colors"
+      >
+        <lucide-icon [img]="Plus" [size]="16"></lucide-icon>
+        Nouvelle demande
+      </button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="bg-white rounded-lg shadow mb-6 p-6">
+      <div class="relative">
+        <lucide-icon
+          [img]="Search"
+          [size]="16"
+          class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+        ></lucide-icon>
+        <input
+          type="text"
+          placeholder="Rechercher par agent ou motif..."
+          [(ngModel)]="searchTerm"
+          class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    </div>
+
+    <!-- Status Filters -->
+    <div class="bg-white rounded-lg shadow mb-6 p-6">
+      <div class="flex gap-2 flex-wrap mb-4">
+        <button
+          (click)="statusFilter = 'all'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === 'all' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Toutes
+        </button>
+        <button
+          (click)="statusFilter = AbsenceStatus.PENDING"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === AbsenceStatus.PENDING ? 'bg-orange-500 text-white hover:bg-orange-600' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getStatusLabel(AbsenceStatus.PENDING) }}
+        </button>
+        <button
+          (click)="statusFilter = AbsenceStatus.APPROVED"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === AbsenceStatus.APPROVED ? 'bg-green-600 text-white hover:bg-green-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getStatusLabel(AbsenceStatus.APPROVED) }}
+        </button>
+        <button
+          (click)="statusFilter = AbsenceStatus.REJECTED"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (statusFilter === AbsenceStatus.REJECTED ? 'bg-red-600 text-white hover:bg-red-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getStatusLabel(AbsenceStatus.REJECTED) }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Type Filters -->
+    <div class="bg-white rounded-lg shadow mb-6 p-6">
+      <div class="flex gap-2 flex-wrap">
+        <button
+          (click)="typeFilter = 'all'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'all' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Tous types
+        </button>
+        <button
+          (click)="typeFilter = AbsenceType.SICK_LEAVE"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === AbsenceType.SICK_LEAVE ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getTypeLabel(AbsenceType.SICK_LEAVE) }}
+        </button>
+        <button
+          (click)="typeFilter = AbsenceType.ANNUAL_LEAVE"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === AbsenceType.ANNUAL_LEAVE ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getTypeLabel(AbsenceType.ANNUAL_LEAVE) }}
+        </button>
+        <button
+          (click)="typeFilter = AbsenceType.MATERNITY_LEAVE"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === AbsenceType.MATERNITY_LEAVE ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getTypeLabel(AbsenceType.MATERNITY_LEAVE) }}
+        </button>
+        <button
+          (click)="typeFilter = AbsenceType.PATERNITY_LEAVE"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === AbsenceType.PATERNITY_LEAVE ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getTypeLabel(AbsenceType.PATERNITY_LEAVE) }}
+        </button>
+        <button
+          (click)="typeFilter = AbsenceType.UNPAID_LEAVE"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === AbsenceType.UNPAID_LEAVE ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getTypeLabel(AbsenceType.UNPAID_LEAVE) }}
+        </button>
+        <button
+          (click)="typeFilter = AbsenceType.SPECIAL_LEAVE"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === AbsenceType.SPECIAL_LEAVE ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getTypeLabel(AbsenceType.SPECIAL_LEAVE) }}
+        </button>
+        <button
+          (click)="typeFilter = AbsenceType.TRAINING"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === AbsenceType.TRAINING ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getTypeLabel(AbsenceType.TRAINING) }}
+        </button>
+        <button
+          (click)="typeFilter = AbsenceType.FAMILY_EMERGENCY"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === AbsenceType.FAMILY_EMERGENCY ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          {{ getTypeLabel(AbsenceType.FAMILY_EMERGENCY) }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Absences Table -->
+    <div class="bg-white rounded-lg shadow">
+      <div class="p-6">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-gray-200">
+                <th class="text-left py-3 px-4 font-semibold text-gray-900">Agent</th>
+                <th class="text-left py-3 px-4 font-semibold text-gray-900">Type</th>
+                <th class="text-left py-3 px-4 font-semibold text-gray-900">Du</th>
+                <th class="text-left py-3 px-4 font-semibold text-gray-900">Au</th>
+                <th class="text-left py-3 px-4 font-semibold text-gray-900">Jours</th>
+                <th class="text-left py-3 px-4 font-semibold text-gray-900">Statut</th>
+                <th class="text-left py-3 px-4 font-semibold text-gray-900">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="filteredAbsences.length === 0">
+                <td colspan="7" class="text-center py-8 text-gray-500">
+                  Aucune absence trouvée
+                </td>
+              </tr>
+              <tr *ngFor="let absence of filteredAbsences" class="border-b border-gray-100 hover:bg-gray-50">
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center text-sm font-bold text-gray-700">
+                      {{ getAgentInitials(absence.agentName) }}
+                    </div>
+                    <span class="font-medium text-gray-900">{{ absence.agentName }}</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4">
+                  <span [class]="'px-2 py-1 rounded text-xs font-medium ' + getTypeBadgeStyle(absence.absenceType)">
+                    {{ getTypeLabel(absence.absenceType) }}
+                  </span>
+                </td>
+                <td class="py-3 px-4 text-gray-700">{{ formatDate(absence.startDate) }}</td>
+                <td class="py-3 px-4 text-gray-700">{{ formatDate(absence.endDate) }}</td>
+                <td class="py-3 px-4 text-gray-700">{{ calculateDays(absence.startDate, absence.endDate) }}</td>
+                <td class="py-3 px-4">
+                  <span [class]="'px-2 py-1 rounded text-xs font-medium ' + getStatusBadgeStyle(absence.status)">
+                    {{ getStatusLabel(absence.status) }}
+                  </span>
+                </td>
+                <td class="py-3 px-4">
+                  <div class="flex gap-2">
+                    <button
+                      (click)="handleViewDetails(absence)"
+                      title="Voir les détails"
+                      class="p-1 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded transition-colors"
+                    >
+                      <lucide-icon [img]="Eye" [size]="16"></lucide-icon>
+                    </button>
+                    <button
+                      *ngIf="absence.status === AbsenceStatus.PENDING"
+                      (click)="handleEditAction(absence)"
+                      title="Modifier"
+                      class="p-1 text-orange-600 hover:text-orange-700 hover:bg-orange-50 rounded transition-colors"
+                    >
+                      <lucide-icon [img]="Pencil" [size]="16"></lucide-icon>
+                    </button>
+                    <button
+                      *ngIf="absence.status === AbsenceStatus.PENDING"
+                      (click)="handleDeleteAction(absence)"
+                      title="Supprimer"
+                      class="p-1 text-red-600 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
+                    >
+                      <lucide-icon [img]="Trash2" [size]="16"></lucide-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dialogs -->
+  <app-add-absence-dialog
+    *ngIf="openAddDialog"
+    (close)="openAddDialog = false"
+    (add)="handleAddAbsence($event)"
+  ></app-add-absence-dialog>
+
+  <app-edit-absence-dialog
+    *ngIf="openEditDialog"
+    [absence]="selectedAbsence"
+    (close)="openEditDialog = false"
+    (save)="handleEditAbsence($event)"
+  ></app-edit-absence-dialog>
+
+  <app-delete-absence-confirmation
+    *ngIf="openDeleteDialog"
+    [absence]="selectedAbsence"
+    (close)="openDeleteDialog = false"
+    (confirm)="handleDeleteAbsence()"
+  ></app-delete-absence-confirmation>
+
+<app-absence-details-dialog
+  *ngIf="openDetailsDialog"
+  [absence]="selectedAbsence"
+  (close)="openDetailsDialog = false"
+  (approve)="handleApproveAbsence()"
+  (reject)="handleRejectAbsence()"
+></app-absence-details-dialog>

@@ -1,0 +1,29 @@
+<div class="fixed top-4 right-4 z-50 space-y-2 max-w-sm">
+  <div
+    *ngFor="let toast of toasts"
+    [class]="'toast-item flex items-start gap-3 p-4 rounded-lg border shadow-lg ' +
+             getToastStyles(toast.type) + ' ' +
+             (isRemoving(toast.id) ? 'animate-slide-out' : 'animate-slide-in')"
+  >
+    <!-- Icon -->
+    <lucide-icon
+      [img]="getToastIcon(toast.type)"
+      [size]="20"
+      [class]="'flex-shrink-0 mt-0.5 ' + getIconColor(toast.type)"
+    ></lucide-icon>
+
+    <!-- Message -->
+    <p class="flex-1 text-sm font-medium leading-relaxed">
+      {{ toast.message }}
+    </p>
+
+    <!-- Close Button -->
+    <button
+      (click)="removeToast(toast.id)"
+      class="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+      aria-label="Close notification"
+    >
+      <lucide-icon [img]="X" [size]="16"></lucide-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,553 @@
+<div class="min-h-screen bg-gray-50 p-8">
+  <!-- Header Section -->
+  <div class="mb-8">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Règles de Gestion</h1>
+        <p class="mt-2 text-gray-600">Gérez les règles de planification et d'équité du personnel</p>
+      </div>
+      <button
+        (click)="openAddDialog()"
+        class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+      >
+        <lucide-icon [img]="Plus" class="w-5 h-5"></lucide-icon>
+        Nouvelle règle
+      </button>
+    </div>
+  </div>
+
+  <!-- Rules List Section -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <ng-container *ngIf="rules.length > 0; else noRules">
+      <div
+        *ngFor="let rule of rules"
+        class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-200"
+      >
+        <!-- Rule Header -->
+        <div class="mb-4">
+          <h2 class="text-xl font-bold text-gray-900">{{ rule.ruleName }}</h2>
+          <p *ngIf="rule.description" class="text-sm text-gray-600 mt-1">{{ rule.description }}</p>
+        </div>
+
+        <!-- Rule Parameters -->
+        <div class="space-y-3 mb-6">
+          <!-- Parameter 1: Prevent Double Assignment -->
+          <div class="flex items-start justify-between p-3 bg-gray-50 rounded">
+            <div>
+              <p class="text-sm font-semibold text-gray-700">Pas de double affectation</p>
+              <p class="text-xs text-gray-500">Aucune assignation sur deux postes simultanés</p>
+            </div>
+            <div class="flex-shrink-0">
+              <lucide-icon
+                *ngIf="rule.preventDoubleAssignment"
+                [img]="Check"
+                class="w-5 h-5 text-green-600"
+              ></lucide-icon>
+              <lucide-icon
+                *ngIf="!rule.preventDoubleAssignment"
+                [img]="X"
+                class="w-5 h-5 text-red-600"
+              ></lucide-icon>
+            </div>
+          </div>
+
+          <!-- Parameter 2: Min Rest Hours -->
+          <div class="flex items-start justify-between p-3 bg-gray-50 rounded">
+            <div>
+              <p class="text-sm font-semibold text-gray-700">Repos minimal</p>
+              <p class="text-xs text-gray-500">Heures minimales entre deux services</p>
+            </div>
+            <div class="flex-shrink-0">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                {{ rule.minRestHours }}h
+              </span>
+            </div>
+          </div>
+
+          <!-- Parameter 3: Max Weekly Hours -->
+          <div class="flex items-start justify-between p-3 bg-gray-50 rounded">
+            <div>
+              <p class="text-sm font-semibold text-gray-700">Heures hebdomadaires max</p>
+              <p class="text-xs text-gray-500">Durée maximale de travail par semaine</p>
+            </div>
+            <div class="flex-shrink-0">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                {{ rule.maxWeeklyHours }}h
+              </span>
+            </div>
+          </div>
+
+          <!-- Parameter 4: Auto Report Unjustified Absences -->
+          <div class="flex items-start justify-between p-3 bg-gray-50 rounded">
+            <div>
+              <p class="text-sm font-semibold text-gray-700">Absences injustifiées</p>
+              <p class="text-xs text-gray-500">Signalement automatique des absences</p>
+            </div>
+            <div class="flex-shrink-0">
+              <lucide-icon
+                *ngIf="rule.autoReportUnjustifiedAbsences"
+                [img]="Check"
+                class="w-5 h-5 text-green-600"
+              ></lucide-icon>
+              <lucide-icon
+                *ngIf="!rule.autoReportUnjustifiedAbsences"
+                [img]="X"
+                class="w-5 h-5 text-red-600"
+              ></lucide-icon>
+            </div>
+          </div>
+
+          <!-- Parameter 5: Enforce Equity Distribution -->
+          <div class="flex items-start justify-between p-3 bg-gray-50 rounded">
+            <div>
+              <p class="text-sm font-semibold text-gray-700">Équité de distribution</p>
+              <p class="text-xs text-gray-500">Répartition équitable des services</p>
+            </div>
+            <div class="flex-shrink-0">
+              <lucide-icon
+                *ngIf="rule.enforceEquityDistribution"
+                [img]="Check"
+                class="w-5 h-5 text-green-600"
+              ></lucide-icon>
+              <lucide-icon
+                *ngIf="!rule.enforceEquityDistribution"
+                [img]="X"
+                class="w-5 h-5 text-red-600"
+              ></lucide-icon>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metadata -->
+        <div class="text-xs text-gray-500 mb-4 pb-4 border-b border-gray-200">
+          <p *ngIf="rule.effectiveDate">Effective depuis: {{ formatDate(rule.effectiveDate) }}</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3">
+          <button
+            (click)="openEditDialog(rule)"
+            class="flex-1 flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-3 rounded transition-colors"
+          >
+            <lucide-icon [img]="Edit" class="w-4 h-4"></lucide-icon>
+            <span class="hidden sm:inline">Modifier</span>
+          </button>
+          <button
+            (click)="openDeleteDialog(rule)"
+            class="flex-1 flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 rounded transition-colors"
+          >
+            <lucide-icon [img]="Trash2" class="w-4 h-4"></lucide-icon>
+            <span class="hidden sm:inline">Supprimer</span>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Empty State -->
+    <ng-template #noRules>
+      <div class="col-span-full">
+        <div class="text-center py-12 bg-white rounded-lg border border-gray-200">
+          <p class="text-gray-600 mb-4">Aucune règle de gestion créée</p>
+          <button
+            (click)="openAddDialog()"
+            class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+          >
+            <lucide-icon [img]="Plus" class="w-5 h-5"></lucide-icon>
+            Créer la première règle
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Add Rule Dialog -->
+  <ng-container *ngIf="showAddDialog">
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <!-- Dialog Header -->
+        <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+          <h2 class="text-2xl font-bold text-gray-900">Nouvelle règle de gestion</h2>
+          <button
+            (click)="closeDialogs()"
+            class="text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <lucide-icon [img]="X" class="w-6 h-6"></lucide-icon>
+          </button>
+        </div>
+
+        <!-- Dialog Content -->
+        <div class="p-6 space-y-6">
+          <!-- Rule Name -->
+          <div>
+            <label for="ruleName" class="block text-sm font-semibold text-gray-900 mb-2">
+              Nom de la règle <span class="text-red-600">*</span>
+            </label>
+            <input
+              id="ruleName"
+              type="text"
+              [(ngModel)]="formData.ruleName"
+              placeholder="Ex: Règle Maritime Standard"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            />
+            <p *ngIf="errors['ruleName']" class="text-sm text-red-600 mt-1">
+              {{ errors['ruleName'] }}
+            </p>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label for="description" class="block text-sm font-semibold text-gray-900 mb-2">
+              Description
+            </label>
+            <textarea
+              id="description"
+              [(ngModel)]="formData.description"
+              placeholder="Description optionnelle de la règle"
+              rows="3"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Divider -->
+          <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Paramètres de la règle</h3>
+
+            <!-- Parameter 1: Prevent Double Assignment -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div class="flex items-start justify-between">
+                <div>
+                  <label for="preventDoubleAssignment" class="text-sm font-semibold text-gray-900 block mb-1">
+                    Aucune double affectation
+                  </label>
+                  <p class="text-xs text-gray-600">
+                    Un agent ne peut pas être assigné à deux postes simultanés
+                  </p>
+                </div>
+                <input
+                  id="preventDoubleAssignment"
+                  type="checkbox"
+                  [(ngModel)]="formData.preventDoubleAssignment"
+                  class="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer mt-1"
+                />
+              </div>
+            </div>
+
+            <!-- Parameter 2: Min Rest Hours -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <label for="minRestHours" class="block text-sm font-semibold text-gray-900 mb-2">
+                Repos minimal (heures) <span class="text-red-600">*</span>
+              </label>
+              <p class="text-xs text-gray-600 mb-3">
+                Nombre minimum d'heures de repos obligatoires entre deux services
+              </p>
+              <input
+                id="minRestHours"
+                type="number"
+                [(ngModel)]="formData.minRestHours"
+                min="0"
+                max="168"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              />
+              <p *ngIf="errors['minRestHours']" class="text-sm text-red-600 mt-1">
+                {{ errors['minRestHours'] }}
+              </p>
+            </div>
+
+            <!-- Parameter 3: Max Weekly Hours -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <label for="maxWeeklyHours" class="block text-sm font-semibold text-gray-900 mb-2">
+                Heures hebdomadaires maximales <span class="text-red-600">*</span>
+              </label>
+              <p class="text-xs text-gray-600 mb-3">
+                Nombre maximum d'heures de travail autorisées par semaine
+              </p>
+              <input
+                id="maxWeeklyHours"
+                type="number"
+                [(ngModel)]="formData.maxWeeklyHours"
+                min="1"
+                max="168"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              />
+              <p *ngIf="errors['maxWeeklyHours']" class="text-sm text-red-600 mt-1">
+                {{ errors['maxWeeklyHours'] }}
+              </p>
+            </div>
+
+            <!-- Parameter 4: Auto Report Unjustified Absences -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div class="flex items-start justify-between">
+                <div>
+                  <label for="autoReportUnjustifiedAbsences" class="text-sm font-semibold text-gray-900 block mb-1">
+                    Signaler automatiquement les absences injustifiées
+                  </label>
+                  <p class="text-xs text-gray-600">
+                    Les absences sans justification seront automatiquement signalées
+                  </p>
+                </div>
+                <input
+                  id="autoReportUnjustifiedAbsences"
+                  type="checkbox"
+                  [(ngModel)]="formData.autoReportUnjustifiedAbsences"
+                  class="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer mt-1"
+                />
+              </div>
+            </div>
+
+            <!-- Parameter 5: Enforce Equity Distribution -->
+            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div class="flex items-start justify-between">
+                <div>
+                  <label for="enforceEquityDistribution" class="text-sm font-semibold text-gray-900 block mb-1">
+                    Enforcer l'équité de répartition
+                  </label>
+                  <p class="text-xs text-gray-600">
+                    La répartition des services doit être équitable entre les agents
+                  </p>
+                </div>
+                <input
+                  id="enforceEquityDistribution"
+                  type="checkbox"
+                  [(ngModel)]="formData.enforceEquityDistribution"
+                  class="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer mt-1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dialog Footer -->
+        <div class="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex gap-3 justify-end">
+          <button
+            (click)="closeDialogs()"
+            class="px-6 py-2 border border-gray-300 text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            Annuler
+          </button>
+          <button
+            (click)="handleAdd()"
+            class="flex items-center gap-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+          >
+            <lucide-icon [img]="Check" class="w-5 h-5"></lucide-icon>
+            Créer
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Edit Rule Dialog -->
+  <ng-container *ngIf="showEditDialog">
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <!-- Dialog Header -->
+        <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+          <h2 class="text-2xl font-bold text-gray-900">Modifier la règle</h2>
+          <button
+            (click)="closeDialogs()"
+            class="text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <lucide-icon [img]="X" class="w-6 h-6"></lucide-icon>
+          </button>
+        </div>
+
+        <!-- Dialog Content -->
+        <div class="p-6 space-y-6">
+          <!-- Rule Name -->
+          <div>
+            <label for="editRuleName" class="block text-sm font-semibold text-gray-900 mb-2">
+              Nom de la règle <span class="text-red-600">*</span>
+            </label>
+            <input
+              id="editRuleName"
+              type="text"
+              [(ngModel)]="formData.ruleName"
+              placeholder="Ex: Règle Maritime Standard"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            />
+            <p *ngIf="errors['ruleName']" class="text-sm text-red-600 mt-1">
+              {{ errors['ruleName'] }}
+            </p>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label for="editDescription" class="block text-sm font-semibold text-gray-900 mb-2">
+              Description
+            </label>
+            <textarea
+              id="editDescription"
+              [(ngModel)]="formData.description"
+              placeholder="Description optionnelle de la règle"
+              rows="3"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Divider -->
+          <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Paramètres de la règle</h3>
+
+            <!-- Parameter 1: Prevent Double Assignment -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div class="flex items-start justify-between">
+                <div>
+                  <label for="editPreventDoubleAssignment" class="text-sm font-semibold text-gray-900 block mb-1">
+                    Aucune double affectation
+                  </label>
+                  <p class="text-xs text-gray-600">
+                    Un agent ne peut pas être assigné à deux postes simultanés
+                  </p>
+                </div>
+                <input
+                  id="editPreventDoubleAssignment"
+                  type="checkbox"
+                  [(ngModel)]="formData.preventDoubleAssignment"
+                  class="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer mt-1"
+                />
+              </div>
+            </div>
+
+            <!-- Parameter 2: Min Rest Hours -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <label for="editMinRestHours" class="block text-sm font-semibold text-gray-900 mb-2">
+                Repos minimal (heures) <span class="text-red-600">*</span>
+              </label>
+              <p class="text-xs text-gray-600 mb-3">
+                Nombre minimum d'heures de repos obligatoires entre deux services
+              </p>
+              <input
+                id="editMinRestHours"
+                type="number"
+                [(ngModel)]="formData.minRestHours"
+                min="0"
+                max="168"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              />
+              <p *ngIf="errors['minRestHours']" class="text-sm text-red-600 mt-1">
+                {{ errors['minRestHours'] }}
+              </p>
+            </div>
+
+            <!-- Parameter 3: Max Weekly Hours -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <label for="editMaxWeeklyHours" class="block text-sm font-semibold text-gray-900 mb-2">
+                Heures hebdomadaires maximales <span class="text-red-600">*</span>
+              </label>
+              <p class="text-xs text-gray-600 mb-3">
+                Nombre maximum d'heures de travail autorisées par semaine
+              </p>
+              <input
+                id="editMaxWeeklyHours"
+                type="number"
+                [(ngModel)]="formData.maxWeeklyHours"
+                min="1"
+                max="168"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              />
+              <p *ngIf="errors['maxWeeklyHours']" class="text-sm text-red-600 mt-1">
+                {{ errors['maxWeeklyHours'] }}
+              </p>
+            </div>
+
+            <!-- Parameter 4: Auto Report Unjustified Absences -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div class="flex items-start justify-between">
+                <div>
+                  <label for="editAutoReportUnjustifiedAbsences" class="text-sm font-semibold text-gray-900 block mb-1">
+                    Signaler automatiquement les absences injustifiées
+                  </label>
+                  <p class="text-xs text-gray-600">
+                    Les absences sans justification seront automatiquement signalées
+                  </p>
+                </div>
+                <input
+                  id="editAutoReportUnjustifiedAbsences"
+                  type="checkbox"
+                  [(ngModel)]="formData.autoReportUnjustifiedAbsences"
+                  class="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer mt-1"
+                />
+              </div>
+            </div>
+
+            <!-- Parameter 5: Enforce Equity Distribution -->
+            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div class="flex items-start justify-between">
+                <div>
+                  <label for="editEnforceEquityDistribution" class="text-sm font-semibold text-gray-900 block mb-1">
+                    Enforcer l'équité de répartition
+                  </label>
+                  <p class="text-xs text-gray-600">
+                    La répartition des services doit être équitable entre les agents
+                  </p>
+                </div>
+                <input
+                  id="editEnforceEquityDistribution"
+                  type="checkbox"
+                  [(ngModel)]="formData.enforceEquityDistribution"
+                  class="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer mt-1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dialog Footer -->
+        <div class="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex gap-3 justify-end">
+          <button
+            (click)="closeDialogs()"
+            class="px-6 py-2 border border-gray-300 text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            Annuler
+          </button>
+          <button
+            (click)="handleEdit()"
+            class="flex items-center gap-2 px-6 py-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-colors"
+          >
+            <lucide-icon [img]="Check" class="w-5 h-5"></lucide-icon>
+            Mettre à jour
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Delete Confirmation Dialog -->
+  <ng-container *ngIf="showDeleteDialog && selectedRule">
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+        <!-- Dialog Header -->
+        <div class="border-b border-gray-200 px-6 py-4">
+          <h2 class="text-2xl font-bold text-gray-900">Confirmer la suppression</h2>
+        </div>
+
+        <!-- Dialog Content -->
+        <div class="p-6">
+          <p class="text-gray-700 mb-4">
+            Êtes-vous sûr de vouloir supprimer la règle <span class="font-semibold">{{ selectedRule.ruleName }}</span> ?
+          </p>
+          <p class="text-sm text-gray-600">
+            Cette action est irréversible et supprimera tous les enregistrements associés.
+          </p>
+        </div>
+
+        <!-- Dialog Footer -->
+        <div class="bg-gray-50 border-t border-gray-200 px-6 py-4 flex gap-3 justify-end">
+          <button
+            (click)="closeDialogs()"
+            class="px-6 py-2 border border-gray-300 text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            Annuler
+          </button>
+          <button
+            (click)="handleDelete()"
+            class="flex items-center gap-2 px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors"
+          >
+            <lucide-icon [img]="Trash2" class="w-5 h-5"></lucide-icon>
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

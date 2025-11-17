@@ -1,0 +1,94 @@
+<div *ngIf="open" class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleOpenChange(false)"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-md w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Ajouter une nouvelle règle</h2>
+          <p class="text-sm text-gray-500 mt-1">Remplissez les informations de la nouvelle règle de gestion</p>
+        </div>
+        <button
+          (click)="handleOpenChange(false)"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="grid gap-4">
+      <!-- Title -->
+      <div class="grid gap-2">
+        <label for="title" class="text-sm font-medium text-gray-700">Titre de la règle</label>
+        <input
+          id="title"
+          type="text"
+          placeholder="Ex: Durée maximale de garde"
+          [(ngModel)]="formData.title"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['title'] ? 'border-red-500' : 'border-gray-300')"
+        />
+        <p *ngIf="errors['title']" class="text-red-500 text-sm">{{ errors['title'] }}</p>
+      </div>
+
+      <!-- Value and Unit -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-2">
+          <label for="value" class="text-sm font-medium text-gray-700">Valeur</label>
+          <input
+            id="value"
+            type="number"
+            step="0.01"
+            placeholder="0"
+            [(ngModel)]="formData.value"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['value'] ? 'border-red-500' : 'border-gray-300')"
+          />
+          <p *ngIf="errors['value']" class="text-red-500 text-sm">{{ errors['value'] }}</p>
+        </div>
+        <div class="grid gap-2">
+          <label for="unit" class="text-sm font-medium text-gray-700">Unité</label>
+          <select
+            id="unit"
+            [(ngModel)]="formData.unit"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['unit'] ? 'border-red-500' : 'border-gray-300')"
+          >
+            <option *ngFor="let option of UNIT_OPTIONS" [value]="option">{{ option }}</option>
+          </select>
+          <p *ngIf="errors['unit']" class="text-red-500 text-sm">{{ errors['unit'] }}</p>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="grid gap-2">
+        <label for="description" class="text-sm font-medium text-gray-700">Description</label>
+        <textarea
+          id="description"
+          placeholder="Décrivez la règle et son impact..."
+          [(ngModel)]="formData.description"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['description'] ? 'border-red-500' : 'border-gray-300')"
+          rows="3"
+        ></textarea>
+        <p *ngIf="errors['description']" class="text-red-500 text-sm">{{ errors['description'] }}</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleOpenChange(false)"
+        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+      >
+        Annuler
+      </button>
+      <button
+        (click)="handleSubmit()"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors"
+      >
+        Ajouter
+      </button>
+    </div>
+  </div>
+</div>

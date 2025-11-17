@@ -1,0 +1,31 @@
+<div *ngIf="open && rule" class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleCancel()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-md w-full mx-4 p-6 z-50">
+    <!-- Header -->
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold text-gray-900">Supprimer la règle</h2>
+      <p class="text-sm text-gray-600 mt-2">
+        Êtes-vous sûr de vouloir supprimer la règle <strong>{{ rule.title }}</strong>? Cette action ne peut pas être annulée.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleCancel()"
+        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+      >
+        Annuler
+      </button>
+      <button
+        (click)="handleConfirm()"
+        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+      >
+        Supprimer
+      </button>
+    </div>
+  </div>
+</div>
