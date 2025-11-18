@@ -52,18 +52,10 @@ export class ShipIncidentsComponent implements OnInit {
           this.incidents = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ShipIncident | null = null;
       },
       error: (error) => {
         console.error('Error loading incidents:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ShipIncident | null = null;
       }
     });
   }

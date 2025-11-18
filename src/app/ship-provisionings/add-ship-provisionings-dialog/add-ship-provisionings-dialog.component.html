@@ -21,52 +21,52 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- Numéro d'avitaillement -->
+      <!-- ID Navire commercial -->
       <div class="grid gap-2">
-        <label for="provisioningNumber" class="text-sm font-medium text-gray-700">Numéro d'avitaillement *</label>
+        <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
         <input
-          id="provisioningNumber"
+          id="commercialShipTrackingId"
           type="text"
-          placeholder="Ex: PROV-2024-001"
-          [(ngModel)]="formData.provisioningNumber"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['provisioningNumber'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['provisioningNumber']" class="text-red-500 text-sm">{{ errors['provisioningNumber'] }}</p>
+          placeholder="Ex: UUID du navire"
+          [(ngModel)]="formData.commercialShipTrackingId"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
       </div>
 
-      <!-- Date et heure -->
+      <!-- Date d'avitaillement -->
       <div class="grid gap-2">
-        <label for="dateTime" class="text-sm font-medium text-gray-700">Date et heure *</label>
+        <label for="provisioningDate" class="text-sm font-medium text-gray-700">Date d'avitaillement *</label>
         <input
-          id="dateTime"
-          type="datetime-local"
+          id="provisioningDate"
+          type="date"
           placeholder=""
-          [(ngModel)]="formData.dateTime"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['dateTime'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['dateTime']" class="text-red-500 text-sm">{{ errors['dateTime'] }}</p>
+          [(ngModel)]="formData.provisioningDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['provisioningDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['provisioningDate']" class="text-red-500 text-sm">{{ errors['provisioningDate'] }}</p>
       </div>
 
-      <!-- Localisation -->
+      <!-- Point d'avitaillement -->
       <div class="grid gap-2">
-        <label for="location" class="text-sm font-medium text-gray-700">Localisation *</label>
+        <label for="provisioningPoint" class="text-sm font-medium text-gray-700">Point d'avitaillement</label>
         <input
-          id="location"
+          id="provisioningPoint"
           type="text"
           placeholder=""
-          [(ngModel)]="formData.location"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['location'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['location']" class="text-red-500 text-sm">{{ errors['location'] }}</p>
+          [(ngModel)]="formData.provisioningPoint"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['provisioningPoint'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['provisioningPoint']" class="text-red-500 text-sm">{{ errors['provisioningPoint'] }}</p>
       </div>
 
       <!-- Type d'avitaillement -->
       <div class="grid gap-2">
-        <label for="provisionType" class="text-sm font-medium text-gray-700">Type d'avitaillement</label>
+        <label for="provisioningType" class="text-sm font-medium text-gray-700">Type d'avitaillement</label>
         <input
-          id="provisionType"
+          id="provisioningType"
           type="text"
           placeholder=""
-          [(ngModel)]="formData.provisionType"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['provisionType'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['provisionType']" class="text-red-500 text-sm">{{ errors['provisionType'] }}</p>
+          [(ngModel)]="formData.provisioningType"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['provisioningType'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['provisioningType']" class="text-red-500 text-sm">{{ errors['provisioningType'] }}</p>
       </div>
 
       <!-- Observations -->

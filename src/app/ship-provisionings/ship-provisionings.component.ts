@@ -52,18 +52,10 @@ export class ShipProvisioningsComponent implements OnInit {
           this.provisionings = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ShipProvisioning | null = null;
       },
       error: (error) => {
         console.error('Error loading provisionings:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ShipProvisioning | null = null;
       }
     });
   }

@@ -17,10 +17,10 @@ export class AddShipProvisioningsDialogComponent {
   @Output() add = new EventEmitter<ShipProvisioningRequest>();
 
   formData: ShipProvisioningRequest = {
-    provisioningNumber: '',
-    dateTime: '',
-    location: '',
-    provisionType: '',
+    commercialShipTrackingId: '',
+    provisioningDate: '',
+    provisioningType: '',
+    provisioningPoint: '',
     observations: ''
   };
 
@@ -28,11 +28,11 @@ export class AddShipProvisioningsDialogComponent {
 
   handleReset() {
     this.formData = {
-    provisioningNumber: '',
-    dateTime: '',
-    location: '',
-    provisionType: '',
-    observations: ''
+      commercialShipTrackingId: '',
+      provisioningDate: '',
+      provisioningType: '',
+      provisioningPoint: '',
+      observations: ''
     };
     this.errors = {};
   }
@@ -44,14 +44,11 @@ export class AddShipProvisioningsDialogComponent {
 
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
-    if (!this.formData.provisioningNumber || (typeof this.formData.provisioningNumber === 'string' && !this.formData.provisioningNumber.trim())) {
-      newErrors['provisioningNumber'] = 'Numéro d'avitaillement est requis';
+    if (!this.formData.commercialShipTrackingId || (typeof this.formData.commercialShipTrackingId === 'string' && !this.formData.commercialShipTrackingId.trim())) {
+      newErrors['commercialShipTrackingId'] = 'Navire commercial est requis';
     }
-    if (!this.formData.dateTime || (typeof this.formData.dateTime === 'string' && !this.formData.dateTime.trim())) {
-      newErrors['dateTime'] = 'Date et heure est requis';
-    }
-    if (!this.formData.location || (typeof this.formData.location === 'string' && !this.formData.location.trim())) {
-      newErrors['location'] = 'Localisation est requis';
+    if (!this.formData.provisioningDate || (typeof this.formData.provisioningDate === 'string' && !this.formData.provisioningDate.trim())) {
+      newErrors['provisioningDate'] = 'Date d'avitaillement est requis';
     }
 
     this.errors = newErrors;
