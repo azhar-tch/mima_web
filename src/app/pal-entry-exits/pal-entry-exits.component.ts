@@ -52,18 +52,10 @@ export class PalEntryExitsComponent implements OnInit {
           this.entries = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: PALEntryExit | null = null;
       },
       error: (error) => {
         console.error('Error loading entries:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: PALEntryExit | null = null;
       }
     });
   }
@@ -76,14 +68,15 @@ export class PalEntryExitsComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
+
   handleAdd(newItem: PALEntryExitRequest): void {
     this.palEntryExitsService.create(newItem).subscribe({
       next: (res) => {
         if (res.data) {
-          this.entryExits = [...this.entryExits, res.data];
+          this.entries = [...this.entries, res.data];
         }
         this.openAddDialog = false;
         alert('entrée/sortie PAL créé(e) avec succès');
@@ -94,7 +87,8 @@ export class PalEntryExitsComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: PALEntryExit): void {
+
+  showEditDialog(item: PALEntryExit): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -105,7 +99,7 @@ export class PalEntryExitsComponent implements OnInit {
     this.palEntryExitsService.update(this.selectedItem.trackingId, updatedItem).subscribe({
       next: (res) => {
         if (res.data) {
-          this.entryExits = this.entryExits.map(item =>
+          this.entries = this.entries.map(item =>
             item.trackingId === this.selectedItem!.trackingId ? res.data! : item
           );
         }
@@ -120,7 +114,7 @@ export class PalEntryExitsComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: PALEntryExit): void {
+  showDeleteDialog(item: PALEntryExit): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }
@@ -130,7 +124,7 @@ export class PalEntryExitsComponent implements OnInit {
 
     this.palEntryExitsService.delete(this.selectedItem.trackingId).subscribe({
       next: () => {
-        this.entryExits = this.entryExits.filter(item => item.trackingId !== this.selectedItem!.trackingId);
+        this.entries = this.entries.filter(item => item.trackingId !== this.selectedItem!.trackingId);
         this.openDeleteDialog = false;
         this.selectedItem = null;
         alert('entrée/sortie PAL supprimé(e) avec succès');

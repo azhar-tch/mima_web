@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { ArmedGuardMissionRequest } from '../../models/Maritime';
+import { MissionStatus } from '../../models/enums';
 
 @Component({
   selector: 'app-add-armed-guard-missions-dialog',
@@ -18,11 +19,14 @@ export class AddArmedGuardMissionsDialogComponent {
 
   formData: ArmedGuardMissionRequest = {
     missionNumber: '',
+    commercialShipTrackingId: '',
+    securityAgencyTrackingId: '',
     embarkationDate: '',
     disembarkationDate: '',
     embarkationPort: '',
     disembarkationPort: '',
     personnelCount: undefined,
+    status: MissionStatus.PLANNED,
     observations: ''
   };
 
@@ -31,11 +35,14 @@ export class AddArmedGuardMissionsDialogComponent {
   handleReset() {
     this.formData = {
     missionNumber: '',
+    commercialShipTrackingId: '',
+    securityAgencyTrackingId: '',
     embarkationDate: '',
     disembarkationDate: '',
     embarkationPort: '',
     disembarkationPort: '',
     personnelCount: undefined,
+    status: MissionStatus.PLANNED,
     observations: ''
     };
     this.errors = {};
@@ -52,10 +59,10 @@ export class AddArmedGuardMissionsDialogComponent {
       newErrors['missionNumber'] = 'Numéro de mission est requis';
     }
     if (!this.formData.embarkationDate || (typeof this.formData.embarkationDate === 'string' && !this.formData.embarkationDate.trim())) {
-      newErrors['embarkationDate'] = 'Date d'embarquement est requis';
+      newErrors['embarkationDate'] = "Date d'embarquement est requis";
     }
     if (!this.formData.embarkationPort || (typeof this.formData.embarkationPort === 'string' && !this.formData.embarkationPort.trim())) {
-      newErrors['embarkationPort'] = 'Port d'embarquement est requis';
+      newErrors['embarkationPort'] = "Port d'embarquement est requis";
     }
 
     this.errors = newErrors;

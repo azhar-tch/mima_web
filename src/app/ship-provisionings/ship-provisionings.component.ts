@@ -68,9 +68,10 @@ export class ShipProvisioningsComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
+
   handleAdd(newItem: ShipProvisioningRequest): void {
     this.shipProvisioningsService.create(newItem).subscribe({
       next: (res) => {
@@ -86,7 +87,8 @@ export class ShipProvisioningsComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: ShipProvisioning): void {
+
+  showEditDialog(item: ShipProvisioning): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -112,7 +114,7 @@ export class ShipProvisioningsComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: ShipProvisioning): void {
+  showDeleteDialog(item: ShipProvisioning): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }

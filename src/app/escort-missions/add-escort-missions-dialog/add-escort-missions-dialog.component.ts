@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { EscortMissionRequest } from '../../models/Maritime';
+import { MissionStatus, EscortType } from '../../models/enums';
 
 @Component({
   selector: 'app-add-escort-missions-dialog',
@@ -18,11 +19,15 @@ export class AddEscortMissionsDialogComponent {
 
   formData: EscortMissionRequest = {
     missionNumber: '',
+    commercialShipTrackingId: '',
+    navalVesselTrackingId: '',
     startDate: '',
     endDate: '',
     departurePoint: '',
     arrivalPoint: '',
+    escortType: EscortType.STANDARD,
     escortZone: '',
+    status: MissionStatus.PLANNED,
     observations: ''
   };
 
@@ -31,11 +36,15 @@ export class AddEscortMissionsDialogComponent {
   handleReset() {
     this.formData = {
     missionNumber: '',
+    commercialShipTrackingId: '',
+    navalVesselTrackingId: '',
     startDate: '',
     endDate: '',
     departurePoint: '',
     arrivalPoint: '',
+    escortType: EscortType.STANDARD,
     escortZone: '',
+    status: MissionStatus.PLANNED,
     observations: ''
     };
     this.errors = {};

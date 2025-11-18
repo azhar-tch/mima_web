@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between mb-6">
     <h1 class="text-3xl font-bold text-gray-900">Missions Gardes Armés</h1>
     <button
-      (click)="openAddDialog()"
+      (click)="showAddDialog()"
       class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
       <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
       <span>Ajouter</span>
@@ -52,10 +52,10 @@
                 <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Voir">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
-                <button (click)="openEditDialog(item)" class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Modifier">
+                <button (click)="showEditDialog(item)" class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Modifier">
                   <lucide-icon [img]="Edit" [size]="18"></lucide-icon>
                 </button>
-                <button (click)="openDeleteDialog(item)" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer">
+                <button (click)="showDeleteDialog(item)" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer">
                   <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
                 </button>
               </div>
