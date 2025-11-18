@@ -1,59 +1,82 @@
 <div class="max-w-7xl mx-auto p-6">
+  <!-- Header -->
   <div class="flex items-center justify-between mb-6">
-    <h1 class="text-3xl font-bold text-gray-900">Postes de Service</h1>
-    <button class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Postes de service</h1>
+      <p class="text-sm text-gray-500 mt-1">Gérez les postes de service</p>
+    </div>
+    <button
+      (click)="openitionsDialog()"
+      class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
       <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
-      <span>Ajouter</span>
+      <span>Ajouter postes de service</span>
     </button>
   </div>
 
+  <!-- Search Bar -->
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
     <div class="relative">
       <lucide-icon [img]="Search" [size]="20" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></lucide-icon>
       <input
         type="text"
         [(ngModel)]="searchTerm"
-        placeholder="Rechercher..."
+        placeholder="Rechercher par nom ou description..."
         class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </div>
   </div>
 
+  <!-- itionss Table -->
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
     <div *ngIf="isLoading" class="p-8 text-center text-gray-500">
       Chargement...
     </div>
 
-    <div *ngIf="!isLoading && filteredServicePositionss.length === 0" class="p-8 text-center text-gray-500">
-      Aucun élément trouvé
+    <div *ngIf="!isLoading && filtereditionss.length === 0" class="p-8 text-center text-gray-500">
+      Aucun service trouvé
     </div>
 
-    <div *ngIf="!isLoading && filteredServicePositionss.length > 0" class="overflow-x-auto">
+    <div *ngIf="!isLoading && filtereditionss.length > 0" class="overflow-x-auto">
       <table class="w-full">
         <thead class="bg-gray-50">
           <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Information</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom du service</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Niveau</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          <tr *ngFor="let item of filteredServicePositionss" class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-              {{ item.trackingId ? item.trackingId.substring(0, 8) : '-' }}
+          <tr *ngFor="let service of filtereditionss" class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm font-medium text-gray-900">{{ service.serviceName }}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-500">
+                {{ service.hierarchyLevel !== undefined && service.hierarchyLevel !== null ? 'Niveau ' + service.hierarchyLevel : '-' }}
+              </div>
             </td>
             <td class="px-6 py-4">
-              <pre class="text-xs text-gray-600">{{ item | json }}</pre>
+              <div class="text-sm text-gray-500">{{ service.description || '-' }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-right">
               <div class="flex items-center justify-end gap-2">
-                <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Voir">
+                <button
+                  (click)="openitionsDialog(service)"
+                  class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  title="Voir les détails">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
-                <button class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Modifier">
+                <button
+                  (click)="openitionsDialog(service)"
+                  class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                  title="Modifier">
                   <lucide-icon [img]="Edit" [size]="18"></lucide-icon>
                 </button>
-                <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer">
+                <button
+                  (click)="openitionsDialog(service)"
+                  class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                  title="Supprimer">
                   <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
                 </button>
               </div>
@@ -64,3 +87,30 @@
     </div>
   </div>
 </div>
+
+<!-- Dialogs -->
+<app-add-service-dialog
+  *ngIf="openitionsDialog"
+  (close)="openitionsDialog = false"
+  (add)="handleAdditions($event)">
+</app-add-service-dialog>
+
+<app-edit-service-dialog
+  *ngIf="openitionsDialog"
+  [service]="selecteditions"
+  (close)="openitionsDialog = false"
+  (save)="handleEdititions($event)">
+</app-edit-service-dialog>
+
+<app-service-details-dialog
+  *ngIf="openitionsDialog"
+  [service]="selecteditions"
+  (close)="openitionsDialog = false">
+</app-service-details-dialog>
+
+<app-delete-service-confirmation
+  *ngIf="openitionsDialog"
+  [service]="selecteditions"
+  (close)="openitionsDialog = false"
+  (confirm)="handleDeleteitions()">
+</app-delete-service-confirmation>

@@ -1,0 +1,77 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Modifier un poste de service</h2>
+          <p class="text-sm text-gray-500 mt-1">Modifiez les informations du grade</p>
+        </div>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="grid gap-4">
+      <!-- Grade Name -->
+      <div class="grid gap-2">
+        <label for="gradeName" class="text-sm font-medium text-gray-700">Nom du grade *</label>
+        <input
+          id="gradeName"
+          type="text"
+          placeholder="Ex: Lieutenant, Capitaine, Commandant..."
+          [(ngModel)]="formData.gradeName"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['gradeName'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['gradeName']" class="text-red-500 text-sm">{{ errors['gradeName'] }}</p>
+      </div>
+
+      <!-- Hierarchy Level -->
+      <div class="grid gap-2">
+        <label for="hierarchyLevel" class="text-sm font-medium text-gray-700">Niveau hiérarchique</label>
+        <input
+          id="hierarchyLevel"
+          type="number"
+          min="0"
+          placeholder="Ex: 1, 2, 3..."
+          [(ngModel)]="formData.hierarchyLevel"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['hierarchyLevel'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['hierarchyLevel']" class="text-red-500 text-sm">{{ errors['hierarchyLevel'] }}</p>
+        <p class="text-xs text-gray-500">Plus le nombre est élevé, plus le grade est important</p>
+      </div>
+
+      <!-- Description -->
+      <div class="grid gap-2">
+        <label for="description" class="text-sm font-medium text-gray-700">Description</label>
+        <textarea
+          id="description"
+          placeholder="Décrivez ce grade (optionnel)"
+          [(ngModel)]="formData.description"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="3"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+        Annuler
+      </button>
+      <button
+        (click)="handleSubmit()"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors">
+        Enregistrer
+      </button>
+    </div>
+  </div>
+</div>
