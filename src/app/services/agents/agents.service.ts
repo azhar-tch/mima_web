@@ -40,8 +40,8 @@ export class AgentsService {
 
   // 🔹 Rechercher des agents
   searchAgents(searchTerm?: string): Observable<ApiResponse<AgentsResponse[]>> {
-    const params = searchTerm ? { term: searchTerm } : {};
-    return this.http.get<ApiResponse<AgentsResponse[]>>(`${this.baseUrl}/search`, { params });
+    const options = searchTerm ? { params: { term: searchTerm } } : {};
+    return this.http.get<ApiResponse<AgentsResponse[]>>(`${this.baseUrl}/search`, options);
   }
 
   // 🔹 Suppression d'un agent
