@@ -6,7 +6,7 @@
       <p class="text-sm text-gray-500 mt-1">Gérez les autres postes</p>
     </div>
     <button
-      (click)="openAddDialog()"
+      (click)="openAdditionsDialog()"
       class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
       <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
       <span>Ajouter autres postes</span>
@@ -60,19 +60,19 @@
             <td class="px-6 py-4 whitespace-nowrap text-right">
               <div class="flex items-center justify-end gap-2">
                 <button
-                  (click)="openDetailsDialog(other)"
+                  (click)="openitionsDetailsDialog(other)"
                   class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                   title="Voir les détails">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openEditDialog(other)"
+                  (click)="openEdititionsDialog(other)"
                   class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                   title="Modifier">
                   <lucide-icon [img]="Edit" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openDeleteDialog(other)"
+                  (click)="openDeleteitionsDialog(other)"
                   class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   title="Supprimer">
                   <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
@@ -87,28 +87,30 @@
 </div>
 
 <!-- Dialogs -->
+<!-- TODO: Uncomment when dialog components are created
 <app-add-other-dialog
-  *ngIf="showAddDialog"
-  (close)="showAddDialog = false"
-  (add)="handleAdd($event)">
+  *ngIf="openAddDialog"
+  (close)="openAddDialog = false"
+  (add)="handleAdditions($event)">
 </app-add-other-dialog>
 
 <app-edit-other-dialog
-  *ngIf="showEditDialog"
-  [other]="selected"
-  (close)="showEditDialog = false"
-  (save)="handleEdit($event)">
+  *ngIf="openEditDialog"
+  [other]="selecteditions"
+  (close)="openEditDialog = false"
+  (save)="handleEdititions($event)">
 </app-edit-other-dialog>
 
 <app-other-details-dialog
-  *ngIf="showDetailsDialog"
-  [other]="selected"
-  (close)="showDetailsDialog = false">
+  *ngIf="openDetailsDialog"
+  [other]="selecteditions"
+  (close)="openDetailsDialog = false">
 </app-other-details-dialog>
 
 <app-delete-other-confirmation
-  *ngIf="showDeleteDialog"
-  [other]="selected"
-  (close)="showDeleteDialog = false"
-  (confirm)="handleDelete()">
+  *ngIf="openDeleteDialog"
+  [other]="selecteditions"
+  (close)="openDeleteDialog = false"
+  (confirm)="handleDeleteitions()">
 </app-delete-other-confirmation>
+-->
