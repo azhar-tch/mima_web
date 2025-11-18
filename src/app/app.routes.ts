@@ -1,43 +1,43 @@
 import { Routes } from '@angular/router';
-import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AgentsComponent } from './agents/agents.component';
-import { UnitsComponent } from './units/units.component';
-import { MissionsComponent } from './missions/missions.component';
-import { AbsencesComponent } from './absences/absences.component';
-import { ManagementRulesComponent } from './managementRules/management-rules.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { ProfilComponent } from './profil/profil.component';
+import { MainLayoutComponent } from './components/layouts/main-layout/main-layout.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AgentsComponent } from './components/agents/agents.component';
+import { UnitsComponent } from './components/units/units.component';
+import { MissionsComponent } from './components/missions/missions.component';
+import { AbsencesComponent } from './components/absences/absences.component';
+import { ManagementRulesComponent } from './components/managementRules/management-rules.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { ProfilComponent } from './components/profil/profil.component';
 import { AuthGuard } from './guards/auth.guard';
 import { DutiesComponent } from './components/duties/duties.component';
 import { HistoriesComponent } from './components/histories/histories.component';
 
 // System 4 - HR Reference Data
-import { HrGradesComponent } from './hr-grades/hr-grades.component';
-import { HrFunctionsComponent } from './hr-functions/hr-functions.component';
-import { TrainingsComponent } from './trainings/trainings.component';
-import { AwardsComponent } from './awards/awards.component';
-import { ServicePositionsComponent } from './service-positions/service-positions.component';
-import { OtherPositionsComponent } from './other-positions/other-positions.component';
-import { BmlCompaniesComponent } from './bml-companies/bml-companies.component';
+import { HrGradesComponent } from './components/hr-grades/hr-grades.component';
+import { HrFunctionsComponent } from './components/hr-functions/hr-functions.component';
+import { TrainingsComponent } from './components/trainings/trainings.component';
+import { AwardsComponent } from './components/awards/awards.component';
+import { ServicePositionsComponent } from './components/service-positions/service-positions.component';
+import { OtherPositionsComponent } from './components/other-positions/other-positions.component';
+import { BmlCompaniesComponent } from './components/bml-companies/bml-companies.component';
 
 // System 4 - Agent History - Removed (consolidated in HistoriesComponent)
 
 // System 3 - Maritime Operations
-import { CommercialShipsComponent } from './commercial-ships/commercial-ships.component';
-import { NavalVesselsComponent } from './naval-vessels/naval-vessels.component';
-import { SecurityAgenciesComponent } from './security-agencies/security-agencies.component';
-import { ArmedGuardMissionsComponent } from './armed-guard-missions/armed-guard-missions.component';
-import { EscortMissionsComponent } from './escort-missions/escort-missions.component';
-import { ShipArrivalDeparturesComponent } from './ship-arrival-departures/ship-arrival-departures.component';
-import { PalEntryExitsComponent } from './pal-entry-exits/pal-entry-exits.component';
-import { ShipIncidentsComponent } from './ship-incidents/ship-incidents.component';
-import { ShipProvisioningsComponent } from './ship-provisionings/ship-provisionings.component';
-import { StsOperationsComponent } from './sts-operations/sts-operations.component';
-import { ConservatorSeizuresComponent } from './conservator-seizures/conservator-seizures.component';
-import { PersonnelAllowancesComponent } from './personnel-allowances/personnel-allowances.component';
+import { CommercialShipsComponent } from './components/commercial-ships/commercial-ships.component';
+import { NavalVesselsComponent } from './components/naval-vessels/naval-vessels.component';
+import { SecurityAgenciesComponent } from './components/security-agencies/security-agencies.component';
+import { ArmedGuardMissionsComponent } from './components/armed-guard-missions/armed-guard-missions.component';
+import { EscortMissionsComponent } from './components/escort-missions/escort-missions.component';
+import { ShipArrivalDeparturesComponent } from './components/ship-arrival-departures/ship-arrival-departures.component';
+import { PalEntryExitsComponent } from './components/pal-entry-exits/pal-entry-exits.component';
+import { ShipIncidentsComponent } from './components/ship-incidents/ship-incidents.component';
+import { ShipProvisioningsComponent } from './components/ship-provisionings/ship-provisionings.component';
+import { StsOperationsComponent } from './components/sts-operations/sts-operations.component';
+import { ConservatorSeizuresComponent } from './components/conservator-seizures/conservator-seizures.component';
+import { PersonnelAllowancesComponent } from './components/personnel-allowances/personnel-allowances.component';
 
 export const routes: Routes = [
   // Auth routes (no layout)
