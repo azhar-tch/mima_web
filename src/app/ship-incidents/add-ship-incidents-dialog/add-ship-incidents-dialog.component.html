@@ -21,33 +21,45 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- Numéro d'incident -->
+      <!-- ID Navire commercial -->
       <div class="grid gap-2">
-        <label for="incidentNumber" class="text-sm font-medium text-gray-700">Numéro d'incident *</label>
+        <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
         <input
-          id="incidentNumber"
+          id="commercialShipTrackingId"
           type="text"
-          placeholder="Ex: INC-2024-001"
-          [(ngModel)]="formData.incidentNumber"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['incidentNumber'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['incidentNumber']" class="text-red-500 text-sm">{{ errors['incidentNumber'] }}</p>
+          placeholder="Ex: UUID du navire"
+          [(ngModel)]="formData.commercialShipTrackingId"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
       </div>
 
-      <!-- Date et heure -->
+      <!-- Date de l'incident -->
       <div class="grid gap-2">
-        <label for="dateTime" class="text-sm font-medium text-gray-700">Date et heure *</label>
+        <label for="incidentDate" class="text-sm font-medium text-gray-700">Date de l'incident *</label>
         <input
-          id="dateTime"
-          type="datetime-local"
+          id="incidentDate"
+          type="date"
           placeholder=""
-          [(ngModel)]="formData.dateTime"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['dateTime'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['dateTime']" class="text-red-500 text-sm">{{ errors['dateTime'] }}</p>
+          [(ngModel)]="formData.incidentDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['incidentDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['incidentDate']" class="text-red-500 text-sm">{{ errors['incidentDate'] }}</p>
+      </div>
+
+      <!-- Type d'incident -->
+      <div class="grid gap-2">
+        <label for="incidentType" class="text-sm font-medium text-gray-700">Type d'incident</label>
+        <input
+          id="incidentType"
+          type="text"
+          placeholder=""
+          [(ngModel)]="formData.incidentType"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['incidentType'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['incidentType']" class="text-red-500 text-sm">{{ errors['incidentType'] }}</p>
       </div>
 
       <!-- Localisation -->
       <div class="grid gap-2">
-        <label for="location" class="text-sm font-medium text-gray-700">Localisation *</label>
+        <label for="location" class="text-sm font-medium text-gray-700">Localisation</label>
         <input
           id="location"
           type="text"
@@ -57,17 +69,17 @@
         <p *ngIf="errors['location']" class="text-red-500 text-sm">{{ errors['location'] }}</p>
       </div>
 
-      <!-- Description de l'incident -->
+      <!-- Description -->
       <div class="grid gap-2">
-        <label for="incidentDescription" class="text-sm font-medium text-gray-700">Description de l'incident *</label>
+        <label for="description" class="text-sm font-medium text-gray-700">Description</label>
         <textarea
-          id="incidentDescription"
+          id="description"
           placeholder=""
-          [(ngModel)]="formData.incidentDescription"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['incidentDescription'] ? 'border-red-500' : 'border-gray-300')"
+          [(ngModel)]="formData.description"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['description'] ? 'border-red-500' : 'border-gray-300')"
           rows="3"
         ></textarea>
-        <p *ngIf="errors['incidentDescription']" class="text-red-500 text-sm">{{ errors['incidentDescription'] }}</p>
+        <p *ngIf="errors['description']" class="text-red-500 text-sm">{{ errors['description'] }}</p>
       </div>
 
       <!-- Observations -->

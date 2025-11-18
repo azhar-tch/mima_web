@@ -52,18 +52,10 @@ export class ShipArrivalDeparturesComponent implements OnInit {
           this.arrivals = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ShipArrivalDeparture | null = null;
       },
       error: (error) => {
         console.error('Error loading arrivals:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ShipArrivalDeparture | null = null;
       }
     });
   }
@@ -76,14 +68,14 @@ export class ShipArrivalDeparturesComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: ShipArrivalDepartureRequest): void {
     this.shipArrivalDeparturesService.create(newItem).subscribe({
       next: (res) => {
         if (res.data) {
-          this.arrivalDepartures = [...this.arrivalDepartures, res.data];
+          this.arrivals = [...this.arrivals, res.data];
         }
         this.openAddDialog = false;
         alert('arrivée/départ créé(e) avec succès');
@@ -94,7 +86,7 @@ export class ShipArrivalDeparturesComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: ShipArrivalDeparture): void {
+  showEditDialog(item: ShipArrivalDeparture): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -105,7 +97,7 @@ export class ShipArrivalDeparturesComponent implements OnInit {
     this.shipArrivalDeparturesService.update(this.selectedItem.trackingId, updatedItem).subscribe({
       next: (res) => {
         if (res.data) {
-          this.arrivalDepartures = this.arrivalDepartures.map(item =>
+          this.arrivals = this.arrivals.map(item =>
             item.trackingId === this.selectedItem!.trackingId ? res.data! : item
           );
         }
@@ -120,7 +112,7 @@ export class ShipArrivalDeparturesComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: ShipArrivalDeparture): void {
+  showDeleteDialog(item: ShipArrivalDeparture): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }
@@ -130,7 +122,7 @@ export class ShipArrivalDeparturesComponent implements OnInit {
 
     this.shipArrivalDeparturesService.delete(this.selectedItem.trackingId).subscribe({
       next: () => {
-        this.arrivalDepartures = this.arrivalDepartures.filter(item => item.trackingId !== this.selectedItem!.trackingId);
+        this.arrivals = this.arrivals.filter(item => item.trackingId !== this.selectedItem!.trackingId);
         this.openDeleteDialog = false;
         this.selectedItem = null;
         alert('arrivée/départ supprimé(e) avec succès');

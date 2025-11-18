@@ -48,7 +48,7 @@ export class AddShipProvisioningsDialogComponent {
       newErrors['commercialShipTrackingId'] = 'Navire commercial est requis';
     }
     if (!this.formData.provisioningDate || (typeof this.formData.provisioningDate === 'string' && !this.formData.provisioningDate.trim())) {
-      newErrors['provisioningDate'] = 'Date d'avitaillement est requis';
+      newErrors['provisioningDate'] = "Date d'avitaillement est requis";
     }
 
     this.errors = newErrors;

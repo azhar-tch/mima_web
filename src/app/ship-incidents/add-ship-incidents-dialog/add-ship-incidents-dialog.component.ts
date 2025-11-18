@@ -17,10 +17,11 @@ export class AddShipIncidentsDialogComponent {
   @Output() add = new EventEmitter<ShipIncidentRequest>();
 
   formData: ShipIncidentRequest = {
-    incidentNumber: '',
-    dateTime: '',
+    commercialShipTrackingId: '',
+    incidentDate: '',
+    incidentType: '',
     location: '',
-    incidentDescription: '',
+    description: '',
     observations: ''
   };
 
@@ -28,11 +29,12 @@ export class AddShipIncidentsDialogComponent {
 
   handleReset() {
     this.formData = {
-    incidentNumber: '',
-    dateTime: '',
-    location: '',
-    incidentDescription: '',
-    observations: ''
+      commercialShipTrackingId: '',
+      incidentDate: '',
+      incidentType: '',
+      location: '',
+      description: '',
+      observations: ''
     };
     this.errors = {};
   }
@@ -44,17 +46,11 @@ export class AddShipIncidentsDialogComponent {
 
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
-    if (!this.formData.incidentNumber || (typeof this.formData.incidentNumber === 'string' && !this.formData.incidentNumber.trim())) {
-      newErrors['incidentNumber'] = 'Numéro d'incident est requis';
+    if (!this.formData.commercialShipTrackingId || (typeof this.formData.commercialShipTrackingId === 'string' && !this.formData.commercialShipTrackingId.trim())) {
+      newErrors['commercialShipTrackingId'] = 'Navire commercial est requis';
     }
-    if (!this.formData.dateTime || (typeof this.formData.dateTime === 'string' && !this.formData.dateTime.trim())) {
-      newErrors['dateTime'] = 'Date et heure est requis';
-    }
-    if (!this.formData.location || (typeof this.formData.location === 'string' && !this.formData.location.trim())) {
-      newErrors['location'] = 'Localisation est requis';
-    }
-    if (!this.formData.incidentDescription || (typeof this.formData.incidentDescription === 'string' && !this.formData.incidentDescription.trim())) {
-      newErrors['incidentDescription'] = 'Description de l'incident est requis';
+    if (!this.formData.incidentDate || (typeof this.formData.incidentDate === 'string' && !this.formData.incidentDate.trim())) {
+      newErrors['incidentDate'] = "Date de l'incident est requis";
     }
 
     this.errors = newErrors;

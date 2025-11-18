@@ -68,7 +68,7 @@ export class ShipIncidentsComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: ShipIncidentRequest): void {
@@ -86,7 +86,7 @@ export class ShipIncidentsComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: ShipIncident): void {
+  showEditDialog(item: ShipIncident): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -112,7 +112,7 @@ export class ShipIncidentsComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: ShipIncident): void {
+  showDeleteDialog(item: ShipIncident): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }
