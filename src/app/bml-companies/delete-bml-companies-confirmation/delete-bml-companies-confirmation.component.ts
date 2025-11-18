@@ -13,7 +13,7 @@ export class DeleteBmlCompanyConfirmationComponent {
   readonly X = X;
   readonly AlertTriangle = AlertTriangle;
 
-  @Input() bml-companies: BMLCompany | null = null;
+  @Input() bmlCompany: BMLCompany | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<void>();
 

@@ -97,20 +97,20 @@
 
 <app-edit-bml-companies-dialog
   *ngIf="showEditDialog"
-  [bml]="selected"
+  [bmlCompany]="selected"
   (close)="showEditDialog = false"
   (save)="handleEdit($event)">
 </app-edit-bml-companies-dialog>
 
 <app-bml-companies-details-dialog
   *ngIf="showDetailsDialog"
-  [bml]="selected"
+  [bmlCompany]="selected"
   (close)="showDetailsDialog = false">
 </app-bml-companies-details-dialog>
 
 <app-delete-bml-companies-confirmation
   *ngIf="showDeleteDialog"
-  [bml]="selected"
+  [bmlCompany]="selected"
   (close)="showDeleteDialog = false"
   (confirm)="handleDelete()">
 </app-delete-bml-companies-confirmation>

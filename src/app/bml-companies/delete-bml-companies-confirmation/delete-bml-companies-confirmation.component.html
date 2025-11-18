@@ -24,26 +24,26 @@
     </div>
 
     <!-- Content -->
-    <div class="space-y-4" *ngIf="bml-companies">
+    <div class="space-y-4" *ngIf="bmlCompany">
       <p class="text-gray-600">
-        Êtes-vous sûr de vouloir supprimer le bml-companies <strong class="text-gray-900">{{ bml-companies.bml-companiesName }}</strong> ?
+        Êtes-vous sûr de vouloir supprimer la compagnie <strong class="text-gray-900">{{ bmlCompany.companyName }}</strong> ?
       </p>
 
       <div class="bg-red-50 border border-red-200 rounded-md p-3">
         <p class="text-sm text-red-800">
-          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à ce bml-companies seront définitivement supprimées.
+          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à cette compagnie seront définitivement supprimées.
         </p>
       </div>
 
-      <!-- Grade Info -->
+      <!-- Company Info -->
       <div class="bg-gray-50 rounded-md p-3 space-y-2">
         <div>
-          <p class="text-xs text-gray-500">Nom du bml-companies</p>
-          <p class="text-sm font-medium text-gray-900">{{ bml-companies.bml-companiesName }}</p>
+          <p class="text-xs text-gray-500">Nom de la compagnie</p>
+          <p class="text-sm font-medium text-gray-900">{{ bmlCompany.companyName }}</p>
         </div>
-        <div *ngIf="bml-companies.hierarchyLevel !== undefined && bml-companies.hierarchyLevel !== null">
+        <div *ngIf="bmlCompany.hierarchyLevel !== undefined && bmlCompany.hierarchyLevel !== null">
           <p class="text-xs text-gray-500">Niveau hiérarchique</p>
-          <p class="text-sm text-gray-900">{{ bml-companies.hierarchyLevel }}</p>
+          <p class="text-sm text-gray-900">{{ bmlCompany.hierarchyLevel }}</p>
         </div>
       </div>
     </div>
