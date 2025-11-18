@@ -12,6 +12,7 @@ import { MissionStatus } from '../../models/enums';
 
 @Component({
   selector: 'app-missions',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule, AddMissionDialogComponent, EditMissionDialogComponent, DeleteMissionConfirmationComponent, MissionsDetailsDialogComponent],
   templateUrl: './missions.component.html',
   styleUrl: './missions.component.css'

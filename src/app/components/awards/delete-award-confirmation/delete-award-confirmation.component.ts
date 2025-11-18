@@ -5,6 +5,7 @@ import { Award } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-delete-award-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-award-confirmation.component.html',
   styleUrl: './delete-award-confirmation.component.css'

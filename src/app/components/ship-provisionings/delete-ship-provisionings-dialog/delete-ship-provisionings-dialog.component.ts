@@ -5,6 +5,7 @@ import { ShipProvisioning } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-ship-provisionings-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-ship-provisionings-dialog.component.html',
   styleUrl: './delete-ship-provisionings-dialog.component.css'

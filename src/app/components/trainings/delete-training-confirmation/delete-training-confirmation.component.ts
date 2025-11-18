@@ -5,6 +5,7 @@ import { Training } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-delete-training-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-training-confirmation.component.html',
   styleUrl: './delete-training-confirmation.component.css'

@@ -5,6 +5,7 @@ import { NavalVessel } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-naval-vessels-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-naval-vessels-dialog.component.html',
   styleUrl: './delete-naval-vessels-dialog.component.css'

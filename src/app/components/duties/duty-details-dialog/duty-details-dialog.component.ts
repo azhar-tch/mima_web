@@ -6,6 +6,7 @@ import { DutyType, DutyStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-duty-details-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './duty-details-dialog.component.html',
   styleUrl: './duty-details-dialog.component.css'

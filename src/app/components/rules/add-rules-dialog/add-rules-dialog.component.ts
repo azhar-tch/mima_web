@@ -21,6 +21,7 @@ interface RuleData {
 
 @Component({
   selector: 'app-add-rules-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-rules-dialog.component.html',
   styleUrl: './add-rules-dialog.component.css'

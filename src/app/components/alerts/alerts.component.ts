@@ -15,6 +15,7 @@ interface Alert {
 
 @Component({
   selector: 'app-alerts',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './alerts.component.html',
   styleUrl: './alerts.component.css'

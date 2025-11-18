@@ -5,6 +5,7 @@ import { HRGrade } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-grade-details-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './grade-details-dialog.component.html',
   styleUrl: './grade-details-dialog.component.css'

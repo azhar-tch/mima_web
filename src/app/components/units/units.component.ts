@@ -11,6 +11,7 @@ import { UnitsResponse, UnitsRequest, Units } from '../../models/Units';
 
 @Component({
   selector: 'app-units',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

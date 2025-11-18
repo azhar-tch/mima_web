@@ -6,6 +6,7 @@ import { PALEntryExitRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-pal-entry-exits-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-pal-entry-exits-dialog.component.html',
   styleUrl: './add-pal-entry-exits-dialog.component.css'

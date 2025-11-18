@@ -5,6 +5,7 @@ import { EscortMission } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-escort-missions-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-escort-missions-dialog.component.html',
   styleUrl: './delete-escort-missions-dialog.component.css'

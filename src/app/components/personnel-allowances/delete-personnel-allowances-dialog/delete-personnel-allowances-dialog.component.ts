@@ -5,6 +5,7 @@ import { PersonnelAllowance } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-personnel-allowances-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-personnel-allowances-dialog.component.html',
   styleUrl: './delete-personnel-allowances-dialog.component.css'

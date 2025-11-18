@@ -6,6 +6,7 @@ import { Award, AwardRequest } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-edit-award-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-award-dialog.component.html',
   styleUrl: './edit-award-dialog.component.css'

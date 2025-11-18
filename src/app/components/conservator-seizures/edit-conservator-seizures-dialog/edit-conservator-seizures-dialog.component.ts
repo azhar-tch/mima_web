@@ -6,6 +6,7 @@ import { ConservatorSeizure, ConservatorSeizureRequest } from '../../../models/M
 
 @Component({
   selector: 'app-edit-conservator-seizures-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-conservator-seizures-dialog.component.html',
   styleUrl: './edit-conservator-seizures-dialog.component.css'

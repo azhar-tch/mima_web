@@ -5,6 +5,7 @@ import { HRFunction } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-delete-hr-functions-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-hr-functions-confirmation.component.html',
   styleUrl: './delete-hr-functions-confirmation.component.css'

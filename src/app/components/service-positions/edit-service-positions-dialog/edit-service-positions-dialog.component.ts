@@ -6,6 +6,7 @@ import { ServicePosition, ServicePositionRequest } from '../../../models/HRManag
 
 @Component({
   selector: 'app-edit-service-positions-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-service-positions-dialog.component.html',
   styleUrl: './edit-service-positions-dialog.component.css'

@@ -6,6 +6,7 @@ import { AbsenceStatus, AbsenceType } from '../../../models/enums';
 
 @Component({
   selector: 'app-absence-details-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './absence-details-dialog.component.html',
   styleUrl: './absence-details-dialog.component.css'

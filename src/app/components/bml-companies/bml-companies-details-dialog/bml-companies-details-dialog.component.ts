@@ -5,6 +5,7 @@ import { BMLCompany } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-bml-companies-details-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './bml-companies-details-dialog.component.html',
   styleUrl: './bml-companies-details-dialog.component.css'

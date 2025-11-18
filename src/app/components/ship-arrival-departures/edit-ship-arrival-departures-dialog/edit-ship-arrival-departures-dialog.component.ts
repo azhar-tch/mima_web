@@ -6,6 +6,7 @@ import { ShipArrivalDeparture, ShipArrivalDepartureRequest } from '../../../mode
 
 @Component({
   selector: 'app-edit-ship-arrival-departures-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-ship-arrival-departures-dialog.component.html',
   styleUrl: './edit-ship-arrival-departures-dialog.component.css'

@@ -5,6 +5,7 @@ import { ShipArrivalDeparture } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-ship-arrival-departures-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-ship-arrival-departures-dialog.component.html',
   styleUrl: './delete-ship-arrival-departures-dialog.component.css'

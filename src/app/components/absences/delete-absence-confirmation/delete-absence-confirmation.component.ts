@@ -6,6 +6,7 @@ import { AbsenceType } from '../../../models/enums';
 
 @Component({
   selector: 'app-delete-absence-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-absence-confirmation.component.html',
   styleUrl: './delete-absence-confirmation.component.css'

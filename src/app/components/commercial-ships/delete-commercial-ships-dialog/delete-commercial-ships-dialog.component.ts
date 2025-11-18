@@ -5,6 +5,7 @@ import { CommercialShip } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-commercial-ships-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-commercial-ships-dialog.component.html',
   styleUrl: './delete-commercial-ships-dialog.component.css'

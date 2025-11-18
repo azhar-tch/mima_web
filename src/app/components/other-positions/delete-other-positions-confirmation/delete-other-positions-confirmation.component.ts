@@ -5,6 +5,7 @@ import { OtherPosition } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-delete-other-positions-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-other-positions-confirmation.component.html',
   styleUrl: './delete-other-positions-confirmation.component.css'

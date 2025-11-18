@@ -6,6 +6,7 @@ import { ArmedGuardMission, ArmedGuardMissionRequest } from '../../../models/Mar
 
 @Component({
   selector: 'app-edit-armed-guard-missions-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-armed-guard-missions-dialog.component.html',
   styleUrl: './edit-armed-guard-missions-dialog.component.css'

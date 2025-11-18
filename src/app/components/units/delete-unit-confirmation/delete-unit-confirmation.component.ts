@@ -5,6 +5,7 @@ import { UnitsResponse } from '../../../models/Units'; // ✅ Import du bon mode
 
 @Component({
   selector: 'app-delete-unit-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-unit-confirmation.component.html',
   styleUrl: './delete-unit-confirmation.component.css'

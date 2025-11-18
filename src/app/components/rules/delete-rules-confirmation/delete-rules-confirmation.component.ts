@@ -13,6 +13,7 @@ export interface Rule {
 
 @Component({
   selector: 'app-delete-rules-confirmation',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './delete-rules-confirmation.component.html',
   styleUrl: './delete-rules-confirmation.component.css'

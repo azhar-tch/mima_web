@@ -5,6 +5,7 @@ import { ShipIncident } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-ship-incidents-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-ship-incidents-dialog.component.html',
   styleUrl: './delete-ship-incidents-dialog.component.css'

@@ -6,6 +6,7 @@ import { CommercialShip, CommercialShipRequest } from '../../../models/Maritime'
 
 @Component({
   selector: 'app-edit-commercial-ships-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-commercial-ships-dialog.component.html',
   styleUrl: './edit-commercial-ships-dialog.component.css'

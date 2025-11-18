@@ -5,6 +5,7 @@ import { PALEntryExit } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-pal-entry-exits-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-pal-entry-exits-dialog.component.html',
   styleUrl: './delete-pal-entry-exits-dialog.component.css'

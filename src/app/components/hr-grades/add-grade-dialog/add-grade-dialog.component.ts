@@ -6,6 +6,7 @@ import { HRGradeRequest } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-add-grade-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-grade-dialog.component.html',
   styleUrl: './add-grade-dialog.component.css'

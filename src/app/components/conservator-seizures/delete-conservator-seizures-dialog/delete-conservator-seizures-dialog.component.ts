@@ -5,6 +5,7 @@ import { ConservatorSeizure } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-conservator-seizures-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-conservator-seizures-dialog.component.html',
   styleUrl: './delete-conservator-seizures-dialog.component.css'

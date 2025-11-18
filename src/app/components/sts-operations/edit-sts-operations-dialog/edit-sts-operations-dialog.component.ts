@@ -6,6 +6,7 @@ import { STSOperation, STSOperationRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-edit-sts-operations-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-sts-operations-dialog.component.html',
   styleUrl: './edit-sts-operations-dialog.component.css'

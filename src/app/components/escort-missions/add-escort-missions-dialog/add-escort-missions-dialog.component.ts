@@ -7,6 +7,7 @@ import { MissionStatus, EscortType } from '../../../models/enums';
 
 @Component({
   selector: 'app-add-escort-missions-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-escort-missions-dialog.component.html',
   styleUrl: './add-escort-missions-dialog.component.css'

@@ -6,6 +6,7 @@ import { ShipProvisioningRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-ship-provisionings-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-ship-provisionings-dialog.component.html',
   styleUrl: './add-ship-provisionings-dialog.component.css'

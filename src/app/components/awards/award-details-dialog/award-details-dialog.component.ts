@@ -5,6 +5,7 @@ import { Award } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-award-details-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './award-details-dialog.component.html',
   styleUrl: './award-details-dialog.component.css'

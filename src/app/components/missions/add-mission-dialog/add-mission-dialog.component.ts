@@ -8,6 +8,7 @@ import { AgentsService } from '../../../services/agents/agents.service';
 
 @Component({
   selector: 'app-add-mission-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-mission-dialog.component.html',
   styleUrl: './add-mission-dialog.component.css'

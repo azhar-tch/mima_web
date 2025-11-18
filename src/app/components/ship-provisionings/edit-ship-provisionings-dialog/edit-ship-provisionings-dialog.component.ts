@@ -6,6 +6,7 @@ import { ShipProvisioning, ShipProvisioningRequest } from '../../../models/Marit
 
 @Component({
   selector: 'app-edit-ship-provisionings-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-ship-provisionings-dialog.component.html',
   styleUrl: './edit-ship-provisionings-dialog.component.css'

@@ -6,6 +6,7 @@ import { PersonnelAllowance, PersonnelAllowanceRequest } from '../../../models/M
 
 @Component({
   selector: 'app-edit-personnel-allowances-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-personnel-allowances-dialog.component.html',
   styleUrl: './edit-personnel-allowances-dialog.component.css'

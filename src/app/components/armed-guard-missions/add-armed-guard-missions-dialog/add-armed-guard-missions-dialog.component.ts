@@ -7,6 +7,7 @@ import { MissionStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-add-armed-guard-missions-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-armed-guard-missions-dialog.component.html',
   styleUrl: './add-armed-guard-missions-dialog.component.css'

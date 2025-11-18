@@ -5,6 +5,7 @@ import { HRGrade } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-delete-grade-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-grade-confirmation.component.html',
   styleUrl: './delete-grade-confirmation.component.css'

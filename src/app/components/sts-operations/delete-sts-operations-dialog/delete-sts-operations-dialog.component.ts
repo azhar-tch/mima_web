@@ -5,6 +5,7 @@ import { STSOperation } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-sts-operations-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-sts-operations-dialog.component.html',
   styleUrl: './delete-sts-operations-dialog.component.css'

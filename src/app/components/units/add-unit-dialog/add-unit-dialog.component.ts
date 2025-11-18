@@ -10,6 +10,7 @@ import { AgentsResponse } from '../../../models/Agents';
 
 @Component({
   selector: 'app-add-unit-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-unit-dialog.component.html',
   styleUrl: './add-unit-dialog.component.css'

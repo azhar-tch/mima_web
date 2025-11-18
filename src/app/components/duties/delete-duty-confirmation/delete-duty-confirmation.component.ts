@@ -5,6 +5,7 @@ import { DutiesResponse } from '../../../models/Duties';
 
 @Component({
   selector: 'app-delete-duty-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-duty-confirmation.component.html',
   styleUrl: './delete-duty-confirmation.component.css'

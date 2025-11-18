@@ -6,6 +6,7 @@ import { TrainingRequest } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-add-training-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-training-dialog.component.html',
   styleUrl: './add-training-dialog.component.css'

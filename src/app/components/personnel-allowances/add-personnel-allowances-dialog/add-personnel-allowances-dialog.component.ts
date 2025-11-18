@@ -6,6 +6,7 @@ import { PersonnelAllowanceRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-personnel-allowances-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-personnel-allowances-dialog.component.html',
   styleUrl: './add-personnel-allowances-dialog.component.css'

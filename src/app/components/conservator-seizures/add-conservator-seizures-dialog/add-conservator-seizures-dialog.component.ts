@@ -6,6 +6,7 @@ import { ConservatorSeizureRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-conservator-seizures-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-conservator-seizures-dialog.component.html',
   styleUrl: './add-conservator-seizures-dialog.component.css'

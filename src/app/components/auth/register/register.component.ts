@@ -7,6 +7,7 @@ import { ErrorDialogComponent } from '../../shared/error-dialog/error-dialog.com
 
 @Component({
   selector: 'app-register',
+  standalone: true,
   imports: [CommonModule, FormsModule, RouterModule, ErrorDialogComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'

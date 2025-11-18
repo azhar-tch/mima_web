@@ -6,6 +6,7 @@ import { OtherPosition, OtherPositionRequest } from '../../../models/HRManagemen
 
 @Component({
   selector: 'app-edit-other-positions-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-other-positions-dialog.component.html',
   styleUrl: './edit-other-positions-dialog.component.css'

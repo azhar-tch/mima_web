@@ -54,6 +54,7 @@ const SAMPLE_RULES: Rule[] = [
 
 @Component({
   selector: 'app-rules',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

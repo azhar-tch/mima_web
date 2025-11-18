@@ -5,6 +5,7 @@ import { BMLCompany } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-delete-bml-companies-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-bml-companies-confirmation.component.html',
   styleUrl: './delete-bml-companies-confirmation.component.css'

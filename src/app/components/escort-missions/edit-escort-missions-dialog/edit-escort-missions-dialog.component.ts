@@ -6,6 +6,7 @@ import { EscortMission, EscortMissionRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-edit-escort-missions-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-escort-missions-dialog.component.html',
   styleUrl: './edit-escort-missions-dialog.component.css'

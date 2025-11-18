@@ -6,6 +6,7 @@ import { ShipIncidentRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-ship-incidents-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-ship-incidents-dialog.component.html',
   styleUrl: './add-ship-incidents-dialog.component.css'

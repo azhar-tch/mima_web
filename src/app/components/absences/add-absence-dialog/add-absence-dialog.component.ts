@@ -9,6 +9,7 @@ import { AgentsResponse } from '../../../models/Agents';
 
 @Component({
   selector: 'app-add-absence-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-absence-dialog.component.html',
   styleUrl: './add-absence-dialog.component.css'

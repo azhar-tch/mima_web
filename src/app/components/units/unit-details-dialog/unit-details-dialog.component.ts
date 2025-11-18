@@ -8,6 +8,7 @@ import { AgentsResponse } from '../../../models/Agents';
 
 @Component({
   selector: 'app-unit-details-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './unit-details-dialog.component.html',
   styleUrl: './unit-details-dialog.component.css'

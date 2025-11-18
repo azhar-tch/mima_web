@@ -11,6 +11,7 @@ import { UnitsResponse } from '../../../models/Units';
 
 @Component({
   selector: 'app-edit-duty-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-duty-dialog.component.html',
   styleUrl: './edit-duty-dialog.component.css'

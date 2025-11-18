@@ -6,6 +6,7 @@ import { HRFunctionRequest } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-add-hr-functions-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-hr-functions-dialog.component.html',
   styleUrl: './add-hr-functions-dialog.component.css'

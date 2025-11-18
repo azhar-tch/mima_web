@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-absences',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

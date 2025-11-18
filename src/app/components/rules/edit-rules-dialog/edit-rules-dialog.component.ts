@@ -15,6 +15,7 @@ const UNIT_OPTIONS = ['heures', 'jours', '%', '€', 'minutes', 'km'];
 
 @Component({
   selector: 'app-edit-rules-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-rules-dialog.component.html',
   styleUrl: './edit-rules-dialog.component.css'

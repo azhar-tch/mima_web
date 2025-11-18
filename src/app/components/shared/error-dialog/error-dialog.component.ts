@@ -4,6 +4,7 @@ import { LucideAngularModule, X, CircleAlert } from 'lucide-angular';
 
 @Component({
   selector: 'app-error-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './error-dialog.component.html',
   styleUrl: './error-dialog.component.css'

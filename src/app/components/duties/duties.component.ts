@@ -12,6 +12,7 @@ import { DutyStatus, DutyType } from '../../models/enums';
 
 @Component({
   selector: 'app-guards',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

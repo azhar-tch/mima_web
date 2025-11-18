@@ -6,6 +6,7 @@ import { ShipArrivalDepartureRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-ship-arrival-departures-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-ship-arrival-departures-dialog.component.html',
   styleUrl: './add-ship-arrival-departures-dialog.component.css'

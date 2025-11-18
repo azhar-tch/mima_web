@@ -9,6 +9,7 @@ type NotificationType = 'missions' | 'gardes' | 'absences' | 'systeme';
 
 @Component({
   selector: 'app-notifications',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css'

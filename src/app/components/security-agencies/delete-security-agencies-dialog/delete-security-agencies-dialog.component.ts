@@ -5,6 +5,7 @@ import { SecurityAgency } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-security-agencies-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-security-agencies-dialog.component.html',
   styleUrl: './delete-security-agencies-dialog.component.css'

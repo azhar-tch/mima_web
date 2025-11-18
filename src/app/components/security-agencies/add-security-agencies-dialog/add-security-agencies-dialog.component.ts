@@ -6,6 +6,7 @@ import { SecurityAgencyRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-security-agencies-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-security-agencies-dialog.component.html',
   styleUrl: './add-security-agencies-dialog.component.css'

@@ -6,6 +6,7 @@ import { NavalVessel, NavalVesselRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-edit-naval-vessels-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './edit-naval-vessels-dialog.component.html',
   styleUrl: './edit-naval-vessels-dialog.component.css'

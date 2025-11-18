@@ -7,6 +7,7 @@ import { NavalVesselType } from '../../../models/enums';
 
 @Component({
   selector: 'app-add-naval-vessels-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './add-naval-vessels-dialog.component.html',
   styleUrl: './add-naval-vessels-dialog.component.css'

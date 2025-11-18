@@ -12,6 +12,7 @@ import { UnitsResponse } from '../../models/Units';
 
 @Component({
   selector: 'app-agents',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './agents.component.html',
   styleUrls: ['./agents.component.css']

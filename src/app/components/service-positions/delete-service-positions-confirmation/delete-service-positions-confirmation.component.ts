@@ -5,6 +5,7 @@ import { ServicePosition } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-delete-service-positions-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-service-positions-confirmation.component.html',
   styleUrl: './delete-service-positions-confirmation.component.css'

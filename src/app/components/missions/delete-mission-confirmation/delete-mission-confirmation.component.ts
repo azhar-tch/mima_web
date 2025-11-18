@@ -4,6 +4,7 @@ import { LucideAngularModule, X } from 'lucide-angular';
 
 @Component({
   selector: 'app-delete-mission-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-mission-confirmation.component.html',
   styleUrl: './delete-mission-confirmation.component.css'

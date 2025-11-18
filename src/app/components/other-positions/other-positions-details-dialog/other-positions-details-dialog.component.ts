@@ -5,6 +5,7 @@ import { OtherPosition } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-other-positions-details-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './other-positions-details-dialog.component.html',
   styleUrl: './other-positions-details-dialog.component.css'

@@ -8,6 +8,7 @@ import { ActionType } from '../../models/enums';
 
 @Component({
   selector: 'app-histories',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './histories.component.html',
   styleUrl: './histories.component.css'

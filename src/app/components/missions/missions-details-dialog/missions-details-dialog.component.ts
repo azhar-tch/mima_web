@@ -6,6 +6,7 @@ import { MissionStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-missions-details-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './missions-details-dialog.component.html',
   styleUrl: './missions-details-dialog.component.css'

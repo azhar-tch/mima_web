@@ -5,6 +5,7 @@ import { ArmedGuardMission } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-armed-guard-missions-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './delete-armed-guard-missions-dialog.component.html',
   styleUrl: './delete-armed-guard-missions-dialog.component.css'
