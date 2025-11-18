@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Edit, Trash2, Eye, X } from 'lucide-angular';
 import { AgentsResponse, AgentsRequest } from '../models/Agents';
 import { ApiResponse } from '../models/api-response';
-import { MarinerStatus } from '../models/enums';
+import { MarinerStatus, MaritimeRank, MaritimeSpecialty } from '../models/enums';
 import { AgentsService } from '../services/agents/agents.service';
 import { UnitsService } from '../services/units/units.service';
 import { UnitsResponse } from '../models/Units';
@@ -26,7 +26,44 @@ export class AgentsComponent implements OnInit {
 
   agents: AgentsResponse[] = [];
   units: { name: string; trackingId: string }[] = []; // liste de tes unités
-  ranks: string[] = ['Capitaine', 'Lieutenant', 'Sergent', 'Matelot'];
+
+  maritimeRanks = [
+    { value: MaritimeRank.CAPITAINE, label: 'Capitaine' },
+    { value: MaritimeRank.COMMANDANT, label: 'Commandant' },
+    { value: MaritimeRank.LIEUTENANT, label: 'Lieutenant' },
+    { value: MaritimeRank.ENSEIGNE, label: 'Enseigne' },
+    { value: MaritimeRank.MAITRE_PRINCIPAL, label: 'Maître Principal' },
+    { value: MaritimeRank.PREMIER_MAITRE, label: 'Premier Maître' },
+    { value: MaritimeRank.MAITRE, label: 'Maître' },
+    { value: MaritimeRank.SECOND_MAITRE, label: 'Second Maître' },
+    { value: MaritimeRank.QUARTIER_MAITRE_1ERE_CLASSE, label: 'Quartier Maître 1ère Classe' },
+    { value: MaritimeRank.QUARTIER_MAITRE_2EME_CLASSE, label: 'Quartier Maître 2ème Classe' },
+    { value: MaritimeRank.MATELOT_BREVETE, label: 'Matelot Breveté' },
+    { value: MaritimeRank.MATELOT, label: 'Matelot' }
+  ];
+
+  specialties = [
+    { value: MaritimeSpecialty.NAVIGATION, label: 'Navigation' },
+    { value: MaritimeSpecialty.MECANIQUE, label: 'Mécanique' },
+    { value: MaritimeSpecialty.COMMUNICATION, label: 'Communication' },
+    { value: MaritimeSpecialty.ARMEMENT, label: 'Armement' },
+    { value: MaritimeSpecialty.ELECTRONIQUE, label: 'Électronique' },
+    { value: MaritimeSpecialty.SECURITE, label: 'Sécurité' },
+    { value: MaritimeSpecialty.PLONGEE, label: 'Plongée' },
+    { value: MaritimeSpecialty.AVIATION, label: 'Aviation' },
+    { value: MaritimeSpecialty.SANTE, label: 'Santé' },
+    { value: MaritimeSpecialty.CUISINE, label: 'Cuisine' },
+    { value: MaritimeSpecialty.ADMINISTRATION, label: 'Administration' },
+    { value: MaritimeSpecialty.LOGISTIQUE, label: 'Logistique' },
+    { value: MaritimeSpecialty.ENERGIE, label: 'Énergie' },
+    { value: MaritimeSpecialty.DETECTION, label: 'Détection' }
+  ];
+
+  sexOptions = [
+    { value: 'M', label: 'Masculin' },
+    { value: 'F', label: 'Féminin' }
+  ];
+
   statuses = [
     { value: MarinerStatus.DISPONIBLE, label: 'Disponible' },
     { value: MarinerStatus.EN_MER, label: 'En mer' },
@@ -39,7 +76,7 @@ export class AgentsComponent implements OnInit {
   searchTerm = '';
   filterUnit = '';
   filterStatus = '';
-  filterRank = '';
+  filterMaritimeRank = '';
 
   showAddModal = false;
   showEditModal = false;
@@ -51,7 +88,9 @@ export class AgentsComponent implements OnInit {
     registrationNo: '',
     firstName: '',
     lastName: '',
-    rank: '',
+    maritimeRank: undefined,
+    specialty: undefined,
+    sex: '',
     unitTrackingId: '',
     availability: true,
     status: MarinerStatus.DISPONIBLE
@@ -92,8 +131,8 @@ export class AgentsComponent implements OnInit {
         agent.registrationNo.toLowerCase().includes(this.searchTerm.toLowerCase());
       const matchesUnit = !this.filterUnit || agent.unitTrackingId === this.filterUnit;
       const matchesStatus = !this.filterStatus || agent.status === this.filterStatus;
-      const matchesRank = !this.filterRank || agent.rank === this.filterRank;
-      return matchesSearch && matchesUnit && matchesStatus && matchesRank;
+      const matchesMaritimeRank = !this.filterMaritimeRank || agent.maritimeRank === this.filterMaritimeRank;
+      return matchesSearch && matchesUnit && matchesStatus && matchesMaritimeRank;
     });
   }
 
@@ -102,7 +141,9 @@ export class AgentsComponent implements OnInit {
       registrationNo: '',
       firstName: '',
       lastName: '',
-      rank: '',
+      maritimeRank: undefined,
+      specialty: undefined,
+      sex: '',
       unitTrackingId: '', // obligatoire
       availability: true,
       status: MarinerStatus.DISPONIBLE,
@@ -137,7 +178,9 @@ export class AgentsComponent implements OnInit {
       registrationNo: agent.registrationNo,
       firstName: agent.firstName || '',
       lastName: agent.lastName || '',
-      rank: agent.rank,
+      maritimeRank: agent.maritimeRank,
+      specialty: agent.specialty,
+      sex: agent.sex || '',
       unitTrackingId: unitTrackingId,
       availability: agent.availability,
       status: agent.status,
@@ -176,9 +219,21 @@ export class AgentsComponent implements OnInit {
       return;
     }
 
-    if (!this.agentForm.rank?.trim()) {
-      console.error('❌ Le grade est requis');
-      alert('Le grade est requis');
+    if (!this.agentForm.maritimeRank) {
+      console.error('❌ Le grade maritime est requis');
+      alert('Le grade maritime est requis');
+      return;
+    }
+
+    if (!this.agentForm.specialty) {
+      console.error('❌ La spécialité est requise');
+      alert('La spécialité est requise');
+      return;
+    }
+
+    if (!this.agentForm.sex?.trim()) {
+      console.error('❌ Le sexe est requis');
+      alert('Le sexe est requis');
       return;
     }
 
@@ -193,7 +248,9 @@ export class AgentsComponent implements OnInit {
       registrationNo: this.agentForm.registrationNo,
       firstName: this.agentForm.firstName,
       lastName: this.agentForm.lastName,
-      rank: this.agentForm.rank,
+      maritimeRank: this.agentForm.maritimeRank,
+      specialty: this.agentForm.specialty,
+      sex: this.agentForm.sex,
       unitTrackingId: this.agentForm.unitTrackingId,
       availability: this.agentForm.availability,
       status: this.agentForm.status,
@@ -242,8 +299,16 @@ export class AgentsComponent implements OnInit {
       alert('Le nom est requis');
       return;
     }
-    if (!this.agentForm.rank?.trim()) {
-      alert('Le grade est requis');
+    if (!this.agentForm.maritimeRank) {
+      alert('Le grade maritime est requis');
+      return;
+    }
+    if (!this.agentForm.specialty) {
+      alert('La spécialité est requise');
+      return;
+    }
+    if (!this.agentForm.sex?.trim()) {
+      alert('Le sexe est requis');
       return;
     }
     if (!this.agentForm.unitTrackingId || this.agentForm.unitTrackingId === '') {
@@ -300,7 +365,7 @@ export class AgentsComponent implements OnInit {
   this.searchTerm = '';
   this.filterUnit = '';
   this.filterStatus = '';
-  this.filterRank = '';
+  this.filterMaritimeRank = '';
 }
 
   getStatusLabel(status: MarinerStatus) {
@@ -327,6 +392,16 @@ getStatusColor(status: MarinerStatus) {
     case MarinerStatus.INDISPONIBLE: return 'bg-orange-100 text-orange-600';
     default: return '';
   }
+}
+
+getRankLabel(rank: MaritimeRank): string {
+  const found = this.maritimeRanks.find(r => r.value === rank);
+  return found ? found.label : rank || '';
+}
+
+getSpecialtyLabel(specialty: MaritimeSpecialty): string {
+  const found = this.specialties.find(s => s.value === specialty);
+  return found ? found.label : specialty || '';
 }
 
 }
