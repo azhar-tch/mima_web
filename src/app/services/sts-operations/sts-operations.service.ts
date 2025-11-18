@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { STSOperation, STSOperationRequest } from '../../models/Maritime';
@@ -54,10 +54,7 @@ export class STSOperationsService {
   }
 
   listByPeriod(startDate: string, endDate: string): Observable<ApiResponse<STSOperation[]>> {
-    const params = new HttpParams()
-      .set('startDate', startDate)
-      .set('endDate', endDate);
-    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/period`, { params });
+    return this.http.get<ApiResponse<STSOperation[]>>(`${this.baseUrl}/list/period/${startDate}/${endDate}`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

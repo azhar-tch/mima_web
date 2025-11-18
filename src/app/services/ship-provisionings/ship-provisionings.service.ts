@@ -9,7 +9,7 @@ import { ApiResponse } from '../../models/api-response';
   providedIn: 'root'
 })
 export class ShipProvisioningsService {
-  private baseUrl = `${environment.apiUrl}/ship-provisionings`;
+  private baseUrl = `${environment.apiUrl}/ship-provisioning`;
 
   constructor(private http: HttpClient) {}
 
@@ -30,11 +30,27 @@ export class ShipProvisioningsService {
   }
 
   listByShip(commercialShipTrackingId: string): Observable<ApiResponse<ShipProvisioning[]>> {
-    return this.http.get<ApiResponse<ShipProvisioning[]>>(`${this.baseUrl}/list/ship/${commercialShipTrackingId}`);
+    return this.http.get<ApiResponse<ShipProvisioning[]>>(`${this.baseUrl}/list/commercial-ship/${commercialShipTrackingId}`);
   }
 
-  listWithDelays(): Observable<ApiResponse<ShipProvisioning[]>> {
-    return this.http.get<ApiResponse<ShipProvisioning[]>>(`${this.baseUrl}/list/delays`);
+  listByPeriod(startDate: string, endDate: string): Observable<ApiResponse<ShipProvisioning[]>> {
+    return this.http.get<ApiResponse<ShipProvisioning[]>>(`${this.baseUrl}/list/period/${startDate}/${endDate}`);
+  }
+
+  listByProvisioningType(provisioningType: string): Observable<ApiResponse<ShipProvisioning[]>> {
+    return this.http.get<ApiResponse<ShipProvisioning[]>>(`${this.baseUrl}/list/type/${provisioningType}`);
+  }
+
+  listBySupplier(supplierName: string): Observable<ApiResponse<ShipProvisioning[]>> {
+    return this.http.get<ApiResponse<ShipProvisioning[]>>(`${this.baseUrl}/list/supplier/${supplierName}`);
+  }
+
+  listWithDelay(): Observable<ApiResponse<ShipProvisioning[]>> {
+    return this.http.get<ApiResponse<ShipProvisioning[]>>(`${this.baseUrl}/list/with-delay`);
+  }
+
+  listByProductType(productType: string): Observable<ApiResponse<ShipProvisioning[]>> {
+    return this.http.get<ApiResponse<ShipProvisioning[]>>(`${this.baseUrl}/list/product-type/${productType}`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {

@@ -9,7 +9,7 @@ import { ApiResponse } from '../../models/api-response';
   providedIn: 'root'
 })
 export class ShipArrivalDeparturesService {
-  private baseUrl = `${environment.apiUrl}/ship-arrival-departures`;
+  private baseUrl = `${environment.apiUrl}/ship-arrivals-departures`;
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +30,27 @@ export class ShipArrivalDeparturesService {
   }
 
   listByShip(commercialShipTrackingId: string): Observable<ApiResponse<ShipArrivalDeparture[]>> {
-    return this.http.get<ApiResponse<ShipArrivalDeparture[]>>(`${this.baseUrl}/list/ship/${commercialShipTrackingId}`);
+    return this.http.get<ApiResponse<ShipArrivalDeparture[]>>(`${this.baseUrl}/list/commercial-ship/${commercialShipTrackingId}`);
+  }
+
+  listCurrentlyInPort(): Observable<ApiResponse<ShipArrivalDeparture[]>> {
+    return this.http.get<ApiResponse<ShipArrivalDeparture[]>>(`${this.baseUrl}/list/currently-in-port`);
+  }
+
+  listByArrivalPeriod(startDate: string, endDate: string): Observable<ApiResponse<ShipArrivalDeparture[]>> {
+    return this.http.get<ApiResponse<ShipArrivalDeparture[]>>(`${this.baseUrl}/list/arrivals/${startDate}/${endDate}`);
+  }
+
+  listByDeparturePeriod(startDate: string, endDate: string): Observable<ApiResponse<ShipArrivalDeparture[]>> {
+    return this.http.get<ApiResponse<ShipArrivalDeparture[]>>(`${this.baseUrl}/list/departures/${startDate}/${endDate}`);
+  }
+
+  listByPortOfOrigin(portOfOrigin: string): Observable<ApiResponse<ShipArrivalDeparture[]>> {
+    return this.http.get<ApiResponse<ShipArrivalDeparture[]>>(`${this.baseUrl}/list/port-of-origin/${portOfOrigin}`);
+  }
+
+  listByNextDestination(nextDestination: string): Observable<ApiResponse<ShipArrivalDeparture[]>> {
+    return this.http.get<ApiResponse<ShipArrivalDeparture[]>>(`${this.baseUrl}/list/next-destination/${nextDestination}`);
   }
 
   delete(trackingId: string): Observable<ApiResponse<null>> {
