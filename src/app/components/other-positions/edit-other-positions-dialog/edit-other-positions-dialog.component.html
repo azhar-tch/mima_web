@@ -9,7 +9,7 @@
       <div class="flex items-center justify-between">
         <div>
           <h2 class="text-xl font-semibold text-gray-900">Modifier un autre poste</h2>
-          <p class="text-sm text-gray-500 mt-1">Modifiez les informations du grade</p>
+          <p class="text-sm text-gray-500 mt-1">Modifiez les informations de l'autre poste</p>
         </div>
         <button
           (click)="handleClose()"
@@ -21,30 +21,27 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- Grade Name -->
+      <!-- Position Name -->
       <div class="grid gap-2">
-        <label for="gradeName" class="text-sm font-medium text-gray-700">Nom du grade *</label>
+        <label for="positionName" class="text-sm font-medium text-gray-700">Nom du poste *</label>
         <input
-          id="gradeName"
+          id="positionName"
           type="text"
-          placeholder="Ex: Lieutenant, Capitaine, Commandant..."
-          [(ngModel)]="formData.gradeName"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['gradeName'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['gradeName']" class="text-red-500 text-sm">{{ errors['gradeName'] }}</p>
+          placeholder="Ex: Conseiller juridique, Analyste financier..."
+          [(ngModel)]="formData.positionName"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['positionName'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['positionName']" class="text-red-500 text-sm">{{ errors['positionName'] }}</p>
       </div>
 
-      <!-- Hierarchy Level -->
+      <!-- Position Type -->
       <div class="grid gap-2">
-        <label for="hierarchyLevel" class="text-sm font-medium text-gray-700">Niveau hiérarchique</label>
+        <label for="positionType" class="text-sm font-medium text-gray-700">Type de poste</label>
         <input
-          id="hierarchyLevel"
-          type="number"
-          min="0"
-          placeholder="Ex: 1, 2, 3..."
-          [(ngModel)]="formData.hierarchyLevel"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['hierarchyLevel'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['hierarchyLevel']" class="text-red-500 text-sm">{{ errors['hierarchyLevel'] }}</p>
-        <p class="text-xs text-gray-500">Plus le nombre est élevé, plus le grade est important</p>
+          id="positionType"
+          type="text"
+          placeholder="Ex: Administratif, Technique, Support..."
+          [(ngModel)]="formData.positionType"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
       </div>
 
       <!-- Description -->
@@ -52,7 +49,7 @@
         <label for="description" class="text-sm font-medium text-gray-700">Description</label>
         <textarea
           id="description"
-          placeholder="Décrivez ce grade (optionnel)"
+          placeholder="Décrivez cet autre poste (optionnel)"
           [(ngModel)]="formData.description"
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="3"

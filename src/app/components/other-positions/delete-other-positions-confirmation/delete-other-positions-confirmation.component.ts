@@ -14,7 +14,7 @@ export class DeleteOtherPositionConfirmationComponent {
   readonly X = X;
   readonly AlertTriangle = AlertTriangle;
 
-  @Input() other-positions: OtherPosition | null = null;
+  @Input() otherPosition: OtherPosition | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<void>();
 

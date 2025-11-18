@@ -24,26 +24,26 @@
     </div>
 
     <!-- Content -->
-    <div class="space-y-4" *ngIf="other-positions">
+    <div class="space-y-4" *ngIf="otherPosition">
       <p class="text-gray-600">
-        Êtes-vous sûr de vouloir supprimer le other-positions <strong class="text-gray-900">{{ other-positions.other-positionsName }}</strong> ?
+        Êtes-vous sûr de vouloir supprimer l'autre poste <strong class="text-gray-900">{{ otherPosition.positionName }}</strong> ?
       </p>
 
       <div class="bg-red-50 border border-red-200 rounded-md p-3">
         <p class="text-sm text-red-800">
-          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à ce other-positions seront définitivement supprimées.
+          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à cet autre poste seront définitivement supprimées.
         </p>
       </div>
 
-      <!-- Grade Info -->
+      <!-- Other Position Info -->
       <div class="bg-gray-50 rounded-md p-3 space-y-2">
         <div>
-          <p class="text-xs text-gray-500">Nom du other-positions</p>
-          <p class="text-sm font-medium text-gray-900">{{ other-positions.other-positionsName }}</p>
+          <p class="text-xs text-gray-500">Nom du poste</p>
+          <p class="text-sm font-medium text-gray-900">{{ otherPosition.positionName }}</p>
         </div>
-        <div *ngIf="other-positions.hierarchyLevel !== undefined && other-positions.hierarchyLevel !== null">
-          <p class="text-xs text-gray-500">Niveau hiérarchique</p>
-          <p class="text-sm text-gray-900">{{ other-positions.hierarchyLevel }}</p>
+        <div *ngIf="otherPosition.positionType">
+          <p class="text-xs text-gray-500">Type de poste</p>
+          <p class="text-sm text-gray-900">{{ otherPosition.positionType }}</p>
         </div>
       </div>
     </div>

@@ -14,24 +14,24 @@ import { OtherPosition, OtherPositionRequest } from '../../../models/HRManagemen
 export class EditOtherPositionDialogComponent implements OnChanges {
   readonly X = X;
 
-  @Input() other-positions: OtherPosition | null = null;
+  @Input() otherPosition: OtherPosition | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<OtherPositionRequest>();
 
   formData: OtherPositionRequest = {
     positionName: '',
-    description: '',
-    hierarchyLevel: undefined
+    positionType: '',
+    description: ''
   };
 
   errors: Record<string, string> = {};
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['other-positions'] && this.other-positions) {
+    if (changes['otherPosition'] && this.otherPosition) {
       this.formData = {
-        positionName: this.other-positions.positionName || '',
-        description: this.other-positions.description || '',
-        hierarchyLevel: this.other-positions.hierarchyLevel
+        positionName: this.otherPosition.positionName || '',
+        positionType: this.otherPosition.positionType || '',
+        description: this.otherPosition.description || ''
       };
     }
   }
@@ -40,8 +40,8 @@ export class EditOtherPositionDialogComponent implements OnChanges {
     this.close.emit();
     this.formData = {
       positionName: '',
-      description: '',
-      hierarchyLevel: undefined
+      positionType: '',
+      description: ''
     };
     this.errors = {};
   }
@@ -49,10 +49,7 @@ export class EditOtherPositionDialogComponent implements OnChanges {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.positionName || !this.formData.positionName.trim()) {
-      newErrors['positionName'] = 'Le nom du other-positions est requis';
-    }
-    if (this.formData.hierarchyLevel !== undefined && this.formData.hierarchyLevel < 0) {
-      newErrors['hierarchyLevel'] = 'Le niveau hiérarchique doit être positif';
+      newErrors['positionName'] = 'Le nom de l\'autre position est requis';
     }
 
     this.errors = newErrors;
