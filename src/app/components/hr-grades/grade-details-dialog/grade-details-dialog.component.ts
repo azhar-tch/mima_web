@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { HRGrade } from '../../models/HRManagement';
+import { HRGrade } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-grade-details-dialog',

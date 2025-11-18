@@ -2,11 +2,11 @@ import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnIni
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X, MapPin } from 'lucide-angular';
-import { MissionsRequest, MissionsResponse } from '../../models/Missions';
-import { MissionsService } from '../../services/missions/missions.service';
-import { UnitsService } from '../../services/units/units.service';
-import { AgentsService } from '../../services/agents/agents.service';
-import { MissionStatus } from '../../models/enums';
+import { MissionsRequest, MissionsResponse } from '../../../models/Missions';
+import { MissionsService } from '../../../services/missions/missions.service';
+import { UnitsService } from '../../../services/units/units.service';
+import { AgentsService } from '../../../services/agents/agents.service';
+import { MissionStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-edit-mission-dialog',

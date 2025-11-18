@@ -2,11 +2,11 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { UnitStatus, UnitType } from '../../models/enums';
-import { UnitsService } from '../../services/units/units.service';
-import { AgentsService } from '../../services/agents/agents.service';
-import { UnitsRequest, UnitsResponse } from '../../models/Units';
-import { AgentsResponse } from '../../models/Agents';
+import { UnitStatus, UnitType } from '../../../models/enums';
+import { UnitsService } from '../../../services/units/units.service';
+import { AgentsService } from '../../../services/agents/agents.service';
+import { UnitsRequest, UnitsResponse } from '../../../models/Units';
+import { AgentsResponse } from '../../../models/Agents';
 
 @Component({
   selector: 'app-add-unit-dialog',

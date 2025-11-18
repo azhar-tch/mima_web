@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { CommercialShipRequest } from '../../models/Maritime';
+import { CommercialShipRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-commercial-ships-dialog',

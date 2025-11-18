@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { PALEntryExit, PALEntryExitRequest } from '../../models/Maritime';
+import { PALEntryExit, PALEntryExitRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-edit-pal-entry-exits-dialog',

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { Award } from '../../models/HRManagement';
+import { Award } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-award-details-dialog',

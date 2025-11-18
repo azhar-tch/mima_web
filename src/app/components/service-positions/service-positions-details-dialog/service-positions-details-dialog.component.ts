@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { ServicePosition } from '../../models/HRManagement';
+import { ServicePosition } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-service-positions-details-dialog',

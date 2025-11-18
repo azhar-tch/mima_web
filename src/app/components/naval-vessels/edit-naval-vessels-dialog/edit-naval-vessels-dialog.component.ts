@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { NavalVessel, NavalVesselRequest } from '../../models/Maritime';
+import { NavalVessel, NavalVesselRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-edit-naval-vessels-dialog',

@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { ServicePosition, ServicePositionRequest } from '../../models/HRManagement';
+import { ServicePosition, ServicePositionRequest } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-edit-service-positions-dialog',

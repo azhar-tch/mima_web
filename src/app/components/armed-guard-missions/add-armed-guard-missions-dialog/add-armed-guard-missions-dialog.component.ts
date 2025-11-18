@@ -2,8 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { ArmedGuardMissionRequest } from '../../models/Maritime';
-import { MissionStatus } from '../../models/enums';
+import { ArmedGuardMissionRequest } from '../../../models/Maritime';
+import { MissionStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-add-armed-guard-missions-dialog',

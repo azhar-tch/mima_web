@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X, MapPin, Calendar } from 'lucide-angular';
-import { MissionsResponse } from '../../models/Missions';
-import { MissionStatus } from '../../models/enums';
+import { MissionsResponse } from '../../../models/Missions';
+import { MissionStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-missions-details-dialog',

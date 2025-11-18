@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { ArmedGuardMission, ArmedGuardMissionRequest } from '../../models/Maritime';
+import { ArmedGuardMission, ArmedGuardMissionRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-edit-armed-guard-missions-dialog',

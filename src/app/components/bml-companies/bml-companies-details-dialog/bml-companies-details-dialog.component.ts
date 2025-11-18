@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { BMLCompany } from '../../models/HRManagement';
+import { BMLCompany } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-bml-companies-details-dialog',

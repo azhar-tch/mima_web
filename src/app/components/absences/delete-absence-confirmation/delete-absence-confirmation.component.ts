@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { AbsencesResponse } from '../../models/Absences';
-import { AbsenceType } from '../../models/enums';
+import { AbsencesResponse } from '../../../models/Absences';
+import { AbsenceType } from '../../../models/enums';
 
 @Component({
   selector: 'app-delete-absence-confirmation',

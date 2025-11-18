@@ -2,9 +2,9 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X, MapPin } from 'lucide-angular';
-import { MissionsRequest } from '../../models/Missions';
-import { UnitsService } from '../../services/units/units.service';
-import { AgentsService } from '../../services/agents/agents.service';
+import { MissionsRequest } from '../../../models/Missions';
+import { UnitsService } from '../../../services/units/units.service';
+import { AgentsService } from '../../../services/agents/agents.service';
 
 @Component({
   selector: 'app-add-mission-dialog',

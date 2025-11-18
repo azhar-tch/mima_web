@@ -2,8 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { NavalVesselRequest } from '../../models/Maritime';
-import { NavalVesselType } from '../../models/enums';
+import { NavalVesselRequest } from '../../../models/Maritime';
+import { NavalVesselType } from '../../../models/enums';
 
 @Component({
   selector: 'app-add-naval-vessels-dialog',

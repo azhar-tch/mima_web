@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { PersonnelAllowanceRequest } from '../../models/Maritime';
+import { PersonnelAllowanceRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-personnel-allowances-dialog',

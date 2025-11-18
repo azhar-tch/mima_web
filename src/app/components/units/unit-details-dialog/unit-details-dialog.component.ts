@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X, Users } from 'lucide-angular';
-import { UnitStatus } from '../../models/enums';
-import { UnitsResponse } from '../../models/Units';
-import { AgentsService } from '../../services/agents/agents.service';
-import { AgentsResponse } from '../../models/Agents';
+import { UnitStatus } from '../../../models/enums';
+import { UnitsResponse } from '../../../models/Units';
+import { AgentsService } from '../../../services/agents/agents.service';
+import { AgentsResponse } from '../../../models/Agents';
 
 @Component({
   selector: 'app-unit-details-dialog',

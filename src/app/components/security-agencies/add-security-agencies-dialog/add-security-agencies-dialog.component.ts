@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { SecurityAgencyRequest } from '../../models/Maritime';
+import { SecurityAgencyRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-add-security-agencies-dialog',

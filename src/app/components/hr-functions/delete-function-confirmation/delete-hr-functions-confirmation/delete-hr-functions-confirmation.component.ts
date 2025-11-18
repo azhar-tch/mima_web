@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X, AlertTriangle } from 'lucide-angular';
-import { HRFunction } from '../../models/HRManagement';
+import { HRFunction } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-delete-hr-functions-confirmation',

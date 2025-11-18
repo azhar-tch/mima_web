@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { ShipArrivalDeparture, ShipArrivalDepartureRequest } from '../../models/Maritime';
+import { ShipArrivalDeparture, ShipArrivalDepartureRequest } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-edit-ship-arrival-departures-dialog',

@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { BMLCompany, BMLCompanyRequest } from '../../models/HRManagement';
+import { BMLCompany, BMLCompanyRequest } from '../../../models/HRManagement';
 
 @Component({
   selector: 'app-edit-bml-companies-dialog',

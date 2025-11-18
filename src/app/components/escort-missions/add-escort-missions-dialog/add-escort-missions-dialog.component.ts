@@ -2,8 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { EscortMissionRequest } from '../../models/Maritime';
-import { MissionStatus, EscortType } from '../../models/enums';
+import { EscortMissionRequest } from '../../../models/Maritime';
+import { MissionStatus, EscortType } from '../../../models/enums';
 
 @Component({
   selector: 'app-add-escort-missions-dialog',

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { UnitsResponse } from '../../models/Units'; // ✅ Import du bon model
+import { UnitsResponse } from '../../../models/Units'; // ✅ Import du bon model
 
 @Component({
   selector: 'app-delete-unit-confirmation',

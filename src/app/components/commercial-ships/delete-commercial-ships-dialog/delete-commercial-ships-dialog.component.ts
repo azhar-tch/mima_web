@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, AlertTriangle, X } from 'lucide-angular';
-import { CommercialShip } from '../../models/Maritime';
+import { CommercialShip } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-commercial-ships-dialog',

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, AlertTriangle, X } from 'lucide-angular';
-import { EscortMission } from '../../models/Maritime';
+import { EscortMission } from '../../../models/Maritime';
 
 @Component({
   selector: 'app-delete-escort-missions-dialog',

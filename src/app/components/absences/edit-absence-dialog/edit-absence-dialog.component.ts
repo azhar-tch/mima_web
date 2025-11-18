@@ -2,10 +2,10 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { AbsencesResponse, AbsencesRequest } from '../../models/Absences';
-import { AbsenceType } from '../../models/enums';
-import { AgentsService } from '../../services/agents/agents.service';
-import { AgentsResponse } from '../../models/Agents';
+import { AbsencesResponse, AbsencesRequest } from '../../../models/Absences';
+import { AbsenceType } from '../../../models/enums';
+import { AgentsService } from '../../../services/agents/agents.service';
+import { AgentsResponse } from '../../../models/Agents';
 
 @Component({
   selector: 'app-edit-absence-dialog',
