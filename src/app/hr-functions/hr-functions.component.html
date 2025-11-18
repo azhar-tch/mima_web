@@ -6,7 +6,7 @@
       <p class="text-sm text-gray-500 mt-1">Gérez les fonctions rh</p>
     </div>
     <button
-      (click)="openDialog()"
+      (click)="openAddDialog()"
       class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
       <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
       <span>Ajouter fonctions rh</span>
@@ -62,19 +62,19 @@
             <td class="px-6 py-4 whitespace-nowrap text-right">
               <div class="flex items-center justify-end gap-2">
                 <button
-                  (click)="openDialog(hr)"
+                  (click)="openDetailsDialog(hr)"
                   class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                   title="Voir les détails">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openDialog(hr)"
+                  (click)="openEditDialog(hr)"
                   class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                   title="Modifier">
                   <lucide-icon [img]="Edit" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openDialog(hr)"
+                  (click)="openDeleteDialog(hr)"
                   class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   title="Supprimer">
                   <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
@@ -89,28 +89,28 @@
 </div>
 
 <!-- Dialogs -->
-<app-add-hr-dialog
-  *ngIf="openDialog"
-  (close)="openDialog = false"
+<app-add-function-dialog
+  *ngIf="showAddDialog"
+  (close)="showAddDialog = false"
   (add)="handleAdd($event)">
-</app-add-hr-dialog>
+</app-add-function-dialog>
 
-<app-edit-hr-dialog
-  *ngIf="openDialog"
+<app-edit-function-dialog
+  *ngIf="showEditDialog"
   [hr]="selected"
-  (close)="openDialog = false"
+  (close)="showEditDialog = false"
   (save)="handleEdit($event)">
-</app-edit-hr-dialog>
+</app-edit-function-dialog>
 
-<app-hr-details-dialog
-  *ngIf="openDialog"
+<app-function-details-dialog
+  *ngIf="showDetailsDialog"
   [hr]="selected"
-  (close)="openDialog = false">
-</app-hr-details-dialog>
+  (close)="showDetailsDialog = false">
+</app-function-details-dialog>
 
-<app-delete-hr-confirmation
-  *ngIf="openDialog"
+<app-delete-function-confirmation
+  *ngIf="showDeleteDialog"
   [hr]="selected"
-  (close)="openDialog = false"
+  (close)="showDeleteDialog = false"
   (confirm)="handleDelete()">
-</app-delete-hr-confirmation>
+</app-delete-function-confirmation>

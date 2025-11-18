@@ -4,12 +4,13 @@ import { LucideAngularModule, X } from 'lucide-angular';
 import { HRFunction } from '../../models/HRManagement';
 
 @Component({
-  selector: 'app-hr-functions-details-dialog',
+  selector: 'app-function-details-dialog',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
-  templateUrl: './hr-functions-details-dialog.component.html',
-  styleUrl: './hr-functions-details-dialog.component.css'
+  templateUrl: './hr-functions-details-dialog/hr-functions-details-dialog.component.html',
+  styleUrl: './hr-functions-details-dialog/hr-functions-details-dialog.component.css'
 })
-export class HrFunctionDetailsDialogComponent {
+export class FunctionDetailsDialogComponent {
   readonly X = X;
 
   @Input() hr: HRFunction | null = null;

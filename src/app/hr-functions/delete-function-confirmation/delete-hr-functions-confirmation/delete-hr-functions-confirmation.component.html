@@ -24,26 +24,26 @@
     </div>
 
     <!-- Content -->
-    <div class="space-y-4" *ngIf="hr-functions">
+    <div class="space-y-4" *ngIf="hr">
       <p class="text-gray-600">
-        Êtes-vous sûr de vouloir supprimer le hr-functions <strong class="text-gray-900">{{ hr-functions.hr-functionsName }}</strong> ?
+        Êtes-vous sûr de vouloir supprimer la fonction <strong class="text-gray-900">{{ hr.functionName }}</strong> ?
       </p>
 
       <div class="bg-red-50 border border-red-200 rounded-md p-3">
         <p class="text-sm text-red-800">
-          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à ce hr-functions seront définitivement supprimées.
+          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à cette fonction seront définitivement supprimées.
         </p>
       </div>
 
       <!-- Grade Info -->
       <div class="bg-gray-50 rounded-md p-3 space-y-2">
         <div>
-          <p class="text-xs text-gray-500">Nom du hr-functions</p>
-          <p class="text-sm font-medium text-gray-900">{{ hr-functions.hr-functionsName }}</p>
+          <p class="text-xs text-gray-500">Nom de la fonction</p>
+          <p class="text-sm font-medium text-gray-900">{{ hr.functionName }}</p>
         </div>
-        <div *ngIf="hr-functions.hierarchyLevel !== undefined && hr-functions.hierarchyLevel !== null">
+        <div *ngIf="hr.hierarchyLevel !== undefined && hr.hierarchyLevel !== null">
           <p class="text-xs text-gray-500">Niveau hiérarchique</p>
-          <p class="text-sm text-gray-900">{{ hr-functions.hierarchyLevel }}</p>
+          <p class="text-sm text-gray-900">{{ hr.hierarchyLevel }}</p>
         </div>
       </div>
     </div>

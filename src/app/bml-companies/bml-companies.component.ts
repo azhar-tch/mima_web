@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
-import { BmlCompaniesService } from '../services/bml-companies/bml-companies.service';
+import { BMLCompaniesService } from '../services/bml-companies/bml-companies.service';
 import { BMLCompany, BMLCompanyRequest } from '../models/HRManagement';
-import { AddBmlCompanyDialogComponent } from './add-bml-dialog/add-bml-dialog.component';
-import { EditBmlCompanyDialogComponent } from './edit-bml-dialog/edit-bml-dialog.component';
-import { BmlCompanyDetailsDialogComponent } from './bml-details-dialog/bml-details-dialog.component';
-import { DeleteBmlCompanyConfirmationComponent } from './delete-bml-confirmation/delete-bml-confirmation.component';
+import { AddBmlCompanyDialogComponent } from './add-bml-companies-dialog/add-bml-companies-dialog.component';
+import { EditBmlCompanyDialogComponent } from './edit-bml-companies-dialog/edit-bml-companies-dialog.component';
+import { BmlCompanyDetailsDialogComponent } from './bml-companies-details-dialog/bml-companies-details-dialog.component';
+import { DeleteBmlCompanyConfirmationComponent } from './delete-bml-companies-confirmation/delete-bml-companies-confirmation.component';
 
 @Component({
   selector: 'app-bml-companies',
@@ -36,13 +36,13 @@ export class BmlCompaniesComponent implements OnInit {
   searchTerm = '';
   isLoading = false;
 
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  openDetailsDialog = false;
+  showAddDialog = false;
+  showEditDialog = false;
+  showDeleteDialog = false;
+  showDetailsDialog = false;
   selected: BMLCompany | null = null;
 
-  constructor(private hrsService: BmlCompaniesService) {}
+  constructor(private hrsService: BMLCompaniesService) {}
 
   ngOnInit() {
     this.loads();
@@ -69,21 +69,21 @@ export class BmlCompaniesComponent implements OnInit {
     if (!this.searchTerm) return this.bmls;
     const term = this.searchTerm.toLowerCase();
     return this.bmls.filter(bml =>
-      bml.bmlName.toLowerCase().includes(term) ||
+      bml.companyName.toLowerCase().includes(term) ||
       (bml.description && bml.description.toLowerCase().includes(term))
     );
   }
 
-  handleAdd(new: BMLCompanyRequest): void {
-    this.hrsService.create(new).subscribe({
-      next: (res) => {
+  handleAdd(newCompany: BMLCompanyRequest): void {
+    this.hrsService.create(newCompany).subscribe({
+      next: (res: any) => {
         if (res.data) {
           this.bmls = [...this.bmls, res.data];
         }
-        this.openAddDialog = false;
+        this.showAddDialog = false;
         alert(' créé avec succès');
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la création du bml', err);
         alert('Erreur lors de la création du bml');
       }
@@ -94,17 +94,17 @@ export class BmlCompaniesComponent implements OnInit {
     if (!this.selected) return;
 
     this.hrsService.update(this.selected.trackingId, updated).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         if (res.data) {
           this.bmls = this.bmls.map(g =>
             g.trackingId === this.selected!.trackingId ? res.data! : g
           );
         }
-        this.openEditDialog = false;
+        this.showEditDialog = false;
         this.selected = null;
         alert(' modifié avec succès');
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la modification du bml', err);
         alert('Erreur lors de la modification du bml');
       }
@@ -117,11 +117,11 @@ export class BmlCompaniesComponent implements OnInit {
     this.hrsService.delete(this.selected.trackingId).subscribe({
       next: () => {
         this.bmls = this.bmls.filter(g => g.trackingId !== this.selected!.trackingId);
-        this.openDeleteDialog = false;
+        this.showDeleteDialog = false;
         this.selected = null;
         alert(' supprimé avec succès');
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la suppression du bml', err);
         alert('Erreur lors de la suppression du bml');
       }
@@ -129,21 +129,21 @@ export class BmlCompaniesComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    this.openAddDialog = true;
+    this.showAddDialog = true;
   }
 
   openEditDialog(bml: BMLCompany): void {
     this.selected = bml;
-    this.openEditDialog = true;
+    this.showEditDialog = true;
   }
 
   openDeleteDialog(bml: BMLCompany): void {
     this.selected = bml;
-    this.openDeleteDialog = true;
+    this.showDeleteDialog = true;
   }
 
   openDetailsDialog(bml: BMLCompany): void {
     this.selected = bml;
-    this.openDetailsDialog = true;
+    this.showDetailsDialog = true;
   }
 }

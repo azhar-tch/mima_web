@@ -4,12 +4,13 @@ import { LucideAngularModule, X, AlertTriangle } from 'lucide-angular';
 import { HRFunction } from '../../models/HRManagement';
 
 @Component({
-  selector: 'app-delete-hr-functions-confirmation',
+  selector: 'app-delete-function-confirmation',
+  standalone: true,
   imports: [CommonModule, LucideAngularModule],
-  templateUrl: './delete-hr-functions-confirmation.component.html',
-  styleUrl: './delete-hr-functions-confirmation.component.css'
+  templateUrl: './delete-hr-functions-confirmation/delete-hr-functions-confirmation.component.html',
+  styleUrl: './delete-hr-functions-confirmation/delete-hr-functions-confirmation.component.css'
 })
-export class DeleteHrFunctionConfirmationComponent {
+export class DeleteFunctionConfirmationComponent {
   readonly X = X;
   readonly AlertTriangle = AlertTriangle;
 

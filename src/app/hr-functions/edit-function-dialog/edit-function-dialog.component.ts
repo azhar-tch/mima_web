@@ -5,12 +5,13 @@ import { LucideAngularModule, X } from 'lucide-angular';
 import { HRFunction, HRFunctionRequest } from '../../models/HRManagement';
 
 @Component({
-  selector: 'app-edit-hr-functions-dialog',
+  selector: 'app-edit-function-dialog',
+  standalone: true,
   imports: [CommonModule, FormsModule, LucideAngularModule],
-  templateUrl: './edit-hr-functions-dialog.component.html',
-  styleUrl: './edit-hr-functions-dialog.component.css'
+  templateUrl: './edit-hr-functions-dialog/edit-hr-functions-dialog.component.html',
+  styleUrl: './edit-hr-functions-dialog/edit-hr-functions-dialog.component.css'
 })
-export class EditHrFunctionDialogComponent implements OnChanges {
+export class EditFunctionDialogComponent implements OnChanges {
   readonly X = X;
 
   @Input() hr: HRFunction | null = null;
@@ -48,7 +49,7 @@ export class EditHrFunctionDialogComponent implements OnChanges {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.functionName || !this.formData.functionName.trim()) {
-      newErrors['functionName'] = 'Le nom du hr-functions est requis';
+      newErrors['functionName'] = 'Le nom de la fonction est requis';
     }
     if (this.formData.hierarchyLevel !== undefined && this.formData.hierarchyLevel < 0) {
       newErrors['hierarchyLevel'] = 'Le niveau hiérarchique doit être positif';

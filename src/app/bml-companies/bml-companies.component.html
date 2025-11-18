@@ -6,7 +6,7 @@
       <p class="text-sm text-gray-500 mt-1">Gérez les compagnies bml</p>
     </div>
     <button
-      (click)="openDialog()"
+      (click)="openAddDialog()"
       class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
       <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
       <span>Ajouter compagnies bml</span>
@@ -49,11 +49,11 @@
         <tbody class="divide-y divide-gray-200">
           <tr *ngFor="let bml of filtereds" class="hover:bg-gray-50">
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm font-medium text-gray-900">{{ bml.bmlName }}</div>
+              <div class="text-sm font-medium text-gray-900">{{ bml.companyName }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm text-gray-500">
-                {{ bml.hierarchyLevel !== undefined && bml.hierarchyLevel !== null ? 'Niveau ' + bml.hierarchyLevel : '-' }}
+                -
               </div>
             </td>
             <td class="px-6 py-4">
@@ -62,19 +62,19 @@
             <td class="px-6 py-4 whitespace-nowrap text-right">
               <div class="flex items-center justify-end gap-2">
                 <button
-                  (click)="openDialog(bml)"
+                  (click)="openDetailsDialog(bml)"
                   class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                   title="Voir les détails">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openDialog(bml)"
+                  (click)="openEditDialog(bml)"
                   class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                   title="Modifier">
                   <lucide-icon [img]="Edit" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openDialog(bml)"
+                  (click)="openDeleteDialog(bml)"
                   class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   title="Supprimer">
                   <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
@@ -89,28 +89,28 @@
 </div>
 
 <!-- Dialogs -->
-<app-add-bml-dialog
-  *ngIf="openDialog"
-  (close)="openDialog = false"
+<app-add-bml-companies-dialog
+  *ngIf="showAddDialog"
+  (close)="showAddDialog = false"
   (add)="handleAdd($event)">
-</app-add-bml-dialog>
+</app-add-bml-companies-dialog>
 
-<app-edit-bml-dialog
-  *ngIf="openDialog"
+<app-edit-bml-companies-dialog
+  *ngIf="showEditDialog"
   [bml]="selected"
-  (close)="openDialog = false"
+  (close)="showEditDialog = false"
   (save)="handleEdit($event)">
-</app-edit-bml-dialog>
+</app-edit-bml-companies-dialog>
 
-<app-bml-details-dialog
-  *ngIf="openDialog"
+<app-bml-companies-details-dialog
+  *ngIf="showDetailsDialog"
   [bml]="selected"
-  (close)="openDialog = false">
-</app-bml-details-dialog>
+  (close)="showDetailsDialog = false">
+</app-bml-companies-details-dialog>
 
-<app-delete-bml-confirmation
-  *ngIf="openDialog"
+<app-delete-bml-companies-confirmation
+  *ngIf="showDeleteDialog"
   [bml]="selected"
-  (close)="openDialog = false"
+  (close)="showDeleteDialog = false"
   (confirm)="handleDelete()">
-</app-delete-bml-confirmation>
+</app-delete-bml-companies-confirmation>

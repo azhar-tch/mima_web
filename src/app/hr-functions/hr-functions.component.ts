@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
-import { HrFunctionsService } from '../services/hr-functions/hr-functions.service';
+import { HRFunctionsService } from '../services/hr-functions/hr-functions.service';
 import { HRFunction, HRFunctionRequest } from '../models/HRManagement';
 import { AddFunctionDialogComponent } from './add-function-dialog/add-function-dialog.component';
 import { EditFunctionDialogComponent } from './edit-function-dialog/edit-function-dialog.component';
@@ -36,13 +36,13 @@ export class HrFunctionsComponent implements OnInit {
   searchTerm = '';
   isLoading = false;
 
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  openDetailsDialog = false;
+  showAddDialog = false;
+  showEditDialog = false;
+  showDeleteDialog = false;
+  showDetailsDialog = false;
   selected: HRFunction | null = null;
 
-  constructor(private hrsService: HrFunctionsService) {}
+  constructor(private hrsService: HRFunctionsService) {}
 
   ngOnInit() {
     this.loads();
@@ -74,16 +74,16 @@ export class HrFunctionsComponent implements OnInit {
     );
   }
 
-  handleAdd(new: HRFunctionRequest): void {
-    this.hrsService.create(new).subscribe({
-      next: (res) => {
+  handleAdd(newFunction: HRFunctionRequest): void {
+    this.hrsService.create(newFunction).subscribe({
+      next: (res: any) => {
         if (res.data) {
           this.hrs = [...this.hrs, res.data];
         }
-        this.openAddDialog = false;
+        this.showAddDialog = false;
         alert(' créé avec succès');
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la création du hr', err);
         alert('Erreur lors de la création du hr');
       }
@@ -94,17 +94,17 @@ export class HrFunctionsComponent implements OnInit {
     if (!this.selected) return;
 
     this.hrsService.update(this.selected.trackingId, updated).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         if (res.data) {
           this.hrs = this.hrs.map(g =>
             g.trackingId === this.selected!.trackingId ? res.data! : g
           );
         }
-        this.openEditDialog = false;
+        this.showEditDialog = false;
         this.selected = null;
         alert(' modifié avec succès');
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la modification du hr', err);
         alert('Erreur lors de la modification du hr');
       }
@@ -117,11 +117,11 @@ export class HrFunctionsComponent implements OnInit {
     this.hrsService.delete(this.selected.trackingId).subscribe({
       next: () => {
         this.hrs = this.hrs.filter(g => g.trackingId !== this.selected!.trackingId);
-        this.openDeleteDialog = false;
+        this.showDeleteDialog = false;
         this.selected = null;
         alert(' supprimé avec succès');
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la suppression du hr', err);
         alert('Erreur lors de la suppression du hr');
       }
@@ -129,21 +129,21 @@ export class HrFunctionsComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    this.openAddDialog = true;
+    this.showAddDialog = true;
   }
 
   openEditDialog(hr: HRFunction): void {
     this.selected = hr;
-    this.openEditDialog = true;
+    this.showEditDialog = true;
   }
 
   openDeleteDialog(hr: HRFunction): void {
     this.selected = hr;
-    this.openDeleteDialog = true;
+    this.showDeleteDialog = true;
   }
 
   openDetailsDialog(hr: HRFunction): void {
     this.selected = hr;
-    this.openDetailsDialog = true;
+    this.showDetailsDialog = true;
   }
 }
