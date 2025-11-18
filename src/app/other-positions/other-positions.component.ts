@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { OtherPositionsService } from '../services/other-positions/other-positions.service';
 import { OtherPosition, OtherPositionRequest } from '../models/HRManagement';
-import { AdditionsDialogComponent } from './add-other-dialog/add-other-dialog.component';
-import { EdititionsDialogComponent } from './edit-other-dialog/edit-other-dialog.component';
-import { itionsOtherPositionDetailsDialogComponent } from './other-details-dialog/other-details-dialog.component';
-import { DeleteitionsConfirmationComponent } from './delete-other-confirmation/delete-other-confirmation.component';
+// TODO: Create missing dialog components
+// import { AdditionsDialogComponent } from './add-other-dialog/add-other-dialog.component';
+// import { EdititionsDialogComponent } from './edit-other-dialog/edit-other-dialog.component';
+// import { itionsOtherPositionDetailsDialogComponent } from './other-details-dialog/other-details-dialog.component';
+// import { DeleteitionsConfirmationComponent } from './delete-other-confirmation/delete-other-confirmation.component';
 
 @Component({
   selector: 'app-other-positions',
@@ -16,10 +17,11 @@ import { DeleteitionsConfirmationComponent } from './delete-other-confirmation/d
     CommonModule,
     FormsModule,
     LucideAngularModule,
-    AdditionsDialogComponent,
-    EdititionsDialogComponent,
-    itionsOtherPositionDetailsDialogComponent,
-    DeleteitionsConfirmationComponent
+    // TODO: Uncomment when dialog components are created
+    // AdditionsDialogComponent,
+    // EdititionsDialogComponent,
+    // itionsOtherPositionDetailsDialogComponent,
+    // DeleteitionsConfirmationComponent
   ],
   templateUrl: './other-positions.component.html',
   styleUrl: './other-positions.component.css'

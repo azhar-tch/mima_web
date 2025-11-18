@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { ServicePositionsService } from '../services/service-positions/service-positions.service';
 import { ServicePosition, ServicePositionRequest } from '../models/HRManagement';
-import { AdditionsDialogComponent } from './add-service-dialog/add-service-dialog.component';
-import { EdititionsDialogComponent } from './edit-service-dialog/edit-service-dialog.component';
-import { itionsServicePositionDetailsDialogComponent } from './service-details-dialog/service-details-dialog.component';
-import { DeleteitionsConfirmationComponent } from './delete-service-confirmation/delete-service-confirmation.component';
+// TODO: Create missing dialog components
+// import { AdditionsDialogComponent } from './add-service-dialog/add-service-dialog.component';
+// import { EdititionsDialogComponent } from './edit-service-dialog/edit-service-dialog.component';
+// import { itionsServicePositionDetailsDialogComponent } from './service-details-dialog/service-details-dialog.component';
+// import { DeleteitionsConfirmationComponent } from './delete-service-confirmation/delete-service-confirmation.component';
 
 @Component({
   selector: 'app-service-positions',
@@ -16,10 +17,11 @@ import { DeleteitionsConfirmationComponent } from './delete-service-confirmation
     CommonModule,
     FormsModule,
     LucideAngularModule,
-    AdditionsDialogComponent,
-    EdititionsDialogComponent,
-    itionsServicePositionDetailsDialogComponent,
-    DeleteitionsConfirmationComponent
+    // TODO: Uncomment when dialog components are created
+    // AdditionsDialogComponent,
+    // EdititionsDialogComponent,
+    // itionsServicePositionDetailsDialogComponent,
+    // DeleteitionsConfirmationComponent
   ],
   templateUrl: './service-positions.component.html',
   styleUrl: './service-positions.component.css'
@@ -69,7 +71,7 @@ export class ServicePositionsComponent implements OnInit {
     if (!this.searchTerm) return this.services;
     const term = this.searchTerm.toLowerCase();
     return this.services.filter(service =>
-      service.serviceName.toLowerCase().includes(term) ||
+      service.positionName.toLowerCase().includes(term) ||
       (service.description && service.description.toLowerCase().includes(term))
     );
   }
