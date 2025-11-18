@@ -28,6 +28,7 @@ export class EditMissionDialogComponent implements OnChanges, OnInit {
   agents: { trackingId: string; firstName: string; lastName: string }[] = [];
   selectedUnitIds: string[] = [];
   selectedAgentIds: string[] = [];
+  agentSearchTerm: string = '';
 
   formData: MissionsRequest = {
     type: '',
@@ -85,8 +86,8 @@ export class EditMissionDialogComponent implements OnChanges, OnInit {
     });
   }
 
-  loadAgents() {
-    this.agentsService.listAgents().subscribe({
+  loadAgents(searchTerm?: string) {
+    this.agentsService.searchAgents(searchTerm).subscribe({
       next: (res) => {
         this.agents = (res.data || []).map(agent => ({
           trackingId: agent.trackingId,
@@ -98,6 +99,15 @@ export class EditMissionDialogComponent implements OnChanges, OnInit {
         console.error('Erreur lors du chargement des agents', err);
       }
     });
+  }
+
+  onAgentSearch() {
+    this.loadAgents(this.agentSearchTerm);
+  }
+
+  clearAgentSearch() {
+    this.agentSearchTerm = '';
+    this.loadAgents();
   }
 
   onUnitChange(event: Event, unitId: string) {

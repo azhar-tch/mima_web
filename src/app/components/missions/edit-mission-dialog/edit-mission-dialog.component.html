@@ -167,6 +167,22 @@
     </span>
   </label>
 
+  <!-- Champ de recherche -->
+  <div class="relative">
+    <input
+      type="text"
+      placeholder="Rechercher un agent par nom, prénom, matricule..."
+      [(ngModel)]="agentSearchTerm"
+      (ngModelChange)="onAgentSearch()"
+      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+    />
+    <span *ngIf="agentSearchTerm"
+          (click)="clearAgentSearch()"
+          class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer">
+      ✕
+    </span>
+  </div>
+
   <div
     [class]="'border rounded-md p-3 max-h-40 overflow-y-auto ' +
     (errors['agents'] ? 'border-red-500' : 'border-gray-300')"

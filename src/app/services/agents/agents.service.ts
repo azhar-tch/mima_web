@@ -38,6 +38,12 @@ export class AgentsService {
     return this.http.get<ApiResponse<AgentsResponse[]>>(`${this.baseUrl}/list`);
   }
 
+  // 🔹 Rechercher des agents
+  searchAgents(searchTerm?: string): Observable<ApiResponse<AgentsResponse[]>> {
+    const params = searchTerm ? { term: searchTerm } : {};
+    return this.http.get<ApiResponse<AgentsResponse[]>>(`${this.baseUrl}/search`, { params });
+  }
+
   // 🔹 Suppression d'un agent
   deleteAgent(trackingId: string): Observable<ApiResponse<null>> {
     return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/delete/${trackingId}`);
