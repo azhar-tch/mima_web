@@ -49,10 +49,10 @@ export class AddSecurityAgenciesDialogComponent {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.agencyNumber || (typeof this.formData.agencyNumber === 'string' && !this.formData.agencyNumber.trim())) {
-      newErrors['agencyNumber'] = 'Numéro d'agence est requis';
+      newErrors['agencyNumber'] = "Numéro d'agence est requis";
     }
     if (!this.formData.agencyName || (typeof this.formData.agencyName === 'string' && !this.formData.agencyName.trim())) {
-      newErrors['agencyName'] = 'Nom de l'agence est requis';
+      newErrors['agencyName'] = "Nom de l'agence est requis";
     }
 
     this.errors = newErrors;

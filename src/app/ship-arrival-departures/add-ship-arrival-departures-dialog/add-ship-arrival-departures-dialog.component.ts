@@ -17,6 +17,7 @@ export class AddShipArrivalDeparturesDialogComponent {
   @Output() add = new EventEmitter<ShipArrivalDepartureRequest>();
 
   formData: ShipArrivalDepartureRequest = {
+    commercialShipTrackingId: '',
     arrivalDate: '',
     departureDate: '',
     portOfOrigin: '',
@@ -29,12 +30,13 @@ export class AddShipArrivalDeparturesDialogComponent {
 
   handleReset() {
     this.formData = {
-    arrivalDate: '',
-    departureDate: '',
-    portOfOrigin: '',
-    portOfDestination: '',
-    captainName: '',
-    observations: ''
+      commercialShipTrackingId: '',
+      arrivalDate: '',
+      departureDate: '',
+      portOfOrigin: '',
+      portOfDestination: '',
+      captainName: '',
+      observations: ''
     };
     this.errors = {};
   }

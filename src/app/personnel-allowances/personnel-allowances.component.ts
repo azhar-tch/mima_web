@@ -52,18 +52,10 @@ export class PersonnelAllowancesComponent implements OnInit {
           this.allowances = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: PersonnelAllowance | null = null;
       },
       error: (error) => {
         console.error('Error loading allowances:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: PersonnelAllowance | null = null;
       }
     });
   }
@@ -76,7 +68,7 @@ export class PersonnelAllowancesComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: PersonnelAllowanceRequest): void {
@@ -94,7 +86,7 @@ export class PersonnelAllowancesComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: PersonnelAllowance): void {
+  showEditDialog(item: PersonnelAllowance): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -120,7 +112,7 @@ export class PersonnelAllowancesComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: PersonnelAllowance): void {
+  showDeleteDialog(item: PersonnelAllowance): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }

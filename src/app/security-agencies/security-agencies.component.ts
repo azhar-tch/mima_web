@@ -52,18 +52,10 @@ export class SecurityAgenciesComponent implements OnInit {
           this.agencies = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: SecurityAgency | null = null;
       },
       error: (error) => {
         console.error('Error loading agencies:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: SecurityAgency | null = null;
       }
     });
   }
@@ -76,7 +68,7 @@ export class SecurityAgenciesComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: SecurityAgencyRequest): void {
@@ -94,7 +86,7 @@ export class SecurityAgenciesComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: SecurityAgency): void {
+  showEditDialog(item: SecurityAgency): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -120,7 +112,7 @@ export class SecurityAgenciesComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: SecurityAgency): void {
+  showDeleteDialog(item: SecurityAgency): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }
