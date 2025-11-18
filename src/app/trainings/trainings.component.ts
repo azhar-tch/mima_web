@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { TrainingsService } from '../services/trainings/trainings.service';
 import { Training, TrainingRequest } from '../models/HRManagement';
-import { AddTrainingDialogComponent } from './add-trainings-dialog/add-trainings-dialog.component';
-import { EditTrainingDialogComponent } from './edit-trainings-dialog/edit-trainings-dialog.component';
-import { TrainingDetailsDialogComponent } from './trainings-details-dialog/trainings-details-dialog.component';
-import { DeleteTrainingConfirmationComponent } from './delete-trainings-confirmation/delete-trainings-confirmation.component';
+// TODO: Create missing dialog components
+// import { AddTrainingDialogComponent } from './add-trainings-dialog/add-trainings-dialog.component';
+// import { EditTrainingDialogComponent } from './edit-trainings-dialog/edit-trainings-dialog.component';
+// import { TrainingDetailsDialogComponent } from './trainings-details-dialog/trainings-details-dialog.component';
+// import { DeleteTrainingConfirmationComponent } from './delete-trainings-confirmation/delete-trainings-confirmation.component';
 
 @Component({
   selector: 'app-trainings',
@@ -16,10 +17,11 @@ import { DeleteTrainingConfirmationComponent } from './delete-trainings-confirma
     CommonModule,
     FormsModule,
     LucideAngularModule,
-    AddTrainingDialogComponent,
-    EditTrainingDialogComponent,
-    TrainingDetailsDialogComponent,
-    DeleteTrainingConfirmationComponent
+    // TODO: Uncomment when dialog components are created
+    // AddTrainingDialogComponent,
+    // EditTrainingDialogComponent,
+    // TrainingDetailsDialogComponent,
+    // DeleteTrainingConfirmationComponent
   ],
   templateUrl: './trainings.component.html',
   styleUrl: './trainings.component.css'
@@ -36,10 +38,10 @@ export class TrainingsComponent implements OnInit {
   searchTerm = '';
   isLoading = false;
 
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  openDetailsDialog = false;
+  showAddDialog = false;
+  showEditDialog = false;
+  showDeleteDialog = false;
+  showDetailsDialog = false;
   selected: Training | null = null;
 
   constructor(private hrsService: TrainingsService) {}
@@ -69,23 +71,23 @@ export class TrainingsComponent implements OnInit {
     if (!this.searchTerm) return this.trainingss;
     const term = this.searchTerm.toLowerCase();
     return this.trainingss.filter(trainings =>
-      trainings.trainingsName.toLowerCase().includes(term) ||
+      trainings.trainingName.toLowerCase().includes(term) ||
       (trainings.description && trainings.description.toLowerCase().includes(term))
     );
   }
 
-  handleAdd(new: TrainingRequest): void {
-    this.hrsService.create(new).subscribe({
+  handleAdd(newTraining: TrainingRequest): void {
+    this.hrsService.create(newTraining).subscribe({
       next: (res) => {
         if (res.data) {
           this.trainingss = [...this.trainingss, res.data];
         }
-        this.openAddDialog = false;
-        alert(' créé avec succès');
+        this.showAddDialog = false;
+        alert('Formation créée avec succès');
       },
       error: (err) => {
-        console.error('Erreur lors de la création du trainings', err);
-        alert('Erreur lors de la création du trainings');
+        console.error('Erreur lors de la création de la formation', err);
+        alert('Erreur lors de la création de la formation');
       }
     });
   }
@@ -100,13 +102,13 @@ export class TrainingsComponent implements OnInit {
             g.trackingId === this.selected!.trackingId ? res.data! : g
           );
         }
-        this.openEditDialog = false;
+        this.showEditDialog = false;
         this.selected = null;
-        alert(' modifié avec succès');
+        alert('Formation modifiée avec succès');
       },
       error: (err) => {
-        console.error('Erreur lors de la modification du trainings', err);
-        alert('Erreur lors de la modification du trainings');
+        console.error('Erreur lors de la modification de la formation', err);
+        alert('Erreur lors de la modification de la formation');
       }
     });
   }
@@ -117,33 +119,33 @@ export class TrainingsComponent implements OnInit {
     this.hrsService.delete(this.selected.trackingId).subscribe({
       next: () => {
         this.trainingss = this.trainingss.filter(g => g.trackingId !== this.selected!.trackingId);
-        this.openDeleteDialog = false;
+        this.showDeleteDialog = false;
         this.selected = null;
-        alert(' supprimé avec succès');
+        alert('Formation supprimée avec succès');
       },
       error: (err) => {
-        console.error('Erreur lors de la suppression du trainings', err);
-        alert('Erreur lors de la suppression du trainings');
+        console.error('Erreur lors de la suppression de la formation', err);
+        alert('Erreur lors de la suppression de la formation');
       }
     });
   }
 
   openAddDialog(): void {
-    this.openAddDialog = true;
+    this.showAddDialog = true;
   }
 
   openEditDialog(trainings: Training): void {
     this.selected = trainings;
-    this.openEditDialog = true;
+    this.showEditDialog = true;
   }
 
   openDeleteDialog(trainings: Training): void {
     this.selected = trainings;
-    this.openDeleteDialog = true;
+    this.showDeleteDialog = true;
   }
 
   openDetailsDialog(trainings: Training): void {
     this.selected = trainings;
-    this.openDetailsDialog = true;
+    this.showDetailsDialog = true;
   }
 }
