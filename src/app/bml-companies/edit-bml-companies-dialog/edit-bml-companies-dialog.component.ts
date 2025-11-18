@@ -13,24 +13,26 @@ import { BMLCompany, BMLCompanyRequest } from '../../models/HRManagement';
 export class EditBmlCompanyDialogComponent implements OnChanges {
   readonly X = X;
 
-  @Input() bml-companies: BMLCompany | null = null;
+  @Input() bmlCompany: BMLCompany | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<BMLCompanyRequest>();
 
   formData: BMLCompanyRequest = {
     companyName: '',
-    description: '',
-    hierarchyLevel: undefined
+    gradeName: '',
+    hierarchyLevel: undefined,
+    description: ''
   };
 
   errors: Record<string, string> = {};
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['bml-companies'] && this.bml-companies) {
+    if (changes['bmlCompany'] && this.bmlCompany) {
       this.formData = {
-        companyName: this.bml-companies.companyName || '',
-        description: this.bml-companies.description || '',
-        hierarchyLevel: this.bml-companies.hierarchyLevel
+        companyName: this.bmlCompany.companyName || '',
+        gradeName: this.bmlCompany.gradeName || '',
+        hierarchyLevel: this.bmlCompany.hierarchyLevel,
+        description: this.bmlCompany.description || ''
       };
     }
   }
@@ -39,8 +41,9 @@ export class EditBmlCompanyDialogComponent implements OnChanges {
     this.close.emit();
     this.formData = {
       companyName: '',
-      description: '',
-      hierarchyLevel: undefined
+      gradeName: '',
+      hierarchyLevel: undefined,
+      description: ''
     };
     this.errors = {};
   }

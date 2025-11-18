@@ -22,6 +22,8 @@ export interface AwardRequest {
 export interface BMLCompany {
   trackingId: string;
   companyName: string;
+  gradeName?: string;
+  hierarchyLevel?: number;
   description?: string;
   createDate?: string;
   updateDate?: string;
@@ -31,6 +33,8 @@ export interface BMLCompany {
 
 export interface BMLCompanyRequest {
   companyName: string;
+  gradeName?: string;
+  hierarchyLevel?: number;
   description?: string;
 }
 
@@ -38,6 +42,8 @@ export interface BMLCompanyRequest {
 export interface HRFunction {
   trackingId: string;
   functionName: string;
+  gradeName?: string;
+  hierarchyLevel?: number;
   description?: string;
   department?: string;
   createDate?: string;
@@ -48,6 +54,8 @@ export interface HRFunction {
 
 export interface HRFunctionRequest {
   functionName: string;
+  gradeName?: string;
+  hierarchyLevel?: number;
   description?: string;
   department?: string;
 }

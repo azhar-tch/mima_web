@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Edit, Trash2, Eye, X } from 'lucide-angular';
 import { AgentsResponse, AgentsRequest } from '../models/Agents';
 import { ApiResponse } from '../models/api-response';
-import { AgentStatus } from '../models/enums';
+import { MarinerStatus } from '../models/enums';
 import { AgentsService } from '../services/agents/agents.service';
 import { UnitsService } from '../services/units/units.service';
 import { UnitsResponse } from '../models/Units';
@@ -28,10 +28,11 @@ export class AgentsComponent implements OnInit {
   units: { name: string; trackingId: string }[] = []; // liste de tes unités
   ranks: string[] = ['Capitaine', 'Lieutenant', 'Sergent', 'Matelot'];
   statuses = [
-    { value: AgentStatus.AVAILABLE, label: 'Disponible' },
-    { value: AgentStatus.ON_MISSION, label: 'En mission' },
-    { value: AgentStatus.RESTING, label: 'Repos' },
-    { value: AgentStatus.ABSENT, label: 'Congé' }
+    { value: MarinerStatus.DISPONIBLE, label: 'Disponible' },
+    { value: MarinerStatus.EN_MER, label: 'En mer' },
+    { value: MarinerStatus.EN_GARDE, label: 'En garde' },
+    { value: MarinerStatus.PERMISSION, label: 'Permission' },
+    { value: MarinerStatus.ABSENT, label: 'Absent' }
 ];
 
 
@@ -53,7 +54,7 @@ export class AgentsComponent implements OnInit {
     rank: '',
     unitTrackingId: '',
     availability: true,
-    status: AgentStatus.AVAILABLE
+    status: MarinerStatus.DISPONIBLE
   };
 
   constructor(private agentsService: AgentsService, private unitsService: UnitsService) {}
@@ -104,7 +105,7 @@ export class AgentsComponent implements OnInit {
       rank: '',
       unitTrackingId: '', // obligatoire
       availability: true,
-      status: AgentStatus.AVAILABLE,
+      status: MarinerStatus.DISPONIBLE,
       nationality: '',
       city: '',
       emergencyContact: '',
@@ -302,24 +303,28 @@ export class AgentsComponent implements OnInit {
   this.filterRank = '';
 }
 
-  getStatusLabel(status: AgentStatus) {
+  getStatusLabel(status: MarinerStatus) {
   switch (status) {
-    case AgentStatus.ON_MISSION: return 'En mission';
-    case AgentStatus.ON_DUTY: return 'En service';
-    case AgentStatus.RESTING: return 'Repos';
-    case AgentStatus.ABSENT: return 'Absent';
-    case 'AVAILABLE': return 'Disponible';
+    case MarinerStatus.DISPONIBLE: return 'Disponible';
+    case MarinerStatus.EN_MER: return 'En mer';
+    case MarinerStatus.EN_GARDE: return 'En garde';
+    case MarinerStatus.PERMISSION: return 'Permission';
+    case MarinerStatus.ABSENT: return 'Absent';
+    case MarinerStatus.EN_FORMATION: return 'En formation';
+    case MarinerStatus.INDISPONIBLE: return 'Indisponible';
     default: return '';
   }
 }
 
-getStatusColor(status: AgentStatus) {
+getStatusColor(status: MarinerStatus) {
   switch (status) {
-    case AgentStatus.ON_MISSION: return 'bg-red-100 text-red-600';
-    case AgentStatus.ON_DUTY: return 'bg-green-100 text-green-600';
-    case AgentStatus.RESTING: return 'bg-yellow-100 text-yellow-600';
-    case AgentStatus.ABSENT: return 'bg-gray-100 text-gray-600';
-    case 'AVAILABLE': return 'bg-blue-100 text-blue-600';
+    case MarinerStatus.DISPONIBLE: return 'bg-blue-100 text-blue-600';
+    case MarinerStatus.EN_MER: return 'bg-red-100 text-red-600';
+    case MarinerStatus.EN_GARDE: return 'bg-green-100 text-green-600';
+    case MarinerStatus.PERMISSION: return 'bg-yellow-100 text-yellow-600';
+    case MarinerStatus.ABSENT: return 'bg-gray-100 text-gray-600';
+    case MarinerStatus.EN_FORMATION: return 'bg-purple-100 text-purple-600';
+    case MarinerStatus.INDISPONIBLE: return 'bg-orange-100 text-orange-600';
     default: return '';
   }
 }

@@ -50,8 +50,9 @@ export interface AgentsRequest {
     lastName: string;
 
     // Informations maritimes
-    maritimeRank: MaritimeRank;
-    specialty: MaritimeSpecialty;
+    maritimeRank?: MaritimeRank;
+    rank?: string; // Deprecated: use maritimeRank
+    specialty?: MaritimeSpecialty;
     seafarerBookNumber?: string;
     seamanLicenseNumber?: string;
     medicalCertificateExpiry?: string;
@@ -91,6 +92,7 @@ export interface AgentsResponse {
 
     // Informations maritimes
     maritimeRank: MaritimeRank;
+    rank?: string; // Deprecated: use maritimeRank
     specialty: MaritimeSpecialty;
     seafarerBookNumber?: string;
     seamanLicenseNumber?: string;

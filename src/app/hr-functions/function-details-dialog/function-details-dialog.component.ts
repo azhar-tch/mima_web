@@ -16,6 +16,10 @@ export class FunctionDetailsDialogComponent {
   @Input() hr: HRFunction | null = null;
   @Output() close = new EventEmitter<void>();
 
+  get grade(): HRFunction | null {
+    return this.hr;
+  }
+
   handleClose() {
     this.close.emit();
   }

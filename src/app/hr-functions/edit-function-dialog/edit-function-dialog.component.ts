@@ -20,8 +20,9 @@ export class EditFunctionDialogComponent implements OnChanges {
 
   formData: HRFunctionRequest = {
     functionName: '',
-    description: '',
-    hierarchyLevel: undefined
+    gradeName: '',
+    hierarchyLevel: undefined,
+    description: ''
   };
 
   errors: Record<string, string> = {};
@@ -30,8 +31,9 @@ export class EditFunctionDialogComponent implements OnChanges {
     if (changes['hr'] && this.hr) {
       this.formData = {
         functionName: this.hr.functionName || '',
-        description: this.hr.description || '',
-        hierarchyLevel: this.hr.hierarchyLevel
+        gradeName: this.hr.gradeName || '',
+        hierarchyLevel: this.hr.hierarchyLevel,
+        description: this.hr.description || ''
       };
     }
   }
@@ -40,8 +42,9 @@ export class EditFunctionDialogComponent implements OnChanges {
     this.close.emit();
     this.formData = {
       functionName: '',
-      description: '',
-      hierarchyLevel: undefined
+      gradeName: '',
+      hierarchyLevel: undefined,
+      description: ''
     };
     this.errors = {};
   }

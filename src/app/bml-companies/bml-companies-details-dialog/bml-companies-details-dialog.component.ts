@@ -12,8 +12,12 @@ import { BMLCompany } from '../../models/HRManagement';
 export class BmlCompanyDetailsDialogComponent {
   readonly X = X;
 
-  @Input() bml-companies: BMLCompany | null = null;
+  @Input() bmlCompany: BMLCompany | null = null;
   @Output() close = new EventEmitter<void>();
+
+  get grade(): BMLCompany | null {
+    return this.bmlCompany;
+  }
 
   handleClose() {
     this.close.emit();

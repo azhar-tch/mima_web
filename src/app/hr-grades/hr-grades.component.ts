@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
-import { HrGradesService } from '../services/hr-grades/hr-grades.service';
+import { HRGradesService } from '../services/hr-grades/hr-grades.service';
 import { HRGrade, HRGradeRequest } from '../models/HRManagement';
 import { AddGradeDialogComponent } from './add-grade-dialog/add-grade-dialog.component';
 import { EditGradeDialogComponent } from './edit-grade-dialog/edit-grade-dialog.component';
@@ -42,7 +42,7 @@ export class HrGradesComponent implements OnInit {
   openDetailsDialog = false;
   selectedGrade: HRGrade | null = null;
 
-  constructor(private hrGradesService: HrGradesService) {}
+  constructor(private hrGradesService: HRGradesService) {}
 
   ngOnInit() {
     this.loadGrades();
