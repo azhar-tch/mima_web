@@ -87,28 +87,28 @@
 </div>
 
 <!-- Dialogs -->
-<app-add-other-position-dialog
+<app-add-other-positions-dialog
   *ngIf="openAddDialog"
   (close)="openAddDialog = false"
   (add)="handleAddOtherPosition($event)">
-</app-add-other-position-dialog>
+</app-add-other-positions-dialog>
 
-<app-edit-other-position-dialog
+<app-edit-other-positions-dialog
   *ngIf="openEditDialog"
   [otherPosition]="selectedOtherPosition"
   (close)="openEditDialog = false"
   (save)="handleEditOtherPosition($event)">
-</app-edit-other-position-dialog>
+</app-edit-other-positions-dialog>
 
-<app-other-position-details-dialog
+<app-other-positions-details-dialog
   *ngIf="openDetailsDialog"
   [otherPosition]="selectedOtherPosition"
   (close)="openDetailsDialog = false">
-</app-other-position-details-dialog>
+</app-other-positions-details-dialog>
 
-<app-delete-other-position-confirmation
+<app-delete-other-positions-confirmation
   *ngIf="openDeleteDialog"
   [otherPosition]="selectedOtherPosition"
   (close)="openDeleteDialog = false"
   (confirm)="handleDeleteOtherPosition()">
-</app-delete-other-position-confirmation>
+</app-delete-other-positions-confirmation>
