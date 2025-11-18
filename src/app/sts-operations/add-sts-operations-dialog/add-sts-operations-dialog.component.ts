@@ -18,11 +18,11 @@ export class AddStsOperationsDialogComponent {
 
   formData: STSOperationRequest = {
     operationNumber: '',
-    dateTimeStart: '',
-    dateTimeEnd: '',
+    startDate: '',
+    endDate: '',
     location: '',
-    vesselFrom: '',
-    vesselTo: '',
+    motherVesselTrackingId: '',
+    receivingVesselTrackingId: '',
     observations: ''
   };
 
@@ -31,11 +31,11 @@ export class AddStsOperationsDialogComponent {
   handleReset() {
     this.formData = {
     operationNumber: '',
-    dateTimeStart: '',
-    dateTimeEnd: '',
+    startDate: '',
+    endDate: '',
     location: '',
-    vesselFrom: '',
-    vesselTo: '',
+    motherVesselTrackingId: '',
+    receivingVesselTrackingId: '',
     observations: ''
     };
     this.errors = {};
@@ -49,19 +49,19 @@ export class AddStsOperationsDialogComponent {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.operationNumber || (typeof this.formData.operationNumber === 'string' && !this.formData.operationNumber.trim())) {
-      newErrors['operationNumber'] = 'Numéro d'opération est requis';
+      newErrors['operationNumber'] = "Numéro d'opération est requis";
     }
-    if (!this.formData.dateTimeStart || (typeof this.formData.dateTimeStart === 'string' && !this.formData.dateTimeStart.trim())) {
-      newErrors['dateTimeStart'] = 'Date et heure de début est requis';
+    if (!this.formData.startDate || (typeof this.formData.startDate === 'string' && !this.formData.startDate.trim())) {
+      newErrors['startDate'] = "Date et heure de début est requis";
     }
     if (!this.formData.location || (typeof this.formData.location === 'string' && !this.formData.location.trim())) {
-      newErrors['location'] = 'Localisation est requis';
+      newErrors['location'] = "Localisation est requis";
     }
-    if (!this.formData.vesselFrom || (typeof this.formData.vesselFrom === 'string' && !this.formData.vesselFrom.trim())) {
-      newErrors['vesselFrom'] = 'Navire source est requis';
+    if (!this.formData.motherVesselTrackingId || (typeof this.formData.motherVesselTrackingId === 'string' && !this.formData.motherVesselTrackingId.trim())) {
+      newErrors['motherVesselTrackingId'] = "Navire source est requis";
     }
-    if (!this.formData.vesselTo || (typeof this.formData.vesselTo === 'string' && !this.formData.vesselTo.trim())) {
-      newErrors['vesselTo'] = 'Navire destination est requis';
+    if (!this.formData.receivingVesselTrackingId || (typeof this.formData.receivingVesselTrackingId === 'string' && !this.formData.receivingVesselTrackingId.trim())) {
+      newErrors['receivingVesselTrackingId'] = "Navire destination est requis";
     }
 
     this.errors = newErrors;

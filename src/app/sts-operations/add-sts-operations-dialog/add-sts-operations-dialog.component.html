@@ -35,26 +35,26 @@
 
       <!-- Date et heure de début -->
       <div class="grid gap-2">
-        <label for="dateTimeStart" class="text-sm font-medium text-gray-700">Date et heure de début *</label>
+        <label for="startDate" class="text-sm font-medium text-gray-700">Date de début *</label>
         <input
-          id="dateTimeStart"
+          id="startDate"
           type="datetime-local"
           placeholder=""
-          [(ngModel)]="formData.dateTimeStart"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['dateTimeStart'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['dateTimeStart']" class="text-red-500 text-sm">{{ errors['dateTimeStart'] }}</p>
+          [(ngModel)]="formData.startDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['startDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['startDate']" class="text-red-500 text-sm">{{ errors['startDate'] }}</p>
       </div>
 
       <!-- Date et heure de fin -->
       <div class="grid gap-2">
-        <label for="dateTimeEnd" class="text-sm font-medium text-gray-700">Date et heure de fin</label>
+        <label for="endDate" class="text-sm font-medium text-gray-700">Date de fin</label>
         <input
-          id="dateTimeEnd"
+          id="endDate"
           type="datetime-local"
           placeholder=""
-          [(ngModel)]="formData.dateTimeEnd"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['dateTimeEnd'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['dateTimeEnd']" class="text-red-500 text-sm">{{ errors['dateTimeEnd'] }}</p>
+          [(ngModel)]="formData.endDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['endDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['endDate']" class="text-red-500 text-sm">{{ errors['endDate'] }}</p>
       </div>
 
       <!-- Localisation -->
@@ -71,26 +71,26 @@
 
       <!-- Navire source -->
       <div class="grid gap-2">
-        <label for="vesselFrom" class="text-sm font-medium text-gray-700">Navire source *</label>
+        <label for="motherVesselTrackingId" class="text-sm font-medium text-gray-700">ID Navire source *</label>
         <input
-          id="vesselFrom"
+          id="motherVesselTrackingId"
           type="text"
-          placeholder=""
-          [(ngModel)]="formData.vesselFrom"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['vesselFrom'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['vesselFrom']" class="text-red-500 text-sm">{{ errors['vesselFrom'] }}</p>
+          placeholder="Ex: UUID du navire source"
+          [(ngModel)]="formData.motherVesselTrackingId"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['motherVesselTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['motherVesselTrackingId']" class="text-red-500 text-sm">{{ errors['motherVesselTrackingId'] }}</p>
       </div>
 
       <!-- Navire destination -->
       <div class="grid gap-2">
-        <label for="vesselTo" class="text-sm font-medium text-gray-700">Navire destination *</label>
+        <label for="receivingVesselTrackingId" class="text-sm font-medium text-gray-700">ID Navire receveur *</label>
         <input
-          id="vesselTo"
+          id="receivingVesselTrackingId"
           type="text"
-          placeholder=""
-          [(ngModel)]="formData.vesselTo"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['vesselTo'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['vesselTo']" class="text-red-500 text-sm">{{ errors['vesselTo'] }}</p>
+          placeholder="Ex: UUID du navire receveur"
+          [(ngModel)]="formData.receivingVesselTrackingId"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['receivingVesselTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['receivingVesselTrackingId']" class="text-red-500 text-sm">{{ errors['receivingVesselTrackingId'] }}</p>
       </div>
 
       <!-- Observations -->

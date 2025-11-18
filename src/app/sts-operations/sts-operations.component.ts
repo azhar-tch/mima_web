@@ -52,18 +52,10 @@ export class StsOperationsComponent implements OnInit {
           this.operations = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: STSOperation | null = null;
       },
       error: (error) => {
         console.error('Error loading operations:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: STSOperation | null = null;
       }
     });
   }
@@ -76,7 +68,7 @@ export class StsOperationsComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: STSOperationRequest): void {
@@ -94,7 +86,7 @@ export class StsOperationsComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: STSOperation): void {
+  showEditDialog(item: STSOperation): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -120,7 +112,7 @@ export class StsOperationsComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: STSOperation): void {
+  showDeleteDialog(item: STSOperation): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }
