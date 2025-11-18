@@ -53,4 +53,9 @@ export class StsOperationsComponent implements OnInit {
       JSON.stringify(item).toLowerCase().includes(term)
     );
   }
+
+  openAddDialog(): void {
+    alert('La fonctionnalité d\'ajout de opération STS sera bientôt disponible. Le dialog d\'ajout doit être créé.');
+    console.log('TODO: Créer le dialog d\'ajout pour opération STS');
+  }
 }
