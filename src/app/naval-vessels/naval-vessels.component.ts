@@ -52,18 +52,10 @@ export class NavalVesselsComponent implements OnInit {
           this.vessels = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: NavalVessel | null = null;
       },
       error: (error) => {
         console.error('Error loading vessels:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: NavalVessel | null = null;
       }
     });
   }
@@ -76,7 +68,7 @@ export class NavalVesselsComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: NavalVesselRequest): void {
@@ -94,7 +86,7 @@ export class NavalVesselsComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: NavalVessel): void {
+  showEditDialog(item: NavalVessel): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -120,7 +112,7 @@ export class NavalVesselsComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: NavalVessel): void {
+  showDeleteDialog(item: NavalVessel): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }

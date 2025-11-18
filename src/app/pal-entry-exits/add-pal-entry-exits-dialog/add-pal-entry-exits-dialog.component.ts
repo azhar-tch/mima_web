@@ -17,9 +17,9 @@ export class AddPalEntryExitsDialogComponent {
   @Output() add = new EventEmitter<PALEntryExitRequest>();
 
   formData: PALEntryExitRequest = {
-    entryExitNumber: '',
-    dateTime: '',
-    palLocation: '',
+    commercialShipTrackingId: '',
+    entryDate: '',
+    anchorageZone: '',
     observations: ''
   };
 
@@ -27,9 +27,9 @@ export class AddPalEntryExitsDialogComponent {
 
   handleReset() {
     this.formData = {
-    entryExitNumber: '',
-    dateTime: '',
-    palLocation: '',
+    commercialShipTrackingId: '',
+    entryDate: '',
+    anchorageZone: '',
     observations: ''
     };
     this.errors = {};
@@ -42,14 +42,11 @@ export class AddPalEntryExitsDialogComponent {
 
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
-    if (!this.formData.entryExitNumber || (typeof this.formData.entryExitNumber === 'string' && !this.formData.entryExitNumber.trim())) {
-      newErrors['entryExitNumber'] = 'Numéro d'entrée/sortie est requis';
+    if (!this.formData.commercialShipTrackingId || (typeof this.formData.commercialShipTrackingId === 'string' && !this.formData.commercialShipTrackingId.trim())) {
+      newErrors['commercialShipTrackingId'] = "ID Navire commercial est requis";
     }
-    if (!this.formData.dateTime || (typeof this.formData.dateTime === 'string' && !this.formData.dateTime.trim())) {
-      newErrors['dateTime'] = 'Date et heure est requis';
-    }
-    if (!this.formData.palLocation || (typeof this.formData.palLocation === 'string' && !this.formData.palLocation.trim())) {
-      newErrors['palLocation'] = 'Localisation PAL est requis';
+    if (!this.formData.entryDate || (typeof this.formData.entryDate === 'string' && !this.formData.entryDate.trim())) {
+      newErrors['entryDate'] = "Date d'entrée est requis";
     }
 
     this.errors = newErrors;

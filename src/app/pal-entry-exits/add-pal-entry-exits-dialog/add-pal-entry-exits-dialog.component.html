@@ -21,40 +21,40 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- Numéro d'entrée/sortie -->
+      <!-- ID Navire commercial -->
       <div class="grid gap-2">
-        <label for="entryExitNumber" class="text-sm font-medium text-gray-700">Numéro d'entrée/sortie *</label>
+        <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
         <input
-          id="entryExitNumber"
+          id="commercialShipTrackingId"
           type="text"
-          placeholder="Ex: PAL-2024-001"
-          [(ngModel)]="formData.entryExitNumber"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['entryExitNumber'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['entryExitNumber']" class="text-red-500 text-sm">{{ errors['entryExitNumber'] }}</p>
+          placeholder="Ex: UUID du navire"
+          [(ngModel)]="formData.commercialShipTrackingId"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
       </div>
 
-      <!-- Date et heure -->
+      <!-- Date d'entrée -->
       <div class="grid gap-2">
-        <label for="dateTime" class="text-sm font-medium text-gray-700">Date et heure *</label>
+        <label for="entryDate" class="text-sm font-medium text-gray-700">Date d'entrée *</label>
         <input
-          id="dateTime"
-          type="datetime-local"
+          id="entryDate"
+          type="date"
           placeholder=""
-          [(ngModel)]="formData.dateTime"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['dateTime'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['dateTime']" class="text-red-500 text-sm">{{ errors['dateTime'] }}</p>
+          [(ngModel)]="formData.entryDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['entryDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['entryDate']" class="text-red-500 text-sm">{{ errors['entryDate'] }}</p>
       </div>
 
-      <!-- Localisation PAL -->
+      <!-- Zone de mouillage -->
       <div class="grid gap-2">
-        <label for="palLocation" class="text-sm font-medium text-gray-700">Localisation PAL *</label>
+        <label for="anchorageZone" class="text-sm font-medium text-gray-700">Zone de mouillage</label>
         <input
-          id="palLocation"
+          id="anchorageZone"
           type="text"
           placeholder=""
-          [(ngModel)]="formData.palLocation"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['palLocation'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['palLocation']" class="text-red-500 text-sm">{{ errors['palLocation'] }}</p>
+          [(ngModel)]="formData.anchorageZone"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['anchorageZone'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['anchorageZone']" class="text-red-500 text-sm">{{ errors['anchorageZone'] }}</p>
       </div>
 
       <!-- Observations -->

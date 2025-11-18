@@ -52,18 +52,10 @@ export class EscortMissionsComponent implements OnInit {
           this.missions = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: EscortMission | null = null;
       },
       error: (error) => {
         console.error('Error loading missions:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: EscortMission | null = null;
       }
     });
   }
@@ -76,7 +68,7 @@ export class EscortMissionsComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: EscortMissionRequest): void {
@@ -86,15 +78,15 @@ export class EscortMissionsComponent implements OnInit {
           this.missions = [...this.missions, res.data];
         }
         this.openAddDialog = false;
-        alert('mission d'escorte créé(e) avec succès');
+        alert("mission d'escorte créé(e) avec succès");
       },
       error: (err) => {
         console.error('Erreur lors de la création', err);
-        alert('Erreur lors de la création de mission d'escorte');
+        alert("Erreur lors de la création de mission d'escorte");
       }
     });
   }
-  openEditDialog(item: EscortMission): void {
+  showEditDialog(item: EscortMission): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -111,16 +103,16 @@ export class EscortMissionsComponent implements OnInit {
         }
         this.openEditDialog = false;
         this.selectedItem = null;
-        alert('mission d'escorte modifié(e) avec succès');
+        alert("mission d'escorte modifié(e) avec succès");
       },
       error: (err) => {
         console.error('Erreur lors de la modification', err);
-        alert('Erreur lors de la modification de mission d'escorte');
+        alert("Erreur lors de la modification de mission d'escorte");
       }
     });
   }
 
-  openDeleteDialog(item: EscortMission): void {
+  showDeleteDialog(item: EscortMission): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }
@@ -133,11 +125,11 @@ export class EscortMissionsComponent implements OnInit {
         this.missions = this.missions.filter(item => item.trackingId !== this.selectedItem!.trackingId);
         this.openDeleteDialog = false;
         this.selectedItem = null;
-        alert('mission d'escorte supprimé(e) avec succès');
+        alert("mission d'escorte supprimé(e) avec succès");
       },
       error: (err) => {
         console.error('Erreur lors de la suppression', err);
-        alert('Erreur lors de la suppression de mission d'escorte');
+        alert("Erreur lors de la suppression de mission d'escorte");
       }
     });
   }

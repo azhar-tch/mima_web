@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { NavalVesselRequest } from '../../models/Maritime';
+import { NavalVesselType } from '../../models/enums';
 
 @Component({
   selector: 'app-add-naval-vessels-dialog',
@@ -18,6 +19,7 @@ export class AddNavalVesselsDialogComponent {
 
   formData: NavalVesselRequest = {
     vesselNumber: '',
+    vesselType: NavalVesselType.PHM,
     vesselName: '',
     hullNumber: '',
     homePort: '',
@@ -29,6 +31,7 @@ export class AddNavalVesselsDialogComponent {
   handleReset() {
     this.formData = {
     vesselNumber: '',
+    vesselType: NavalVesselType.PHM,
     vesselName: '',
     hullNumber: '',
     homePort: '',
