@@ -115,18 +115,6 @@ export class SideBarComponent {
         { label: 'Compagnies BML', icon: 'Building2', href: '/bml-companies' },
       ]
     },
-    {
-      title: 'Historiques Agents',
-      items: [
-        { label: 'Hist. Grades', icon: 'History', href: '/agent-grade-history' },
-        { label: 'Hist. Formations', icon: 'History', href: '/agent-training-history' },
-        { label: 'Hist. Distinctions', icon: 'History', href: '/agent-award-history' },
-        { label: 'Hist. Fonctions', icon: 'History', href: '/agent-function-history' },
-        { label: 'Hist. Compagnies', icon: 'History', href: '/agent-company-history' },
-        { label: 'Hist. Postes Service', icon: 'History', href: '/agent-service-position-history' },
-        { label: 'Hist. Autres Postes', icon: 'History', href: '/agent-other-position-history' },
-      ]
-    }
   ];
 
   // Keep for backward compatibility

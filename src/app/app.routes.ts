@@ -23,14 +23,7 @@ import { ServicePositionsComponent } from './service-positions/service-positions
 import { OtherPositionsComponent } from './other-positions/other-positions.component';
 import { BmlCompaniesComponent } from './bml-companies/bml-companies.component';
 
-// System 4 - Agent History
-import { AgentGradeHistoryComponent } from './agent-grade-history/agent-grade-history.component';
-import { AgentTrainingHistoryComponent } from './agent-training-history/agent-training-history.component';
-import { AgentAwardHistoryComponent } from './agent-award-history/agent-award-history.component';
-import { AgentFunctionHistoryComponent } from './agent-function-history/agent-function-history.component';
-import { AgentCompanyHistoryComponent } from './agent-company-history/agent-company-history.component';
-import { AgentServicePositionHistoryComponent } from './agent-service-position-history/agent-service-position-history.component';
-import { AgentOtherPositionHistoryComponent } from './agent-other-position-history/agent-other-position-history.component';
+// System 4 - Agent History - Removed (consolidated in HistoriesComponent)
 
 // System 3 - Maritime Operations
 import { CommercialShipsComponent } from './commercial-ships/commercial-ships.component';
@@ -118,14 +111,7 @@ export const routes: Routes = [
       { path: 'other-positions', component: OtherPositionsComponent },
       { path: 'bml-companies', component: BmlCompaniesComponent },
 
-      // System 4 - Agent History
-      { path: 'agent-grade-history', component: AgentGradeHistoryComponent },
-      { path: 'agent-training-history', component: AgentTrainingHistoryComponent },
-      { path: 'agent-award-history', component: AgentAwardHistoryComponent },
-      { path: 'agent-function-history', component: AgentFunctionHistoryComponent },
-      { path: 'agent-company-history', component: AgentCompanyHistoryComponent },
-      { path: 'agent-service-position-history', component: AgentServicePositionHistoryComponent },
-      { path: 'agent-other-position-history', component: AgentOtherPositionHistoryComponent },
+      // System 4 - Agent History - Removed (consolidated in HistoriesComponent)
 
       // System 3 - Maritime Operations
       { path: 'commercial-ships', component: CommercialShipsComponent },
