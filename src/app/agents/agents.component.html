@@ -348,6 +348,18 @@
             {{ getStatusLabel(selectedAgent.status) }}
           </span>
         </div>
+        <div class="flex justify-between">
+          <span class="text-sm font-medium text-gray-600">Grade maritime:</span>
+          <span class="text-sm text-gray-900">{{ getRankLabel(selectedAgent.maritimeRank) }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sm font-medium text-gray-600">Spécialité:</span>
+          <span class="text-sm text-gray-900">{{ getSpecialtyLabel(selectedAgent.specialty) }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sm font-medium text-gray-600">Sexe:</span>
+          <span class="text-sm text-gray-900">{{ selectedAgent.sex === 'M' ? 'Masculin' : selectedAgent.sex === 'F' ? 'Féminin' : selectedAgent.sex }}</span>
+        </div>
         <div *ngIf="selectedAgent.nationality" class="flex justify-between">
           <span class="text-sm font-medium text-gray-600">Nationalité:</span>
           <span class="text-sm text-gray-900">{{ selectedAgent.nationality }}</span>
