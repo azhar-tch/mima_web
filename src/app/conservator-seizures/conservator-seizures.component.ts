@@ -52,18 +52,10 @@ export class ConservatorSeizuresComponent implements OnInit {
           this.seizures = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ConservatorSeizure | null = null;
       },
       error: (error) => {
         console.error('Error loading seizures:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ConservatorSeizure | null = null;
       }
     });
   }
@@ -76,7 +68,7 @@ export class ConservatorSeizuresComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: ConservatorSeizureRequest): void {
@@ -94,7 +86,7 @@ export class ConservatorSeizuresComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: ConservatorSeizure): void {
+  showEditDialog(item: ConservatorSeizure): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -120,7 +112,7 @@ export class ConservatorSeizuresComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: ConservatorSeizure): void {
+  showDeleteDialog(item: ConservatorSeizure): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }

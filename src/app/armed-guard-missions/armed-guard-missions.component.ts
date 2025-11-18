@@ -52,18 +52,10 @@ export class ArmedGuardMissionsComponent implements OnInit {
           this.missions = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ArmedGuardMission | null = null;
       },
       error: (error) => {
         console.error('Error loading missions:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: ArmedGuardMission | null = null;
       }
     });
   }
@@ -76,7 +68,7 @@ export class ArmedGuardMissionsComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: ArmedGuardMissionRequest): void {
@@ -94,7 +86,7 @@ export class ArmedGuardMissionsComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: ArmedGuardMission): void {
+  showEditDialog(item: ArmedGuardMission): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -120,7 +112,7 @@ export class ArmedGuardMissionsComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: ArmedGuardMission): void {
+  showDeleteDialog(item: ArmedGuardMission): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }

@@ -52,18 +52,10 @@ export class CommercialShipsComponent implements OnInit {
           this.ships = response.data;
         }
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: CommercialShip | null = null;
       },
       error: (error) => {
         console.error('Error loading ships:', error);
         this.isLoading = false;
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  selectedItem: CommercialShip | null = null;
       }
     });
   }
@@ -76,7 +68,7 @@ export class CommercialShipsComponent implements OnInit {
     );
   }
 
-  openAddDialog(): void {
+  showAddDialog(): void {
     this.openAddDialog = true;
   }
   handleAdd(newItem: CommercialShipRequest): void {
@@ -94,7 +86,7 @@ export class CommercialShipsComponent implements OnInit {
       }
     });
   }
-  openEditDialog(item: CommercialShip): void {
+  showEditDialog(item: CommercialShip): void {
     this.selectedItem = item;
     this.openEditDialog = true;
   }
@@ -120,7 +112,7 @@ export class CommercialShipsComponent implements OnInit {
     });
   }
 
-  openDeleteDialog(item: CommercialShip): void {
+  showDeleteDialog(item: CommercialShip): void {
     this.selectedItem = item;
     this.openDeleteDialog = true;
   }

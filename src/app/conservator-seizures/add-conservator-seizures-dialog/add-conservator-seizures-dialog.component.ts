@@ -17,10 +17,10 @@ export class AddConservatorSeizuresDialogComponent {
   @Output() add = new EventEmitter<ConservatorSeizureRequest>();
 
   formData: ConservatorSeizureRequest = {
-    seizureNumber: '',
-    dateTime: '',
-    location: '',
-    seizureDescription: '',
+    commercialShipTrackingId: '',
+    seizureDate: '',
+    seizureLocation: '',
+    seizureReason: '',
     observations: ''
   };
 
@@ -28,10 +28,10 @@ export class AddConservatorSeizuresDialogComponent {
 
   handleReset() {
     this.formData = {
-    seizureNumber: '',
-    dateTime: '',
-    location: '',
-    seizureDescription: '',
+    commercialShipTrackingId: '',
+    seizureDate: '',
+    seizureLocation: '',
+    seizureReason: '',
     observations: ''
     };
     this.errors = {};
@@ -44,17 +44,11 @@ export class AddConservatorSeizuresDialogComponent {
 
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
-    if (!this.formData.seizureNumber || (typeof this.formData.seizureNumber === 'string' && !this.formData.seizureNumber.trim())) {
-      newErrors['seizureNumber'] = 'Numéro de saisie est requis';
+    if (!this.formData.commercialShipTrackingId || (typeof this.formData.commercialShipTrackingId === 'string' && !this.formData.commercialShipTrackingId.trim())) {
+      newErrors['commercialShipTrackingId'] = "ID Navire commercial est requis";
     }
-    if (!this.formData.dateTime || (typeof this.formData.dateTime === 'string' && !this.formData.dateTime.trim())) {
-      newErrors['dateTime'] = 'Date et heure est requis';
-    }
-    if (!this.formData.location || (typeof this.formData.location === 'string' && !this.formData.location.trim())) {
-      newErrors['location'] = 'Localisation est requis';
-    }
-    if (!this.formData.seizureDescription || (typeof this.formData.seizureDescription === 'string' && !this.formData.seizureDescription.trim())) {
-      newErrors['seizureDescription'] = 'Description de la saisie est requis';
+    if (!this.formData.seizureDate || (typeof this.formData.seizureDate === 'string' && !this.formData.seizureDate.trim())) {
+      newErrors['seizureDate'] = "Date de saisie est requis";
     }
 
     this.errors = newErrors;

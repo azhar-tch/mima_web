@@ -21,53 +21,53 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- Numéro de saisie -->
+      <!-- ID Navire commercial -->
       <div class="grid gap-2">
-        <label for="seizureNumber" class="text-sm font-medium text-gray-700">Numéro de saisie *</label>
+        <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
         <input
-          id="seizureNumber"
+          id="commercialShipTrackingId"
           type="text"
-          placeholder="Ex: SEZ-2024-001"
-          [(ngModel)]="formData.seizureNumber"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['seizureNumber'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['seizureNumber']" class="text-red-500 text-sm">{{ errors['seizureNumber'] }}</p>
+          placeholder="Ex: UUID du navire"
+          [(ngModel)]="formData.commercialShipTrackingId"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
       </div>
 
-      <!-- Date et heure -->
+      <!-- Date de saisie -->
       <div class="grid gap-2">
-        <label for="dateTime" class="text-sm font-medium text-gray-700">Date et heure *</label>
+        <label for="seizureDate" class="text-sm font-medium text-gray-700">Date de saisie *</label>
         <input
-          id="dateTime"
-          type="datetime-local"
+          id="seizureDate"
+          type="date"
           placeholder=""
-          [(ngModel)]="formData.dateTime"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['dateTime'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['dateTime']" class="text-red-500 text-sm">{{ errors['dateTime'] }}</p>
+          [(ngModel)]="formData.seizureDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['seizureDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['seizureDate']" class="text-red-500 text-sm">{{ errors['seizureDate'] }}</p>
       </div>
 
-      <!-- Localisation -->
+      <!-- Localisation de saisie -->
       <div class="grid gap-2">
-        <label for="location" class="text-sm font-medium text-gray-700">Localisation *</label>
+        <label for="seizureLocation" class="text-sm font-medium text-gray-700">Localisation de saisie</label>
         <input
-          id="location"
+          id="seizureLocation"
           type="text"
           placeholder=""
-          [(ngModel)]="formData.location"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['location'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['location']" class="text-red-500 text-sm">{{ errors['location'] }}</p>
+          [(ngModel)]="formData.seizureLocation"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['seizureLocation'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['seizureLocation']" class="text-red-500 text-sm">{{ errors['seizureLocation'] }}</p>
       </div>
 
-      <!-- Description de la saisie -->
+      <!-- Raison de la saisie -->
       <div class="grid gap-2">
-        <label for="seizureDescription" class="text-sm font-medium text-gray-700">Description de la saisie *</label>
+        <label for="seizureReason" class="text-sm font-medium text-gray-700">Raison de la saisie</label>
         <textarea
-          id="seizureDescription"
+          id="seizureReason"
           placeholder=""
-          [(ngModel)]="formData.seizureDescription"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['seizureDescription'] ? 'border-red-500' : 'border-gray-300')"
+          [(ngModel)]="formData.seizureReason"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['seizureReason'] ? 'border-red-500' : 'border-gray-300')"
           rows="3"
         ></textarea>
-        <p *ngIf="errors['seizureDescription']" class="text-red-500 text-sm">{{ errors['seizureDescription'] }}</p>
+        <p *ngIf="errors['seizureReason']" class="text-red-500 text-sm">{{ errors['seizureReason'] }}</p>
       </div>
 
       <!-- Observations -->
