@@ -20,8 +20,10 @@ export class EditServicePositionDialogComponent implements OnChanges {
 
   formData: ServicePositionRequest = {
     positionName: '',
-    description: '',
-    hierarchyLevel: undefined
+    positionType: '',
+    location: '',
+    unit: '',
+    description: ''
   };
 
   errors: Record<string, string> = {};
@@ -30,8 +32,10 @@ export class EditServicePositionDialogComponent implements OnChanges {
     if (changes['servicePosition'] && this.servicePosition) {
       this.formData = {
         positionName: this.servicePosition.positionName || '',
-        description: this.servicePosition.description || '',
-        hierarchyLevel: this.servicePosition.hierarchyLevel
+        positionType: this.servicePosition.positionType || '',
+        location: this.servicePosition.location || '',
+        unit: this.servicePosition.unit || '',
+        description: this.servicePosition.description || ''
       };
     }
   }
@@ -40,8 +44,10 @@ export class EditServicePositionDialogComponent implements OnChanges {
     this.close.emit();
     this.formData = {
       positionName: '',
-      description: '',
-      hierarchyLevel: undefined
+      positionType: '',
+      location: '',
+      unit: '',
+      description: ''
     };
     this.errors = {};
   }
@@ -49,10 +55,7 @@ export class EditServicePositionDialogComponent implements OnChanges {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.positionName || !this.formData.positionName.trim()) {
-      newErrors['positionName'] = 'Le nom du service-positions est requis';
-    }
-    if (this.formData.hierarchyLevel !== undefined && this.formData.hierarchyLevel < 0) {
-      newErrors['hierarchyLevel'] = 'Le niveau hiérarchique doit être positif';
+      newErrors['positionName'] = 'Le nom du poste de service est requis';
     }
 
     this.errors = newErrors;

@@ -19,8 +19,10 @@ export class AddServicePositionDialogComponent {
 
   formData: ServicePositionRequest = {
     positionName: '',
-    description: '',
-    hierarchyLevel: undefined
+    positionType: '',
+    location: '',
+    unit: '',
+    description: ''
   };
 
   errors: Record<string, string> = {};
@@ -28,8 +30,10 @@ export class AddServicePositionDialogComponent {
   handleReset() {
     this.formData = {
       positionName: '',
-      description: '',
-      hierarchyLevel: undefined
+      positionType: '',
+      location: '',
+      unit: '',
+      description: ''
     };
     this.errors = {};
   }
@@ -42,10 +46,7 @@ export class AddServicePositionDialogComponent {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.positionName || !this.formData.positionName.trim()) {
-      newErrors['positionName'] = 'un poste de service est requis';
-    }
-    if (this.formData.hierarchyLevel !== undefined && this.formData.hierarchyLevel < 0) {
-      newErrors['hierarchyLevel'] = 'Le niveau hiérarchique doit être positif';
+      newErrors['positionName'] = 'Le nom du poste de service est requis';
     }
 
     this.errors = newErrors;

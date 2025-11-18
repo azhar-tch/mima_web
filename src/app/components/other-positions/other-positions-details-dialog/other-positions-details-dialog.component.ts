@@ -13,7 +13,7 @@ import { OtherPosition } from '../../../models/HRManagement';
 export class OtherPositionDetailsDialogComponent {
   readonly X = X;
 
-  @Input() other-positions: OtherPosition | null = null;
+  @Input() otherPosition: OtherPosition | null = null;
   @Output() close = new EventEmitter<void>();
 
   handleClose() {

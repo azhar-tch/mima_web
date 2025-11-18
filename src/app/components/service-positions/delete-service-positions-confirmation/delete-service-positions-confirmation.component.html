@@ -24,26 +24,26 @@
     </div>
 
     <!-- Content -->
-    <div class="space-y-4" *ngIf="service-positions">
+    <div class="space-y-4" *ngIf="servicePosition">
       <p class="text-gray-600">
-        Êtes-vous sûr de vouloir supprimer le service-positions <strong class="text-gray-900">{{ service-positions.service-positionsName }}</strong> ?
+        Êtes-vous sûr de vouloir supprimer le poste de service <strong class="text-gray-900">{{ servicePosition.positionName }}</strong> ?
       </p>
 
       <div class="bg-red-50 border border-red-200 rounded-md p-3">
         <p class="text-sm text-red-800">
-          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à ce service-positions seront définitivement supprimées.
+          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à ce poste de service seront définitivement supprimées.
         </p>
       </div>
 
-      <!-- Grade Info -->
+      <!-- Position Info -->
       <div class="bg-gray-50 rounded-md p-3 space-y-2">
         <div>
-          <p class="text-xs text-gray-500">Nom du service-positions</p>
-          <p class="text-sm font-medium text-gray-900">{{ service-positions.service-positionsName }}</p>
+          <p class="text-xs text-gray-500">Nom du poste de service</p>
+          <p class="text-sm font-medium text-gray-900">{{ servicePosition.positionName }}</p>
         </div>
-        <div *ngIf="service-positions.hierarchyLevel !== undefined && service-positions.hierarchyLevel !== null">
-          <p class="text-xs text-gray-500">Niveau hiérarchique</p>
-          <p class="text-sm text-gray-900">{{ service-positions.hierarchyLevel }}</p>
+        <div *ngIf="servicePosition.positionType">
+          <p class="text-xs text-gray-500">Type de poste</p>
+          <p class="text-sm text-gray-900">{{ servicePosition.positionType }}</p>
         </div>
       </div>
     </div>
