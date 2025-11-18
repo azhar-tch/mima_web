@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { TrainingsService } from '../../services/trainings/trainings.service';
 import { Training, TrainingRequest } from '../../models/HRManagement';
-// TODO: Create missing dialog components
-// import { AddTrainingDialogComponent } from './add-trainings-dialog/add-trainings-dialog.component';
-// import { EditTrainingDialogComponent } from './edit-trainings-dialog/edit-trainings-dialog.component';
-// import { TrainingDetailsDialogComponent } from './trainings-details-dialog/trainings-details-dialog.component';
-// import { DeleteTrainingConfirmationComponent } from './delete-trainings-confirmation/delete-trainings-confirmation.component';
+import { AddTrainingDialogComponent } from './add-training-dialog/add-training-dialog.component';
+import { EditTrainingDialogComponent } from './edit-training-dialog/edit-training-dialog.component';
+import { TrainingDetailsDialogComponent } from './training-details-dialog/training-details-dialog.component';
+import { DeleteTrainingConfirmationComponent } from './delete-training-confirmation/delete-training-confirmation.component';
 
 @Component({
   selector: 'app-trainings',
@@ -17,11 +16,10 @@ import { Training, TrainingRequest } from '../../models/HRManagement';
     CommonModule,
     FormsModule,
     LucideAngularModule,
-    // TODO: Uncomment when dialog components are created
-    // AddTrainingDialogComponent,
-    // EditTrainingDialogComponent,
-    // TrainingDetailsDialogComponent,
-    // DeleteTrainingConfirmationComponent
+    AddTrainingDialogComponent,
+    EditTrainingDialogComponent,
+    TrainingDetailsDialogComponent,
+    DeleteTrainingConfirmationComponent
   ],
   templateUrl: './trainings.component.html',
   styleUrl: './trainings.component.css'

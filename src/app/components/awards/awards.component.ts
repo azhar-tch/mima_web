@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { AwardsService } from '../../services/awards/awards.service';
 import { Award, AwardRequest } from '../../models/HRManagement';
-// TODO: Create missing dialog components
-// import { AddAwardDialogComponent } from './add-awards-dialog/add-awards-dialog.component';
-// import { EditAwardDialogComponent } from './edit-awards-dialog/edit-awards-dialog.component';
-// import { AwardDetailsDialogComponent } from './awards-details-dialog/awards-details-dialog.component';
-// import { DeleteAwardConfirmationComponent } from './delete-awards-confirmation/delete-awards-confirmation.component';
+import { AddAwardDialogComponent } from './add-award-dialog/add-award-dialog.component';
+import { EditAwardDialogComponent } from './edit-award-dialog/edit-award-dialog.component';
+import { AwardDetailsDialogComponent } from './award-details-dialog/award-details-dialog.component';
+import { DeleteAwardConfirmationComponent } from './delete-award-confirmation/delete-award-confirmation.component';
 
 @Component({
   selector: 'app-awards',
@@ -17,11 +16,10 @@ import { Award, AwardRequest } from '../../models/HRManagement';
     CommonModule,
     FormsModule,
     LucideAngularModule,
-    // TODO: Uncomment when dialog components are created
-    // AddAwardDialogComponent,
-    // EditAwardDialogComponent,
-    // AwardDetailsDialogComponent,
-    // DeleteAwardConfirmationComponent
+    AddAwardDialogComponent,
+    EditAwardDialogComponent,
+    AwardDetailsDialogComponent,
+    DeleteAwardConfirmationComponent
   ],
   templateUrl: './awards.component.html',
   styleUrl: './awards.component.css'
