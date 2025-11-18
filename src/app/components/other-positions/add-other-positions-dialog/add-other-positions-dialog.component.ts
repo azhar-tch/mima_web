@@ -19,8 +19,8 @@ export class AddOtherPositionDialogComponent {
 
   formData: OtherPositionRequest = {
     positionName: '',
-    description: '',
-    hierarchyLevel: undefined
+    positionType: '',
+    description: ''
   };
 
   errors: Record<string, string> = {};
@@ -28,8 +28,8 @@ export class AddOtherPositionDialogComponent {
   handleReset() {
     this.formData = {
       positionName: '',
-      description: '',
-      hierarchyLevel: undefined
+      positionType: '',
+      description: ''
     };
     this.errors = {};
   }
@@ -42,10 +42,7 @@ export class AddOtherPositionDialogComponent {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.positionName || !this.formData.positionName.trim()) {
-      newErrors['positionName'] = 'un autre poste est requis';
-    }
-    if (this.formData.hierarchyLevel !== undefined && this.formData.hierarchyLevel < 0) {
-      newErrors['hierarchyLevel'] = 'Le niveau hiérarchique doit être positif';
+      newErrors['positionName'] = 'Le nom de l\'autre poste est requis';
     }
 
     this.errors = newErrors;
