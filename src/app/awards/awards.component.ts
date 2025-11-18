@@ -36,10 +36,10 @@ export class AwardsComponent implements OnInit {
   searchTerm = '';
   isLoading = false;
 
-  openAddDialog = false;
-  openEditDialog = false;
-  openDeleteDialog = false;
-  openDetailsDialog = false;
+  showAddDialog = false;
+  showEditDialog = false;
+  showDeleteDialog = false;
+  showDetailsDialog = false;
   selected: Award | null = null;
 
   constructor(private hrsService: AwardsService) {}
@@ -69,23 +69,23 @@ export class AwardsComponent implements OnInit {
     if (!this.searchTerm) return this.awardss;
     const term = this.searchTerm.toLowerCase();
     return this.awardss.filter(awards =>
-      awards.awardsName.toLowerCase().includes(term) ||
+      awards.awardName.toLowerCase().includes(term) ||
       (awards.description && awards.description.toLowerCase().includes(term))
     );
   }
 
-  handleAdd(new: AwardRequest): void {
-    this.hrsService.create(new).subscribe({
+  handleAdd(newAward: AwardRequest): void {
+    this.hrsService.create(newAward).subscribe({
       next: (res) => {
         if (res.data) {
           this.awardss = [...this.awardss, res.data];
         }
-        this.openAddDialog = false;
-        alert(' créé avec succès');
+        this.showAddDialog = false;
+        alert('Récompense créée avec succès');
       },
       error: (err) => {
-        console.error('Erreur lors de la création du awards', err);
-        alert('Erreur lors de la création du awards');
+        console.error('Erreur lors de la création de la récompense', err);
+        alert('Erreur lors de la création de la récompense');
       }
     });
   }
@@ -100,13 +100,13 @@ export class AwardsComponent implements OnInit {
             g.trackingId === this.selected!.trackingId ? res.data! : g
           );
         }
-        this.openEditDialog = false;
+        this.showEditDialog = false;
         this.selected = null;
-        alert(' modifié avec succès');
+        alert('Récompense modifiée avec succès');
       },
       error: (err) => {
-        console.error('Erreur lors de la modification du awards', err);
-        alert('Erreur lors de la modification du awards');
+        console.error('Erreur lors de la modification de la récompense', err);
+        alert('Erreur lors de la modification de la récompense');
       }
     });
   }
@@ -117,33 +117,33 @@ export class AwardsComponent implements OnInit {
     this.hrsService.delete(this.selected.trackingId).subscribe({
       next: () => {
         this.awardss = this.awardss.filter(g => g.trackingId !== this.selected!.trackingId);
-        this.openDeleteDialog = false;
+        this.showDeleteDialog = false;
         this.selected = null;
-        alert(' supprimé avec succès');
+        alert('Récompense supprimée avec succès');
       },
       error: (err) => {
-        console.error('Erreur lors de la suppression du awards', err);
-        alert('Erreur lors de la suppression du awards');
+        console.error('Erreur lors de la suppression de la récompense', err);
+        alert('Erreur lors de la suppression de la récompense');
       }
     });
   }
 
   openAddDialog(): void {
-    this.openAddDialog = true;
+    this.showAddDialog = true;
   }
 
   openEditDialog(awards: Award): void {
     this.selected = awards;
-    this.openEditDialog = true;
+    this.showEditDialog = true;
   }
 
   openDeleteDialog(awards: Award): void {
     this.selected = awards;
-    this.openDeleteDialog = true;
+    this.showDeleteDialog = true;
   }
 
   openDetailsDialog(awards: Award): void {
     this.selected = awards;
-    this.openDetailsDialog = true;
+    this.showDetailsDialog = true;
   }
 }

@@ -69,7 +69,7 @@ export class HrFunctionsComponent implements OnInit {
     if (!this.searchTerm) return this.hrs;
     const term = this.searchTerm.toLowerCase();
     return this.hrs.filter(hr =>
-      hr.hrName.toLowerCase().includes(term) ||
+      hr.functionName.toLowerCase().includes(term) ||
       (hr.description && hr.description.toLowerCase().includes(term))
     );
   }

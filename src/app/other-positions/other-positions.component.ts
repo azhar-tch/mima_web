@@ -69,7 +69,7 @@ export class OtherPositionsComponent implements OnInit {
     if (!this.searchTerm) return this.others;
     const term = this.searchTerm.toLowerCase();
     return this.others.filter(other =>
-      other.otherName.toLowerCase().includes(term) ||
+      other.positionName.toLowerCase().includes(term) ||
       (other.description && other.description.toLowerCase().includes(term))
     );
   }

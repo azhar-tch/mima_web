@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
-import { PalEntryExitsService } from '../services/pal-entry-exits/pal-entry-exits.service';
+import { PALEntryExitsService } from '../services/pal-entry-exits/pal-entry-exits.service';
 import { PALEntryExit } from '../models/Maritime';
 
 @Component({
@@ -24,7 +24,7 @@ export class PalEntryExitsComponent implements OnInit {
   searchTerm = '';
   isLoading = false;
 
-  constructor(private palEntryExitsService: PalEntryExitsService) {}
+  constructor(private palEntryExitsService: PALEntryExitsService) {}
 
   ngOnInit() {
     this.loadPalEntryExitss();
