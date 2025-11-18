@@ -9,7 +9,7 @@
       <div class="flex items-center justify-between">
         <div>
           <h2 class="text-xl font-semibold text-gray-900">Ajouter une formation</h2>
-          <p class="text-sm text-gray-500 mt-1">Créez un nouveau grade RH</p>
+          <p class="text-sm text-gray-500 mt-1">Créez une nouvelle formation</p>
         </div>
         <button
           (click)="handleClose()"
@@ -21,30 +21,49 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- Grade Name -->
+      <!-- Training Name -->
       <div class="grid gap-2">
-        <label for="gradeName" class="text-sm font-medium text-gray-700">Nom du grade *</label>
+        <label for="trainingName" class="text-sm font-medium text-gray-700">Nom de la formation *</label>
         <input
-          id="gradeName"
+          id="trainingName"
           type="text"
-          placeholder="Ex: Lieutenant, Capitaine, Commandant..."
-          [(ngModel)]="formData.gradeName"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['gradeName'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['gradeName']" class="text-red-500 text-sm">{{ errors['gradeName'] }}</p>
+          placeholder="Ex: Master en Sciences Politiques, Licence en Droit..."
+          [(ngModel)]="formData.trainingName"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['trainingName'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['trainingName']" class="text-red-500 text-sm">{{ errors['trainingName'] }}</p>
       </div>
 
-      <!-- Hierarchy Level -->
+      <!-- Training Type -->
       <div class="grid gap-2">
-        <label for="hierarchyLevel" class="text-sm font-medium text-gray-700">Niveau hiérarchique</label>
+        <label for="trainingType" class="text-sm font-medium text-gray-700">Type de formation</label>
         <input
-          id="hierarchyLevel"
-          type="number"
-          min="0"
-          placeholder="Ex: 1, 2, 3..."
-          [(ngModel)]="formData.hierarchyLevel"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['hierarchyLevel'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['hierarchyLevel']" class="text-red-500 text-sm">{{ errors['hierarchyLevel'] }}</p>
-        <p class="text-xs text-gray-500">Plus le nombre est élevé, plus le grade est important</p>
+          id="trainingType"
+          type="text"
+          placeholder="Ex: Diplôme universitaire, Formation professionnelle, Certification..."
+          [(ngModel)]="formData.trainingType"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- Institution -->
+      <div class="grid gap-2">
+        <label for="institution" class="text-sm font-medium text-gray-700">Institution</label>
+        <input
+          id="institution"
+          type="text"
+          placeholder="Ex: Université de Yaoundé, École Militaire Inter-Armées..."
+          [(ngModel)]="formData.institution"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- Country -->
+      <div class="grid gap-2">
+        <label for="country" class="text-sm font-medium text-gray-700">Pays</label>
+        <input
+          id="country"
+          type="text"
+          placeholder="Ex: Cameroun, France, États-Unis..."
+          [(ngModel)]="formData.country"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
       </div>
 
       <!-- Description -->
@@ -52,7 +71,7 @@
         <label for="description" class="text-sm font-medium text-gray-700">Description</label>
         <textarea
           id="description"
-          placeholder="Décrivez ce grade (optionnel)"
+          placeholder="Décrivez cette formation (optionnel)"
           [(ngModel)]="formData.description"
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="3"

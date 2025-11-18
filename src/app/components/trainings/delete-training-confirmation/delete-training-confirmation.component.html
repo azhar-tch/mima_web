@@ -24,26 +24,34 @@
     </div>
 
     <!-- Content -->
-    <div class="space-y-4" *ngIf="trainings">
+    <div class="space-y-4" *ngIf="training">
       <p class="text-gray-600">
-        Êtes-vous sûr de vouloir supprimer le trainings <strong class="text-gray-900">{{ trainings.trainingsName }}</strong> ?
+        Êtes-vous sûr de vouloir supprimer la formation <strong class="text-gray-900">{{ training.trainingName }}</strong> ?
       </p>
 
       <div class="bg-red-50 border border-red-200 rounded-md p-3">
         <p class="text-sm text-red-800">
-          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à ce trainings seront définitivement supprimées.
+          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à cette formation seront définitivement supprimées.
         </p>
       </div>
 
-      <!-- Grade Info -->
+      <!-- Training Info -->
       <div class="bg-gray-50 rounded-md p-3 space-y-2">
         <div>
-          <p class="text-xs text-gray-500">Nom du trainings</p>
-          <p class="text-sm font-medium text-gray-900">{{ trainings.trainingsName }}</p>
+          <p class="text-xs text-gray-500">Nom de la formation</p>
+          <p class="text-sm font-medium text-gray-900">{{ training.trainingName }}</p>
         </div>
-        <div *ngIf="trainings.hierarchyLevel !== undefined && trainings.hierarchyLevel !== null">
-          <p class="text-xs text-gray-500">Niveau hiérarchique</p>
-          <p class="text-sm text-gray-900">{{ trainings.hierarchyLevel }}</p>
+        <div *ngIf="training.trainingType">
+          <p class="text-xs text-gray-500">Type de formation</p>
+          <p class="text-sm text-gray-900">{{ training.trainingType }}</p>
+        </div>
+        <div *ngIf="training.institution">
+          <p class="text-xs text-gray-500">Institution</p>
+          <p class="text-sm text-gray-900">{{ training.institution }}</p>
+        </div>
+        <div *ngIf="training.country">
+          <p class="text-xs text-gray-500">Pays</p>
+          <p class="text-sm text-gray-900">{{ training.country }}</p>
         </div>
       </div>
     </div>

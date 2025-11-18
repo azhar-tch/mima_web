@@ -9,7 +9,7 @@
       <div class="flex items-center justify-between">
         <div>
           <h2 class="text-xl font-semibold text-gray-900">Modifier une distinction</h2>
-          <p class="text-sm text-gray-500 mt-1">Modifiez les informations du grade</p>
+          <p class="text-sm text-gray-500 mt-1">Modifiez les informations de la distinction</p>
         </div>
         <button
           (click)="handleClose()"
@@ -21,30 +21,27 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- Grade Name -->
+      <!-- Award Name -->
       <div class="grid gap-2">
-        <label for="gradeName" class="text-sm font-medium text-gray-700">Nom du grade *</label>
+        <label for="awardName" class="text-sm font-medium text-gray-700">Nom de la distinction *</label>
         <input
-          id="gradeName"
+          id="awardName"
           type="text"
-          placeholder="Ex: Lieutenant, Capitaine, Commandant..."
-          [(ngModel)]="formData.gradeName"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['gradeName'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['gradeName']" class="text-red-500 text-sm">{{ errors['gradeName'] }}</p>
+          placeholder="Ex: Médaille d'honneur, Prix d'excellence..."
+          [(ngModel)]="formData.awardName"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['awardName'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['awardName']" class="text-red-500 text-sm">{{ errors['awardName'] }}</p>
       </div>
 
-      <!-- Hierarchy Level -->
+      <!-- Award Type -->
       <div class="grid gap-2">
-        <label for="hierarchyLevel" class="text-sm font-medium text-gray-700">Niveau hiérarchique</label>
+        <label for="awardType" class="text-sm font-medium text-gray-700">Type de distinction</label>
         <input
-          id="hierarchyLevel"
-          type="number"
-          min="0"
-          placeholder="Ex: 1, 2, 3..."
-          [(ngModel)]="formData.hierarchyLevel"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['hierarchyLevel'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['hierarchyLevel']" class="text-red-500 text-sm">{{ errors['hierarchyLevel'] }}</p>
-        <p class="text-xs text-gray-500">Plus le nombre est élevé, plus le grade est important</p>
+          id="awardType"
+          type="text"
+          placeholder="Ex: Mérite, Honneur, Bravoure..."
+          [(ngModel)]="formData.awardType"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
       </div>
 
       <!-- Description -->
@@ -52,7 +49,7 @@
         <label for="description" class="text-sm font-medium text-gray-700">Description</label>
         <textarea
           id="description"
-          placeholder="Décrivez ce grade (optionnel)"
+          placeholder="Décrivez cette distinction (optionnel)"
           [(ngModel)]="formData.description"
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="3"

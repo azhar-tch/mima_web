@@ -24,26 +24,26 @@
     </div>
 
     <!-- Content -->
-    <div class="space-y-4" *ngIf="awards">
+    <div class="space-y-4" *ngIf="award">
       <p class="text-gray-600">
-        Êtes-vous sûr de vouloir supprimer le awards <strong class="text-gray-900">{{ awards.awardsName }}</strong> ?
+        Êtes-vous sûr de vouloir supprimer la distinction <strong class="text-gray-900">{{ award.awardName }}</strong> ?
       </p>
 
       <div class="bg-red-50 border border-red-200 rounded-md p-3">
         <p class="text-sm text-red-800">
-          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à ce awards seront définitivement supprimées.
+          <strong>Attention :</strong> Cette action est irréversible. Toutes les données associées à cette distinction seront définitivement supprimées.
         </p>
       </div>
 
-      <!-- Grade Info -->
+      <!-- Award Info -->
       <div class="bg-gray-50 rounded-md p-3 space-y-2">
         <div>
-          <p class="text-xs text-gray-500">Nom du awards</p>
-          <p class="text-sm font-medium text-gray-900">{{ awards.awardsName }}</p>
+          <p class="text-xs text-gray-500">Nom de la distinction</p>
+          <p class="text-sm font-medium text-gray-900">{{ award.awardName }}</p>
         </div>
-        <div *ngIf="awards.hierarchyLevel !== undefined && awards.hierarchyLevel !== null">
-          <p class="text-xs text-gray-500">Niveau hiérarchique</p>
-          <p class="text-sm text-gray-900">{{ awards.hierarchyLevel }}</p>
+        <div *ngIf="award.awardType">
+          <p class="text-xs text-gray-500">Type de distinction</p>
+          <p class="text-sm text-gray-900">{{ award.awardType }}</p>
         </div>
       </div>
     </div>
