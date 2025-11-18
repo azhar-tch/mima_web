@@ -87,30 +87,28 @@
 </div>
 
 <!-- Dialogs -->
-<!-- TODO: Uncomment when dialog components are created
-<app-add-service-dialog
+<app-add-service-positions-dialog
   *ngIf="openAddDialog"
   (close)="openAddDialog = false"
   (add)="handleAdditions($event)">
-</app-add-service-dialog>
+</app-add-service-positions-dialog>
 
-<app-edit-service-dialog
+<app-edit-service-positions-dialog
   *ngIf="openEditDialog"
-  [service]="selecteditions"
+  [servicePosition]="selecteditions"
   (close)="openEditDialog = false"
   (save)="handleEdititions($event)">
-</app-edit-service-dialog>
+</app-edit-service-positions-dialog>
 
-<app-service-details-dialog
+<app-service-positions-details-dialog
   *ngIf="openDetailsDialog"
-  [service]="selecteditions"
+  [servicePosition]="selecteditions"
   (close)="openDetailsDialog = false">
-</app-service-details-dialog>
+</app-service-positions-details-dialog>
 
-<app-delete-service-confirmation
+<app-delete-service-positions-confirmation
   *ngIf="openDeleteDialog"
-  [service]="selecteditions"
+  [servicePosition]="selecteditions"
   (close)="openDeleteDialog = false"
   (confirm)="handleDeleteitions()">
-</app-delete-service-confirmation>
--->
+</app-delete-service-positions-confirmation>

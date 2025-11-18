@@ -34,7 +34,7 @@ export class TrainingsComponent implements OnInit {
   readonly Trash2 = Trash2;
   readonly Filter = Filter;
 
-  trainingss: Training[] = [];
+  trainings: Training[] = [];
   searchTerm = '';
   isLoading = false;
 
@@ -42,45 +42,45 @@ export class TrainingsComponent implements OnInit {
   showEditDialog = false;
   showDeleteDialog = false;
   showDetailsDialog = false;
-  selected: Training | null = null;
+  selectedTraining: Training | null = null;
 
-  constructor(private hrsService: TrainingsService) {}
+  constructor(private trainingsService: TrainingsService) {}
 
   ngOnInit() {
-    this.loads();
+    this.loadTrainings();
   }
 
-  loads() {
+  loadTrainings() {
     this.isLoading = true;
-    this.hrsService.list().subscribe({
+    this.trainingsService.list().subscribe({
       next: (response) => {
         if (!response.error && response.data) {
-          this.trainingss = response.data;
+          this.trainings = response.data;
         }
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading trainingss:', error);
-        alert('Erreur lors du chargement des trainingss');
+        console.error('Error loading trainings:', error);
+        alert('Erreur lors du chargement des formations');
         this.isLoading = false;
       }
     });
   }
 
-  get filtereds() {
-    if (!this.searchTerm) return this.trainingss;
+  get filteredTrainings() {
+    if (!this.searchTerm) return this.trainings;
     const term = this.searchTerm.toLowerCase();
-    return this.trainingss.filter(trainings =>
-      trainings.trainingName.toLowerCase().includes(term) ||
-      (trainings.description && trainings.description.toLowerCase().includes(term))
+    return this.trainings.filter(training =>
+      training.trainingName.toLowerCase().includes(term) ||
+      (training.description && training.description.toLowerCase().includes(term))
     );
   }
 
-  handleAdd(newTraining: TrainingRequest): void {
-    this.hrsService.create(newTraining).subscribe({
+  handleAddTraining(newTraining: TrainingRequest): void {
+    this.trainingsService.create(newTraining).subscribe({
       next: (res) => {
         if (res.data) {
-          this.trainingss = [...this.trainingss, res.data];
+          this.trainings = [...this.trainings, res.data];
         }
         this.showAddDialog = false;
         alert('Formation créée avec succès');
@@ -92,18 +92,18 @@ export class TrainingsComponent implements OnInit {
     });
   }
 
-  handleEdit(updated: TrainingRequest): void {
-    if (!this.selected) return;
+  handleEditTraining(updatedTraining: TrainingRequest): void {
+    if (!this.selectedTraining) return;
 
-    this.hrsService.update(this.selected.trackingId, updated).subscribe({
+    this.trainingsService.update(this.selectedTraining.trackingId, updatedTraining).subscribe({
       next: (res) => {
         if (res.data) {
-          this.trainingss = this.trainingss.map(g =>
-            g.trackingId === this.selected!.trackingId ? res.data! : g
+          this.trainings = this.trainings.map(g =>
+            g.trackingId === this.selectedTraining!.trackingId ? res.data! : g
           );
         }
         this.showEditDialog = false;
-        this.selected = null;
+        this.selectedTraining = null;
         alert('Formation modifiée avec succès');
       },
       error: (err) => {
@@ -113,14 +113,14 @@ export class TrainingsComponent implements OnInit {
     });
   }
 
-  handleDelete(): void {
-    if (!this.selected) return;
+  handleDeleteTraining(): void {
+    if (!this.selectedTraining) return;
 
-    this.hrsService.delete(this.selected.trackingId).subscribe({
+    this.trainingsService.delete(this.selectedTraining.trackingId).subscribe({
       next: () => {
-        this.trainingss = this.trainingss.filter(g => g.trackingId !== this.selected!.trackingId);
+        this.trainings = this.trainings.filter(g => g.trackingId !== this.selectedTraining!.trackingId);
         this.showDeleteDialog = false;
-        this.selected = null;
+        this.selectedTraining = null;
         alert('Formation supprimée avec succès');
       },
       error: (err) => {
@@ -130,22 +130,22 @@ export class TrainingsComponent implements OnInit {
     });
   }
 
-  openAddDialog(): void {
+  openAddTrainingDialog(): void {
     this.showAddDialog = true;
   }
 
-  openEditDialog(trainings: Training): void {
-    this.selected = trainings;
+  openEditTrainingDialog(training: Training): void {
+    this.selectedTraining = training;
     this.showEditDialog = true;
   }
 
-  openDeleteDialog(trainings: Training): void {
-    this.selected = trainings;
+  openDeleteTrainingDialog(training: Training): void {
+    this.selectedTraining = training;
     this.showDeleteDialog = true;
   }
 
-  openDetailsDialog(trainings: Training): void {
-    this.selected = trainings;
+  openTrainingDetailsDialog(training: Training): void {
+    this.selectedTraining = training;
     this.showDetailsDialog = true;
   }
 }

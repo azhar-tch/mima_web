@@ -14,7 +14,7 @@ export class DeleteServicePositionConfirmationComponent {
   readonly X = X;
   readonly AlertTriangle = AlertTriangle;
 
-  @Input() service-positions: ServicePosition | null = null;
+  @Input() servicePosition: ServicePosition | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<void>();
 

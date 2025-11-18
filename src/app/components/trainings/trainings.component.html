@@ -6,7 +6,7 @@
       <p class="text-sm text-gray-500 mt-1">Gérez les formations</p>
     </div>
     <button
-      (click)="openAddDialog()"
+      (click)="openAddTrainingDialog()"
       class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
       <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
       <span>Ajouter formations</span>
@@ -26,17 +26,17 @@
     </div>
   </div>
 
-  <!-- s Table -->
+  <!-- Trainings Table -->
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
     <div *ngIf="isLoading" class="p-8 text-center text-gray-500">
       Chargement...
     </div>
 
-    <div *ngIf="!isLoading && filtereds.length === 0" class="p-8 text-center text-gray-500">
-      Aucun trainings trouvé
+    <div *ngIf="!isLoading && filteredTrainings.length === 0" class="p-8 text-center text-gray-500">
+      Aucune formation trouvée
     </div>
 
-    <div *ngIf="!isLoading && filtereds.length > 0" class="overflow-x-auto">
+    <div *ngIf="!isLoading && filteredTrainings.length > 0" class="overflow-x-auto">
       <table class="w-full">
         <thead class="bg-gray-50">
           <tr>
@@ -47,32 +47,32 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          <tr *ngFor="let trainings of filtereds" class="hover:bg-gray-50">
+          <tr *ngFor="let training of filteredTrainings" class="hover:bg-gray-50">
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm font-medium text-gray-900">{{ trainings.trainingName }}</div>
+              <div class="text-sm font-medium text-gray-900">{{ training.trainingName }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-500">{{ trainings.trainingType || '-' }}</div>
+              <div class="text-sm text-gray-500">{{ training.trainingType || '-' }}</div>
             </td>
             <td class="px-6 py-4">
-              <div class="text-sm text-gray-500">{{ trainings.description || '-' }}</div>
+              <div class="text-sm text-gray-500">{{ training.description || '-' }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-right">
               <div class="flex items-center justify-end gap-2">
                 <button
-                  (click)="openDetailsDialog(trainings)"
+                  (click)="openTrainingDetailsDialog(training)"
                   class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                   title="Voir les détails">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openEditDialog(trainings)"
+                  (click)="openEditTrainingDialog(training)"
                   class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                   title="Modifier">
                   <lucide-icon [img]="Edit" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openDeleteDialog(trainings)"
+                  (click)="openDeleteTrainingDialog(training)"
                   class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   title="Supprimer">
                   <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
@@ -88,29 +88,29 @@
 
 <!-- Dialogs -->
 <!-- TODO: Uncomment when dialog components are created
-<app-add-trainings-dialog
+<app-add-training-dialog
   *ngIf="showAddDialog"
   (close)="showAddDialog = false"
-  (add)="handleAdd($event)">
-</app-add-trainings-dialog>
+  (add)="handleAddTraining($event)">
+</app-add-training-dialog>
 
-<app-edit-trainings-dialog
+<app-edit-training-dialog
   *ngIf="showEditDialog"
-  [trainings]="selected"
+  [training]="selectedTraining"
   (close)="showEditDialog = false"
-  (save)="handleEdit($event)">
-</app-edit-trainings-dialog>
+  (save)="handleEditTraining($event)">
+</app-edit-training-dialog>
 
-<app-trainings-details-dialog
+<app-training-details-dialog
   *ngIf="showDetailsDialog"
-  [trainings]="selected"
+  [training]="selectedTraining"
   (close)="showDetailsDialog = false">
-</app-trainings-details-dialog>
+</app-training-details-dialog>
 
-<app-delete-trainings-confirmation
+<app-delete-training-confirmation
   *ngIf="showDeleteDialog"
-  [trainings]="selected"
+  [training]="selectedTraining"
   (close)="showDeleteDialog = false"
-  (confirm)="handleDelete()">
-</app-delete-trainings-confirmation>
+  (confirm)="handleDeleteTraining()">
+</app-delete-training-confirmation>
 -->

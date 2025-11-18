@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { OtherPositionsService } from '../../services/other-positions/other-positions.service';
 import { OtherPosition, OtherPositionRequest } from '../../models/HRManagement';
-// TODO: Create missing dialog components
-// import { AdditionsDialogComponent } from './add-other-dialog/add-other-dialog.component';
-// import { EdititionsDialogComponent } from './edit-other-dialog/edit-other-dialog.component';
-// import { itionsOtherPositionDetailsDialogComponent } from './other-details-dialog/other-details-dialog.component';
-// import { DeleteitionsConfirmationComponent } from './delete-other-confirmation/delete-other-confirmation.component';
+import { AddOtherPositionDialogComponent } from './add-other-positions-dialog/add-other-positions-dialog.component';
+import { EditOtherPositionDialogComponent } from './edit-other-positions-dialog/edit-other-positions-dialog.component';
+import { OtherPositionDetailsDialogComponent } from './other-positions-details-dialog/other-positions-details-dialog.component';
+import { DeleteOtherPositionConfirmationComponent } from './delete-other-positions-confirmation/delete-other-positions-confirmation.component';
 
 @Component({
   selector: 'app-other-positions',
@@ -17,11 +16,10 @@ import { OtherPosition, OtherPositionRequest } from '../../models/HRManagement';
     CommonModule,
     FormsModule,
     LucideAngularModule,
-    // TODO: Uncomment when dialog components are created
-    // AdditionsDialogComponent,
-    // EdititionsDialogComponent,
-    // itionsOtherPositionDetailsDialogComponent,
-    // DeleteitionsConfirmationComponent
+    AddOtherPositionDialogComponent,
+    EditOtherPositionDialogComponent,
+    OtherPositionDetailsDialogComponent,
+    DeleteOtherPositionConfirmationComponent
   ],
   templateUrl: './other-positions.component.html',
   styleUrl: './other-positions.component.css'
@@ -42,17 +40,17 @@ export class OtherPositionsComponent implements OnInit {
   openEditDialog = false;
   openDeleteDialog = false;
   openDetailsDialog = false;
-  selecteditions: OtherPosition | null = null;
+  selectedOtherPosition: OtherPosition | null = null;
 
-  constructor(private hritionssService: OtherPositionsService) {}
+  constructor(private otherPositionsService: OtherPositionsService) {}
 
   ngOnInit() {
-    this.loaditionss();
+    this.loadOtherPositions();
   }
 
-  loaditionss() {
+  loadOtherPositions() {
     this.isLoading = true;
-    this.hritionssService.list().subscribe({
+    this.otherPositionsService.list().subscribe({
       next: (response) => {
         if (!response.error && response.data) {
           this.others = response.data;
@@ -67,7 +65,7 @@ export class OtherPositionsComponent implements OnInit {
     });
   }
 
-  get filtereditionss() {
+  get filteredOtherPositions() {
     if (!this.searchTerm) return this.others;
     const term = this.searchTerm.toLowerCase();
     return this.others.filter(other =>
@@ -76,76 +74,76 @@ export class OtherPositionsComponent implements OnInit {
     );
   }
 
-  handleAdditions(newitions: OtherPositionRequest): void {
-    this.hritionssService.create(newitions).subscribe({
+  handleAddOtherPosition(newOtherPosition: OtherPositionRequest): void {
+    this.otherPositionsService.create(newOtherPosition).subscribe({
       next: (res) => {
         if (res.data) {
           this.others = [...this.others, res.data];
         }
         this.openAddDialog = false;
-        alert('itions créé avec succès');
+        alert('Autre position créée avec succès');
       },
       error: (err) => {
-        console.error('Erreur lors de la création du other', err);
-        alert('Erreur lors de la création du other');
+        console.error('Erreur lors de la création de l\'autre position', err);
+        alert('Erreur lors de la création de l\'autre position');
       }
     });
   }
 
-  handleEdititions(updateditions: OtherPositionRequest): void {
-    if (!this.selecteditions) return;
+  handleEditOtherPosition(updatedOtherPosition: OtherPositionRequest): void {
+    if (!this.selectedOtherPosition) return;
 
-    this.hritionssService.update(this.selecteditions.trackingId, updateditions).subscribe({
+    this.otherPositionsService.update(this.selectedOtherPosition.trackingId, updatedOtherPosition).subscribe({
       next: (res) => {
         if (res.data) {
           this.others = this.others.map(g =>
-            g.trackingId === this.selecteditions!.trackingId ? res.data! : g
+            g.trackingId === this.selectedOtherPosition!.trackingId ? res.data! : g
           );
         }
         this.openEditDialog = false;
-        this.selecteditions = null;
-        alert('itions modifié avec succès');
+        this.selectedOtherPosition = null;
+        alert('Autre position modifiée avec succès');
       },
       error: (err) => {
-        console.error('Erreur lors de la modification du other', err);
-        alert('Erreur lors de la modification du other');
+        console.error('Erreur lors de la modification de l\'autre position', err);
+        alert('Erreur lors de la modification de l\'autre position');
       }
     });
   }
 
-  handleDeleteitions(): void {
-    if (!this.selecteditions) return;
+  handleDeleteOtherPosition(): void {
+    if (!this.selectedOtherPosition) return;
 
-    this.hritionssService.delete(this.selecteditions.trackingId).subscribe({
+    this.otherPositionsService.delete(this.selectedOtherPosition.trackingId).subscribe({
       next: () => {
-        this.others = this.others.filter(g => g.trackingId !== this.selecteditions!.trackingId);
+        this.others = this.others.filter(g => g.trackingId !== this.selectedOtherPosition!.trackingId);
         this.openDeleteDialog = false;
-        this.selecteditions = null;
-        alert('itions supprimé avec succès');
+        this.selectedOtherPosition = null;
+        alert('Autre position supprimée avec succès');
       },
       error: (err) => {
-        console.error('Erreur lors de la suppression du other', err);
-        alert('Erreur lors de la suppression du other');
+        console.error('Erreur lors de la suppression de l\'autre position', err);
+        alert('Erreur lors de la suppression de l\'autre position');
       }
     });
   }
 
-  openAdditionsDialog(): void {
+  openAddOtherPositionDialog(): void {
     this.openAddDialog = true;
   }
 
-  openEdititionsDialog(other: OtherPosition): void {
-    this.selecteditions = other;
+  openEditOtherPositionDialog(other: OtherPosition): void {
+    this.selectedOtherPosition = other;
     this.openEditDialog = true;
   }
 
-  openDeleteitionsDialog(other: OtherPosition): void {
-    this.selecteditions = other;
+  openDeleteOtherPositionDialog(other: OtherPosition): void {
+    this.selectedOtherPosition = other;
     this.openDeleteDialog = true;
   }
 
-  openitionsDetailsDialog(other: OtherPosition): void {
-    this.selecteditions = other;
+  openOtherPositionDetailsDialog(other: OtherPosition): void {
+    this.selectedOtherPosition = other;
     this.openDetailsDialog = true;
   }
 }

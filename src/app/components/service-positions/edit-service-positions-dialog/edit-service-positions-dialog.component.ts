@@ -14,7 +14,7 @@ import { ServicePosition, ServicePositionRequest } from '../../../models/HRManag
 export class EditServicePositionDialogComponent implements OnChanges {
   readonly X = X;
 
-  @Input() service-positions: ServicePosition | null = null;
+  @Input() servicePosition: ServicePosition | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<ServicePositionRequest>();
 
@@ -27,11 +27,11 @@ export class EditServicePositionDialogComponent implements OnChanges {
   errors: Record<string, string> = {};
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['service-positions'] && this.service-positions) {
+    if (changes['servicePosition'] && this.servicePosition) {
       this.formData = {
-        positionName: this.service-positions.positionName || '',
-        description: this.service-positions.description || '',
-        hierarchyLevel: this.service-positions.hierarchyLevel
+        positionName: this.servicePosition.positionName || '',
+        description: this.servicePosition.description || '',
+        hierarchyLevel: this.servicePosition.hierarchyLevel
       };
     }
   }

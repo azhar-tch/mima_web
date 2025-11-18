@@ -6,7 +6,7 @@
       <p class="text-sm text-gray-500 mt-1">Gérez les distinctions</p>
     </div>
     <button
-      (click)="openAddDialog()"
+      (click)="openAddAwardDialog()"
       class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
       <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
       <span>Ajouter distinctions</span>
@@ -26,53 +26,53 @@
     </div>
   </div>
 
-  <!-- s Table -->
+  <!-- Awards Table -->
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
     <div *ngIf="isLoading" class="p-8 text-center text-gray-500">
       Chargement...
     </div>
 
-    <div *ngIf="!isLoading && filtereds.length === 0" class="p-8 text-center text-gray-500">
-      Aucun awards trouvé
+    <div *ngIf="!isLoading && filteredAwards.length === 0" class="p-8 text-center text-gray-500">
+      Aucune récompense trouvée
     </div>
 
-    <div *ngIf="!isLoading && filtereds.length > 0" class="overflow-x-auto">
+    <div *ngIf="!isLoading && filteredAwards.length > 0" class="overflow-x-auto">
       <table class="w-full">
         <thead class="bg-gray-50">
           <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom du awards</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom de la récompense</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          <tr *ngFor="let awards of filtereds" class="hover:bg-gray-50">
+          <tr *ngFor="let award of filteredAwards" class="hover:bg-gray-50">
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm font-medium text-gray-900">{{ awards.awardName }}</div>
+              <div class="text-sm font-medium text-gray-900">{{ award.awardName }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-500">{{ awards.awardType || '-' }}</div>
+              <div class="text-sm text-gray-500">{{ award.awardType || '-' }}</div>
             </td>
             <td class="px-6 py-4">
-              <div class="text-sm text-gray-500">{{ awards.description || '-' }}</div>
+              <div class="text-sm text-gray-500">{{ award.description || '-' }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-right">
               <div class="flex items-center justify-end gap-2">
                 <button
-                  (click)="openDetailsDialog(awards)"
+                  (click)="openAwardDetailsDialog(award)"
                   class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                   title="Voir les détails">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openEditDialog(awards)"
+                  (click)="openEditAwardDialog(award)"
                   class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                   title="Modifier">
                   <lucide-icon [img]="Edit" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openDeleteDialog(awards)"
+                  (click)="openDeleteAwardDialog(award)"
                   class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   title="Supprimer">
                   <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
@@ -88,29 +88,29 @@
 
 <!-- Dialogs -->
 <!-- TODO: Uncomment when dialog components are created
-<app-add-awards-dialog
+<app-add-award-dialog
   *ngIf="showAddDialog"
   (close)="showAddDialog = false"
-  (add)="handleAdd($event)">
-</app-add-awards-dialog>
+  (add)="handleAddAward($event)">
+</app-add-award-dialog>
 
-<app-edit-awards-dialog
+<app-edit-award-dialog
   *ngIf="showEditDialog"
-  [awards]="selected"
+  [award]="selectedAward"
   (close)="showEditDialog = false"
-  (save)="handleEdit($event)">
-</app-edit-awards-dialog>
+  (save)="handleEditAward($event)">
+</app-edit-award-dialog>
 
-<app-awards-details-dialog
+<app-award-details-dialog
   *ngIf="showDetailsDialog"
-  [awards]="selected"
+  [award]="selectedAward"
   (close)="showDetailsDialog = false">
-</app-awards-details-dialog>
+</app-award-details-dialog>
 
-<app-delete-awards-confirmation
+<app-delete-award-confirmation
   *ngIf="showDeleteDialog"
-  [awards]="selected"
+  [award]="selectedAward"
   (close)="showDeleteDialog = false"
-  (confirm)="handleDelete()">
-</app-delete-awards-confirmation>
+  (confirm)="handleDeleteAward()">
+</app-delete-award-confirmation>
 -->

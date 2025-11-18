@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { ServicePositionsService } from '../../services/service-positions/service-positions.service';
 import { ServicePosition, ServicePositionRequest } from '../../models/HRManagement';
-// TODO: Create missing dialog components
-// import { AdditionsDialogComponent } from './add-service-dialog/add-service-dialog.component';
-// import { EdititionsDialogComponent } from './edit-service-dialog/edit-service-dialog.component';
-// import { itionsServicePositionDetailsDialogComponent } from './service-details-dialog/service-details-dialog.component';
-// import { DeleteitionsConfirmationComponent } from './delete-service-confirmation/delete-service-confirmation.component';
+import { AddServicePositionDialogComponent } from './add-service-positions-dialog/add-service-positions-dialog.component';
+import { EditServicePositionDialogComponent } from './edit-service-positions-dialog/edit-service-positions-dialog.component';
+import { ServicePositionDetailsDialogComponent } from './service-positions-details-dialog/service-positions-details-dialog.component';
+import { DeleteServicePositionConfirmationComponent } from './delete-service-positions-confirmation/delete-service-positions-confirmation.component';
 
 @Component({
   selector: 'app-service-positions',
@@ -17,11 +16,10 @@ import { ServicePosition, ServicePositionRequest } from '../../models/HRManageme
     CommonModule,
     FormsModule,
     LucideAngularModule,
-    // TODO: Uncomment when dialog components are created
-    // AdditionsDialogComponent,
-    // EdititionsDialogComponent,
-    // itionsServicePositionDetailsDialogComponent,
-    // DeleteitionsConfirmationComponent
+    AddServicePositionDialogComponent,
+    EditServicePositionDialogComponent,
+    ServicePositionDetailsDialogComponent,
+    DeleteServicePositionConfirmationComponent
   ],
   templateUrl: './service-positions.component.html',
   styleUrl: './service-positions.component.css'

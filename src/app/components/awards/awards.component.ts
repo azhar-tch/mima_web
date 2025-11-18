@@ -34,7 +34,7 @@ export class AwardsComponent implements OnInit {
   readonly Trash2 = Trash2;
   readonly Filter = Filter;
 
-  awardss: Award[] = [];
+  awards: Award[] = [];
   searchTerm = '';
   isLoading = false;
 
@@ -42,45 +42,45 @@ export class AwardsComponent implements OnInit {
   showEditDialog = false;
   showDeleteDialog = false;
   showDetailsDialog = false;
-  selected: Award | null = null;
+  selectedAward: Award | null = null;
 
-  constructor(private hrsService: AwardsService) {}
+  constructor(private awardsService: AwardsService) {}
 
   ngOnInit() {
-    this.loads();
+    this.loadAwards();
   }
 
-  loads() {
+  loadAwards() {
     this.isLoading = true;
-    this.hrsService.list().subscribe({
+    this.awardsService.list().subscribe({
       next: (response) => {
         if (!response.error && response.data) {
-          this.awardss = response.data;
+          this.awards = response.data;
         }
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading awardss:', error);
-        alert('Erreur lors du chargement des awardss');
+        console.error('Error loading awards:', error);
+        alert('Erreur lors du chargement des récompenses');
         this.isLoading = false;
       }
     });
   }
 
-  get filtereds() {
-    if (!this.searchTerm) return this.awardss;
+  get filteredAwards() {
+    if (!this.searchTerm) return this.awards;
     const term = this.searchTerm.toLowerCase();
-    return this.awardss.filter(awards =>
-      awards.awardName.toLowerCase().includes(term) ||
-      (awards.description && awards.description.toLowerCase().includes(term))
+    return this.awards.filter(award =>
+      award.awardName.toLowerCase().includes(term) ||
+      (award.description && award.description.toLowerCase().includes(term))
     );
   }
 
-  handleAdd(newAward: AwardRequest): void {
-    this.hrsService.create(newAward).subscribe({
+  handleAddAward(newAward: AwardRequest): void {
+    this.awardsService.create(newAward).subscribe({
       next: (res) => {
         if (res.data) {
-          this.awardss = [...this.awardss, res.data];
+          this.awards = [...this.awards, res.data];
         }
         this.showAddDialog = false;
         alert('Récompense créée avec succès');
@@ -92,18 +92,18 @@ export class AwardsComponent implements OnInit {
     });
   }
 
-  handleEdit(updated: AwardRequest): void {
-    if (!this.selected) return;
+  handleEditAward(updatedAward: AwardRequest): void {
+    if (!this.selectedAward) return;
 
-    this.hrsService.update(this.selected.trackingId, updated).subscribe({
+    this.awardsService.update(this.selectedAward.trackingId, updatedAward).subscribe({
       next: (res) => {
         if (res.data) {
-          this.awardss = this.awardss.map(g =>
-            g.trackingId === this.selected!.trackingId ? res.data! : g
+          this.awards = this.awards.map(g =>
+            g.trackingId === this.selectedAward!.trackingId ? res.data! : g
           );
         }
         this.showEditDialog = false;
-        this.selected = null;
+        this.selectedAward = null;
         alert('Récompense modifiée avec succès');
       },
       error: (err) => {
@@ -113,14 +113,14 @@ export class AwardsComponent implements OnInit {
     });
   }
 
-  handleDelete(): void {
-    if (!this.selected) return;
+  handleDeleteAward(): void {
+    if (!this.selectedAward) return;
 
-    this.hrsService.delete(this.selected.trackingId).subscribe({
+    this.awardsService.delete(this.selectedAward.trackingId).subscribe({
       next: () => {
-        this.awardss = this.awardss.filter(g => g.trackingId !== this.selected!.trackingId);
+        this.awards = this.awards.filter(g => g.trackingId !== this.selectedAward!.trackingId);
         this.showDeleteDialog = false;
-        this.selected = null;
+        this.selectedAward = null;
         alert('Récompense supprimée avec succès');
       },
       error: (err) => {
@@ -130,22 +130,22 @@ export class AwardsComponent implements OnInit {
     });
   }
 
-  openAddDialog(): void {
+  openAddAwardDialog(): void {
     this.showAddDialog = true;
   }
 
-  openEditDialog(awards: Award): void {
-    this.selected = awards;
+  openEditAwardDialog(award: Award): void {
+    this.selectedAward = award;
     this.showEditDialog = true;
   }
 
-  openDeleteDialog(awards: Award): void {
-    this.selected = awards;
+  openDeleteAwardDialog(award: Award): void {
+    this.selectedAward = award;
     this.showDeleteDialog = true;
   }
 
-  openDetailsDialog(awards: Award): void {
-    this.selected = awards;
+  openAwardDetailsDialog(award: Award): void {
+    this.selectedAward = award;
     this.showDetailsDialog = true;
   }
 }

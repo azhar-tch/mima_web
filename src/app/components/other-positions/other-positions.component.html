@@ -6,7 +6,7 @@
       <p class="text-sm text-gray-500 mt-1">Gérez les autres postes</p>
     </div>
     <button
-      (click)="openAdditionsDialog()"
+      (click)="openAddOtherPositionDialog()"
       class="flex items-center gap-2 px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
       <lucide-icon [img]="Plus" [size]="20"></lucide-icon>
       <span>Ajouter autres postes</span>
@@ -26,17 +26,17 @@
     </div>
   </div>
 
-  <!-- itionss Table -->
+  <!-- Other Positions Table -->
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
     <div *ngIf="isLoading" class="p-8 text-center text-gray-500">
       Chargement...
     </div>
 
-    <div *ngIf="!isLoading && filtereditionss.length === 0" class="p-8 text-center text-gray-500">
-      Aucun other trouvé
+    <div *ngIf="!isLoading && filteredOtherPositions.length === 0" class="p-8 text-center text-gray-500">
+      Aucune autre position trouvée
     </div>
 
-    <div *ngIf="!isLoading && filtereditionss.length > 0" class="overflow-x-auto">
+    <div *ngIf="!isLoading && filteredOtherPositions.length > 0" class="overflow-x-auto">
       <table class="w-full">
         <thead class="bg-gray-50">
           <tr>
@@ -47,7 +47,7 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          <tr *ngFor="let other of filtereditionss" class="hover:bg-gray-50">
+          <tr *ngFor="let other of filteredOtherPositions" class="hover:bg-gray-50">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900">{{ other.positionName }}</div>
             </td>
@@ -60,19 +60,19 @@
             <td class="px-6 py-4 whitespace-nowrap text-right">
               <div class="flex items-center justify-end gap-2">
                 <button
-                  (click)="openitionsDetailsDialog(other)"
+                  (click)="openOtherPositionDetailsDialog(other)"
                   class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                   title="Voir les détails">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openEdititionsDialog(other)"
+                  (click)="openEditOtherPositionDialog(other)"
                   class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                   title="Modifier">
                   <lucide-icon [img]="Edit" [size]="18"></lucide-icon>
                 </button>
                 <button
-                  (click)="openDeleteitionsDialog(other)"
+                  (click)="openDeleteOtherPositionDialog(other)"
                   class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   title="Supprimer">
                   <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
@@ -87,30 +87,28 @@
 </div>
 
 <!-- Dialogs -->
-<!-- TODO: Uncomment when dialog components are created
-<app-add-other-dialog
+<app-add-other-position-dialog
   *ngIf="openAddDialog"
   (close)="openAddDialog = false"
-  (add)="handleAdditions($event)">
-</app-add-other-dialog>
+  (add)="handleAddOtherPosition($event)">
+</app-add-other-position-dialog>
 
-<app-edit-other-dialog
+<app-edit-other-position-dialog
   *ngIf="openEditDialog"
-  [other]="selecteditions"
+  [otherPosition]="selectedOtherPosition"
   (close)="openEditDialog = false"
-  (save)="handleEdititions($event)">
-</app-edit-other-dialog>
+  (save)="handleEditOtherPosition($event)">
+</app-edit-other-position-dialog>
 
-<app-other-details-dialog
+<app-other-position-details-dialog
   *ngIf="openDetailsDialog"
-  [other]="selecteditions"
+  [otherPosition]="selectedOtherPosition"
   (close)="openDetailsDialog = false">
-</app-other-details-dialog>
+</app-other-position-details-dialog>
 
-<app-delete-other-confirmation
+<app-delete-other-position-confirmation
   *ngIf="openDeleteDialog"
-  [other]="selecteditions"
+  [otherPosition]="selectedOtherPosition"
   (close)="openDeleteDialog = false"
-  (confirm)="handleDeleteitions()">
-</app-delete-other-confirmation>
--->
+  (confirm)="handleDeleteOtherPosition()">
+</app-delete-other-position-confirmation>

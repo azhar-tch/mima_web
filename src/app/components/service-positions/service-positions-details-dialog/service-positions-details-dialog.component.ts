@@ -13,7 +13,7 @@ import { ServicePosition } from '../../../models/HRManagement';
 export class ServicePositionDetailsDialogComponent {
   readonly X = X;
 
-  @Input() service-positions: ServicePosition | null = null;
+  @Input() servicePosition: ServicePosition | null = null;
   @Output() close = new EventEmitter<void>();
 
   handleClose() {
