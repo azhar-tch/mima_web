@@ -14,7 +14,7 @@ export class DeleteAwardConfirmationComponent {
   readonly X = X;
   readonly AlertTriangle = AlertTriangle;
 
-  @Input() awards: Award | null = null;
+  @Input() award: Award | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<void>();
 

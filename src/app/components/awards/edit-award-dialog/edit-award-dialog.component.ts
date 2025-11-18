@@ -14,24 +14,24 @@ import { Award, AwardRequest } from '../../../models/HRManagement';
 export class EditAwardDialogComponent implements OnChanges {
   readonly X = X;
 
-  @Input() awards: Award | null = null;
+  @Input() award: Award | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<AwardRequest>();
 
   formData: AwardRequest = {
     awardName: '',
-    description: '',
-    hierarchyLevel: undefined
+    awardType: '',
+    description: ''
   };
 
   errors: Record<string, string> = {};
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['awards'] && this.awards) {
+    if (changes['award'] && this.award) {
       this.formData = {
-        awardName: this.awards.awardName || '',
-        description: this.awards.description || '',
-        hierarchyLevel: this.awards.hierarchyLevel
+        awardName: this.award.awardName || '',
+        awardType: this.award.awardType || '',
+        description: this.award.description || ''
       };
     }
   }
@@ -40,8 +40,8 @@ export class EditAwardDialogComponent implements OnChanges {
     this.close.emit();
     this.formData = {
       awardName: '',
-      description: '',
-      hierarchyLevel: undefined
+      awardType: '',
+      description: ''
     };
     this.errors = {};
   }
@@ -49,10 +49,7 @@ export class EditAwardDialogComponent implements OnChanges {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.awardName || !this.formData.awardName.trim()) {
-      newErrors['awardName'] = 'Le nom du awards est requis';
-    }
-    if (this.formData.hierarchyLevel !== undefined && this.formData.hierarchyLevel < 0) {
-      newErrors['hierarchyLevel'] = 'Le niveau hiérarchique doit être positif';
+      newErrors['awardName'] = 'Le nom de la distinction est requis';
     }
 
     this.errors = newErrors;

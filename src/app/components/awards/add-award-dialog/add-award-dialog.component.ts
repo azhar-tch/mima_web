@@ -19,8 +19,8 @@ export class AddAwardDialogComponent {
 
   formData: AwardRequest = {
     awardName: '',
-    description: '',
-    hierarchyLevel: undefined
+    awardType: '',
+    description: ''
   };
 
   errors: Record<string, string> = {};
@@ -28,8 +28,8 @@ export class AddAwardDialogComponent {
   handleReset() {
     this.formData = {
       awardName: '',
-      description: '',
-      hierarchyLevel: undefined
+      awardType: '',
+      description: ''
     };
     this.errors = {};
   }
@@ -42,10 +42,7 @@ export class AddAwardDialogComponent {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.awardName || !this.formData.awardName.trim()) {
-      newErrors['awardName'] = 'une distinction est requis';
-    }
-    if (this.formData.hierarchyLevel !== undefined && this.formData.hierarchyLevel < 0) {
-      newErrors['hierarchyLevel'] = 'Le niveau hiérarchique doit être positif';
+      newErrors['awardName'] = 'Le nom de la distinction est requis';
     }
 
     this.errors = newErrors;

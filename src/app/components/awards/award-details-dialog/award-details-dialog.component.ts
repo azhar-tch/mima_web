@@ -13,7 +13,7 @@ import { Award } from '../../../models/HRManagement';
 export class AwardDetailsDialogComponent {
   readonly X = X;
 
-  @Input() awards: Award | null = null;
+  @Input() award: Award | null = null;
   @Output() close = new EventEmitter<void>();
 
   handleClose() {

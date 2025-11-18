@@ -19,8 +19,10 @@ export class AddTrainingDialogComponent {
 
   formData: TrainingRequest = {
     trainingName: '',
+    trainingType: '',
     description: '',
-    hierarchyLevel: undefined
+    institution: '',
+    country: ''
   };
 
   errors: Record<string, string> = {};
@@ -28,8 +30,10 @@ export class AddTrainingDialogComponent {
   handleReset() {
     this.formData = {
       trainingName: '',
+      trainingType: '',
       description: '',
-      hierarchyLevel: undefined
+      institution: '',
+      country: ''
     };
     this.errors = {};
   }
@@ -42,10 +46,7 @@ export class AddTrainingDialogComponent {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.trainingName || !this.formData.trainingName.trim()) {
-      newErrors['trainingName'] = 'une formation est requis';
-    }
-    if (this.formData.hierarchyLevel !== undefined && this.formData.hierarchyLevel < 0) {
-      newErrors['hierarchyLevel'] = 'Le niveau hiérarchique doit être positif';
+      newErrors['trainingName'] = 'Le nom de la formation est requis';
     }
 
     this.errors = newErrors;

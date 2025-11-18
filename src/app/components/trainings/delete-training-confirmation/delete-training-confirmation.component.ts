@@ -14,7 +14,7 @@ export class DeleteTrainingConfirmationComponent {
   readonly X = X;
   readonly AlertTriangle = AlertTriangle;
 
-  @Input() trainings: Training | null = null;
+  @Input() training: Training | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<void>();
 

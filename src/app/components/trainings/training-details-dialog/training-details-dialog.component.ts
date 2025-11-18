@@ -13,7 +13,7 @@ import { Training } from '../../../models/HRManagement';
 export class TrainingDetailsDialogComponent {
   readonly X = X;
 
-  @Input() trainings: Training | null = null;
+  @Input() training: Training | null = null;
   @Output() close = new EventEmitter<void>();
 
   handleClose() {

@@ -14,24 +14,28 @@ import { Training, TrainingRequest } from '../../../models/HRManagement';
 export class EditTrainingDialogComponent implements OnChanges {
   readonly X = X;
 
-  @Input() trainings: Training | null = null;
+  @Input() training: Training | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<TrainingRequest>();
 
   formData: TrainingRequest = {
     trainingName: '',
+    trainingType: '',
     description: '',
-    hierarchyLevel: undefined
+    institution: '',
+    country: ''
   };
 
   errors: Record<string, string> = {};
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['trainings'] && this.trainings) {
+    if (changes['training'] && this.training) {
       this.formData = {
-        trainingName: this.trainings.trainingName || '',
-        description: this.trainings.description || '',
-        hierarchyLevel: this.trainings.hierarchyLevel
+        trainingName: this.training.trainingName || '',
+        trainingType: this.training.trainingType || '',
+        description: this.training.description || '',
+        institution: this.training.institution || '',
+        country: this.training.country || ''
       };
     }
   }
@@ -40,8 +44,10 @@ export class EditTrainingDialogComponent implements OnChanges {
     this.close.emit();
     this.formData = {
       trainingName: '',
+      trainingType: '',
       description: '',
-      hierarchyLevel: undefined
+      institution: '',
+      country: ''
     };
     this.errors = {};
   }
@@ -49,10 +55,7 @@ export class EditTrainingDialogComponent implements OnChanges {
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
     if (!this.formData.trainingName || !this.formData.trainingName.trim()) {
-      newErrors['trainingName'] = 'Le nom du trainings est requis';
-    }
-    if (this.formData.hierarchyLevel !== undefined && this.formData.hierarchyLevel < 0) {
-      newErrors['hierarchyLevel'] = 'Le niveau hiérarchique doit être positif';
+      newErrors['trainingName'] = 'Le nom de la formation est requis';
     }
 
     this.errors = newErrors;
