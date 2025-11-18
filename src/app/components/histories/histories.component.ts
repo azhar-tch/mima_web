@@ -22,7 +22,7 @@ export class HistoriesComponent implements OnInit {
 
   histories: HistoriesResponse[] = [];
   searchTerm = '';
-  entityFilter: 'all' | 'DUTY' | 'MISSION' | 'ABSENCE' = 'all';
+  entityFilter: 'all' | 'DUTY' | 'MISSION' | 'ABSENCE' | 'AGENT_GRADE' | 'AGENT_AWARD' | 'AGENT_TRAINING' | 'AGENT_FUNCTION' | 'AGENT_COMPANY' | 'AGENT_SERVICE_POSITION' | 'AGENT_OTHER_POSITION' = 'all';
   actionFilter: 'all' | ActionType = 'all';
   selectedHistory: HistoriesResponse | null = null;
   openDetailsDialog = false;
@@ -88,6 +88,13 @@ export class HistoriesComponent implements OnInit {
       case 'DUTY': return 'bg-purple-500 text-white';
       case 'MISSION': return 'bg-indigo-500 text-white';
       case 'ABSENCE': return 'bg-orange-500 text-white';
+      case 'AGENT_GRADE': return 'bg-emerald-500 text-white';
+      case 'AGENT_AWARD': return 'bg-yellow-500 text-white';
+      case 'AGENT_TRAINING': return 'bg-cyan-500 text-white';
+      case 'AGENT_FUNCTION': return 'bg-teal-500 text-white';
+      case 'AGENT_COMPANY': return 'bg-rose-500 text-white';
+      case 'AGENT_SERVICE_POSITION': return 'bg-violet-500 text-white';
+      case 'AGENT_OTHER_POSITION': return 'bg-fuchsia-500 text-white';
       default: return 'bg-gray-400 text-white';
     }
   }
@@ -106,6 +113,13 @@ export class HistoriesComponent implements OnInit {
       case 'DUTY': return 'Garde';
       case 'MISSION': return 'Mission';
       case 'ABSENCE': return 'Absence';
+      case 'AGENT_GRADE': return 'Grade';
+      case 'AGENT_AWARD': return 'Distinction';
+      case 'AGENT_TRAINING': return 'Formation';
+      case 'AGENT_FUNCTION': return 'Fonction';
+      case 'AGENT_COMPANY': return 'Compagnie';
+      case 'AGENT_SERVICE_POSITION': return 'Position Service';
+      case 'AGENT_OTHER_POSITION': return 'Autre Position';
       default: return entity;
     }
   }
