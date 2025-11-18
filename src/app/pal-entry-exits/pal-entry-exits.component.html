@@ -52,10 +52,10 @@
                 <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Voir">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
-                <button class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Modifier">
+                <button (click)="openEditDialog(item)" class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Modifier">
                   <lucide-icon [img]="Edit" [size]="18"></lucide-icon>
                 </button>
-                <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer">
+                <button (click)="openDeleteDialog(item)" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer">
                   <lucide-icon [img]="Trash2" [size]="18"></lucide-icon>
                 </button>
               </div>
@@ -65,4 +65,27 @@
       </table>
     </div>
   </div>
+
+<!-- Add Dialog -->
+<app-add-pal-entry-exits-dialog
+  *ngIf="openAddDialog"
+  (close)="openAddDialog = false"
+  (add)="handleAdd($event)">
+</app-add-pal-entry-exits-dialog>
+
+<!-- Edit Dialog -->
+<app-edit-pal-entry-exits-dialog
+  *ngIf="openEditDialog && selectedItem"
+  [item]="selectedItem"
+  (close)="openEditDialog = false"
+  (save)="handleEdit($event)">
+</app-edit-pal-entry-exits-dialog>
+
+<!-- Delete Dialog -->
+<app-delete-pal-entry-exits-dialog
+  *ngIf="openDeleteDialog && selectedItem"
+  [item]="selectedItem"
+  (close)="openDeleteDialog = false"
+  (confirm)="handleDelete()">
+</app-delete-pal-entry-exits-dialog>
 </div>

@@ -3,12 +3,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { ShipArrivalDeparturesService } from '../services/ship-arrival-departures/ship-arrival-departures.service';
-import { ShipArrivalDeparture } from '../models/Maritime';
+import { AddShipArrivalDeparturesDialogComponent } from './add-ship-arrival-departures-dialog/add-ship-arrival-departures-dialog.component';
+import { EditShipArrivalDeparturesDialogComponent } from './edit-ship-arrival-departures-dialog/edit-ship-arrival-departures-dialog.component';
+import { DeleteShipArrivalDeparturesDialogComponent } from './delete-ship-arrival-departures-dialog/delete-ship-arrival-departures-dialog.component';
+import { ShipArrivalDeparture, ShipArrivalDepartureRequest } from '../models/Maritime';
 
 @Component({
   selector: 'app-ship-arrival-departures',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    LucideAngularModule,
+    AddShipArrivalDeparturesDialogComponent,
+    EditShipArrivalDeparturesDialogComponent,
+    DeleteShipArrivalDeparturesDialogComponent
+  ],
   templateUrl: './ship-arrival-departures.component.html',
   styleUrl: './ship-arrival-departures.component.css'
 })
@@ -23,6 +33,10 @@ export class ShipArrivalDeparturesComponent implements OnInit {
   arrivals: ShipArrivalDeparture[] = [];
   searchTerm = '';
   isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: ShipArrivalDeparture | null = null;
 
   constructor(private shipArrivalDeparturesService: ShipArrivalDeparturesService) {}
 
@@ -38,10 +52,18 @@ export class ShipArrivalDeparturesComponent implements OnInit {
           this.arrivals = response.data;
         }
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: ShipArrivalDeparture | null = null;
       },
       error: (error) => {
         console.error('Error loading arrivals:', error);
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: ShipArrivalDeparture | null = null;
       }
     });
   }
@@ -55,7 +77,68 @@ export class ShipArrivalDeparturesComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    alert('La fonctionnalité d\'ajout de arrivée/départ de navire sera bientôt disponible. Le dialog d\'ajout doit être créé.');
-    console.log('TODO: Créer le dialog d\'ajout pour arrivée/départ de navire');
+    this.openAddDialog = true;
+  }
+  handleAdd(newItem: ShipArrivalDepartureRequest): void {
+    this.shipArrivalDeparturesService.create(newItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.arrivalDepartures = [...this.arrivalDepartures, res.data];
+        }
+        this.openAddDialog = false;
+        alert('arrivée/départ créé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la création', err);
+        alert('Erreur lors de la création de arrivée/départ');
+      }
+    });
+  }
+  openEditDialog(item: ShipArrivalDeparture): void {
+    this.selectedItem = item;
+    this.openEditDialog = true;
+  }
+
+  handleEdit(updatedItem: ShipArrivalDepartureRequest): void {
+    if (!this.selectedItem) return;
+
+    this.shipArrivalDeparturesService.update(this.selectedItem.trackingId, updatedItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.arrivalDepartures = this.arrivalDepartures.map(item =>
+            item.trackingId === this.selectedItem!.trackingId ? res.data! : item
+          );
+        }
+        this.openEditDialog = false;
+        this.selectedItem = null;
+        alert('arrivée/départ modifié(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la modification', err);
+        alert('Erreur lors de la modification de arrivée/départ');
+      }
+    });
+  }
+
+  openDeleteDialog(item: ShipArrivalDeparture): void {
+    this.selectedItem = item;
+    this.openDeleteDialog = true;
+  }
+
+  handleDelete(): void {
+    if (!this.selectedItem) return;
+
+    this.shipArrivalDeparturesService.delete(this.selectedItem.trackingId).subscribe({
+      next: () => {
+        this.arrivalDepartures = this.arrivalDepartures.filter(item => item.trackingId !== this.selectedItem!.trackingId);
+        this.openDeleteDialog = false;
+        this.selectedItem = null;
+        alert('arrivée/départ supprimé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression', err);
+        alert('Erreur lors de la suppression de arrivée/départ');
+      }
+    });
   }
 }

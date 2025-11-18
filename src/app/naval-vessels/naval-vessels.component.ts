@@ -3,12 +3,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { NavalVesselsService } from '../services/naval-vessels/naval-vessels.service';
-import { NavalVessel } from '../models/Maritime';
+import { AddNavalVesselsDialogComponent } from './add-naval-vessels-dialog/add-naval-vessels-dialog.component';
+import { EditNavalVesselsDialogComponent } from './edit-naval-vessels-dialog/edit-naval-vessels-dialog.component';
+import { DeleteNavalVesselsDialogComponent } from './delete-naval-vessels-dialog/delete-naval-vessels-dialog.component';
+import { NavalVessel, NavalVesselRequest } from '../models/Maritime';
 
 @Component({
   selector: 'app-naval-vessels',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    LucideAngularModule,
+    AddNavalVesselsDialogComponent,
+    EditNavalVesselsDialogComponent,
+    DeleteNavalVesselsDialogComponent
+  ],
   templateUrl: './naval-vessels.component.html',
   styleUrl: './naval-vessels.component.css'
 })
@@ -23,6 +33,10 @@ export class NavalVesselsComponent implements OnInit {
   vessels: NavalVessel[] = [];
   searchTerm = '';
   isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: NavalVessel | null = null;
 
   constructor(private navalVesselsService: NavalVesselsService) {}
 
@@ -38,10 +52,18 @@ export class NavalVesselsComponent implements OnInit {
           this.vessels = response.data;
         }
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: NavalVessel | null = null;
       },
       error: (error) => {
         console.error('Error loading vessels:', error);
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: NavalVessel | null = null;
       }
     });
   }
@@ -55,7 +77,68 @@ export class NavalVesselsComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    alert('La fonctionnalité d\'ajout de navire militaire sera bientôt disponible. Le dialog d\'ajout doit être créé.');
-    console.log('TODO: Créer le dialog d\'ajout pour navire militaire');
+    this.openAddDialog = true;
+  }
+  handleAdd(newItem: NavalVesselRequest): void {
+    this.navalVesselsService.create(newItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.vessels = [...this.vessels, res.data];
+        }
+        this.openAddDialog = false;
+        alert('navire militaire créé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la création', err);
+        alert('Erreur lors de la création de navire militaire');
+      }
+    });
+  }
+  openEditDialog(item: NavalVessel): void {
+    this.selectedItem = item;
+    this.openEditDialog = true;
+  }
+
+  handleEdit(updatedItem: NavalVesselRequest): void {
+    if (!this.selectedItem) return;
+
+    this.navalVesselsService.update(this.selectedItem.trackingId, updatedItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.vessels = this.vessels.map(item =>
+            item.trackingId === this.selectedItem!.trackingId ? res.data! : item
+          );
+        }
+        this.openEditDialog = false;
+        this.selectedItem = null;
+        alert('navire militaire modifié(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la modification', err);
+        alert('Erreur lors de la modification de navire militaire');
+      }
+    });
+  }
+
+  openDeleteDialog(item: NavalVessel): void {
+    this.selectedItem = item;
+    this.openDeleteDialog = true;
+  }
+
+  handleDelete(): void {
+    if (!this.selectedItem) return;
+
+    this.navalVesselsService.delete(this.selectedItem.trackingId).subscribe({
+      next: () => {
+        this.vessels = this.vessels.filter(item => item.trackingId !== this.selectedItem!.trackingId);
+        this.openDeleteDialog = false;
+        this.selectedItem = null;
+        alert('navire militaire supprimé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression', err);
+        alert('Erreur lors de la suppression de navire militaire');
+      }
+    });
   }
 }

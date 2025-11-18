@@ -3,12 +3,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { STSOperationsService } from '../services/sts-operations/sts-operations.service';
-import { STSOperation } from '../models/Maritime';
+import { AddStsOperationsDialogComponent } from './add-sts-operations-dialog/add-sts-operations-dialog.component';
+import { EditStsOperationsDialogComponent } from './edit-sts-operations-dialog/edit-sts-operations-dialog.component';
+import { DeleteStsOperationsDialogComponent } from './delete-sts-operations-dialog/delete-sts-operations-dialog.component';
+import { STSOperation, STSOperationRequest } from '../models/Maritime';
 
 @Component({
   selector: 'app-sts-operations',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    LucideAngularModule,
+    AddStsOperationsDialogComponent,
+    EditStsOperationsDialogComponent,
+    DeleteStsOperationsDialogComponent
+  ],
   templateUrl: './sts-operations.component.html',
   styleUrl: './sts-operations.component.css'
 })
@@ -23,6 +33,10 @@ export class StsOperationsComponent implements OnInit {
   operations: STSOperation[] = [];
   searchTerm = '';
   isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: STSOperation | null = null;
 
   constructor(private stsOperationsService: STSOperationsService) {}
 
@@ -38,10 +52,18 @@ export class StsOperationsComponent implements OnInit {
           this.operations = response.data;
         }
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: STSOperation | null = null;
       },
       error: (error) => {
         console.error('Error loading operations:', error);
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: STSOperation | null = null;
       }
     });
   }
@@ -55,7 +77,68 @@ export class StsOperationsComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    alert('La fonctionnalité d\'ajout de opération STS sera bientôt disponible. Le dialog d\'ajout doit être créé.');
-    console.log('TODO: Créer le dialog d\'ajout pour opération STS');
+    this.openAddDialog = true;
+  }
+  handleAdd(newItem: STSOperationRequest): void {
+    this.stsOperationsService.create(newItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.operations = [...this.operations, res.data];
+        }
+        this.openAddDialog = false;
+        alert('opération STS créé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la création', err);
+        alert('Erreur lors de la création de opération STS');
+      }
+    });
+  }
+  openEditDialog(item: STSOperation): void {
+    this.selectedItem = item;
+    this.openEditDialog = true;
+  }
+
+  handleEdit(updatedItem: STSOperationRequest): void {
+    if (!this.selectedItem) return;
+
+    this.stsOperationsService.update(this.selectedItem.trackingId, updatedItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.operations = this.operations.map(item =>
+            item.trackingId === this.selectedItem!.trackingId ? res.data! : item
+          );
+        }
+        this.openEditDialog = false;
+        this.selectedItem = null;
+        alert('opération STS modifié(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la modification', err);
+        alert('Erreur lors de la modification de opération STS');
+      }
+    });
+  }
+
+  openDeleteDialog(item: STSOperation): void {
+    this.selectedItem = item;
+    this.openDeleteDialog = true;
+  }
+
+  handleDelete(): void {
+    if (!this.selectedItem) return;
+
+    this.stsOperationsService.delete(this.selectedItem.trackingId).subscribe({
+      next: () => {
+        this.operations = this.operations.filter(item => item.trackingId !== this.selectedItem!.trackingId);
+        this.openDeleteDialog = false;
+        this.selectedItem = null;
+        alert('opération STS supprimé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression', err);
+        alert('Erreur lors de la suppression de opération STS');
+      }
+    });
   }
 }

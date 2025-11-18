@@ -3,12 +3,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { ArmedGuardMissionsService } from '../services/armed-guard-missions/armed-guard-missions.service';
-import { ArmedGuardMission } from '../models/Maritime';
+import { AddArmedGuardMissionsDialogComponent } from './add-armed-guard-missions-dialog/add-armed-guard-missions-dialog.component';
+import { EditArmedGuardMissionsDialogComponent } from './edit-armed-guard-missions-dialog/edit-armed-guard-missions-dialog.component';
+import { DeleteArmedGuardMissionsDialogComponent } from './delete-armed-guard-missions-dialog/delete-armed-guard-missions-dialog.component';
+import { ArmedGuardMission, ArmedGuardMissionRequest } from '../models/Maritime';
 
 @Component({
   selector: 'app-armed-guard-missions',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    LucideAngularModule,
+    AddArmedGuardMissionsDialogComponent,
+    EditArmedGuardMissionsDialogComponent,
+    DeleteArmedGuardMissionsDialogComponent
+  ],
   templateUrl: './armed-guard-missions.component.html',
   styleUrl: './armed-guard-missions.component.css'
 })
@@ -23,6 +33,10 @@ export class ArmedGuardMissionsComponent implements OnInit {
   missions: ArmedGuardMission[] = [];
   searchTerm = '';
   isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: ArmedGuardMission | null = null;
 
   constructor(private armedGuardMissionsService: ArmedGuardMissionsService) {}
 
@@ -38,10 +52,18 @@ export class ArmedGuardMissionsComponent implements OnInit {
           this.missions = response.data;
         }
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: ArmedGuardMission | null = null;
       },
       error: (error) => {
         console.error('Error loading missions:', error);
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: ArmedGuardMission | null = null;
       }
     });
   }
@@ -55,7 +77,68 @@ export class ArmedGuardMissionsComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    alert('La fonctionnalité d\'ajout de mission de garde armée sera bientôt disponible. Le dialog d\'ajout doit être créé.');
-    console.log('TODO: Créer le dialog d\'ajout pour mission de garde armée');
+    this.openAddDialog = true;
+  }
+  handleAdd(newItem: ArmedGuardMissionRequest): void {
+    this.armedGuardMissionsService.create(newItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.missions = [...this.missions, res.data];
+        }
+        this.openAddDialog = false;
+        alert('mission de garde armée créé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la création', err);
+        alert('Erreur lors de la création de mission de garde armée');
+      }
+    });
+  }
+  openEditDialog(item: ArmedGuardMission): void {
+    this.selectedItem = item;
+    this.openEditDialog = true;
+  }
+
+  handleEdit(updatedItem: ArmedGuardMissionRequest): void {
+    if (!this.selectedItem) return;
+
+    this.armedGuardMissionsService.update(this.selectedItem.trackingId, updatedItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.missions = this.missions.map(item =>
+            item.trackingId === this.selectedItem!.trackingId ? res.data! : item
+          );
+        }
+        this.openEditDialog = false;
+        this.selectedItem = null;
+        alert('mission de garde armée modifié(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la modification', err);
+        alert('Erreur lors de la modification de mission de garde armée');
+      }
+    });
+  }
+
+  openDeleteDialog(item: ArmedGuardMission): void {
+    this.selectedItem = item;
+    this.openDeleteDialog = true;
+  }
+
+  handleDelete(): void {
+    if (!this.selectedItem) return;
+
+    this.armedGuardMissionsService.delete(this.selectedItem.trackingId).subscribe({
+      next: () => {
+        this.missions = this.missions.filter(item => item.trackingId !== this.selectedItem!.trackingId);
+        this.openDeleteDialog = false;
+        this.selectedItem = null;
+        alert('mission de garde armée supprimé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression', err);
+        alert('Erreur lors de la suppression de mission de garde armée');
+      }
+    });
   }
 }

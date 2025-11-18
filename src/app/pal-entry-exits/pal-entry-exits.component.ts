@@ -3,12 +3,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
 import { PALEntryExitsService } from '../services/pal-entry-exits/pal-entry-exits.service';
-import { PALEntryExit } from '../models/Maritime';
+import { AddPalEntryExitsDialogComponent } from './add-pal-entry-exits-dialog/add-pal-entry-exits-dialog.component';
+import { EditPalEntryExitsDialogComponent } from './edit-pal-entry-exits-dialog/edit-pal-entry-exits-dialog.component';
+import { DeletePalEntryExitsDialogComponent } from './delete-pal-entry-exits-dialog/delete-pal-entry-exits-dialog.component';
+import { PALEntryExit, PALEntryExitRequest } from '../models/Maritime';
 
 @Component({
   selector: 'app-pal-entry-exits',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    LucideAngularModule,
+    AddPalEntryExitsDialogComponent,
+    EditPalEntryExitsDialogComponent,
+    DeletePalEntryExitsDialogComponent
+  ],
   templateUrl: './pal-entry-exits.component.html',
   styleUrl: './pal-entry-exits.component.css'
 })
@@ -23,6 +33,10 @@ export class PalEntryExitsComponent implements OnInit {
   entries: PALEntryExit[] = [];
   searchTerm = '';
   isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: PALEntryExit | null = null;
 
   constructor(private palEntryExitsService: PALEntryExitsService) {}
 
@@ -38,10 +52,18 @@ export class PalEntryExitsComponent implements OnInit {
           this.entries = response.data;
         }
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: PALEntryExit | null = null;
       },
       error: (error) => {
         console.error('Error loading entries:', error);
         this.isLoading = false;
+  openAddDialog = false;
+  openEditDialog = false;
+  openDeleteDialog = false;
+  selectedItem: PALEntryExit | null = null;
       }
     });
   }
@@ -55,7 +77,68 @@ export class PalEntryExitsComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    alert('La fonctionnalité d\'ajout de entrée/sortie PAL sera bientôt disponible. Le dialog d\'ajout doit être créé.');
-    console.log('TODO: Créer le dialog d\'ajout pour entrée/sortie PAL');
+    this.openAddDialog = true;
+  }
+  handleAdd(newItem: PALEntryExitRequest): void {
+    this.palEntryExitsService.create(newItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.entryExits = [...this.entryExits, res.data];
+        }
+        this.openAddDialog = false;
+        alert('entrée/sortie PAL créé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la création', err);
+        alert('Erreur lors de la création de entrée/sortie PAL');
+      }
+    });
+  }
+  openEditDialog(item: PALEntryExit): void {
+    this.selectedItem = item;
+    this.openEditDialog = true;
+  }
+
+  handleEdit(updatedItem: PALEntryExitRequest): void {
+    if (!this.selectedItem) return;
+
+    this.palEntryExitsService.update(this.selectedItem.trackingId, updatedItem).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.entryExits = this.entryExits.map(item =>
+            item.trackingId === this.selectedItem!.trackingId ? res.data! : item
+          );
+        }
+        this.openEditDialog = false;
+        this.selectedItem = null;
+        alert('entrée/sortie PAL modifié(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la modification', err);
+        alert('Erreur lors de la modification de entrée/sortie PAL');
+      }
+    });
+  }
+
+  openDeleteDialog(item: PALEntryExit): void {
+    this.selectedItem = item;
+    this.openDeleteDialog = true;
+  }
+
+  handleDelete(): void {
+    if (!this.selectedItem) return;
+
+    this.palEntryExitsService.delete(this.selectedItem.trackingId).subscribe({
+      next: () => {
+        this.entryExits = this.entryExits.filter(item => item.trackingId !== this.selectedItem!.trackingId);
+        this.openDeleteDialog = false;
+        this.selectedItem = null;
+        alert('entrée/sortie PAL supprimé(e) avec succès');
+      },
+      error: (err) => {
+        console.error('Erreur lors de la suppression', err);
+        alert('Erreur lors de la suppression de entrée/sortie PAL');
+      }
+    });
   }
 }

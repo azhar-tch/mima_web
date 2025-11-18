@@ -1,0 +1,36 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <div class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Modifier cette indemnité</h2>
+          <p class="text-sm text-gray-500 mt-1">Modifiez les informations de cette indemnité</p>
+        </div>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="grid gap-4">
+      <!-- Champs du formulaire à ajouter -->
+    </div>
+
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+        Annuler
+      </button>
+      <button
+        (click)="handleSubmit()"
+        class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+        Enregistrer
+      </button>
+    </div>
+  </div>
+</div>

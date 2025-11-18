@@ -1,0 +1,124 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Ajouter une mission d'escorte</h2>
+          <p class="text-sm text-gray-500 mt-1">Créez une nouvelle mission d'escorte</p>
+        </div>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="grid gap-4">
+      <!-- Numéro de mission -->
+      <div class="grid gap-2">
+        <label for="missionNumber" class="text-sm font-medium text-gray-700">Numéro de mission *</label>
+        <input
+          id="missionNumber"
+          type="text"
+          placeholder="Ex: ESC-2024-001"
+          [(ngModel)]="formData.missionNumber"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['missionNumber'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['missionNumber']" class="text-red-500 text-sm">{{ errors['missionNumber'] }}</p>
+      </div>
+
+      <!-- Date de début -->
+      <div class="grid gap-2">
+        <label for="startDate" class="text-sm font-medium text-gray-700">Date de début *</label>
+        <input
+          id="startDate"
+          type="date"
+          placeholder=""
+          [(ngModel)]="formData.startDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['startDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['startDate']" class="text-red-500 text-sm">{{ errors['startDate'] }}</p>
+      </div>
+
+      <!-- Date de fin -->
+      <div class="grid gap-2">
+        <label for="endDate" class="text-sm font-medium text-gray-700">Date de fin</label>
+        <input
+          id="endDate"
+          type="date"
+          placeholder=""
+          [(ngModel)]="formData.endDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['endDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['endDate']" class="text-red-500 text-sm">{{ errors['endDate'] }}</p>
+      </div>
+
+      <!-- Point de départ -->
+      <div class="grid gap-2">
+        <label for="departurePoint" class="text-sm font-medium text-gray-700">Point de départ *</label>
+        <input
+          id="departurePoint"
+          type="text"
+          placeholder=""
+          [(ngModel)]="formData.departurePoint"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['departurePoint'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['departurePoint']" class="text-red-500 text-sm">{{ errors['departurePoint'] }}</p>
+      </div>
+
+      <!-- Point d'arrivée -->
+      <div class="grid gap-2">
+        <label for="arrivalPoint" class="text-sm font-medium text-gray-700">Point d'arrivée</label>
+        <input
+          id="arrivalPoint"
+          type="text"
+          placeholder=""
+          [(ngModel)]="formData.arrivalPoint"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['arrivalPoint'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['arrivalPoint']" class="text-red-500 text-sm">{{ errors['arrivalPoint'] }}</p>
+      </div>
+
+      <!-- Zone d'escorte -->
+      <div class="grid gap-2">
+        <label for="escortZone" class="text-sm font-medium text-gray-700">Zone d'escorte</label>
+        <input
+          id="escortZone"
+          type="text"
+          placeholder=""
+          [(ngModel)]="formData.escortZone"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['escortZone'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['escortZone']" class="text-red-500 text-sm">{{ errors['escortZone'] }}</p>
+      </div>
+
+      <!-- Observations -->
+      <div class="grid gap-2">
+        <label for="observations" class="text-sm font-medium text-gray-700">Observations</label>
+        <textarea
+          id="observations"
+          placeholder=""
+          [(ngModel)]="formData.observations"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['observations'] ? 'border-red-500' : 'border-gray-300')"
+          rows="3"
+        ></textarea>
+        <p *ngIf="errors['observations']" class="text-red-500 text-sm">{{ errors['observations'] }}</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+        Annuler
+      </button>
+      <button
+        (click)="handleSubmit()"
+        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+        Ajouter
+      </button>
+    </div>
+  </div>
+</div>
