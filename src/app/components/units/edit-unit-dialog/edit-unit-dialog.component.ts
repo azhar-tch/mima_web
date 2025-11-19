@@ -20,6 +20,7 @@ export class EditUnitDialogComponent implements OnChanges, OnInit {
   readonly unitStatuses = Object.values(UnitStatus);
 
   agents: AgentsResponse[] = [];
+  agentSearchTerm: string = '';
 
   @Input() open = false;
   @Input() unit: Units | null = null;
@@ -35,8 +36,12 @@ export class EditUnitDialogComponent implements OnChanges, OnInit {
     this.loadAgents();
   }
 
-  loadAgents(): void {
-    this.agentsService.listAgents().subscribe({
+  loadAgents(searchTerm?: string): void {
+    const request = searchTerm
+      ? this.agentsService.searchAgents(searchTerm)
+      : this.agentsService.listAgents();
+
+    request.subscribe({
       next: (res) => {
         this.agents = res.data;
       },
@@ -44,10 +49,21 @@ export class EditUnitDialogComponent implements OnChanges, OnInit {
     });
   }
 
+  onAgentSearch(): void {
+    this.loadAgents(this.agentSearchTerm);
+  }
+
+  clearAgentSearch(): void {
+    this.agentSearchTerm = '';
+    this.loadAgents();
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['unit'] || changes['open']) && this.unit) {
       this.formData = { ...this.unit };
       this.errors = {};
+      this.agentSearchTerm = '';
+      this.loadAgents(); // Recharger tous les agents
     }
   }
 

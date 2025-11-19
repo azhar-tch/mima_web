@@ -56,6 +56,24 @@
       <!-- Chef (optionnel) -->
       <div class="grid gap-2">
         <label class="text-sm font-medium text-gray-700">Chef d'unité (optionnel)</label>
+
+        <!-- Champ de recherche -->
+        <div class="relative mb-2">
+          <input
+            type="text"
+            placeholder="Rechercher un agent par nom, prénom, matricule..."
+            [(ngModel)]="agentSearchTerm"
+            (ngModelChange)="onAgentSearch()"
+            name="agentSearch"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+          />
+          <span *ngIf="agentSearchTerm"
+                (click)="clearAgentSearch()"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer">
+            ✕
+          </span>
+        </div>
+
         <select [(ngModel)]="formData.chiefTrackingId"
                 class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
           <option value="">-- Aucun --</option>

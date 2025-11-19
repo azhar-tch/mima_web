@@ -21,14 +21,20 @@ export class AddEscortMissionsDialogComponent {
   formData: EscortMissionRequest = {
     missionNumber: '',
     commercialShipTrackingId: '',
+    securityAgencyTrackingId: '',
     navalVesselTrackingId: '',
+    commanderTrackingId: '',
+    secondaryVesselTrackingId: '',
+    vedettes: '',
     startDate: '',
     endDate: '',
+    escortType: EscortType.STANDARD,
     departurePoint: '',
     arrivalPoint: '',
-    escortType: EscortType.STANDARD,
+    distance: undefined,
     escortZone: '',
     status: MissionStatus.PLANNED,
+    incidents: '',
     observations: ''
   };
 
@@ -36,17 +42,23 @@ export class AddEscortMissionsDialogComponent {
 
   handleReset() {
     this.formData = {
-    missionNumber: '',
-    commercialShipTrackingId: '',
-    navalVesselTrackingId: '',
-    startDate: '',
-    endDate: '',
-    departurePoint: '',
-    arrivalPoint: '',
-    escortType: EscortType.STANDARD,
-    escortZone: '',
-    status: MissionStatus.PLANNED,
-    observations: ''
+      missionNumber: '',
+      commercialShipTrackingId: '',
+      securityAgencyTrackingId: '',
+      navalVesselTrackingId: '',
+      commanderTrackingId: '',
+      secondaryVesselTrackingId: '',
+      vedettes: '',
+      startDate: '',
+      endDate: '',
+      escortType: EscortType.STANDARD,
+      departurePoint: '',
+      arrivalPoint: '',
+      distance: undefined,
+      escortZone: '',
+      status: MissionStatus.PLANNED,
+      incidents: '',
+      observations: ''
     };
     this.errors = {};
   }

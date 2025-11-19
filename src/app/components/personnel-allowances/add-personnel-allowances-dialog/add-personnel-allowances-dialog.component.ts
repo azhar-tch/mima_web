@@ -22,20 +22,28 @@ export class AddPersonnelAllowancesDialogComponent {
     maritimeRank: '',
     escortDailyAllowance: undefined,
     armedGuardDailyAllowance: undefined,
+    patrolAllowance: undefined,
+    riskAllowance: undefined,
+    seaAllowance: undefined,
     currency: '',
-    observations: ''
+    observations: '',
+    isActive: undefined
   };
 
   errors: Record<string, string> = {};
 
   handleReset() {
     this.formData = {
-    rankCode: '',
-    maritimeRank: '',
-    escortDailyAllowance: undefined,
-    armedGuardDailyAllowance: undefined,
-    currency: '',
-    observations: ''
+      rankCode: '',
+      maritimeRank: '',
+      escortDailyAllowance: undefined,
+      armedGuardDailyAllowance: undefined,
+      patrolAllowance: undefined,
+      riskAllowance: undefined,
+      seaAllowance: undefined,
+      currency: '',
+      observations: '',
+      isActive: undefined
     };
     this.errors = {};
   }

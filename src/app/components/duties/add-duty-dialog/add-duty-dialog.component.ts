@@ -25,6 +25,7 @@ export class AddDutyDialogComponent implements OnInit {
 
   availableAgents: AgentsResponse[] = [];
   availableUnits: UnitsResponse[] = [];
+  agentSearchTerm: string = '';
   dutyTypes = [
     DutyType.WATCH,
     DutyType.BRIDGE_WATCH,
@@ -58,8 +59,8 @@ export class AddDutyDialogComponent implements OnInit {
     this.loadUnits();
   }
 
-  loadAgents(): void {
-    this.agentsService.listAgents().subscribe({
+  loadAgents(searchTerm?: string): void {
+    this.agentsService.searchAgents(searchTerm).subscribe({
       next: (res) => {
         this.availableAgents = res.data || [];
       },
@@ -68,6 +69,15 @@ export class AddDutyDialogComponent implements OnInit {
         alert('Erreur lors du chargement des agents');
       }
     });
+  }
+
+  onAgentSearch(): void {
+    this.loadAgents(this.agentSearchTerm);
+  }
+
+  clearAgentSearch(): void {
+    this.agentSearchTerm = '';
+    this.loadAgents();
   }
 
   loadUnits(): void {
@@ -113,7 +123,9 @@ export class AddDutyDialogComponent implements OnInit {
       endTime: '',
       status: DutyStatus.PLANNED
     };
+    this.agentSearchTerm = '';
     this.errors = {};
+    this.loadAgents(); // Recharger tous les agents
   }
 
   handleClose(): void {

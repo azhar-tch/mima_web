@@ -21,53 +21,248 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- ID Navire commercial -->
-      <div class="grid gap-2">
-        <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
-        <input
-          id="commercialShipTrackingId"
-          type="text"
-          placeholder="Ex: UUID du navire"
-          [(ngModel)]="formData.commercialShipTrackingId"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
+      <!-- Basic Information -->
+      <div class="col-span-2 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations de base</h3>
       </div>
 
-      <!-- Date de saisie -->
-      <div class="grid gap-2">
-        <label for="seizureDate" class="text-sm font-medium text-gray-700">Date de saisie *</label>
-        <input
-          id="seizureDate"
-          type="date"
-          placeholder=""
-          [(ngModel)]="formData.seizureDate"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['seizureDate'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['seizureDate']" class="text-red-500 text-sm">{{ errors['seizureDate'] }}</p>
+      <div class="grid grid-cols-2 gap-4">
+        <!-- ID Navire commercial -->
+        <div class="grid gap-2">
+          <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
+          <input
+            id="commercialShipTrackingId"
+            type="text"
+            placeholder="Ex: UUID du navire"
+            [(ngModel)]="formData.commercialShipTrackingId"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+          <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
+        </div>
+
+        <!-- Date de saisie -->
+        <div class="grid gap-2">
+          <label for="seizureDate" class="text-sm font-medium text-gray-700">Date de saisie *</label>
+          <input
+            id="seizureDate"
+            type="date"
+            placeholder=""
+            [(ngModel)]="formData.seizureDate"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['seizureDate'] ? 'border-red-500' : 'border-gray-300')"/>
+          <p *ngIf="errors['seizureDate']" class="text-red-500 text-sm">{{ errors['seizureDate'] }}</p>
+        </div>
+
+        <!-- Type de saisie -->
+        <div class="grid gap-2">
+          <label for="seizureType" class="text-sm font-medium text-gray-700">Type de saisie</label>
+          <input
+            id="seizureType"
+            type="text"
+            placeholder="Ex: Conservatoire, Exécutoire"
+            [(ngModel)]="formData.seizureType"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Localisation de saisie -->
+        <div class="grid gap-2">
+          <label for="seizureLocation" class="text-sm font-medium text-gray-700">Localisation de saisie</label>
+          <input
+            id="seizureLocation"
+            type="text"
+            placeholder="Ex: Port de Cotonou"
+            [(ngModel)]="formData.seizureLocation"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Statut -->
+        <div class="grid gap-2">
+          <label for="status" class="text-sm font-medium text-gray-700">Statut</label>
+          <input
+            id="status"
+            type="text"
+            placeholder="Ex: En cours, Levée"
+            [(ngModel)]="formData.status"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
       </div>
 
-      <!-- Localisation de saisie -->
-      <div class="grid gap-2">
-        <label for="seizureLocation" class="text-sm font-medium text-gray-700">Localisation de saisie</label>
-        <input
-          id="seizureLocation"
-          type="text"
-          placeholder=""
-          [(ngModel)]="formData.seizureLocation"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['seizureLocation'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['seizureLocation']" class="text-red-500 text-sm">{{ errors['seizureLocation'] }}</p>
+      <!-- Seizure Authority Information -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Autorité saisissante</h3>
       </div>
 
-      <!-- Raison de la saisie -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Autorité saisissante -->
+        <div class="grid gap-2">
+          <label for="seizingAuthority" class="text-sm font-medium text-gray-700">Autorité saisissante</label>
+          <input
+            id="seizingAuthority"
+            type="text"
+            placeholder="Ex: Tribunal de Commerce"
+            [(ngModel)]="formData.seizingAuthority"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Numéro d'ordonnance de saisie -->
+        <div class="grid gap-2">
+          <label for="seizureOrderNumber" class="text-sm font-medium text-gray-700">Numéro d'ordonnance</label>
+          <input
+            id="seizureOrderNumber"
+            type="text"
+            placeholder="Numéro de l'ordonnance de saisie"
+            [(ngModel)]="formData.seizureOrderNumber"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Raison de la saisie -->
+        <div class="grid gap-2 col-span-2">
+          <label for="seizureReason" class="text-sm font-medium text-gray-700">Raison de la saisie</label>
+          <textarea
+            id="seizureReason"
+            placeholder="Décrire la raison de la saisie"
+            [(ngModel)]="formData.seizureReason"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="2"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Financial Information -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations financières</h3>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Montant de la créance -->
+        <div class="grid gap-2">
+          <label for="claimAmount" class="text-sm font-medium text-gray-700">Montant de la créance</label>
+          <input
+            id="claimAmount"
+            type="number"
+            step="0.01"
+            placeholder="0.00"
+            [(ngModel)]="formData.claimAmount"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Montant payé -->
+        <div class="grid gap-2">
+          <label for="amountPaid" class="text-sm font-medium text-gray-700">Montant payé</label>
+          <input
+            id="amountPaid"
+            type="number"
+            step="0.01"
+            placeholder="0.00"
+            [(ngModel)]="formData.amountPaid"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Parties Involved -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Parties impliquées</h3>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Nom du créancier -->
+        <div class="grid gap-2">
+          <label for="creditorName" class="text-sm font-medium text-gray-700">Nom du créancier</label>
+          <input
+            id="creditorName"
+            type="text"
+            placeholder="Nom du créancier"
+            [(ngModel)]="formData.creditorName"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Représentant légal du créancier -->
+        <div class="grid gap-2">
+          <label for="creditorLegalRepresentative" class="text-sm font-medium text-gray-700">Représentant légal</label>
+          <input
+            id="creditorLegalRepresentative"
+            type="text"
+            placeholder="Nom du représentant légal"
+            [(ngModel)]="formData.creditorLegalRepresentative"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Nom de l'huissier -->
+        <div class="grid gap-2">
+          <label for="bailiffName" class="text-sm font-medium text-gray-700">Nom de l'huissier</label>
+          <input
+            id="bailiffName"
+            type="text"
+            placeholder="Nom de l'huissier"
+            [(ngModel)]="formData.bailiffName"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Gardien du navire -->
+        <div class="grid gap-2">
+          <label for="shipGuardian" class="text-sm font-medium text-gray-700">Gardien du navire</label>
+          <input
+            id="shipGuardian"
+            type="text"
+            placeholder="Nom du gardien du navire"
+            [(ngModel)]="formData.shipGuardian"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Release Information -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations de levée</h3>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Date de levée -->
+        <div class="grid gap-2">
+          <label for="releaseDate" class="text-sm font-medium text-gray-700">Date de levée</label>
+          <input
+            id="releaseDate"
+            type="date"
+            [(ngModel)]="formData.releaseDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Numéro d'ordonnance de levée -->
+        <div class="grid gap-2">
+          <label for="releaseOrderNumber" class="text-sm font-medium text-gray-700">Numéro d'ordonnance de levée</label>
+          <input
+            id="releaseOrderNumber"
+            type="text"
+            placeholder="Numéro de l'ordonnance de levée"
+            [(ngModel)]="formData.releaseOrderNumber"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Raison de la levée -->
+        <div class="grid gap-2 col-span-2">
+          <label for="releaseReason" class="text-sm font-medium text-gray-700">Raison de la levée</label>
+          <textarea
+            id="releaseReason"
+            placeholder="Décrire la raison de la levée de saisie"
+            [(ngModel)]="formData.releaseReason"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="2"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations complémentaires</h3>
+      </div>
+
+      <!-- Documents liés -->
       <div class="grid gap-2">
-        <label for="seizureReason" class="text-sm font-medium text-gray-700">Raison de la saisie</label>
+        <label for="relatedDocuments" class="text-sm font-medium text-gray-700">Documents liés</label>
         <textarea
-          id="seizureReason"
-          placeholder=""
-          [(ngModel)]="formData.seizureReason"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['seizureReason'] ? 'border-red-500' : 'border-gray-300')"
-          rows="3"
+          id="relatedDocuments"
+          placeholder="Liste des documents liés à la saisie"
+          [(ngModel)]="formData.relatedDocuments"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="2"
         ></textarea>
-        <p *ngIf="errors['seizureReason']" class="text-red-500 text-sm">{{ errors['seizureReason'] }}</p>
       </div>
 
       <!-- Observations -->
@@ -75,12 +270,11 @@
         <label for="observations" class="text-sm font-medium text-gray-700">Observations</label>
         <textarea
           id="observations"
-          placeholder=""
+          placeholder="Observations générales"
           [(ngModel)]="formData.observations"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['observations'] ? 'border-red-500' : 'border-gray-300')"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="3"
         ></textarea>
-        <p *ngIf="errors['observations']" class="text-red-500 text-sm">{{ errors['observations'] }}</p>
       </div>
     </div>
 

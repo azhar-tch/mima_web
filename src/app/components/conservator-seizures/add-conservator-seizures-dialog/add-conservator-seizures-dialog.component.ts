@@ -20,8 +20,22 @@ export class AddConservatorSeizuresDialogComponent {
   formData: ConservatorSeizureRequest = {
     commercialShipTrackingId: '',
     seizureDate: '',
-    seizureLocation: '',
+    seizingAuthority: '',
+    seizureOrderNumber: '',
     seizureReason: '',
+    seizureType: '',
+    claimAmount: undefined,
+    seizureLocation: '',
+    creditorName: '',
+    creditorLegalRepresentative: '',
+    bailiffName: '',
+    shipGuardian: '',
+    releaseDate: '',
+    releaseReason: '',
+    releaseOrderNumber: '',
+    amountPaid: undefined,
+    status: '',
+    relatedDocuments: '',
     observations: ''
   };
 
@@ -29,11 +43,25 @@ export class AddConservatorSeizuresDialogComponent {
 
   handleReset() {
     this.formData = {
-    commercialShipTrackingId: '',
-    seizureDate: '',
-    seizureLocation: '',
-    seizureReason: '',
-    observations: ''
+      commercialShipTrackingId: '',
+      seizureDate: '',
+      seizingAuthority: '',
+      seizureOrderNumber: '',
+      seizureReason: '',
+      seizureType: '',
+      claimAmount: undefined,
+      seizureLocation: '',
+      creditorName: '',
+      creditorLegalRepresentative: '',
+      bailiffName: '',
+      shipGuardian: '',
+      releaseDate: '',
+      releaseReason: '',
+      releaseOrderNumber: '',
+      amountPaid: undefined,
+      status: '',
+      relatedDocuments: '',
+      observations: ''
     };
     this.errors = {};
   }

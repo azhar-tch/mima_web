@@ -23,7 +23,28 @@ export class AddNavalVesselsDialogComponent {
     vesselType: NavalVesselType.PHM,
     vesselName: '',
     hullNumber: '',
+    yearCommissioned: undefined,
+    dateCommissioned: '',
+    dateDecommissioned: '',
+    length: undefined,
+    width: undefined,
+    draft: undefined,
+    displacement: undefined,
+    maxSpeed: undefined,
+    crewCapacity: undefined,
+    fuelCapacity: undefined,
+    range: undefined,
+    armament: '',
+    electronics: '',
+    engineType: '',
+    enginePower: undefined,
     homePort: '',
+    operationalStatus: undefined,
+    currentLocation: '',
+    currentMission: '',
+    lastMaintenanceDate: '',
+    nextMaintenanceDate: '',
+    totalOperationalHours: undefined,
     observations: ''
   };
 
@@ -31,12 +52,33 @@ export class AddNavalVesselsDialogComponent {
 
   handleReset() {
     this.formData = {
-    vesselNumber: '',
-    vesselType: NavalVesselType.PHM,
-    vesselName: '',
-    hullNumber: '',
-    homePort: '',
-    observations: ''
+      vesselNumber: '',
+      vesselType: NavalVesselType.PHM,
+      vesselName: '',
+      hullNumber: '',
+      yearCommissioned: undefined,
+      dateCommissioned: '',
+      dateDecommissioned: '',
+      length: undefined,
+      width: undefined,
+      draft: undefined,
+      displacement: undefined,
+      maxSpeed: undefined,
+      crewCapacity: undefined,
+      fuelCapacity: undefined,
+      range: undefined,
+      armament: '',
+      electronics: '',
+      engineType: '',
+      enginePower: undefined,
+      homePort: '',
+      operationalStatus: undefined,
+      currentLocation: '',
+      currentMission: '',
+      lastMaintenanceDate: '',
+      nextMaintenanceDate: '',
+      totalOperationalHours: undefined,
+      observations: ''
     };
     this.errors = {};
   }

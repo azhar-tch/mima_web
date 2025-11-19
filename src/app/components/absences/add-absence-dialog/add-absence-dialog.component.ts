@@ -22,6 +22,7 @@ export class AddAbsenceDialogComponent implements OnInit {
   @Output() add = new EventEmitter<AbsencesRequest>();
 
   availableAgents: AgentsResponse[] = [];
+  agentSearchTerm: string = '';
   absenceTypes = [
     AbsenceType.SICK_LEAVE,
     AbsenceType.ANNUAL_LEAVE,
@@ -50,8 +51,12 @@ export class AddAbsenceDialogComponent implements OnInit {
     this.loadAgents();
   }
 
-  loadAgents(): void {
-    this.agentsService.listAgents().subscribe({
+  loadAgents(searchTerm?: string): void {
+    const observable = searchTerm
+      ? this.agentsService.searchAgents(searchTerm)
+      : this.agentsService.listAgents();
+
+    observable.subscribe({
       next: (res) => {
         this.availableAgents = res.data || [];
       },
@@ -73,6 +78,15 @@ export class AddAbsenceDialogComponent implements OnInit {
     return 0;
   }
 
+  onAgentSearch(): void {
+    this.loadAgents(this.agentSearchTerm);
+  }
+
+  clearAgentSearch(): void {
+    this.agentSearchTerm = '';
+    this.loadAgents();
+  }
+
   handleReset() {
     this.formData = {
       agentTrackingId: '',
@@ -83,6 +97,8 @@ export class AddAbsenceDialogComponent implements OnInit {
       justification: ''
     };
     this.errors = {};
+    this.agentSearchTerm = '';
+    this.loadAgents(); // Recharger tous les agents
   }
 
   handleClose() {

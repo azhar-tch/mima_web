@@ -21,23 +21,39 @@ export class AddSecurityAgenciesDialogComponent {
     agencyNumber: '',
     agencyName: '',
     phoneNumber: '',
+    phoneNumber2: '',
     email: '',
     address: '',
+    city: '',
+    country: '',
     contactPerson: '',
-    observations: ''
+    contactPosition: '',
+    registrationNumber: '',
+    licenseNumber: '',
+    website: '',
+    observations: '',
+    isActive: undefined
   };
 
   errors: Record<string, string> = {};
 
   handleReset() {
     this.formData = {
-    agencyNumber: '',
-    agencyName: '',
-    phoneNumber: '',
-    email: '',
-    address: '',
-    contactPerson: '',
-    observations: ''
+      agencyNumber: '',
+      agencyName: '',
+      phoneNumber: '',
+      phoneNumber2: '',
+      email: '',
+      address: '',
+      city: '',
+      country: '',
+      contactPerson: '',
+      contactPosition: '',
+      registrationNumber: '',
+      licenseNumber: '',
+      website: '',
+      observations: '',
+      isActive: undefined
     };
     this.errors = {};
   }

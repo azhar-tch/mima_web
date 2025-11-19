@@ -45,16 +45,239 @@
         <p *ngIf="errors['vesselName']" class="text-red-500 text-sm">{{ errors['vesselName'] }}</p>
       </div>
 
+      <!-- Type de navire -->
+      <div class="grid gap-2">
+        <label for="vesselType" class="text-sm font-medium text-gray-700">Type de navire *</label>
+        <select
+          id="vesselType"
+          [(ngModel)]="formData.vesselType"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="PHM">PHM - Patrouilleur Haute Mer</option>
+          <option value="VDT_RAPIDE">VDT Rapide - Vedette Rapide</option>
+          <option value="VDT_COTIERE">VDT Côtière - Vedette Côtière</option>
+          <option value="VDT">VDT - Vedette</option>
+          <option value="EMB_RAPIDE">Embarcation Rapide</option>
+          <option value="EMB_RADE">Embarcation de Rade</option>
+          <option value="SALLE_COM">Salle de Commandement</option>
+        </select>
+      </div>
+
       <!-- Numéro de coque -->
       <div class="grid gap-2">
         <label for="hullNumber" class="text-sm font-medium text-gray-700">Numéro de coque</label>
         <input
           id="hullNumber"
           type="text"
-          placeholder=""
+          placeholder="Ex: H-123"
           [(ngModel)]="formData.hullNumber"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['hullNumber'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['hullNumber']" class="text-red-500 text-sm">{{ errors['hullNumber'] }}</p>
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- Section: Mise en service -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Mise en service</h3>
+      </div>
+
+      <!-- Grille 2 colonnes pour les dates -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Année de mise en service -->
+        <div class="grid gap-2">
+          <label for="yearCommissioned" class="text-sm font-medium text-gray-700">Année de mise en service</label>
+          <input
+            id="yearCommissioned"
+            type="number"
+            placeholder="Ex: 2020"
+            [(ngModel)]="formData.yearCommissioned"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Date de mise en service -->
+        <div class="grid gap-2">
+          <label for="dateCommissioned" class="text-sm font-medium text-gray-700">Date de mise en service</label>
+          <input
+            id="dateCommissioned"
+            type="date"
+            [(ngModel)]="formData.dateCommissioned"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Date de décommissionnement -->
+        <div class="grid gap-2">
+          <label for="dateDecommissioned" class="text-sm font-medium text-gray-700">Date de décommissionnement</label>
+          <input
+            id="dateDecommissioned"
+            type="date"
+            [(ngModel)]="formData.dateDecommissioned"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Section: Caractéristiques physiques -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Caractéristiques physiques</h3>
+      </div>
+
+      <!-- Grille 2 colonnes pour les dimensions -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Longueur -->
+        <div class="grid gap-2">
+          <label for="length" class="text-sm font-medium text-gray-700">Longueur (m)</label>
+          <input
+            id="length"
+            type="number"
+            step="0.1"
+            placeholder="Ex: 58.5"
+            [(ngModel)]="formData.length"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Largeur -->
+        <div class="grid gap-2">
+          <label for="width" class="text-sm font-medium text-gray-700">Largeur (m)</label>
+          <input
+            id="width"
+            type="number"
+            step="0.1"
+            placeholder="Ex: 8.2"
+            [(ngModel)]="formData.width"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Tirant d'eau -->
+        <div class="grid gap-2">
+          <label for="draft" class="text-sm font-medium text-gray-700">Tirant d'eau (m)</label>
+          <input
+            id="draft"
+            type="number"
+            step="0.1"
+            placeholder="Ex: 2.5"
+            [(ngModel)]="formData.draft"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Déplacement -->
+        <div class="grid gap-2">
+          <label for="displacement" class="text-sm font-medium text-gray-700">Déplacement (tonnes)</label>
+          <input
+            id="displacement"
+            type="number"
+            step="0.1"
+            placeholder="Ex: 1200"
+            [(ngModel)]="formData.displacement"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Section: Performances et capacités -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Performances et capacités</h3>
+      </div>
+
+      <!-- Grille 2 colonnes pour les performances -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Vitesse maximale -->
+        <div class="grid gap-2">
+          <label for="maxSpeed" class="text-sm font-medium text-gray-700">Vitesse maximale (nœuds)</label>
+          <input
+            id="maxSpeed"
+            type="number"
+            step="0.1"
+            placeholder="Ex: 26.5"
+            [(ngModel)]="formData.maxSpeed"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Capacité d'équipage -->
+        <div class="grid gap-2">
+          <label for="crewCapacity" class="text-sm font-medium text-gray-700">Capacité d'équipage</label>
+          <input
+            id="crewCapacity"
+            type="number"
+            placeholder="Ex: 45"
+            [(ngModel)]="formData.crewCapacity"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Capacité en carburant -->
+        <div class="grid gap-2">
+          <label for="fuelCapacity" class="text-sm font-medium text-gray-700">Capacité en carburant (L)</label>
+          <input
+            id="fuelCapacity"
+            type="number"
+            placeholder="Ex: 50000"
+            [(ngModel)]="formData.fuelCapacity"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Rayon d'action -->
+        <div class="grid gap-2">
+          <label for="range" class="text-sm font-medium text-gray-700">Rayon d'action (milles nautiques)</label>
+          <input
+            id="range"
+            type="number"
+            placeholder="Ex: 2000"
+            [(ngModel)]="formData.range"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Section: Équipements -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Équipements</h3>
+      </div>
+
+      <!-- Armement -->
+      <div class="grid gap-2">
+        <label for="armament" class="text-sm font-medium text-gray-700">Armement</label>
+        <textarea
+          id="armament"
+          placeholder="Ex: Canon de 20mm, mitrailleuses..."
+          [(ngModel)]="formData.armament"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="2"
+        ></textarea>
+      </div>
+
+      <!-- Électronique -->
+      <div class="grid gap-2">
+        <label for="electronics" class="text-sm font-medium text-gray-700">Électronique</label>
+        <textarea
+          id="electronics"
+          placeholder="Ex: Radar, GPS, systèmes de communication..."
+          [(ngModel)]="formData.electronics"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="2"
+        ></textarea>
+      </div>
+
+      <!-- Grille 2 colonnes pour moteur -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Type de moteur -->
+        <div class="grid gap-2">
+          <label for="engineType" class="text-sm font-medium text-gray-700">Type de moteur</label>
+          <input
+            id="engineType"
+            type="text"
+            placeholder="Ex: Diesel"
+            [(ngModel)]="formData.engineType"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Puissance du moteur -->
+        <div class="grid gap-2">
+          <label for="enginePower" class="text-sm font-medium text-gray-700">Puissance du moteur (CV)</label>
+          <input
+            id="enginePower"
+            type="number"
+            placeholder="Ex: 6000"
+            [(ngModel)]="formData.enginePower"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Section: Statut opérationnel -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Statut opérationnel</h3>
       </div>
 
       <!-- Port d'attache -->
@@ -63,10 +286,89 @@
         <input
           id="homePort"
           type="text"
-          placeholder=""
+          placeholder="Ex: Port de Libreville"
           [(ngModel)]="formData.homePort"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['homePort'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['homePort']" class="text-red-500 text-sm">{{ errors['homePort'] }}</p>
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- Statut opérationnel -->
+      <div class="grid gap-2">
+        <label for="operationalStatus" class="text-sm font-medium text-gray-700">Statut opérationnel</label>
+        <select
+          id="operationalStatus"
+          [(ngModel)]="formData.operationalStatus"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">Sélectionner un statut</option>
+          <option value="OPERATIONAL">Opérationnel</option>
+          <option value="IN_MAINTENANCE">En maintenance</option>
+          <option value="IN_REPAIR">En réparation</option>
+          <option value="ON_MISSION">En mission</option>
+          <option value="IN_PORT">Au port</option>
+          <option value="REFITTING">En réaménagement</option>
+          <option value="DECOMMISSIONED">Décommissionné</option>
+          <option value="UNAVAILABLE">Indisponible</option>
+        </select>
+      </div>
+
+      <!-- Localisation actuelle -->
+      <div class="grid gap-2">
+        <label for="currentLocation" class="text-sm font-medium text-gray-700">Localisation actuelle</label>
+        <input
+          id="currentLocation"
+          type="text"
+          placeholder="Ex: Golfe de Guinée"
+          [(ngModel)]="formData.currentLocation"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- Mission actuelle -->
+      <div class="grid gap-2">
+        <label for="currentMission" class="text-sm font-medium text-gray-700">Mission actuelle</label>
+        <input
+          id="currentMission"
+          type="text"
+          placeholder="Ex: Patrouille côtière"
+          [(ngModel)]="formData.currentMission"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- Section: Maintenance -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Maintenance</h3>
+      </div>
+
+      <!-- Grille 2 colonnes pour maintenance -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Dernière maintenance -->
+        <div class="grid gap-2">
+          <label for="lastMaintenanceDate" class="text-sm font-medium text-gray-700">Dernière maintenance</label>
+          <input
+            id="lastMaintenanceDate"
+            type="date"
+            [(ngModel)]="formData.lastMaintenanceDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Prochaine maintenance -->
+        <div class="grid gap-2">
+          <label for="nextMaintenanceDate" class="text-sm font-medium text-gray-700">Prochaine maintenance</label>
+          <input
+            id="nextMaintenanceDate"
+            type="date"
+            [(ngModel)]="formData.nextMaintenanceDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Total heures opérationnelles -->
+      <div class="grid gap-2">
+        <label for="totalOperationalHours" class="text-sm font-medium text-gray-700">Total heures opérationnelles</label>
+        <input
+          id="totalOperationalHours"
+          type="number"
+          placeholder="Ex: 5000"
+          [(ngModel)]="formData.totalOperationalHours"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
       </div>
 
       <!-- Observations -->
@@ -76,10 +378,9 @@
           id="observations"
           placeholder=""
           [(ngModel)]="formData.observations"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['observations'] ? 'border-red-500' : 'border-gray-300')"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="3"
         ></textarea>
-        <p *ngIf="errors['observations']" class="text-red-500 text-sm">{{ errors['observations'] }}</p>
       </div>
     </div>
 

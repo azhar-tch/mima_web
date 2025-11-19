@@ -27,6 +27,7 @@ export class EditDutyDialogComponent implements OnInit, OnChanges {
 
   availableAgents: AgentsResponse[] = [];
   availableUnits: UnitsResponse[] = [];
+  agentSearchTerm: string = '';
   dutyTypes = [
     DutyType.WATCH,
     DutyType.BRIDGE_WATCH,
@@ -80,8 +81,12 @@ export class EditDutyDialogComponent implements OnInit, OnChanges {
     }
   }
 
-  loadAgents(): void {
-    this.agentsService.listAgents().subscribe({
+  loadAgents(searchTerm?: string): void {
+    const request = searchTerm
+      ? this.agentsService.searchAgents(searchTerm)
+      : this.agentsService.listAgents();
+
+    request.subscribe({
       next: (res) => {
         this.availableAgents = res.data || [];
       },
@@ -112,6 +117,15 @@ export class EditDutyDialogComponent implements OnInit, OnChanges {
       return Math.floor(diffMs / (1000 * 60 * 60));
     }
     return 0;
+  }
+
+  onAgentSearch(): void {
+    this.loadAgents(this.agentSearchTerm);
+  }
+
+  clearAgentSearch(): void {
+    this.agentSearchTerm = '';
+    this.loadAgents();
   }
 
   handleClose() {

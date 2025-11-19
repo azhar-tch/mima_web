@@ -26,8 +26,11 @@ export class AddArmedGuardMissionsDialogComponent {
     disembarkationDate: '',
     embarkationPort: '',
     disembarkationPort: '',
+    daysCount: undefined,
     personnelCount: undefined,
+    patrolZone: '',
     status: MissionStatus.PLANNED,
+    incidents: '',
     observations: ''
   };
 
@@ -35,16 +38,19 @@ export class AddArmedGuardMissionsDialogComponent {
 
   handleReset() {
     this.formData = {
-    missionNumber: '',
-    commercialShipTrackingId: '',
-    securityAgencyTrackingId: '',
-    embarkationDate: '',
-    disembarkationDate: '',
-    embarkationPort: '',
-    disembarkationPort: '',
-    personnelCount: undefined,
-    status: MissionStatus.PLANNED,
-    observations: ''
+      missionNumber: '',
+      commercialShipTrackingId: '',
+      securityAgencyTrackingId: '',
+      embarkationDate: '',
+      disembarkationDate: '',
+      embarkationPort: '',
+      disembarkationPort: '',
+      daysCount: undefined,
+      personnelCount: undefined,
+      patrolZone: '',
+      status: MissionStatus.PLANNED,
+      incidents: '',
+      observations: ''
     };
     this.errors = {};
   }

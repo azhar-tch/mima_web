@@ -17,7 +17,90 @@
     </div>
 
     <div class="grid gap-4">
-      <!-- Champs du formulaire à ajouter -->
+      <!-- ID Navire commercial -->
+      <div class="grid gap-2">
+        <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
+        <input
+          id="commercialShipTrackingId"
+          type="text"
+          placeholder="Ex: UUID du navire"
+          [(ngModel)]="formData.commercialShipTrackingId"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
+      </div>
+
+      <!-- Date d'arrivée -->
+      <div class="grid gap-2">
+        <label for="arrivalDate" class="text-sm font-medium text-gray-700">Date d'arrivée</label>
+        <input
+          id="arrivalDate"
+          type="date"
+          placeholder=""
+          [(ngModel)]="formData.arrivalDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['arrivalDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['arrivalDate']" class="text-red-500 text-sm">{{ errors['arrivalDate'] }}</p>
+      </div>
+
+      <!-- Date de départ -->
+      <div class="grid gap-2">
+        <label for="departureDate" class="text-sm font-medium text-gray-700">Date de départ</label>
+        <input
+          id="departureDate"
+          type="date"
+          placeholder=""
+          [(ngModel)]="formData.departureDate"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['departureDate'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['departureDate']" class="text-red-500 text-sm">{{ errors['departureDate'] }}</p>
+      </div>
+
+      <!-- Port d'origine -->
+      <div class="grid gap-2">
+        <label for="portOfOrigin" class="text-sm font-medium text-gray-700">Port d'origine</label>
+        <input
+          id="portOfOrigin"
+          type="text"
+          placeholder=""
+          [(ngModel)]="formData.portOfOrigin"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['portOfOrigin'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['portOfOrigin']" class="text-red-500 text-sm">{{ errors['portOfOrigin'] }}</p>
+      </div>
+
+      <!-- Port de destination -->
+      <div class="grid gap-2">
+        <label for="portOfDestination" class="text-sm font-medium text-gray-700">Port de destination</label>
+        <input
+          id="portOfDestination"
+          type="text"
+          placeholder=""
+          [(ngModel)]="formData.portOfDestination"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['portOfDestination'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['portOfDestination']" class="text-red-500 text-sm">{{ errors['portOfDestination'] }}</p>
+      </div>
+
+      <!-- Nom du capitaine -->
+      <div class="grid gap-2">
+        <label for="captainName" class="text-sm font-medium text-gray-700">Nom du capitaine</label>
+        <input
+          id="captainName"
+          type="text"
+          placeholder=""
+          [(ngModel)]="formData.captainName"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['captainName'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['captainName']" class="text-red-500 text-sm">{{ errors['captainName'] }}</p>
+      </div>
+
+      <!-- Observations -->
+      <div class="grid gap-2">
+        <label for="observations" class="text-sm font-medium text-gray-700">Observations</label>
+        <textarea
+          id="observations"
+          placeholder=""
+          [(ngModel)]="formData.observations"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['observations'] ? 'border-red-500' : 'border-gray-300')"
+          rows="3"
+        ></textarea>
+        <p *ngIf="errors['observations']" class="text-red-500 text-sm">{{ errors['observations'] }}</p>
+      </div>
     </div>
 
     <div class="flex justify-end gap-3 mt-6">

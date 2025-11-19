@@ -17,7 +17,271 @@
     </div>
 
     <div class="grid gap-4">
-      <!-- Champs du formulaire à ajouter -->
+      <!-- Numéro IMO -->
+      <div class="grid gap-2">
+        <label for="imoNumber" class="text-sm font-medium text-gray-700">Numéro IMO *</label>
+        <input
+          id="imoNumber"
+          type="text"
+          placeholder="Ex: IMO1234567"
+          [(ngModel)]="formData.imoNumber"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['imoNumber'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['imoNumber']" class="text-red-500 text-sm">{{ errors['imoNumber'] }}</p>
+      </div>
+
+      <!-- Nom du navire -->
+      <div class="grid gap-2">
+        <label for="shipName" class="text-sm font-medium text-gray-700">Nom du navire *</label>
+        <input
+          id="shipName"
+          type="text"
+          placeholder="Ex: MV Atlantic Star"
+          [(ngModel)]="formData.shipName"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['shipName'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['shipName']" class="text-red-500 text-sm">{{ errors['shipName'] }}</p>
+      </div>
+
+      <!-- Type de navire -->
+      <div class="grid gap-2">
+        <label for="shipType" class="text-sm font-medium text-gray-700">Type de navire *</label>
+        <input
+          id="shipType"
+          type="text"
+          placeholder="Ex: Cargo, Tanker"
+          [(ngModel)]="formData.shipType"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['shipType'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['shipType']" class="text-red-500 text-sm">{{ errors['shipType'] }}</p>
+      </div>
+
+      <!-- Pavillon -->
+      <div class="grid gap-2">
+        <label for="flag" class="text-sm font-medium text-gray-700">Pavillon *</label>
+        <input
+          id="flag"
+          type="text"
+          placeholder="Ex: France"
+          [(ngModel)]="formData.flag"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['flag'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['flag']" class="text-red-500 text-sm">{{ errors['flag'] }}</p>
+      </div>
+
+      <!-- MMSI -->
+      <div class="grid gap-2">
+        <label for="mmsi" class="text-sm font-medium text-gray-700">MMSI</label>
+        <input
+          id="mmsi"
+          type="text"
+          placeholder=""
+          [(ngModel)]="formData.mmsi"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['mmsi'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['mmsi']" class="text-red-500 text-sm">{{ errors['mmsi'] }}</p>
+      </div>
+
+      <!-- Indicatif d'appel -->
+      <div class="grid gap-2">
+        <label for="callSign" class="text-sm font-medium text-gray-700">Indicatif d'appel</label>
+        <input
+          id="callSign"
+          type="text"
+          placeholder=""
+          [(ngModel)]="formData.callSign"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['callSign'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['callSign']" class="text-red-500 text-sm">{{ errors['callSign'] }}</p>
+      </div>
+
+      <!-- Section: Caractéristiques techniques -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Caractéristiques techniques</h3>
+      </div>
+
+      <!-- Grille 2 colonnes pour les mesures -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Tonnage brut -->
+        <div class="grid gap-2">
+          <label for="grossTonnage" class="text-sm font-medium text-gray-700">Tonnage brut (GT)</label>
+          <input
+            id="grossTonnage"
+            type="number"
+            placeholder="Ex: 50000"
+            [(ngModel)]="formData.grossTonnage"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Port en lourd -->
+        <div class="grid gap-2">
+          <label for="deadWeight" class="text-sm font-medium text-gray-700">Port en lourd (DWT)</label>
+          <input
+            id="deadWeight"
+            type="number"
+            placeholder="Ex: 75000"
+            [(ngModel)]="formData.deadWeight"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Longueur -->
+        <div class="grid gap-2">
+          <label for="length" class="text-sm font-medium text-gray-700">Longueur (m)</label>
+          <input
+            id="length"
+            type="number"
+            step="0.1"
+            placeholder="Ex: 200.5"
+            [(ngModel)]="formData.length"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Largeur -->
+        <div class="grid gap-2">
+          <label for="width" class="text-sm font-medium text-gray-700">Largeur (m)</label>
+          <input
+            id="width"
+            type="number"
+            step="0.1"
+            placeholder="Ex: 32.2"
+            [(ngModel)]="formData.width"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Tirant d'eau -->
+        <div class="grid gap-2">
+          <label for="draft" class="text-sm font-medium text-gray-700">Tirant d'eau (m)</label>
+          <input
+            id="draft"
+            type="number"
+            step="0.1"
+            placeholder="Ex: 12.5"
+            [(ngModel)]="formData.draft"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Année de construction -->
+        <div class="grid gap-2">
+          <label for="yearBuilt" class="text-sm font-medium text-gray-700">Année de construction</label>
+          <input
+            id="yearBuilt"
+            type="number"
+            placeholder="Ex: 2015"
+            [(ngModel)]="formData.yearBuilt"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Section: Propriétaires et exploitation -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Propriétaires et exploitation</h3>
+      </div>
+
+      <!-- Armateur -->
+      <div class="grid gap-2">
+        <label for="shipOwner" class="text-sm font-medium text-gray-700">Armateur</label>
+        <input
+          id="shipOwner"
+          type="text"
+          placeholder="Ex: Maersk Line"
+          [(ngModel)]="formData.shipOwner"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- Exploitant -->
+      <div class="grid gap-2">
+        <label for="operator" class="text-sm font-medium text-gray-700">Exploitant</label>
+        <input
+          id="operator"
+          type="text"
+          placeholder="Ex: Mediterranean Shipping Company"
+          [(ngModel)]="formData.operator"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- Section: Informations de voyage -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations de voyage</h3>
+      </div>
+
+      <!-- Grille 2 colonnes pour les ports -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Dernier port -->
+        <div class="grid gap-2">
+          <label for="lastPort" class="text-sm font-medium text-gray-700">Dernier port</label>
+          <input
+            id="lastPort"
+            type="text"
+            placeholder="Ex: Port de Rotterdam"
+            [(ngModel)]="formData.lastPort"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Prochain port -->
+        <div class="grid gap-2">
+          <label for="nextPort" class="text-sm font-medium text-gray-700">Prochain port</label>
+          <input
+            id="nextPort"
+            type="text"
+            placeholder="Ex: Port de Marseille"
+            [(ngModel)]="formData.nextPort"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Date d'arrivée -->
+        <div class="grid gap-2">
+          <label for="arrivalDate" class="text-sm font-medium text-gray-700">Date d'arrivée</label>
+          <input
+            id="arrivalDate"
+            type="datetime-local"
+            [(ngModel)]="formData.arrivalDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Date de départ -->
+        <div class="grid gap-2">
+          <label for="departureDate" class="text-sm font-medium text-gray-700">Date de départ</label>
+          <input
+            id="departureDate"
+            type="datetime-local"
+            [(ngModel)]="formData.departureDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Type de cargaison -->
+      <div class="grid gap-2">
+        <label for="cargoType" class="text-sm font-medium text-gray-700">Type de cargaison</label>
+        <input
+          id="cargoType"
+          type="text"
+          placeholder="Ex: Conteneurs, Vrac, Pétrole..."
+          [(ngModel)]="formData.cargoType"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      </div>
+
+      <!-- Statut -->
+      <div class="grid gap-2">
+        <label for="status" class="text-sm font-medium text-gray-700">Statut</label>
+        <select
+          id="status"
+          [(ngModel)]="formData.status"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">Sélectionner un statut</option>
+          <option value="EN_MER">En mer</option>
+          <option value="AU_PORT">Au port</option>
+          <option value="ANCRE">À l'ancre</option>
+          <option value="EN_REPARATION">En réparation</option>
+          <option value="HORS_SERVICE">Hors service</option>
+        </select>
+      </div>
+
+      <!-- Observations -->
+      <div class="grid gap-2">
+        <label for="observations" class="text-sm font-medium text-gray-700">Observations</label>
+        <textarea
+          id="observations"
+          placeholder=""
+          [(ngModel)]="formData.observations"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['observations'] ? 'border-red-500' : 'border-gray-300')"
+          rows="3"
+        ></textarea>
+        <p *ngIf="errors['observations']" class="text-red-500 text-sm">{{ errors['observations'] }}</p>
+      </div>
     </div>
 
     <div class="flex justify-end gap-3 mt-6">

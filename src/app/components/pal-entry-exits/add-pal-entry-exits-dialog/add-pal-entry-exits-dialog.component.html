@@ -21,40 +21,163 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- ID Navire commercial -->
-      <div class="grid gap-2">
-        <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
-        <input
-          id="commercialShipTrackingId"
-          type="text"
-          placeholder="Ex: UUID du navire"
-          [(ngModel)]="formData.commercialShipTrackingId"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
+      <!-- Basic Information -->
+      <div class="col-span-2 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations de base</h3>
       </div>
 
-      <!-- Date d'entrée -->
-      <div class="grid gap-2">
-        <label for="entryDate" class="text-sm font-medium text-gray-700">Date d'entrée *</label>
-        <input
-          id="entryDate"
-          type="date"
-          placeholder=""
-          [(ngModel)]="formData.entryDate"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['entryDate'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['entryDate']" class="text-red-500 text-sm">{{ errors['entryDate'] }}</p>
+      <div class="grid grid-cols-2 gap-4">
+        <!-- ID Navire commercial -->
+        <div class="grid gap-2 col-span-2">
+          <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
+          <input
+            id="commercialShipTrackingId"
+            type="text"
+            placeholder="Ex: UUID du navire"
+            [(ngModel)]="formData.commercialShipTrackingId"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+          <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
+        </div>
+
+        <!-- Zone de mouillage -->
+        <div class="grid gap-2 col-span-2">
+          <label for="anchorageZone" class="text-sm font-medium text-gray-700">Zone de mouillage</label>
+          <input
+            id="anchorageZone"
+            type="text"
+            placeholder="Ex: Zone A, Zone B"
+            [(ngModel)]="formData.anchorageZone"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
       </div>
 
-      <!-- Zone de mouillage -->
+      <!-- Entry Information -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations d'entrée</h3>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Date d'entrée -->
+        <div class="grid gap-2">
+          <label for="entryDate" class="text-sm font-medium text-gray-700">Date d'entrée *</label>
+          <input
+            id="entryDate"
+            type="date"
+            placeholder=""
+            [(ngModel)]="formData.entryDate"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['entryDate'] ? 'border-red-500' : 'border-gray-300')"/>
+          <p *ngIf="errors['entryDate']" class="text-red-500 text-sm">{{ errors['entryDate'] }}</p>
+        </div>
+
+        <!-- Numéro d'autorisation d'entrée -->
+        <div class="grid gap-2">
+          <label for="entryAuthorizationNumber" class="text-sm font-medium text-gray-700">N° autorisation d'entrée</label>
+          <input
+            id="entryAuthorizationNumber"
+            type="text"
+            placeholder="Numéro d'autorisation"
+            [(ngModel)]="formData.entryAuthorizationNumber"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Raison d'entrée -->
+        <div class="grid gap-2 col-span-2">
+          <label for="entryReason" class="text-sm font-medium text-gray-700">Raison d'entrée</label>
+          <textarea
+            id="entryReason"
+            placeholder="Décrire la raison de l'entrée dans la PAL"
+            [(ngModel)]="formData.entryReason"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="2"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Exit Information -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations de sortie</h3>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Date de sortie -->
+        <div class="grid gap-2">
+          <label for="exitDate" class="text-sm font-medium text-gray-700">Date de sortie</label>
+          <input
+            id="exitDate"
+            type="date"
+            [(ngModel)]="formData.exitDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Numéro d'autorisation de sortie -->
+        <div class="grid gap-2">
+          <label for="exitAuthorizationNumber" class="text-sm font-medium text-gray-700">N° autorisation de sortie</label>
+          <input
+            id="exitAuthorizationNumber"
+            type="text"
+            placeholder="Numéro d'autorisation"
+            [(ngModel)]="formData.exitAuthorizationNumber"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Raison de sortie -->
+        <div class="grid gap-2 col-span-2">
+          <label for="exitReason" class="text-sm font-medium text-gray-700">Raison de sortie</label>
+          <textarea
+            id="exitReason"
+            placeholder="Décrire la raison de la sortie de la PAL"
+            [(ngModel)]="formData.exitReason"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="2"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Authorization Information -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Autorité autorisante</h3>
+      </div>
+
+      <div class="grid gap-4">
+        <!-- Autorité autorisante -->
+        <div class="grid gap-2">
+          <label for="authorizingAuthority" class="text-sm font-medium text-gray-700">Autorité autorisante</label>
+          <input
+            id="authorizingAuthority"
+            type="text"
+            placeholder="Ex: Capitainerie du port"
+            [(ngModel)]="formData.authorizingAuthority"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations complémentaires</h3>
+      </div>
+
+      <!-- Services fournis -->
       <div class="grid gap-2">
-        <label for="anchorageZone" class="text-sm font-medium text-gray-700">Zone de mouillage</label>
-        <input
-          id="anchorageZone"
-          type="text"
-          placeholder=""
-          [(ngModel)]="formData.anchorageZone"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['anchorageZone'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['anchorageZone']" class="text-red-500 text-sm">{{ errors['anchorageZone'] }}</p>
+        <label for="servicesProvided" class="text-sm font-medium text-gray-700">Services fournis</label>
+        <textarea
+          id="servicesProvided"
+          placeholder="Liste des services fournis au navire"
+          [(ngModel)]="formData.servicesProvided"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="2"
+        ></textarea>
+      </div>
+
+      <!-- Incidents -->
+      <div class="grid gap-2">
+        <label for="incidents" class="text-sm font-medium text-gray-700">Incidents</label>
+        <textarea
+          id="incidents"
+          placeholder="Décrire tout incident survenu"
+          [(ngModel)]="formData.incidents"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="2"
+        ></textarea>
       </div>
 
       <!-- Observations -->
@@ -62,12 +185,11 @@
         <label for="observations" class="text-sm font-medium text-gray-700">Observations</label>
         <textarea
           id="observations"
-          placeholder=""
+          placeholder="Observations générales"
           [(ngModel)]="formData.observations"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['observations'] ? 'border-red-500' : 'border-gray-300')"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="3"
         ></textarea>
-        <p *ngIf="errors['observations']" class="text-red-500 text-sm">{{ errors['observations'] }}</p>
       </div>
     </div>
 

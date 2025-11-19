@@ -20,10 +20,22 @@ export class AddShipArrivalDeparturesDialogComponent {
   formData: ShipArrivalDepartureRequest = {
     commercialShipTrackingId: '',
     arrivalDate: '',
-    departureDate: '',
     portOfOrigin: '',
-    portOfDestination: '',
+    cargoTypeArrival: '',
+    cargoQuantityArrival: undefined,
+    passengersArrival: undefined,
+    crewCount: undefined,
     captainName: '',
+    shippingAgent: '',
+    berthingPosition: '',
+    departureDate: '',
+    portOfDestination: '',
+    cargoTypeDeparture: '',
+    cargoQuantityDeparture: undefined,
+    passengersDeparture: undefined,
+    servicesProvided: '',
+    portDues: undefined,
+    incidents: '',
     observations: ''
   };
 
@@ -33,10 +45,22 @@ export class AddShipArrivalDeparturesDialogComponent {
     this.formData = {
       commercialShipTrackingId: '',
       arrivalDate: '',
-      departureDate: '',
       portOfOrigin: '',
-      portOfDestination: '',
+      cargoTypeArrival: '',
+      cargoQuantityArrival: undefined,
+      passengersArrival: undefined,
+      crewCount: undefined,
       captainName: '',
+      shippingAgent: '',
+      berthingPosition: '',
+      departureDate: '',
+      portOfDestination: '',
+      cargoTypeDeparture: '',
+      cargoQuantityDeparture: undefined,
+      passengersDeparture: undefined,
+      servicesProvided: '',
+      portDues: undefined,
+      incidents: '',
       observations: ''
     };
     this.errors = {};

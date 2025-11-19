@@ -67,7 +67,11 @@ export class CommercialShipsComponent implements OnInit {
     if (!this.searchTerm) return this.ships;
     const term = this.searchTerm.toLowerCase();
     return this.ships.filter(item =>
-      JSON.stringify(item).toLowerCase().includes(term)
+      item.shipName?.toLowerCase().includes(term) ||
+      item.imoNumber?.toLowerCase().includes(term) ||
+      item.shipType?.toLowerCase().includes(term) ||
+      item.flag?.toLowerCase().includes(term) ||
+      item.mmsi?.toLowerCase().includes(term)
     );
   }
 

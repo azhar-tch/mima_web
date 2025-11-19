@@ -20,7 +20,15 @@ export class AddPalEntryExitsDialogComponent {
   formData: PALEntryExitRequest = {
     commercialShipTrackingId: '',
     entryDate: '',
+    entryReason: '',
     anchorageZone: '',
+    entryAuthorizationNumber: '',
+    authorizingAuthority: '',
+    exitDate: '',
+    exitReason: '',
+    exitAuthorizationNumber: '',
+    servicesProvided: '',
+    incidents: '',
     observations: ''
   };
 
@@ -28,10 +36,18 @@ export class AddPalEntryExitsDialogComponent {
 
   handleReset() {
     this.formData = {
-    commercialShipTrackingId: '',
-    entryDate: '',
-    anchorageZone: '',
-    observations: ''
+      commercialShipTrackingId: '',
+      entryDate: '',
+      entryReason: '',
+      anchorageZone: '',
+      entryAuthorizationNumber: '',
+      authorizingAuthority: '',
+      exitDate: '',
+      exitReason: '',
+      exitAuthorizationNumber: '',
+      servicesProvided: '',
+      incidents: '',
+      observations: ''
     };
     this.errors = {};
   }

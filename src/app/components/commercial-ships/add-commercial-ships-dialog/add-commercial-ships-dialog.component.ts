@@ -24,6 +24,20 @@ export class AddCommercialShipsDialogComponent {
     flag: '',
     mmsi: '',
     callSign: '',
+    grossTonnage: undefined,
+    deadWeight: undefined,
+    length: undefined,
+    width: undefined,
+    draft: undefined,
+    yearBuilt: undefined,
+    shipOwner: '',
+    operator: '',
+    lastPort: '',
+    nextPort: '',
+    cargoType: '',
+    arrivalDate: '',
+    departureDate: '',
+    status: '',
     observations: ''
   };
 
@@ -31,13 +45,27 @@ export class AddCommercialShipsDialogComponent {
 
   handleReset() {
     this.formData = {
-    imoNumber: '',
-    shipName: '',
-    shipType: '',
-    flag: '',
-    mmsi: '',
-    callSign: '',
-    observations: ''
+      imoNumber: '',
+      shipName: '',
+      shipType: '',
+      flag: '',
+      mmsi: '',
+      callSign: '',
+      grossTonnage: undefined,
+      deadWeight: undefined,
+      length: undefined,
+      width: undefined,
+      draft: undefined,
+      yearBuilt: undefined,
+      shipOwner: '',
+      operator: '',
+      lastPort: '',
+      nextPort: '',
+      cargoType: '',
+      arrivalDate: '',
+      departureDate: '',
+      status: '',
+      observations: ''
     };
     this.errors = {};
   }

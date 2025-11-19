@@ -21,6 +21,7 @@ export class AddUnitDialogComponent implements OnInit {
   readonly unitStatuses = ['ACTIVE', 'INACTIVE'] as UnitStatus[];
 
   agents: AgentsResponse[] = [];
+  agentSearchTerm: string = '';
 
   @Input() open = false;
   @Output() openChange = new EventEmitter<boolean>();
@@ -44,13 +45,26 @@ export class AddUnitDialogComponent implements OnInit {
     this.loadAgents();
   }
 
-  loadAgents(): void {
-    this.agentsService.listAgents().subscribe({
+  loadAgents(searchTerm?: string): void {
+    const request = searchTerm
+      ? this.agentsService.searchAgents(searchTerm)
+      : this.agentsService.listAgents();
+
+    request.subscribe({
       next: (res) => {
         this.agents = res.data;
       },
       error: (err) => console.error('Erreur lors du chargement des agents', err)
     });
+  }
+
+  onAgentSearch(): void {
+    this.loadAgents(this.agentSearchTerm);
+  }
+
+  clearAgentSearch(): void {
+    this.agentSearchTerm = '';
+    this.loadAgents();
   }
 
   handleReset() {
@@ -61,6 +75,8 @@ export class AddUnitDialogComponent implements OnInit {
       chiefTrackingId: undefined
     };
     this.errors = {};
+    this.agentSearchTerm = '';
+    this.loadAgents(); // Recharger tous les agents
   }
 
   handleOpenChange(newOpen: boolean) {
