@@ -92,7 +92,7 @@
 <!-- Details Dialog -->
 <app-ship-arrival-departure-details-dialog
   *ngIf="showDetailsDialog && selectedItem"
-  [arrivalDeparture]="selectedItem"
+  [shipMovement]="selectedItem"
   (close)="showDetailsDialog = false">
 </app-ship-arrival-departure-details-dialog>
 </div>
