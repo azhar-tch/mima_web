@@ -8,6 +8,7 @@ import { EditNavalVesselsDialogComponent } from './edit-naval-vessels-dialog/edi
 import { DeleteNavalVesselsDialogComponent } from './delete-naval-vessels-dialog/delete-naval-vessels-dialog.component';
 import { NavalVesselDetailsDialogComponent } from './naval-vessel-details-dialog/naval-vessel-details-dialog.component';
 import { NavalVessel, NavalVesselRequest } from '../../models/Maritime';
+import { NavalVesselStatus } from '../../models/enums';
 
 @Component({
   selector: 'app-naval-vessels',
@@ -140,5 +141,35 @@ export class NavalVesselsComponent implements OnInit {
   openDetailsDialog(item: NavalVessel): void {
     this.selectedItem = item;
     this.showDetailsDialog = true;
+  }
+
+  getStatusLabel(status: NavalVesselStatus | undefined): string {
+    if (!status) return 'N/A';
+    switch (status) {
+      case NavalVesselStatus.OPERATIONAL: return 'Opérationnel';
+      case NavalVesselStatus.IN_MAINTENANCE: return 'En maintenance';
+      case NavalVesselStatus.IN_REPAIR: return 'En réparation';
+      case NavalVesselStatus.ON_MISSION: return 'En mission';
+      case NavalVesselStatus.IN_PORT: return 'Au port';
+      case NavalVesselStatus.REFITTING: return 'En refit';
+      case NavalVesselStatus.DECOMMISSIONED: return 'Réformé';
+      case NavalVesselStatus.UNAVAILABLE: return 'Indisponible';
+      default: return status;
+    }
+  }
+
+  getStatusBadgeClass(status: NavalVesselStatus | undefined): string {
+    if (!status) return 'bg-gray-100 text-gray-800';
+    switch (status) {
+      case NavalVesselStatus.OPERATIONAL: return 'bg-green-100 text-green-800';
+      case NavalVesselStatus.IN_MAINTENANCE: return 'bg-amber-100 text-amber-800';
+      case NavalVesselStatus.IN_REPAIR: return 'bg-red-100 text-red-800';
+      case NavalVesselStatus.ON_MISSION: return 'bg-blue-100 text-blue-800';
+      case NavalVesselStatus.IN_PORT: return 'bg-cyan-100 text-cyan-800';
+      case NavalVesselStatus.REFITTING: return 'bg-orange-100 text-orange-800';
+      case NavalVesselStatus.DECOMMISSIONED: return 'bg-gray-300 text-gray-700';
+      case NavalVesselStatus.UNAVAILABLE: return 'bg-yellow-100 text-yellow-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
   }
 }
