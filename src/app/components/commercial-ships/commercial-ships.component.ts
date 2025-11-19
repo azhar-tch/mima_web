@@ -162,4 +162,20 @@ export class CommercialShipsComponent implements OnInit {
       default: return status;
     }
   }
+
+  getStatusBadgeClass(status: ShipStatus | undefined): string {
+    if (!status) return 'bg-gray-100 text-gray-800';
+    switch (status) {
+      case ShipStatus.IN_PORT: return 'bg-green-100 text-green-800';
+      case ShipStatus.AT_SEA: return 'bg-blue-100 text-blue-800';
+      case ShipStatus.UNDER_ESCORT: return 'bg-purple-100 text-purple-800';
+      case ShipStatus.WAITING: return 'bg-yellow-100 text-yellow-800';
+      case ShipStatus.LOADING: return 'bg-orange-100 text-orange-800';
+      case ShipStatus.UNLOADING: return 'bg-orange-100 text-orange-800';
+      case ShipStatus.IN_MAINTENANCE: return 'bg-amber-100 text-amber-800';
+      case ShipStatus.IN_REPAIR: return 'bg-red-100 text-red-800';
+      case ShipStatus.OTHER: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  }
 }
