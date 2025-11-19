@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { SecurityAgenciesService } from '../../services/security-agencies/security-agencies.service';
 import { AddSecurityAgenciesDialogComponent } from './add-security-agencies-dialog/add-security-agencies-dialog.component';
 import { EditSecurityAgenciesDialogComponent } from './edit-security-agencies-dialog/edit-security-agencies-dialog.component';
@@ -40,16 +41,32 @@ export class SecurityAgenciesComponent implements OnInit {
   openDeleteDialog = false;
   showDetailsDialog = false;
   selectedItem: SecurityAgency | null = null;
+  private searchSubject = new Subject<string>();
 
-  constructor(private securityAgenciesService: SecurityAgenciesService) {}
+  constructor(private securityAgenciesService: SecurityAgenciesService) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit() {
     this.loadSecurityAgenciess();
   }
 
   loadSecurityAgenciess() {
+    this.performSearch(this.searchTerm);
+  }
+
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
     this.isLoading = true;
-    this.securityAgenciesService.list().subscribe({
+    this.securityAgenciesService.search(term).subscribe({
       next: (response) => {
         if (!response.error && response.data) {
           this.agencies = response.data;
@@ -57,18 +74,10 @@ export class SecurityAgenciesComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading agencies:', error);
+        console.error('Error searching:', error);
         this.isLoading = false;
       }
     });
-  }
-
-  get filteredSecurityAgenciess() {
-    if (!this.searchTerm) return this.agencies;
-    const term = this.searchTerm.toLowerCase();
-    return this.agencies.filter(item =>
-      JSON.stringify(item).toLowerCase().includes(term)
-    );
   }
 
   showAddDialog(): void {

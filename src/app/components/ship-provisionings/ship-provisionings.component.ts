@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { ShipProvisioningsService } from '../../services/ship-provisionings/ship-provisionings.service';
 import { AddShipProvisioningsDialogComponent } from './add-ship-provisionings-dialog/add-ship-provisionings-dialog.component';
 import { EditShipProvisioningsDialogComponent } from './edit-ship-provisionings-dialog/edit-ship-provisionings-dialog.component';
@@ -40,16 +41,32 @@ export class ShipProvisioningsComponent implements OnInit {
   openDeleteDialog = false;
   showDetailsDialog = false;
   selectedItem: ShipProvisioning | null = null;
+  private searchSubject = new Subject<string>();
 
-  constructor(private shipProvisioningsService: ShipProvisioningsService) {}
+  constructor(private shipProvisioningsService: ShipProvisioningsService) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit() {
     this.loadShipProvisioningss();
   }
 
   loadShipProvisioningss() {
+    this.performSearch(this.searchTerm);
+  }
+
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
     this.isLoading = true;
-    this.shipProvisioningsService.list().subscribe({
+    this.shipProvisioningsService.search(term).subscribe({
       next: (response) => {
         if (!response.error && response.data) {
           this.provisionings = response.data;
@@ -57,18 +74,10 @@ export class ShipProvisioningsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading provisionings:', error);
+        console.error('Error searching:', error);
         this.isLoading = false;
       }
     });
-  }
-
-  get filteredShipProvisioningss() {
-    if (!this.searchTerm) return this.provisionings;
-    const term = this.searchTerm.toLowerCase();
-    return this.provisionings.filter(item =>
-      JSON.stringify(item).toLowerCase().includes(term)
-    );
   }
 
   showAddDialog(): void {

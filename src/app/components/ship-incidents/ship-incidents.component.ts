@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { ShipIncidentsService } from '../../services/ship-incidents/ship-incidents.service';
 import { AddShipIncidentsDialogComponent } from './add-ship-incidents-dialog/add-ship-incidents-dialog.component';
 import { EditShipIncidentsDialogComponent } from './edit-ship-incidents-dialog/edit-ship-incidents-dialog.component';
@@ -40,16 +41,32 @@ export class ShipIncidentsComponent implements OnInit {
   openDeleteDialog = false;
   showDetailsDialog = false;
   selectedItem: ShipIncident | null = null;
+  private searchSubject = new Subject<string>();
 
-  constructor(private shipIncidentsService: ShipIncidentsService) {}
+  constructor(private shipIncidentsService: ShipIncidentsService) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit() {
     this.loadShipIncidentss();
   }
 
   loadShipIncidentss() {
+    this.performSearch(this.searchTerm);
+  }
+
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
     this.isLoading = true;
-    this.shipIncidentsService.list().subscribe({
+    this.shipIncidentsService.search(term).subscribe({
       next: (response) => {
         if (!response.error && response.data) {
           this.incidents = response.data;
@@ -57,18 +74,10 @@ export class ShipIncidentsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading incidents:', error);
+        console.error('Error searching:', error);
         this.isLoading = false;
       }
     });
-  }
-
-  get filteredShipIncidentss() {
-    if (!this.searchTerm) return this.incidents;
-    const term = this.searchTerm.toLowerCase();
-    return this.incidents.filter(item =>
-      JSON.stringify(item).toLowerCase().includes(term)
-    );
   }
 
   showAddDialog(): void {

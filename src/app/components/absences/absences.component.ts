@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Eye, Pencil, Trash2, Search } from 'lucide-angular';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { AddAbsenceDialogComponent } from './add-absence-dialog/add-absence-dialog.component';
 import { EditAbsenceDialogComponent } from './edit-absence-dialog/edit-absence-dialog.component';
 import { DeleteAbsenceConfirmationComponent } from './delete-absence-confirmation/delete-absence-confirmation.component';
@@ -44,36 +45,49 @@ export class AbsencesComponent implements OnInit {
   openDeleteDialog = false;
   openDetailsDialog = false;
   selectedAbsence: AbsencesResponse | null = null;
+  private searchSubject = new Subject<string>();
 
   constructor(
     private absencesService: AbsencesService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit(): void {
     this.loadAbsences();
   }
 
   loadAbsences(): void {
-    this.absencesService.listAbsences().subscribe({
+    this.performSearch(this.searchTerm);
+  }
+
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
+    this.absencesService.searchAbsences(term).subscribe({
       next: (res) => {
         this.absences = res.data || [];
       },
       error: (err) => {
-        console.error('Erreur lors du chargement des absences', err);
-        alert('Erreur lors du chargement des absences');
+        console.error('Error searching:', err);
+        alert('Erreur lors de la recherche des absences');
       }
     });
   }
 
   get filteredAbsences(): AbsencesResponse[] {
     return this.absences.filter((absence) => {
-      const matchesSearch =
-        (absence.agentName?.toLowerCase().includes(this.searchTerm.toLowerCase()) ?? false) ||
-        (absence.reason?.toLowerCase().includes(this.searchTerm.toLowerCase()) ?? false);
       const matchesStatus = this.statusFilter === 'all' || absence.status === this.statusFilter;
       const matchesType = this.typeFilter === 'all' || absence.absenceType === this.typeFilter;
-      return matchesSearch && matchesStatus && matchesType;
+      return matchesStatus && matchesType;
     });
   }
 

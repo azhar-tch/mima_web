@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { PALEntryExitsService } from '../../services/pal-entry-exits/pal-entry-exits.service';
 import { AddPalEntryExitsDialogComponent } from './add-pal-entry-exits-dialog/add-pal-entry-exits-dialog.component';
 import { EditPalEntryExitsDialogComponent } from './edit-pal-entry-exits-dialog/edit-pal-entry-exits-dialog.component';
@@ -40,16 +41,32 @@ export class PalEntryExitsComponent implements OnInit {
   openDeleteDialog = false;
   showDetailsDialog = false;
   selectedItem: PALEntryExit | null = null;
+  private searchSubject = new Subject<string>();
 
-  constructor(private palEntryExitsService: PALEntryExitsService) {}
+  constructor(private palEntryExitsService: PALEntryExitsService) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit() {
     this.loadPalEntryExitss();
   }
 
   loadPalEntryExitss() {
+    this.performSearch(this.searchTerm);
+  }
+
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
     this.isLoading = true;
-    this.palEntryExitsService.list().subscribe({
+    this.palEntryExitsService.search(term).subscribe({
       next: (response) => {
         if (!response.error && response.data) {
           this.entries = response.data;
@@ -57,18 +74,10 @@ export class PalEntryExitsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading entries:', error);
+        console.error('Error searching:', error);
         this.isLoading = false;
       }
     });
-  }
-
-  get filteredPalEntryExitss() {
-    if (!this.searchTerm) return this.entries;
-    const term = this.searchTerm.toLowerCase();
-    return this.entries.filter(item =>
-      JSON.stringify(item).toLowerCase().includes(term)
-    );
   }
 
   showAddDialog(): void {

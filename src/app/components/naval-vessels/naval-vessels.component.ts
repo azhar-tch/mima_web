@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { NavalVesselsService } from '../../services/naval-vessels/naval-vessels.service';
 import { AddNavalVesselsDialogComponent } from './add-naval-vessels-dialog/add-naval-vessels-dialog.component';
 import { EditNavalVesselsDialogComponent } from './edit-naval-vessels-dialog/edit-naval-vessels-dialog.component';
@@ -41,16 +42,32 @@ export class NavalVesselsComponent implements OnInit {
   openDeleteDialog = false;
   showDetailsDialog = false;
   selectedItem: NavalVessel | null = null;
+  private searchSubject = new Subject<string>();
 
-  constructor(private navalVesselsService: NavalVesselsService) {}
+  constructor(private navalVesselsService: NavalVesselsService) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit() {
     this.loadNavalVesselss();
   }
 
   loadNavalVesselss() {
+    this.performSearch(this.searchTerm);
+  }
+
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
     this.isLoading = true;
-    this.navalVesselsService.list().subscribe({
+    this.navalVesselsService.search(term).subscribe({
       next: (response) => {
         if (!response.error && response.data) {
           this.vessels = response.data;
@@ -58,18 +75,10 @@ export class NavalVesselsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading vessels:', error);
+        console.error('Error searching:', error);
         this.isLoading = false;
       }
     });
-  }
-
-  get filteredNavalVesselss() {
-    if (!this.searchTerm) return this.vessels;
-    const term = this.searchTerm.toLowerCase();
-    return this.vessels.filter(item =>
-      JSON.stringify(item).toLowerCase().includes(term)
-    );
   }
 
   showAddDialog(): void {

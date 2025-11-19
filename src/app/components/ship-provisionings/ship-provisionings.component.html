@@ -15,6 +15,7 @@
       <input
         type="text"
         [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
         placeholder="Rechercher..."
         class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
@@ -26,11 +27,11 @@
       Chargement...
     </div>
 
-    <div *ngIf="!isLoading && filteredShipProvisioningss.length === 0" class="p-8 text-center text-gray-500">
+    <div *ngIf="!isLoading && provisionings.length === 0" class="p-8 text-center text-gray-500">
       Aucun élément trouvé
     </div>
 
-    <div *ngIf="!isLoading && filteredShipProvisioningss.length > 0" class="overflow-x-auto">
+    <div *ngIf="!isLoading && provisionings.length > 0" class="overflow-x-auto">
       <table class="w-full">
         <thead class="bg-gray-50">
           <tr>
@@ -40,7 +41,7 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          <tr *ngFor="let item of filteredShipProvisioningss" class="hover:bg-gray-50">
+          <tr *ngFor="let item of provisionings" class="hover:bg-gray-50">
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
               {{ item.trackingId ? item.trackingId.substring(0, 8) : '-' }}
             </td>

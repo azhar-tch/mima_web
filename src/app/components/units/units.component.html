@@ -19,6 +19,7 @@
           type="text"
           placeholder="Rechercher par nom ou description..."
           [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchChange()"
           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
@@ -36,7 +37,7 @@
     </tr>
   </thead>
   <tbody class="bg-white divide-y divide-gray-200">
-    <tr *ngFor="let unit of filteredUnits">
+    <tr *ngFor="let unit of units">
       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ unit.name }}</td>
       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ unit.type }}</td>
       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ unit.chiefName || '-' }}</td>
@@ -54,7 +55,7 @@
         </div>
       </td>
     </tr>
-    <tr *ngIf="filteredUnits.length === 0">
+    <tr *ngIf="units.length === 0">
       <td colspan="4" class="px-6 py-8 text-center text-gray-500">
         Aucune unité trouvée
       </td>

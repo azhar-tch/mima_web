@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2 } from 'lucide-angular';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { AddUnitDialogComponent } from './add-unit-dialog/add-unit-dialog.component';
 import { EditUnitDialogComponent } from './edit-unit-dialog/edit-unit-dialog.component';
 import { DeleteUnitConfirmationComponent } from './delete-unit-confirmation/delete-unit-confirmation.component';
@@ -39,25 +40,34 @@ export class UnitsComponent implements OnInit {
   selectedUnit: UnitsResponse | null = null;
 
   units: UnitsResponse[] = [];
+  private searchSubject = new Subject<string>();
 
-  constructor(private unitsService: UnitsService) {}
+  constructor(private unitsService: UnitsService) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit() {
     this.loadUnits();
   }
 
   loadUnits() {
-    this.unitsService.listUnits().subscribe({
-      next: res => this.units = res.data,
-      error: err => console.error('Erreur lors du chargement des unités', err)
-    });
+    this.performSearch(this.searchTerm);
   }
 
-  get filteredUnits() {
-    return this.units.filter(unit =>
-      unit.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      (unit.chiefName || '').toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
+    this.unitsService.searchUnits(term).subscribe({
+      next: res => this.units = res.data,
+      error: err => console.error('Error searching:', err)
+    });
   }
 
   openAddDialog() { this.showAddDialog = true; }

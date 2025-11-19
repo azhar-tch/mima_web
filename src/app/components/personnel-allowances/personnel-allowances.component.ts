@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { PersonnelAllowancesService } from '../../services/personnel-allowances/personnel-allowances.service';
 import { AddPersonnelAllowancesDialogComponent } from './add-personnel-allowances-dialog/add-personnel-allowances-dialog.component';
 import { EditPersonnelAllowancesDialogComponent } from './edit-personnel-allowances-dialog/edit-personnel-allowances-dialog.component';
@@ -40,16 +41,32 @@ export class PersonnelAllowancesComponent implements OnInit {
   openDeleteDialog = false;
   showDetailsDialog = false;
   selectedItem: PersonnelAllowance | null = null;
+  private searchSubject = new Subject<string>();
 
-  constructor(private personnelAllowancesService: PersonnelAllowancesService) {}
+  constructor(private personnelAllowancesService: PersonnelAllowancesService) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit() {
     this.loadPersonnelAllowancess();
   }
 
   loadPersonnelAllowancess() {
+    this.performSearch(this.searchTerm);
+  }
+
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
     this.isLoading = true;
-    this.personnelAllowancesService.list().subscribe({
+    this.personnelAllowancesService.search(term).subscribe({
       next: (response) => {
         if (!response.error && response.data) {
           this.allowances = response.data;
@@ -57,18 +74,10 @@ export class PersonnelAllowancesComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading allowances:', error);
+        console.error('Error searching:', error);
         this.isLoading = false;
       }
     });
-  }
-
-  get filteredPersonnelAllowancess() {
-    if (!this.searchTerm) return this.allowances;
-    const term = this.searchTerm.toLowerCase();
-    return this.allowances.filter(item =>
-      JSON.stringify(item).toLowerCase().includes(term)
-    );
   }
 
   showAddDialog(): void {

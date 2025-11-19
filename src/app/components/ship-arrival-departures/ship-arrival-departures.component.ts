@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, Plus, Search, Eye, Edit, Trash2, Filter } from 'lucide-angular';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { ShipArrivalDeparturesService } from '../../services/ship-arrival-departures/ship-arrival-departures.service';
 import { AddShipArrivalDeparturesDialogComponent } from './add-ship-arrival-departures-dialog/add-ship-arrival-departures-dialog.component';
 import { EditShipArrivalDeparturesDialogComponent } from './edit-ship-arrival-departures-dialog/edit-ship-arrival-departures-dialog.component';
@@ -40,16 +41,32 @@ export class ShipArrivalDeparturesComponent implements OnInit {
   openDeleteDialog = false;
   showDetailsDialog = false;
   selectedItem: ShipArrivalDeparture | null = null;
+  private searchSubject = new Subject<string>();
 
-  constructor(private shipArrivalDeparturesService: ShipArrivalDeparturesService) {}
+  constructor(private shipArrivalDeparturesService: ShipArrivalDeparturesService) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit() {
     this.loadShipArrivalDeparturess();
   }
 
   loadShipArrivalDeparturess() {
+    this.performSearch(this.searchTerm);
+  }
+
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
     this.isLoading = true;
-    this.shipArrivalDeparturesService.list().subscribe({
+    this.shipArrivalDeparturesService.search(term).subscribe({
       next: (response) => {
         if (!response.error && response.data) {
           this.arrivals = response.data;
@@ -57,18 +74,10 @@ export class ShipArrivalDeparturesComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading arrivals:', error);
+        console.error('Error searching:', error);
         this.isLoading = false;
       }
     });
-  }
-
-  get filteredShipArrivalDeparturess() {
-    if (!this.searchTerm) return this.arrivals;
-    const term = this.searchTerm.toLowerCase();
-    return this.arrivals.filter(item =>
-      JSON.stringify(item).toLowerCase().includes(term)
-    );
   }
 
   showAddDialog(): void {
