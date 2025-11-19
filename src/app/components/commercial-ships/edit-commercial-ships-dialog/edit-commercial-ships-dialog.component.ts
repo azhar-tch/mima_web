@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { CommercialShip, CommercialShipRequest } from '../../../models/Maritime';
+import { ShipStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-edit-commercial-ships-dialog',
@@ -13,10 +14,23 @@ import { CommercialShip, CommercialShipRequest } from '../../../models/Maritime'
 })
 export class EditCommercialShipsDialogComponent implements OnInit {
   readonly X = X;
+  readonly ShipStatus = ShipStatus;
 
   @Input() item!: CommercialShip;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<CommercialShipRequest>();
+
+  statusOptions = [
+    { value: ShipStatus.IN_PORT, label: 'Au port' },
+    { value: ShipStatus.AT_SEA, label: 'En mer' },
+    { value: ShipStatus.UNDER_ESCORT, label: 'En escorte' },
+    { value: ShipStatus.WAITING, label: 'En attente' },
+    { value: ShipStatus.LOADING, label: 'En chargement' },
+    { value: ShipStatus.UNLOADING, label: 'En déchargement' },
+    { value: ShipStatus.IN_MAINTENANCE, label: 'En maintenance' },
+    { value: ShipStatus.IN_REPAIR, label: 'En réparation' },
+    { value: ShipStatus.OTHER, label: 'Autre' }
+  ];
 
   formData: CommercialShipRequest = {} as CommercialShipRequest;
   errors: Record<string, string> = {};

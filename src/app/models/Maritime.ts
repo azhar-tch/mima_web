@@ -1,5 +1,5 @@
 // System 3 - Maritime / Commercial Ships Models
-import { MissionStatus, NavalVesselType, NavalVesselStatus, EscortType } from './enums';
+import { MissionStatus, NavalVesselType, NavalVesselStatus, EscortType, ShipStatus } from './enums';
 
 // Commercial Ships
 export interface CommercialShip {
@@ -23,7 +23,7 @@ export interface CommercialShip {
   cargoType?: string;
   arrivalDate?: string;
   departureDate?: string;
-  status?: string;
+  status?: ShipStatus;
   observations?: string;
   isActive?: boolean;
   createDate?: string;
@@ -49,7 +49,7 @@ export interface CommercialShipRequest {
   cargoType?: string;
   arrivalDate?: string;
   departureDate?: string;
-  status?: string;
+  status?: ShipStatus;
   observations?: string;
   isActive?: boolean;
 }

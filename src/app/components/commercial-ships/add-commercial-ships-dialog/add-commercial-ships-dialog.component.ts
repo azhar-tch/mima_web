@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { CommercialShipRequest } from '../../../models/Maritime';
+import { ShipStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-add-commercial-ships-dialog',
@@ -13,9 +14,22 @@ import { CommercialShipRequest } from '../../../models/Maritime';
 })
 export class AddCommercialShipsDialogComponent {
   readonly X = X;
+  readonly ShipStatus = ShipStatus;
 
   @Output() close = new EventEmitter<void>();
   @Output() add = new EventEmitter<CommercialShipRequest>();
+
+  statusOptions = [
+    { value: ShipStatus.IN_PORT, label: 'Au port' },
+    { value: ShipStatus.AT_SEA, label: 'En mer' },
+    { value: ShipStatus.UNDER_ESCORT, label: 'En escorte' },
+    { value: ShipStatus.WAITING, label: 'En attente' },
+    { value: ShipStatus.LOADING, label: 'En chargement' },
+    { value: ShipStatus.UNLOADING, label: 'En déchargement' },
+    { value: ShipStatus.IN_MAINTENANCE, label: 'En maintenance' },
+    { value: ShipStatus.IN_REPAIR, label: 'En réparation' },
+    { value: ShipStatus.OTHER, label: 'Autre' }
+  ];
 
   formData: CommercialShipRequest = {
     imoNumber: '',
@@ -37,7 +51,7 @@ export class AddCommercialShipsDialogComponent {
     cargoType: '',
     arrivalDate: '',
     departureDate: '',
-    status: '',
+    status: ShipStatus.IN_PORT,
     observations: ''
   };
 
@@ -64,7 +78,7 @@ export class AddCommercialShipsDialogComponent {
       cargoType: '',
       arrivalDate: '',
       departureDate: '',
-      status: '',
+      status: ShipStatus.IN_PORT,
       observations: ''
     };
     this.errors = {};

@@ -165,3 +165,15 @@ export enum EscortType {
     HAUTURIERE = 'HAUTURIERE',
     URGENCE = 'URGENCE'
 }
+
+export enum ShipStatus {
+    IN_PORT = 'IN_PORT',
+    AT_SEA = 'AT_SEA',
+    UNDER_ESCORT = 'UNDER_ESCORT',
+    WAITING = 'WAITING',
+    LOADING = 'LOADING',
+    UNLOADING = 'UNLOADING',
+    IN_MAINTENANCE = 'IN_MAINTENANCE',
+    IN_REPAIR = 'IN_REPAIR',
+    OTHER = 'OTHER'
+}

@@ -8,6 +8,7 @@ import { EditCommercialShipsDialogComponent } from './edit-commercial-ships-dial
 import { DeleteCommercialShipsDialogComponent } from './delete-commercial-ships-dialog/delete-commercial-ships-dialog.component';
 import { CommercialShipDetailsDialogComponent } from './commercial-ship-details-dialog/commercial-ship-details-dialog.component';
 import { CommercialShip, CommercialShipRequest } from '../../models/Maritime';
+import { ShipStatus } from '../../models/enums';
 
 @Component({
   selector: 'app-commercial-ships',
@@ -144,5 +145,21 @@ export class CommercialShipsComponent implements OnInit {
   openDetailsDialog(item: CommercialShip): void {
     this.selectedItem = item;
     this.showDetailsDialog = true;
+  }
+
+  getStatusLabel(status: ShipStatus | undefined): string {
+    if (!status) return 'N/A';
+    switch (status) {
+      case ShipStatus.IN_PORT: return 'Au port';
+      case ShipStatus.AT_SEA: return 'En mer';
+      case ShipStatus.UNDER_ESCORT: return 'En escorte';
+      case ShipStatus.WAITING: return 'En attente';
+      case ShipStatus.LOADING: return 'En chargement';
+      case ShipStatus.UNLOADING: return 'En déchargement';
+      case ShipStatus.IN_MAINTENANCE: return 'En maintenance';
+      case ShipStatus.IN_REPAIR: return 'En réparation';
+      case ShipStatus.OTHER: return 'Autre';
+      default: return status;
+    }
   }
 }
