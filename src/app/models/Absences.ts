@@ -34,6 +34,7 @@ export interface AbsencesResponse {
     absenceType: AbsenceType;
     startDate: string;
     endDate: string;
+    numberOfDays: number;
     justification?: string;
     status: AbsenceStatus;
     reason?: string;

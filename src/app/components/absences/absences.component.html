@@ -159,7 +159,7 @@
                 </td>
                 <td class="py-3 px-4 text-gray-700">{{ formatDate(absence.startDate) }}</td>
                 <td class="py-3 px-4 text-gray-700">{{ formatDate(absence.endDate) }}</td>
-                <td class="py-3 px-4 text-gray-700">{{ calculateDays(absence.startDate, absence.endDate) }}</td>
+                <td class="py-3 px-4 text-gray-700">{{ absence.numberOfDays }}</td>
                 <td class="py-3 px-4">
                   <span [class]="'px-2 py-1 rounded text-xs font-medium ' + getStatusBadgeStyle(absence.status)">
                     {{ getStatusLabel(absence.status) }}

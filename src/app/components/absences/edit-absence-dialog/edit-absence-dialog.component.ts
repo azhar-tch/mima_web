@@ -88,9 +88,16 @@ export class EditAbsenceDialogComponent implements OnInit, OnChanges {
     if (this.formData.startDate && this.formData.endDate) {
       const start = new Date(this.formData.startDate);
       const end = new Date(this.formData.endDate);
-      const diffTime = Math.abs(end.getTime() - start.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-      return diffDays;
+
+      // Reset time to midnight to calculate calendar days only (same logic as backend)
+      start.setHours(0, 0, 0, 0);
+      end.setHours(0, 0, 0, 0);
+
+      const diffTime = end.getTime() - start.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      // Add 1 to include both start and end dates (same as backend)
+      return diffDays + 1;
     }
     return 0;
   }
