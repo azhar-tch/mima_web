@@ -23,7 +23,7 @@ export class HistoriesComponent implements OnInit {
 
   histories: HistoriesResponse[] = [];
   searchTerm = '';
-  entityFilter: 'all' | 'DUTY' | 'MISSION' | 'ABSENCE' | 'AGENT_GRADE' | 'AGENT_AWARD' | 'AGENT_TRAINING' | 'AGENT_FUNCTION' | 'AGENT_COMPANY' | 'AGENT_SERVICE_POSITION' | 'AGENT_OTHER_POSITION' = 'all';
+  entityFilter: 'all' | 'DUTY' | 'MISSION' | 'ABSENCE' | 'AGENT_GRADE' | 'AGENT_AWARD' | 'AGENT_TRAINING' | 'AGENT_FUNCTION' | 'AGENT_COMPANY' | 'AGENT_SERVICE_POSITION' | 'AGENT_OTHER_POSITION' | 'ESCORT_MISSION' | 'COMMERCIAL_SHIP' | 'NAVAL_VESSEL' | 'SHIP_ARRIVAL_DEPARTURE' | 'SHIP_INCIDENT' = 'all';
   actionFilter: 'all' | ActionType = 'all';
   selectedHistory: HistoriesResponse | null = null;
   openDetailsDialog = false;
@@ -96,6 +96,11 @@ export class HistoriesComponent implements OnInit {
       case 'AGENT_COMPANY': return 'bg-rose-500 text-white';
       case 'AGENT_SERVICE_POSITION': return 'bg-violet-500 text-white';
       case 'AGENT_OTHER_POSITION': return 'bg-fuchsia-500 text-white';
+      case 'ESCORT_MISSION': return 'bg-blue-600 text-white';
+      case 'COMMERCIAL_SHIP': return 'bg-sky-500 text-white';
+      case 'NAVAL_VESSEL': return 'bg-slate-600 text-white';
+      case 'SHIP_ARRIVAL_DEPARTURE': return 'bg-lime-500 text-white';
+      case 'SHIP_INCIDENT': return 'bg-red-600 text-white';
       default: return 'bg-gray-400 text-white';
     }
   }
@@ -121,6 +126,11 @@ export class HistoriesComponent implements OnInit {
       case 'AGENT_COMPANY': return 'Compagnie';
       case 'AGENT_SERVICE_POSITION': return 'Position Service';
       case 'AGENT_OTHER_POSITION': return 'Autre Position';
+      case 'ESCORT_MISSION': return 'Mission d\'Escorte';
+      case 'COMMERCIAL_SHIP': return 'Navire Commercial';
+      case 'NAVAL_VESSEL': return 'Moyen Maritime';
+      case 'SHIP_ARRIVAL_DEPARTURE': return 'Sortie/Entrée';
+      case 'SHIP_INCIDENT': return 'Incident Maritime';
       default: return entity;
     }
   }

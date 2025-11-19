@@ -1,7 +1,7 @@
 <div class="p-8">
   <div class="mb-8">
     <h1 class="text-3xl font-bold text-gray-900 mb-2">Historique</h1>
-    <p class="text-gray-600">Consultez l'historique complet des modifications de missions, gardes et absences</p>
+    <p class="text-gray-600">Consultez l'historique complet des modifications : missions, gardes, absences, navires, moyens maritimes et incidents</p>
   </div>
 
   <!-- Filters -->
@@ -29,16 +29,25 @@
           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
           <option value="all">Toutes les entités</option>
-          <option value="DUTY">Gardes</option>
-          <option value="MISSION">Missions</option>
-          <option value="ABSENCE">Absences</option>
-          <option value="AGENT_GRADE">Grades</option>
-          <option value="AGENT_AWARD">Distinctions</option>
-          <option value="AGENT_TRAINING">Formations</option>
-          <option value="AGENT_FUNCTION">Fonctions</option>
-          <option value="AGENT_COMPANY">Compagnies</option>
-          <option value="AGENT_SERVICE_POSITION">Positions Service</option>
-          <option value="AGENT_OTHER_POSITION">Autres Positions</option>
+          <optgroup label="Personnel">
+            <option value="DUTY">Gardes</option>
+            <option value="MISSION">Missions</option>
+            <option value="ABSENCE">Absences</option>
+            <option value="AGENT_GRADE">Grades</option>
+            <option value="AGENT_AWARD">Distinctions</option>
+            <option value="AGENT_TRAINING">Formations</option>
+            <option value="AGENT_FUNCTION">Fonctions</option>
+            <option value="AGENT_COMPANY">Compagnies</option>
+            <option value="AGENT_SERVICE_POSITION">Positions Service</option>
+            <option value="AGENT_OTHER_POSITION">Autres Positions</option>
+          </optgroup>
+          <optgroup label="Maritime">
+            <option value="ESCORT_MISSION">Missions d'Escorte</option>
+            <option value="COMMERCIAL_SHIP">Navires Commerciaux</option>
+            <option value="NAVAL_VESSEL">Moyens Maritimes</option>
+            <option value="SHIP_ARRIVAL_DEPARTURE">Sorties/Entrées</option>
+            <option value="SHIP_INCIDENT">Incidents Maritimes</option>
+          </optgroup>
         </select>
       </div>
 

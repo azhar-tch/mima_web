@@ -29,6 +29,18 @@ export class HistoriesService {
     return this.http.get<ApiResponse<HistoriesResponse[]>>(`${this.baseUrl}/entity/${entityTrackingId}`);
   }
 
+  listByEntityName(entityName: string): Observable<ApiResponse<HistoriesResponse[]>> {
+    return this.http.get<ApiResponse<HistoriesResponse[]>>(`${this.baseUrl}/entity-name/${entityName}`);
+  }
+
+  listByActionType(actionType: string): Observable<ApiResponse<HistoriesResponse[]>> {
+    return this.http.get<ApiResponse<HistoriesResponse[]>>(`${this.baseUrl}/action-type/${actionType}`);
+  }
+
+  listByPeriod(startDate: string, endDate: string): Observable<ApiResponse<HistoriesResponse[]>> {
+    return this.http.get<ApiResponse<HistoriesResponse[]>>(`${this.baseUrl}/period/${startDate}/${endDate}`);
+  }
+
   listHistories(): Observable<ApiResponse<HistoriesResponse[]>> {
     return this.http.get<ApiResponse<HistoriesResponse[]>>(`${this.baseUrl}/list`);
   }
