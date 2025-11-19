@@ -67,6 +67,37 @@
         >
           Système
         </button>
+        <!-- Filtres maritimes -->
+        <button
+          (click)="typeFilter = 'escort_missions'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'escort_missions' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Missions d'escorte
+        </button>
+        <button
+          (click)="typeFilter = 'commercial_ships'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'commercial_ships' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Navires commerciaux
+        </button>
+        <button
+          (click)="typeFilter = 'naval_vessels'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'naval_vessels' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Navires militaires
+        </button>
+        <button
+          (click)="typeFilter = 'ship_arrivals_departures'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'ship_arrivals_departures' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Arrivées/Départs
+        </button>
+        <button
+          (click)="typeFilter = 'ship_incidents'"
+          [class]="'px-4 py-2 text-sm rounded-md transition-colors ' + (typeFilter === 'ship_incidents' ? 'bg-blue-900 text-white hover:bg-blue-800' : 'border border-gray-300 text-gray-700 hover:bg-gray-50')"
+        >
+          Incidents maritimes
+        </button>
       </div>
     </div>
 

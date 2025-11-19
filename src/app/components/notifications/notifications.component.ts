@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, CircleAlert, Calendar, FileText, Shield, Check, Trash2 } from 'lucide-angular';
+import { LucideAngularModule, CircleAlert, Calendar, FileText, Shield, Check, Trash2, Ship, Anchor, AlertTriangle } from 'lucide-angular';
 import { NotificationStateService } from '../../services/notifications/notification-state.service';
 import { NotificationsResponse } from '../../models/Notifications';
 import { Subscription } from 'rxjs';
 
-type NotificationType = 'missions' | 'gardes' | 'absences' | 'systeme';
+type NotificationType = 'missions' | 'gardes' | 'absences' | 'systeme' | 'escort_missions' | 'commercial_ships' | 'naval_vessels' | 'ship_arrivals_departures' | 'ship_incidents';
 
 @Component({
   selector: 'app-notifications',
@@ -21,6 +21,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   readonly Shield = Shield;
   readonly Check = Check;
   readonly Trash2 = Trash2;
+  readonly Ship = Ship;
+  readonly Anchor = Anchor;
+  readonly AlertTriangle = AlertTriangle;
 
   statusFilter: 'all' | 'unread' | 'read' = 'all';
   typeFilter: string | 'all' = 'all';
@@ -77,6 +80,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   getNotificationIcon(type: string) {
     const lowerType = type.toLowerCase();
+    // Types maritimes
+    if (lowerType === 'escort_missions' || lowerType.includes('escort')) return this.Shield;
+    if (lowerType === 'commercial_ships' || lowerType.includes('commercial')) return this.Ship;
+    if (lowerType === 'naval_vessels' || lowerType.includes('naval')) return this.Anchor;
+    if (lowerType === 'ship_arrivals_departures' || lowerType.includes('arrival') || lowerType.includes('departure')) return this.Ship;
+    if (lowerType === 'ship_incidents' || lowerType.includes('incident')) return this.AlertTriangle;
+    // Types existants
     if (lowerType.includes('mission')) return this.CircleAlert;
     if (lowerType.includes('garde') || lowerType.includes('duty')) return this.Calendar;
     if (lowerType.includes('absence')) return this.FileText;
@@ -85,6 +95,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   getNotificationColor(type: string): string {
     const lowerType = type.toLowerCase();
+    // Types maritimes
+    if (lowerType === 'escort_missions' || lowerType.includes('escort')) return 'text-indigo-600';
+    if (lowerType === 'commercial_ships' || lowerType.includes('commercial')) return 'text-cyan-600';
+    if (lowerType === 'naval_vessels' || lowerType.includes('naval')) return 'text-blue-700';
+    if (lowerType === 'ship_arrivals_departures' || lowerType.includes('arrival') || lowerType.includes('departure')) return 'text-green-600';
+    if (lowerType === 'ship_incidents' || lowerType.includes('incident')) return 'text-red-700';
+    // Types existants
     if (lowerType.includes('mission')) return 'text-red-600';
     if (lowerType.includes('garde') || lowerType.includes('duty')) return 'text-blue-600';
     if (lowerType.includes('absence')) return 'text-orange-600';

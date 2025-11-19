@@ -48,4 +48,19 @@ listByIsRead(isRead: boolean): Observable<ApiResponse<NotificationsResponse[]>> 
   return this.http.get<ApiResponse<NotificationsResponse[]>>(`${this.baseUrl}/read/${isRead}`);
 }
 
+// ✅ Récupérer les notifications par type
+listByType(notificationType: string): Observable<ApiResponse<NotificationsResponse[]>> {
+  return this.http.get<ApiResponse<NotificationsResponse[]>>(`${this.baseUrl}/type/${notificationType}`);
+}
+
+// ✅ Récupérer les notifications d'un utilisateur par type
+listByRecipientAndType(recipientTrackingId: string, notificationType: string): Observable<ApiResponse<NotificationsResponse[]>> {
+  return this.http.get<ApiResponse<NotificationsResponse[]>>(`${this.baseUrl}/recipient/${recipientTrackingId}/type/${notificationType}`);
+}
+
+// ✅ Récupérer les notifications d'un utilisateur par type et statut de lecture
+listByRecipientTypeAndRead(recipientTrackingId: string, notificationType: string, isRead: boolean): Observable<ApiResponse<NotificationsResponse[]>> {
+  return this.http.get<ApiResponse<NotificationsResponse[]>>(`${this.baseUrl}/recipient/${recipientTrackingId}/type/${notificationType}/read/${isRead}`);
+}
+
 }
