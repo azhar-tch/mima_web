@@ -84,7 +84,8 @@ export interface ServicePosition {
   positionName: string;
   positionType?: string;
   location?: string;
-  unit?: string;
+  unitTrackingId?: string;
+  unitName?: string;
   description?: string;
   createDate?: string;
   updateDate?: string;
@@ -96,7 +97,7 @@ export interface ServicePositionRequest {
   positionName: string;
   positionType?: string;
   location?: string;
-  unit?: string;
+  unitTrackingId?: string;
   description?: string;
 }
 

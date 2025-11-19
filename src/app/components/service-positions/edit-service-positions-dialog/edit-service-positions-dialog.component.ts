@@ -1,8 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { ServicePosition, ServicePositionRequest } from '../../../models/HRManagement';
+import { UnitsService } from '../../../services/units/units.service';
+import { UnitsResponse } from '../../../models/Units';
 
 @Component({
   selector: 'app-edit-service-positions-dialog',
@@ -11,7 +13,7 @@ import { ServicePosition, ServicePositionRequest } from '../../../models/HRManag
   templateUrl: './edit-service-positions-dialog.component.html',
   styleUrl: './edit-service-positions-dialog.component.css'
 })
-export class EditServicePositionDialogComponent implements OnChanges {
+export class EditServicePositionDialogComponent implements OnChanges, OnInit {
   readonly X = X;
 
   @Input() servicePosition: ServicePosition | null = null;
@@ -22,11 +24,35 @@ export class EditServicePositionDialogComponent implements OnChanges {
     positionName: '',
     positionType: '',
     location: '',
-    unit: '',
+    unitTrackingId: undefined,
     description: ''
   };
 
+  units: UnitsResponse[] = [];
+  isLoadingUnits = false;
   errors: Record<string, string> = {};
+
+  constructor(private unitsService: UnitsService) {}
+
+  ngOnInit() {
+    this.loadUnits();
+  }
+
+  loadUnits() {
+    this.isLoadingUnits = true;
+    this.unitsService.listUnits().subscribe({
+      next: (response) => {
+        if (!response.error && response.data) {
+          this.units = response.data;
+        }
+        this.isLoadingUnits = false;
+      },
+      error: (error) => {
+        console.error('Error loading units:', error);
+        this.isLoadingUnits = false;
+      }
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['servicePosition'] && this.servicePosition) {
@@ -34,7 +60,7 @@ export class EditServicePositionDialogComponent implements OnChanges {
         positionName: this.servicePosition.positionName || '',
         positionType: this.servicePosition.positionType || '',
         location: this.servicePosition.location || '',
-        unit: this.servicePosition.unit || '',
+        unitTrackingId: this.servicePosition.unitTrackingId || undefined,
         description: this.servicePosition.description || ''
       };
     }
@@ -46,7 +72,7 @@ export class EditServicePositionDialogComponent implements OnChanges {
       positionName: '',
       positionType: '',
       location: '',
-      unit: '',
+      unitTrackingId: undefined,
       description: ''
     };
     this.errors = {};

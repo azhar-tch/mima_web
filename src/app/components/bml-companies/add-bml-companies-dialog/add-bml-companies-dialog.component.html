@@ -21,16 +21,16 @@
 
     <!-- Form -->
     <div class="grid gap-4">
-      <!-- Grade Name -->
+      <!-- Company Name -->
       <div class="grid gap-2">
-        <label for="gradeName" class="text-sm font-medium text-gray-700">Nom du grade *</label>
+        <label for="companyName" class="text-sm font-medium text-gray-700">Nom de la compagnie *</label>
         <input
-          id="gradeName"
+          id="companyName"
           type="text"
-          placeholder="Ex: Lieutenant, Capitaine, Commandant..."
-          [(ngModel)]="formData.gradeName"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['gradeName'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['gradeName']" class="text-red-500 text-sm">{{ errors['gradeName'] }}</p>
+          placeholder="Ex: Compagnie Alpha, Compagnie Bravo..."
+          [(ngModel)]="formData.companyName"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['companyName'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['companyName']" class="text-red-500 text-sm">{{ errors['companyName'] }}</p>
       </div>
 
       <!-- Hierarchy Level -->
