@@ -1,0 +1,211 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-3xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Détails de la règle de gestion</h2>
+          <p class="text-sm text-gray-500 mt-1">Informations complètes de la règle</p>
+        </div>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="space-y-6" *ngIf="rule">
+      <!-- Main Information -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <h3 class="text-lg font-semibold text-blue-900 mb-4">{{ rule.ruleName }}</h3>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Date d'effet</p>
+            <p class="text-base font-medium text-gray-900">{{ formatDate(rule.effectiveDate) }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div *ngIf="rule.description">
+        <h4 class="text-sm font-medium text-gray-700 mb-2">Description</h4>
+        <p class="text-gray-600 bg-gray-50 p-3 rounded-md">{{ rule.description }}</p>
+      </div>
+
+      <!-- Rules Configuration -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Configuration des règles</h4>
+        <div class="space-y-4">
+          <!-- Rule 1: Prevent Double Assignment -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h5 class="text-sm font-semibold text-gray-900 mb-1">
+                  Règle 1: Prévention des doubles affectations
+                </h5>
+                <p class="text-xs text-gray-500">
+                  Aucune double affectation possible sur deux postes simultanés
+                </p>
+              </div>
+              <div class="ml-4">
+                <span *ngIf="rule.preventDoubleAssignment" class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  Activée
+                </span>
+                <span *ngIf="!rule.preventDoubleAssignment" class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
+                  Désactivée
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule 2: Minimum Rest Hours -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h5 class="text-sm font-semibold text-gray-900 mb-1">
+                  Règle 2: Repos minimal obligatoire
+                </h5>
+                <p class="text-xs text-gray-500">
+                  Repos minimal obligatoire entre deux gardes ou missions
+                </p>
+              </div>
+              <div class="ml-4">
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
+                  {{ rule.minRestHours }} heures
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule 3: Maximum Weekly Hours -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h5 class="text-sm font-semibold text-gray-900 mb-1">
+                  Règle 3: Durée maximale hebdomadaire
+                </h5>
+                <p class="text-xs text-gray-500">
+                  Durée maximale hebdomadaire de service à ne pas dépasser
+                </p>
+              </div>
+              <div class="ml-4">
+                <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-semibold">
+                  {{ rule.maxWeeklyHours }} heures
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule 4: Auto Report Unjustified Absences -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h5 class="text-sm font-semibold text-gray-900 mb-1">
+                  Règle 4: Signalement automatique des absences
+                </h5>
+                <p class="text-xs text-gray-500">
+                  Les absences non justifiées sont automatiquement signalées
+                </p>
+              </div>
+              <div class="ml-4">
+                <span *ngIf="rule.autoReportUnjustifiedAbsences" class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  Activée
+                </span>
+                <span *ngIf="!rule.autoReportUnjustifiedAbsences" class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
+                  Désactivée
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule 5: Enforce Equity Distribution -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h5 class="text-sm font-semibold text-gray-900 mb-1">
+                  Règle 5: Équité de répartition
+                </h5>
+                <p class="text-xs text-gray-500">
+                  L'équité de répartition doit être respectée à chaque période
+                </p>
+              </div>
+              <div class="ml-4">
+                <span *ngIf="rule.enforceEquityDistribution" class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  Activée
+                </span>
+                <span *ngIf="!rule.enforceEquityDistribution" class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
+                  Désactivée
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary Card -->
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4">
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Résumé de configuration</h4>
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-600">Repos minimal:</span>
+            <span class="font-semibold text-blue-900">{{ rule.minRestHours }}h</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">Maximum hebdomadaire:</span>
+            <span class="font-semibold text-orange-900">{{ rule.maxWeeklyHours }}h</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">Double affectation:</span>
+            <span class="font-semibold" [class.text-green-900]="rule.preventDoubleAssignment" [class.text-gray-600]="!rule.preventDoubleAssignment">
+              {{ rule.preventDoubleAssignment ? 'Bloquée' : 'Autorisée' }}
+            </span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">Signalement auto:</span>
+            <span class="font-semibold" [class.text-green-900]="rule.autoReportUnjustifiedAbsences" [class.text-gray-600]="!rule.autoReportUnjustifiedAbsences">
+              {{ rule.autoReportUnjustifiedAbsences ? 'Activé' : 'Désactivé' }}
+            </span>
+          </div>
+          <div class="flex justify-between col-span-2">
+            <span class="text-gray-600">Équité de répartition:</span>
+            <span class="font-semibold" [class.text-green-900]="rule.enforceEquityDistribution" [class.text-gray-600]="!rule.enforceEquityDistribution">
+              {{ rule.enforceEquityDistribution ? 'Appliquée' : 'Non appliquée' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metadata -->
+      <div class="grid grid-cols-2 gap-4 pt-4 border-t">
+        <div>
+          <p class="text-sm text-gray-500">Tracking ID</p>
+          <p class="text-sm font-mono text-gray-900">{{ rule.trackingId }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Date de création</p>
+          <p class="text-sm text-gray-900">{{ formatDate(rule.createdAt) }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Dernière mise à jour</p>
+          <p class="text-sm text-gray-900">{{ formatDate(rule.updatedAt) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors">
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>

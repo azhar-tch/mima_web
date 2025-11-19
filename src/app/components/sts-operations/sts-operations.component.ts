@@ -6,6 +6,7 @@ import { STSOperationsService } from '../../services/sts-operations/sts-operatio
 import { AddStsOperationsDialogComponent } from './add-sts-operations-dialog/add-sts-operations-dialog.component';
 import { EditStsOperationsDialogComponent } from './edit-sts-operations-dialog/edit-sts-operations-dialog.component';
 import { DeleteStsOperationsDialogComponent } from './delete-sts-operations-dialog/delete-sts-operations-dialog.component';
+import { StsOperationDetailsDialogComponent } from './sts-operation-details-dialog/sts-operation-details-dialog.component';
 import { STSOperation, STSOperationRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { STSOperation, STSOperationRequest } from '../../models/Maritime';
     LucideAngularModule,
     AddStsOperationsDialogComponent,
     EditStsOperationsDialogComponent,
-    DeleteStsOperationsDialogComponent
+    DeleteStsOperationsDialogComponent,
+    StsOperationDetailsDialogComponent
   ],
   templateUrl: './sts-operations.component.html',
   styleUrl: './sts-operations.component.css'
@@ -36,6 +38,7 @@ export class StsOperationsComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: STSOperation | null = null;
 
   constructor(private stsOperationsService: STSOperationsService) {}
@@ -132,5 +135,10 @@ export class StsOperationsComponent implements OnInit {
         alert('Erreur lors de la suppression de opération STS');
       }
     });
+  }
+
+  openDetailsDialog(item: STSOperation): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

@@ -6,6 +6,7 @@ import { ShipProvisioningsService } from '../../services/ship-provisionings/ship
 import { AddShipProvisioningsDialogComponent } from './add-ship-provisionings-dialog/add-ship-provisionings-dialog.component';
 import { EditShipProvisioningsDialogComponent } from './edit-ship-provisionings-dialog/edit-ship-provisionings-dialog.component';
 import { DeleteShipProvisioningsDialogComponent } from './delete-ship-provisionings-dialog/delete-ship-provisionings-dialog.component';
+import { ShipProvisioningDetailsDialogComponent } from './ship-provisioning-details-dialog/ship-provisioning-details-dialog.component';
 import { ShipProvisioning, ShipProvisioningRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { ShipProvisioning, ShipProvisioningRequest } from '../../models/Maritime
     LucideAngularModule,
     AddShipProvisioningsDialogComponent,
     EditShipProvisioningsDialogComponent,
-    DeleteShipProvisioningsDialogComponent
+    DeleteShipProvisioningsDialogComponent,
+    ShipProvisioningDetailsDialogComponent
   ],
   templateUrl: './ship-provisionings.component.html',
   styleUrl: './ship-provisionings.component.css'
@@ -36,6 +38,7 @@ export class ShipProvisioningsComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: ShipProvisioning | null = null;
 
   constructor(private shipProvisioningsService: ShipProvisioningsService) {}
@@ -134,5 +137,10 @@ export class ShipProvisioningsComponent implements OnInit {
         alert('Erreur lors de la suppression de avitaillement');
       }
     });
+  }
+
+  openDetailsDialog(item: ShipProvisioning): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

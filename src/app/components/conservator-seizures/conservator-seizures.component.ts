@@ -6,6 +6,7 @@ import { ConservatorSeizuresService } from '../../services/conservator-seizures/
 import { AddConservatorSeizuresDialogComponent } from './add-conservator-seizures-dialog/add-conservator-seizures-dialog.component';
 import { EditConservatorSeizuresDialogComponent } from './edit-conservator-seizures-dialog/edit-conservator-seizures-dialog.component';
 import { DeleteConservatorSeizuresDialogComponent } from './delete-conservator-seizures-dialog/delete-conservator-seizures-dialog.component';
+import { ConservatorSeizureDetailsDialogComponent } from './conservator-seizure-details-dialog/conservator-seizure-details-dialog.component';
 import { ConservatorSeizure, ConservatorSeizureRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { ConservatorSeizure, ConservatorSeizureRequest } from '../../models/Mari
     LucideAngularModule,
     AddConservatorSeizuresDialogComponent,
     EditConservatorSeizuresDialogComponent,
-    DeleteConservatorSeizuresDialogComponent
+    DeleteConservatorSeizuresDialogComponent,
+    ConservatorSeizureDetailsDialogComponent
   ],
   templateUrl: './conservator-seizures.component.html',
   styleUrl: './conservator-seizures.component.css'
@@ -36,6 +38,7 @@ export class ConservatorSeizuresComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: ConservatorSeizure | null = null;
 
   constructor(private conservatorSeizuresService: ConservatorSeizuresService) {}
@@ -132,5 +135,10 @@ export class ConservatorSeizuresComponent implements OnInit {
         alert('Erreur lors de la suppression de saisie');
       }
     });
+  }
+
+  openDetailsDialog(item: ConservatorSeizure): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

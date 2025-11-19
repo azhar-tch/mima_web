@@ -1,0 +1,164 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-3xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Détails de l'agence de sécurité</h2>
+          <p class="text-sm text-gray-500 mt-1">Informations complètes de l'agence</p>
+        </div>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="space-y-6" *ngIf="agency">
+      <!-- Main Information -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <h3 class="text-lg font-semibold text-blue-900 mb-4">{{ agency.agencyName }}</h3>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Numéro de l'agence</p>
+            <p class="text-base font-mono text-gray-700">{{ agency.agencyNumber }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Statut</p>
+            <p class="text-base text-gray-900">
+              <span *ngIf="agency.isActive" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Actif</span>
+              <span *ngIf="!agency.isActive" class="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-medium">Inactif</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Informations de contact</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Téléphone principal</p>
+              <p class="text-base text-gray-900">{{ agency.phoneNumber || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Téléphone secondaire</p>
+              <p class="text-base text-gray-900">{{ agency.phoneNumber2 || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Email</p>
+              <p class="text-base text-gray-900">{{ agency.email || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Site web</p>
+              <p class="text-base text-blue-600">{{ agency.website || '-' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address Information -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Adresse</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-2">
+            <p class="text-sm text-gray-500">Adresse complète</p>
+            <p class="text-base text-gray-900">{{ agency.address || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Ville</p>
+            <p class="text-base text-gray-900">{{ agency.city || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Pays</p>
+            <p class="text-base text-gray-900">{{ agency.country || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Person -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Personne de contact</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Nom</p>
+              <p class="text-base font-medium text-gray-900">{{ agency.contactPerson || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Position</p>
+              <p class="text-base text-gray-900">{{ agency.contactPosition || '-' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Registration Information -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Informations d'enregistrement</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Numéro d'enregistrement</p>
+            <p class="text-base font-mono text-gray-700">{{ agency.registrationNumber || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Numéro de licence</p>
+            <p class="text-base font-mono text-gray-700">{{ agency.licenseNumber || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistics -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Statistiques</h4>
+        <div class="bg-gradient-to-br from-blue-50 to-green-50 border border-blue-200 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Total des escortes demandées</p>
+              <p class="text-2xl font-bold text-blue-900">{{ agency.totalEscortsRequested || 0 }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Total des gardes armées demandées</p>
+              <p class="text-2xl font-bold text-green-900">{{ agency.totalArmedGuardsRequested || 0 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Observations -->
+      <div *ngIf="agency.observations">
+        <h4 class="text-sm font-medium text-gray-700 mb-2">Observations</h4>
+        <p class="text-gray-600 bg-gray-50 p-3 rounded-md">{{ agency.observations }}</p>
+      </div>
+
+      <!-- Metadata -->
+      <div class="grid grid-cols-2 gap-4 pt-4 border-t">
+        <div>
+          <p class="text-sm text-gray-500">Tracking ID</p>
+          <p class="text-sm font-mono text-gray-900">{{ agency.trackingId }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Date de création</p>
+          <p class="text-sm text-gray-900">{{ formatDate(agency.createDate) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors">
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import { ArmedGuardMissionsService } from '../../services/armed-guard-missions/a
 import { AddArmedGuardMissionsDialogComponent } from './add-armed-guard-missions-dialog/add-armed-guard-missions-dialog.component';
 import { EditArmedGuardMissionsDialogComponent } from './edit-armed-guard-missions-dialog/edit-armed-guard-missions-dialog.component';
 import { DeleteArmedGuardMissionsDialogComponent } from './delete-armed-guard-missions-dialog/delete-armed-guard-missions-dialog.component';
+import { ArmedGuardMissionDetailsDialogComponent } from './armed-guard-mission-details-dialog/armed-guard-mission-details-dialog.component';
 import { ArmedGuardMission, ArmedGuardMissionRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { ArmedGuardMission, ArmedGuardMissionRequest } from '../../models/Mariti
     LucideAngularModule,
     AddArmedGuardMissionsDialogComponent,
     EditArmedGuardMissionsDialogComponent,
-    DeleteArmedGuardMissionsDialogComponent
+    DeleteArmedGuardMissionsDialogComponent,
+    ArmedGuardMissionDetailsDialogComponent
   ],
   templateUrl: './armed-guard-missions.component.html',
   styleUrl: './armed-guard-missions.component.css'
@@ -36,6 +38,7 @@ export class ArmedGuardMissionsComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: ArmedGuardMission | null = null;
 
   constructor(private armedGuardMissionsService: ArmedGuardMissionsService) {}
@@ -132,5 +135,10 @@ export class ArmedGuardMissionsComponent implements OnInit {
         alert('Erreur lors de la suppression de mission de garde armée');
       }
     });
+  }
+
+  openDetailsDialog(item: ArmedGuardMission): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

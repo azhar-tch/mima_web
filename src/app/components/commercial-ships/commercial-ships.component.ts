@@ -6,6 +6,7 @@ import { CommercialShipsService } from '../../services/commercial-ships/commerci
 import { AddCommercialShipsDialogComponent } from './add-commercial-ships-dialog/add-commercial-ships-dialog.component';
 import { EditCommercialShipsDialogComponent } from './edit-commercial-ships-dialog/edit-commercial-ships-dialog.component';
 import { DeleteCommercialShipsDialogComponent } from './delete-commercial-ships-dialog/delete-commercial-ships-dialog.component';
+import { CommercialShipDetailsDialogComponent } from './commercial-ship-details-dialog/commercial-ship-details-dialog.component';
 import { CommercialShip, CommercialShipRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { CommercialShip, CommercialShipRequest } from '../../models/Maritime';
     LucideAngularModule,
     AddCommercialShipsDialogComponent,
     EditCommercialShipsDialogComponent,
-    DeleteCommercialShipsDialogComponent
+    DeleteCommercialShipsDialogComponent,
+    CommercialShipDetailsDialogComponent
   ],
   templateUrl: './commercial-ships.component.html',
   styleUrl: './commercial-ships.component.css'
@@ -36,6 +38,7 @@ export class CommercialShipsComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: CommercialShip | null = null;
 
   constructor(private commercialShipsService: CommercialShipsService) {}
@@ -132,5 +135,10 @@ export class CommercialShipsComponent implements OnInit {
         alert('Erreur lors de la suppression de navire commercial');
       }
     });
+  }
+
+  openDetailsDialog(item: CommercialShip): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

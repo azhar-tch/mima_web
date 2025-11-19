@@ -6,6 +6,7 @@ import { PALEntryExitsService } from '../../services/pal-entry-exits/pal-entry-e
 import { AddPalEntryExitsDialogComponent } from './add-pal-entry-exits-dialog/add-pal-entry-exits-dialog.component';
 import { EditPalEntryExitsDialogComponent } from './edit-pal-entry-exits-dialog/edit-pal-entry-exits-dialog.component';
 import { DeletePalEntryExitsDialogComponent } from './delete-pal-entry-exits-dialog/delete-pal-entry-exits-dialog.component';
+import { PalEntryExitDetailsDialogComponent } from './pal-entry-exit-details-dialog/pal-entry-exit-details-dialog.component';
 import { PALEntryExit, PALEntryExitRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { PALEntryExit, PALEntryExitRequest } from '../../models/Maritime';
     LucideAngularModule,
     AddPalEntryExitsDialogComponent,
     EditPalEntryExitsDialogComponent,
-    DeletePalEntryExitsDialogComponent
+    DeletePalEntryExitsDialogComponent,
+    PalEntryExitDetailsDialogComponent
   ],
   templateUrl: './pal-entry-exits.component.html',
   styleUrl: './pal-entry-exits.component.css'
@@ -36,6 +38,7 @@ export class PalEntryExitsComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: PALEntryExit | null = null;
 
   constructor(private palEntryExitsService: PALEntryExitsService) {}
@@ -134,5 +137,10 @@ export class PalEntryExitsComponent implements OnInit {
         alert('Erreur lors de la suppression de entrée/sortie PAL');
       }
     });
+  }
+
+  openDetailsDialog(item: PALEntryExit): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

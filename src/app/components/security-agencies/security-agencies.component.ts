@@ -6,6 +6,7 @@ import { SecurityAgenciesService } from '../../services/security-agencies/securi
 import { AddSecurityAgenciesDialogComponent } from './add-security-agencies-dialog/add-security-agencies-dialog.component';
 import { EditSecurityAgenciesDialogComponent } from './edit-security-agencies-dialog/edit-security-agencies-dialog.component';
 import { DeleteSecurityAgenciesDialogComponent } from './delete-security-agencies-dialog/delete-security-agencies-dialog.component';
+import { SecurityAgencyDetailsDialogComponent } from './security-agency-details-dialog/security-agency-details-dialog.component';
 import { SecurityAgency, SecurityAgencyRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { SecurityAgency, SecurityAgencyRequest } from '../../models/Maritime';
     LucideAngularModule,
     AddSecurityAgenciesDialogComponent,
     EditSecurityAgenciesDialogComponent,
-    DeleteSecurityAgenciesDialogComponent
+    DeleteSecurityAgenciesDialogComponent,
+    SecurityAgencyDetailsDialogComponent
   ],
   templateUrl: './security-agencies.component.html',
   styleUrl: './security-agencies.component.css'
@@ -36,6 +38,7 @@ export class SecurityAgenciesComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: SecurityAgency | null = null;
 
   constructor(private securityAgenciesService: SecurityAgenciesService) {}
@@ -132,5 +135,10 @@ export class SecurityAgenciesComponent implements OnInit {
         alert('Erreur lors de la suppression de agence de sécurité');
       }
     });
+  }
+
+  openDetailsDialog(item: SecurityAgency): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

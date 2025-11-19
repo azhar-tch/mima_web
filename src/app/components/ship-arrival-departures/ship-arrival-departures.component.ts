@@ -6,6 +6,7 @@ import { ShipArrivalDeparturesService } from '../../services/ship-arrival-depart
 import { AddShipArrivalDeparturesDialogComponent } from './add-ship-arrival-departures-dialog/add-ship-arrival-departures-dialog.component';
 import { EditShipArrivalDeparturesDialogComponent } from './edit-ship-arrival-departures-dialog/edit-ship-arrival-departures-dialog.component';
 import { DeleteShipArrivalDeparturesDialogComponent } from './delete-ship-arrival-departures-dialog/delete-ship-arrival-departures-dialog.component';
+import { ShipArrivalDepartureDetailsDialogComponent } from './ship-arrival-departure-details-dialog/ship-arrival-departure-details-dialog.component';
 import { ShipArrivalDeparture, ShipArrivalDepartureRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { ShipArrivalDeparture, ShipArrivalDepartureRequest } from '../../models/
     LucideAngularModule,
     AddShipArrivalDeparturesDialogComponent,
     EditShipArrivalDeparturesDialogComponent,
-    DeleteShipArrivalDeparturesDialogComponent
+    DeleteShipArrivalDeparturesDialogComponent,
+    ShipArrivalDepartureDetailsDialogComponent
   ],
   templateUrl: './ship-arrival-departures.component.html',
   styleUrl: './ship-arrival-departures.component.css'
@@ -36,6 +38,7 @@ export class ShipArrivalDeparturesComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: ShipArrivalDeparture | null = null;
 
   constructor(private shipArrivalDeparturesService: ShipArrivalDeparturesService) {}
@@ -132,5 +135,10 @@ export class ShipArrivalDeparturesComponent implements OnInit {
         alert('Erreur lors de la suppression de arrivée/départ');
       }
     });
+  }
+
+  openDetailsDialog(item: ShipArrivalDeparture): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

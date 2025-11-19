@@ -6,6 +6,7 @@ import { PersonnelAllowancesService } from '../../services/personnel-allowances/
 import { AddPersonnelAllowancesDialogComponent } from './add-personnel-allowances-dialog/add-personnel-allowances-dialog.component';
 import { EditPersonnelAllowancesDialogComponent } from './edit-personnel-allowances-dialog/edit-personnel-allowances-dialog.component';
 import { DeletePersonnelAllowancesDialogComponent } from './delete-personnel-allowances-dialog/delete-personnel-allowances-dialog.component';
+import { PersonnelAllowanceDetailsDialogComponent } from './personnel-allowance-details-dialog/personnel-allowance-details-dialog.component';
 import { PersonnelAllowance, PersonnelAllowanceRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { PersonnelAllowance, PersonnelAllowanceRequest } from '../../models/Mari
     LucideAngularModule,
     AddPersonnelAllowancesDialogComponent,
     EditPersonnelAllowancesDialogComponent,
-    DeletePersonnelAllowancesDialogComponent
+    DeletePersonnelAllowancesDialogComponent,
+    PersonnelAllowanceDetailsDialogComponent
   ],
   templateUrl: './personnel-allowances.component.html',
   styleUrl: './personnel-allowances.component.css'
@@ -36,6 +38,7 @@ export class PersonnelAllowancesComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: PersonnelAllowance | null = null;
 
   constructor(private personnelAllowancesService: PersonnelAllowancesService) {}
@@ -132,5 +135,10 @@ export class PersonnelAllowancesComponent implements OnInit {
         alert('Erreur lors de la suppression de indemnité');
       }
     });
+  }
+
+  openDetailsDialog(item: PersonnelAllowance): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

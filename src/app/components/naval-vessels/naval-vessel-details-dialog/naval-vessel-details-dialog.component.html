@@ -1,0 +1,209 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-4xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Détails du navire militaire</h2>
+          <p class="text-sm text-gray-500 mt-1">Informations complètes du navire</p>
+        </div>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="space-y-6" *ngIf="vessel">
+      <!-- Main Information -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold text-blue-900">{{ vessel.vesselName }}</h3>
+          <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+            {{ vessel.operationalStatus || 'Actif' }}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Numéro du navire</p>
+            <p class="text-base font-mono text-gray-700">{{ vessel.vesselNumber }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Type de navire</p>
+            <p class="text-base font-medium text-gray-900">{{ vessel.vesselType || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Numéro de coque</p>
+            <p class="text-base font-mono text-gray-700">{{ vessel.hullNumber || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Port d'attache</p>
+            <p class="text-base text-gray-900">{{ vessel.homePort || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commissioning Information -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Informations de mise en service</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Année de mise en service</p>
+              <p class="text-base text-gray-900">{{ vessel.yearCommissioned || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Date de mise en service</p>
+              <p class="text-base text-gray-900">{{ formatDate(vessel.dateCommissioned) }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Date de désarmement</p>
+              <p class="text-base text-gray-900">{{ formatDate(vessel.dateDecommissioned) }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Physical Characteristics -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Caractéristiques physiques</h4>
+        <div class="grid grid-cols-3 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Longueur</p>
+            <p class="text-base text-gray-900">{{ vessel.length ? vessel.length + ' m' : '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Largeur</p>
+            <p class="text-base text-gray-900">{{ vessel.width ? vessel.width + ' m' : '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Tirant d'eau</p>
+            <p class="text-base text-gray-900">{{ vessel.draft ? vessel.draft + ' m' : '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Déplacement</p>
+            <p class="text-base text-gray-900">{{ vessel.displacement ? vessel.displacement + ' tonnes' : '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Vitesse maximale</p>
+            <p class="text-base text-gray-900">{{ vessel.maxSpeed ? vessel.maxSpeed + ' nœuds' : '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Capacité d'équipage</p>
+            <p class="text-base text-gray-900">{{ vessel.crewCapacity || '-' }} personnes</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Specifications -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Spécifications techniques</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Type de moteur</p>
+              <p class="text-base text-gray-900">{{ vessel.engineType || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Puissance du moteur</p>
+              <p class="text-base text-gray-900">{{ vessel.enginePower ? vessel.enginePower + ' HP' : '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Capacité de carburant</p>
+              <p class="text-base text-gray-900">{{ vessel.fuelCapacity ? vessel.fuelCapacity + ' L' : '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Autonomie</p>
+              <p class="text-base text-gray-900">{{ vessel.range ? vessel.range + ' NM' : '-' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Armament and Electronics -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Armement et électronique</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Armement</p>
+            <p class="text-base text-gray-900">{{ vessel.armament || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Électronique</p>
+            <p class="text-base text-gray-900">{{ vessel.electronics || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Operational Information -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Informations opérationnelles</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Position actuelle</p>
+              <p class="text-base text-gray-900">{{ vessel.currentLocation || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Mission actuelle</p>
+              <p class="text-base text-gray-900">{{ vessel.currentMission || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Heures opérationnelles totales</p>
+              <p class="text-base text-gray-900">{{ vessel.totalOperationalHours ? vessel.totalOperationalHours + ' h' : '-' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Maintenance Information -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Informations de maintenance</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Dernière maintenance</p>
+            <p class="text-base text-gray-900">{{ formatDate(vessel.lastMaintenanceDate) }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Prochaine maintenance</p>
+            <p class="text-base text-gray-900">{{ formatDate(vessel.nextMaintenanceDate) }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Observations -->
+      <div *ngIf="vessel.observations">
+        <h4 class="text-sm font-medium text-gray-700 mb-2">Observations</h4>
+        <p class="text-gray-600 bg-gray-50 p-3 rounded-md">{{ vessel.observations }}</p>
+      </div>
+
+      <!-- Metadata -->
+      <div class="grid grid-cols-2 gap-4 pt-4 border-t">
+        <div>
+          <p class="text-sm text-gray-500">Tracking ID</p>
+          <p class="text-sm font-mono text-gray-900">{{ vessel.trackingId }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Date de création</p>
+          <p class="text-sm text-gray-900">{{ formatDate(vessel.createDate) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors">
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import { ShipIncidentsService } from '../../services/ship-incidents/ship-inciden
 import { AddShipIncidentsDialogComponent } from './add-ship-incidents-dialog/add-ship-incidents-dialog.component';
 import { EditShipIncidentsDialogComponent } from './edit-ship-incidents-dialog/edit-ship-incidents-dialog.component';
 import { DeleteShipIncidentsDialogComponent } from './delete-ship-incidents-dialog/delete-ship-incidents-dialog.component';
+import { ShipIncidentDetailsDialogComponent } from './ship-incident-details-dialog/ship-incident-details-dialog.component';
 import { ShipIncident, ShipIncidentRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { ShipIncident, ShipIncidentRequest } from '../../models/Maritime';
     LucideAngularModule,
     AddShipIncidentsDialogComponent,
     EditShipIncidentsDialogComponent,
-    DeleteShipIncidentsDialogComponent
+    DeleteShipIncidentsDialogComponent,
+    ShipIncidentDetailsDialogComponent
   ],
   templateUrl: './ship-incidents.component.html',
   styleUrl: './ship-incidents.component.css'
@@ -36,6 +38,7 @@ export class ShipIncidentsComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: ShipIncident | null = null;
 
   constructor(private shipIncidentsService: ShipIncidentsService) {}
@@ -132,5 +135,10 @@ export class ShipIncidentsComponent implements OnInit {
         alert('Erreur lors de la suppression de incident');
       }
     });
+  }
+
+  openDetailsDialog(item: ShipIncident): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

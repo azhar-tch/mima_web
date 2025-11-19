@@ -49,7 +49,7 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-right">
               <div class="flex items-center justify-end gap-2">
-                <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Voir">
+                <button (click)="openDetailsDialog(item)" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Voir les détails">
                   <lucide-icon [img]="Eye" [size]="18"></lucide-icon>
                 </button>
                 <button (click)="showEditDialog(item)" class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Modifier">
@@ -88,4 +88,11 @@
   (close)="openDeleteDialog = false"
   (confirm)="handleDelete()">
 </app-delete-pal-entry-exits-dialog>
+
+<!-- Details Dialog -->
+<app-pal-entry-exit-details-dialog
+  *ngIf="showDetailsDialog && selectedItem"
+  [entryExit]="selectedItem"
+  (close)="showDetailsDialog = false">
+</app-pal-entry-exit-details-dialog>
 </div>

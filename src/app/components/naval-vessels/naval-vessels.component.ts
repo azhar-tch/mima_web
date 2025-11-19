@@ -6,6 +6,7 @@ import { NavalVesselsService } from '../../services/naval-vessels/naval-vessels.
 import { AddNavalVesselsDialogComponent } from './add-naval-vessels-dialog/add-naval-vessels-dialog.component';
 import { EditNavalVesselsDialogComponent } from './edit-naval-vessels-dialog/edit-naval-vessels-dialog.component';
 import { DeleteNavalVesselsDialogComponent } from './delete-naval-vessels-dialog/delete-naval-vessels-dialog.component';
+import { NavalVesselDetailsDialogComponent } from './naval-vessel-details-dialog/naval-vessel-details-dialog.component';
 import { NavalVessel, NavalVesselRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { NavalVessel, NavalVesselRequest } from '../../models/Maritime';
     LucideAngularModule,
     AddNavalVesselsDialogComponent,
     EditNavalVesselsDialogComponent,
-    DeleteNavalVesselsDialogComponent
+    DeleteNavalVesselsDialogComponent,
+    NavalVesselDetailsDialogComponent
   ],
   templateUrl: './naval-vessels.component.html',
   styleUrl: './naval-vessels.component.css'
@@ -36,6 +38,7 @@ export class NavalVesselsComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: NavalVessel | null = null;
 
   constructor(private navalVesselsService: NavalVesselsService) {}
@@ -132,5 +135,10 @@ export class NavalVesselsComponent implements OnInit {
         alert('Erreur lors de la suppression de navire militaire');
       }
     });
+  }
+
+  openDetailsDialog(item: NavalVessel): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

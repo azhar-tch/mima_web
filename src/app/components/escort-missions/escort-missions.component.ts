@@ -6,6 +6,7 @@ import { EscortMissionsService } from '../../services/escort-missions/escort-mis
 import { AddEscortMissionsDialogComponent } from './add-escort-missions-dialog/add-escort-missions-dialog.component';
 import { EditEscortMissionsDialogComponent } from './edit-escort-missions-dialog/edit-escort-missions-dialog.component';
 import { DeleteEscortMissionsDialogComponent } from './delete-escort-missions-dialog/delete-escort-missions-dialog.component';
+import { EscortMissionDetailsDialogComponent } from './escort-mission-details-dialog/escort-mission-details-dialog.component';
 import { EscortMission, EscortMissionRequest } from '../../models/Maritime';
 
 @Component({
@@ -17,7 +18,8 @@ import { EscortMission, EscortMissionRequest } from '../../models/Maritime';
     LucideAngularModule,
     AddEscortMissionsDialogComponent,
     EditEscortMissionsDialogComponent,
-    DeleteEscortMissionsDialogComponent
+    DeleteEscortMissionsDialogComponent,
+    EscortMissionDetailsDialogComponent
   ],
   templateUrl: './escort-missions.component.html',
   styleUrl: './escort-missions.component.css'
@@ -36,6 +38,7 @@ export class EscortMissionsComponent implements OnInit {
   openAddDialog = false;
   openEditDialog = false;
   openDeleteDialog = false;
+  showDetailsDialog = false;
   selectedItem: EscortMission | null = null;
 
   constructor(private escortMissionsService: EscortMissionsService) {}
@@ -132,5 +135,10 @@ export class EscortMissionsComponent implements OnInit {
         alert("Erreur lors de la suppression de mission d'escorte");
       }
     });
+  }
+
+  openDetailsDialog(item: EscortMission): void {
+    this.selectedItem = item;
+    this.showDetailsDialog = true;
   }
 }

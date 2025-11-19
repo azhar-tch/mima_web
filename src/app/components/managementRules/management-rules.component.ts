@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, Plus, Edit, Trash2, Check, X } from 'lucide-angular';
+import { LucideAngularModule, Plus, Edit, Trash2, Eye, Check, X } from 'lucide-angular';
 import { ManagementRulesService } from '../../services/managementRules/management-rules.service';
 import { ManagementRulesRequest, ManagementRulesResponse } from '../../models/ManagementRules';
+import { ManagementRuleDetailsDialogComponent } from './management-rule-details-dialog/management-rule-details-dialog.component';
 
 @Component({
   selector: 'app-management-rules',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, LucideAngularModule, ManagementRuleDetailsDialogComponent],
   templateUrl: './management-rules.component.html',
   styleUrl: './management-rules.component.css'
 })
@@ -16,6 +17,7 @@ export class ManagementRulesComponent implements OnInit {
   readonly Plus = Plus;
   readonly Edit = Edit;
   readonly Trash2 = Trash2;
+  readonly Eye = Eye;
   readonly Check = Check;
   readonly X = X;
 
@@ -24,6 +26,7 @@ export class ManagementRulesComponent implements OnInit {
   showAddDialog = false;
   showEditDialog = false;
   showDeleteDialog = false;
+  showDetailsDialog = false;
 
   formData: ManagementRulesRequest = this.getEmptyForm();
 
@@ -168,10 +171,16 @@ export class ManagementRulesComponent implements OnInit {
     });
   }
 
+  openDetailsDialog(rule: ManagementRulesResponse): void {
+    this.selectedRule = rule;
+    this.showDetailsDialog = true;
+  }
+
   closeDialogs() {
     this.showAddDialog = false;
     this.showEditDialog = false;
     this.showDeleteDialog = false;
+    this.showDetailsDialog = false;
     this.selectedRule = null;
     this.errors = {};
   }

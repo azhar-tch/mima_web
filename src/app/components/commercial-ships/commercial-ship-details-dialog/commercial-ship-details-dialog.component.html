@@ -1,0 +1,159 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-4xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Détails du navire commercial</h2>
+          <p class="text-sm text-gray-500 mt-1">Informations complètes du navire</p>
+        </div>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="space-y-6" *ngIf="ship">
+      <!-- Main Information -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <h3 class="text-lg font-semibold text-blue-900 mb-4">{{ ship.shipName }}</h3>
+
+        <div class="grid grid-cols-3 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Numéro IMO</p>
+            <p class="text-base font-mono text-gray-700">{{ ship.imoNumber }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Type de navire</p>
+            <p class="text-base font-medium text-gray-900">{{ ship.shipType }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Pavillon</p>
+            <p class="text-base font-medium text-gray-900">{{ ship.flag }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">MMSI</p>
+            <p class="text-base font-mono text-gray-700">{{ ship.mmsi || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Indicatif d'appel</p>
+            <p class="text-base font-mono text-gray-700">{{ ship.callSign || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Statut</p>
+            <p class="text-base font-medium text-gray-900">{{ ship.status || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Specifications -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Spécifications techniques</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Jauge brute</p>
+              <p class="text-base text-gray-900">{{ ship.grossTonnage || '-' }} tonnes</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Port en lourd</p>
+              <p class="text-base text-gray-900">{{ ship.deadWeight || '-' }} tonnes</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Année de construction</p>
+              <p class="text-base text-gray-900">{{ ship.yearBuilt || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Longueur</p>
+              <p class="text-base text-gray-900">{{ ship.length || '-' }} m</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Largeur</p>
+              <p class="text-base text-gray-900">{{ ship.width || '-' }} m</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Tirant d'eau</p>
+              <p class="text-base text-gray-900">{{ ship.draft || '-' }} m</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ownership & Operation -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Propriété et exploitation</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Propriétaire du navire</p>
+            <p class="text-base text-gray-900">{{ ship.shipOwner || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Opérateur</p>
+            <p class="text-base text-gray-900">{{ ship.operator || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation & Cargo -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Navigation et cargaison</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Dernier port</p>
+            <p class="text-base text-gray-900">{{ ship.lastPort || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Prochain port</p>
+            <p class="text-base text-gray-900">{{ ship.nextPort || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Type de cargaison</p>
+            <p class="text-base text-gray-900">{{ ship.cargoType || '-' }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Date d'arrivée</p>
+            <p class="text-base text-gray-900">{{ formatDate(ship.arrivalDate) }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Date de départ</p>
+            <p class="text-base text-gray-900">{{ formatDate(ship.departureDate) }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Observations -->
+      <div *ngIf="ship.observations">
+        <h4 class="text-sm font-medium text-gray-700 mb-2">Observations</h4>
+        <p class="text-gray-600 bg-gray-50 p-3 rounded-md">{{ ship.observations }}</p>
+      </div>
+
+      <!-- Metadata -->
+      <div class="grid grid-cols-2 gap-4 pt-4 border-t">
+        <div>
+          <p class="text-sm text-gray-500">Tracking ID</p>
+          <p class="text-sm font-mono text-gray-900">{{ ship.trackingId }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Date de création</p>
+          <p class="text-sm text-gray-900">{{ formatDate(ship.createDate) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors">
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>

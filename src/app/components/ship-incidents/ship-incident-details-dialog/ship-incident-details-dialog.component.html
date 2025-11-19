@@ -1,0 +1,244 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
+
+  <!-- Dialog Content -->
+  <div class="relative bg-white rounded-lg shadow-lg max-w-4xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-900">Détails de l'incident maritime</h2>
+          <p class="text-sm text-gray-500 mt-1">Informations complètes de l'incident</p>
+        </div>
+        <button
+          (click)="handleClose()"
+          class="text-gray-400 hover:text-gray-600 transition-colors">
+          <lucide-icon [img]="X" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="space-y-6" *ngIf="incident">
+      <!-- Main Information -->
+      <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold text-red-900">{{ incident.eventType || 'Incident' }}</h3>
+          <div class="flex gap-2">
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+              {{ incident.severity || 'Non défini' }}
+            </span>
+            <span *ngIf="incident.isResolved" class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+              Résolu
+            </span>
+            <span *ngIf="!incident.isResolved" class="px-3 py-1 rounded-full text-sm font-medium bg-orange-100 text-orange-800">
+              En cours
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Date de l'incident</p>
+            <p class="text-base font-medium text-gray-900">{{ formatDate(incident.incidentDate) }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Type d'incident</p>
+            <p class="text-base text-gray-900">{{ incident.incidentType || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ship Information -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Navire impliqué</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Nom du navire</p>
+              <p class="text-base font-medium text-gray-900">{{ incident.shipName || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Numéro IMO</p>
+              <p class="text-base font-mono text-gray-700">{{ incident.imoNumber || '-' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location Information -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Localisation</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Lieu</p>
+              <p class="text-base text-gray-900">{{ incident.location || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Zone maritime</p>
+              <p class="text-base text-gray-900">{{ incident.maritimeZone || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Latitude</p>
+              <p class="text-base font-mono text-gray-700">{{ incident.latitude || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Longitude</p>
+              <p class="text-base font-mono text-gray-700">{{ incident.longitude || '-' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Incident Details -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Détails de l'incident</h4>
+        <div class="space-y-3">
+          <div *ngIf="incident.description">
+            <p class="text-sm text-gray-500">Description</p>
+            <p class="text-gray-600 bg-gray-50 p-3 rounded-md">{{ incident.description }}</p>
+          </div>
+          <div *ngIf="incident.causes">
+            <p class="text-sm text-gray-500">Causes</p>
+            <p class="text-gray-600 bg-yellow-50 border border-yellow-200 p-3 rounded-md">{{ incident.causes }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Damages and Casualties -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Dommages et victimes</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div *ngIf="incident.casualties">
+            <p class="text-sm text-gray-500">Victimes</p>
+            <p class="text-gray-600 bg-red-50 border border-red-200 p-3 rounded-md">{{ incident.casualties }}</p>
+          </div>
+          <div *ngIf="incident.materialDamage">
+            <p class="text-sm text-gray-500">Dommages matériels</p>
+            <p class="text-gray-600 bg-orange-50 border border-orange-200 p-3 rounded-md">{{ incident.materialDamage }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pollution Information -->
+      <div *ngIf="incident.pollutionOccurred">
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Pollution</h4>
+        <div class="bg-red-100 border border-red-300 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-red-200 text-red-900">
+              Pollution constatée
+            </span>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Type de pollution</p>
+            <p class="text-base font-medium text-gray-900">{{ incident.pollutionType || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Response Information -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Intervention</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="col-span-2">
+              <p class="text-sm text-gray-500">Agences intervenues</p>
+              <p class="text-base text-gray-900">{{ incident.respondingAgencies || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Navire militaire d'assistance</p>
+              <p class="text-base text-gray-900">{{ incident.assistingVesselName || '-' }}</p>
+            </div>
+            <div class="col-span-2">
+              <p class="text-sm text-gray-500">Mesures immédiates</p>
+              <p class="text-base text-gray-900">{{ incident.immediateMeasures || '-' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resolution Information -->
+      <div *ngIf="incident.isResolved">
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Résolution</h4>
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Date de résolution</p>
+              <p class="text-base font-medium text-gray-900">{{ formatDate(incident.resolutionDate) }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Durée de résolution</p>
+              <p class="text-base text-gray-900">{{ incident.resolutionDurationHours ? incident.resolutionDurationHours + ' h' : '-' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Investigation and Reporting -->
+      <div>
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Enquête et rapport</h4>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Rapport établi</p>
+              <p class="text-base text-gray-900">
+                <span *ngIf="incident.reportEstablished" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Oui</span>
+                <span *ngIf="!incident.reportEstablished" class="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-medium">Non</span>
+              </p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Référence du rapport</p>
+              <p class="text-base font-mono text-gray-700">{{ incident.reportReference || '-' }}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Enquête en cours</p>
+              <p class="text-base text-gray-900">
+                <span *ngIf="incident.investigationOngoing" class="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Oui</span>
+                <span *ngIf="!incident.investigationOngoing" class="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-medium">Non</span>
+              </p>
+            </div>
+            <div class="col-span-2">
+              <p class="text-sm text-gray-500">Autorités notifiées</p>
+              <p class="text-base text-gray-900">{{ incident.notifiedAuthorities || '-' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div *ngIf="incident.recommendations">
+        <h4 class="text-sm font-medium text-gray-700 mb-2">Recommandations</h4>
+        <p class="text-gray-600 bg-blue-50 border border-blue-200 p-3 rounded-md">{{ incident.recommendations }}</p>
+      </div>
+
+      <!-- Observations -->
+      <div *ngIf="incident.observations">
+        <h4 class="text-sm font-medium text-gray-700 mb-2">Observations</h4>
+        <p class="text-gray-600 bg-gray-50 p-3 rounded-md">{{ incident.observations }}</p>
+      </div>
+
+      <!-- Metadata -->
+      <div class="grid grid-cols-2 gap-4 pt-4 border-t">
+        <div>
+          <p class="text-sm text-gray-500">Tracking ID</p>
+          <p class="text-sm font-mono text-gray-900">{{ incident.trackingId }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Date de création</p>
+          <p class="text-sm text-gray-900">{{ formatDate(incident.createDate) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 mt-6">
+      <button
+        (click)="handleClose()"
+        class="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800 transition-colors">
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>
