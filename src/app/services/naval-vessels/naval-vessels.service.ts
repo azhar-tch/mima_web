@@ -52,4 +52,9 @@ export class NavalVesselsService {
   delete(trackingId: string): Observable<ApiResponse<null>> {
     return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/delete/${trackingId}`);
   }
+
+  search(term?: string): Observable<ApiResponse<NavalVessel[]>> {
+    const params = term ? new HttpParams().set('term', term) : new HttpParams();
+    return this.http.get<ApiResponse<NavalVessel[]>>(`${this.baseUrl}/search`, { params });
+  }
 }

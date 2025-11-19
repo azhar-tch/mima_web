@@ -56,4 +56,10 @@ export class AbsencesService {
     }
     return this.http.patch<ApiResponse<AbsencesResponse>>(url, {});
   }
+
+  // 🔹 Recherche d'absences
+  searchAbsences(term?: string): Observable<ApiResponse<AbsencesResponse[]>> {
+    const params = term ? new HttpParams().set('term', term) : new HttpParams();
+    return this.http.get<ApiResponse<AbsencesResponse[]>>(`${this.baseUrl}/search`, { params });
+  }
 }

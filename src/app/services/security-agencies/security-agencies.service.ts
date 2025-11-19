@@ -44,4 +44,9 @@ export class SecurityAgenciesService {
   delete(trackingId: string): Observable<ApiResponse<null>> {
     return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/delete/${trackingId}`);
   }
+
+  search(term?: string): Observable<ApiResponse<SecurityAgency[]>> {
+    const params = term ? new HttpParams().set('term', term) : new HttpParams();
+    return this.http.get<ApiResponse<SecurityAgency[]>>(`${this.baseUrl}/search`, { params });
+  }
 }

@@ -9,6 +9,7 @@ import { DeleteCommercialShipsDialogComponent } from './delete-commercial-ships-
 import { CommercialShipDetailsDialogComponent } from './commercial-ship-details-dialog/commercial-ship-details-dialog.component';
 import { CommercialShip, CommercialShipRequest } from '../../models/Maritime';
 import { ShipStatus } from '../../models/enums';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-commercial-ships',
@@ -41,16 +42,28 @@ export class CommercialShipsComponent implements OnInit {
   openDeleteDialog = false;
   showDetailsDialog = false;
   selectedItem: CommercialShip | null = null;
+  private searchSubject = new Subject<string>();
 
-  constructor(private commercialShipsService: CommercialShipsService) {}
+  constructor(private commercialShipsService: CommercialShipsService) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.performSearch(searchTerm);
+    });
+  }
 
   ngOnInit() {
     this.loadCommercialShipss();
   }
 
-  loadCommercialShipss() {
+  onSearchChange() {
+    this.searchSubject.next(this.searchTerm);
+  }
+
+  performSearch(term: string) {
     this.isLoading = true;
-    this.commercialShipsService.list().subscribe({
+    this.commercialShipsService.search(term).subscribe({
       next: (response) => {
         if (!response.error && response.data) {
           this.ships = response.data;
@@ -58,22 +71,14 @@ export class CommercialShipsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading ships:', error);
+        console.error('Error searching ships:', error);
         this.isLoading = false;
       }
     });
   }
 
-  get filteredCommercialShipss() {
-    if (!this.searchTerm) return this.ships;
-    const term = this.searchTerm.toLowerCase();
-    return this.ships.filter(item =>
-      item.shipName?.toLowerCase().includes(term) ||
-      item.imoNumber?.toLowerCase().includes(term) ||
-      item.shipType?.toLowerCase().includes(term) ||
-      item.flag?.toLowerCase().includes(term) ||
-      item.mmsi?.toLowerCase().includes(term)
-    );
+  loadCommercialShipss() {
+    this.performSearch(this.searchTerm);
   }
 
   showAddDialog(): void {

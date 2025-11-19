@@ -55,4 +55,9 @@ export class CommercialShipsService {
   delete(trackingId: string): Observable<ApiResponse<null>> {
     return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/delete/${trackingId}`);
   }
+
+  search(term?: string): Observable<ApiResponse<CommercialShip[]>> {
+    const params = term ? new HttpParams().set('term', term) : new HttpParams();
+    return this.http.get<ApiResponse<CommercialShip[]>>(`${this.baseUrl}/search`, { params });
+  }
 }

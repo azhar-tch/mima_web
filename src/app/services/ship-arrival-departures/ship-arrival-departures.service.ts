@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ShipArrivalDeparture, ShipArrivalDepartureRequest } from '../../models/Maritime';
@@ -55,5 +55,10 @@ export class ShipArrivalDeparturesService {
 
   delete(trackingId: string): Observable<ApiResponse<null>> {
     return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/delete/${trackingId}`);
+  }
+
+  search(term?: string): Observable<ApiResponse<ShipArrivalDeparture[]>> {
+    const params = term ? new HttpParams().set('term', term) : new HttpParams();
+    return this.http.get<ApiResponse<ShipArrivalDeparture[]>>(`${this.baseUrl}/search`, { params });
   }
 }

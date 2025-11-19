@@ -41,4 +41,9 @@ export class PersonnelAllowancesService {
   delete(trackingId: string): Observable<ApiResponse<null>> {
     return this.http.delete<ApiResponse<null>>(`${this.baseUrl}/delete/${trackingId}`);
   }
+
+  search(term?: string): Observable<ApiResponse<PersonnelAllowance[]>> {
+    const params = term ? new HttpParams().set('term', term) : new HttpParams();
+    return this.http.get<ApiResponse<PersonnelAllowance[]>>(`${this.baseUrl}/search`, { params });
+  }
 }
