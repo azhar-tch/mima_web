@@ -65,7 +65,7 @@ export class AddEscortMissionsDialogComponent implements OnInit {
     // Charger les navires commerciaux
     this.commercialShipsService.list().subscribe({
       next: (response) => {
-        if (response.success && response.data) {
+        if (!response.error && response.data) {
           this.commercialShips = response.data;
         }
       },
@@ -75,7 +75,7 @@ export class AddEscortMissionsDialogComponent implements OnInit {
     // Charger les navires navals
     this.navalVesselsService.list().subscribe({
       next: (response) => {
-        if (response.success && response.data) {
+        if (!response.error && response.data) {
           this.navalVessels = response.data;
         }
       },
@@ -85,7 +85,7 @@ export class AddEscortMissionsDialogComponent implements OnInit {
     // Charger les agences de sécurité
     this.securityAgenciesService.list().subscribe({
       next: (response) => {
-        if (response.success && response.data) {
+        if (!response.error && response.data) {
           this.securityAgencies = response.data;
         }
         this.loadingData = false;

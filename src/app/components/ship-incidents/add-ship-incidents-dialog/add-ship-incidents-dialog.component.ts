@@ -64,7 +64,7 @@ export class AddShipIncidentsDialogComponent implements OnInit {
     this.loadingData = true;
     this.commercialShipsService.list().subscribe({
       next: (response) => {
-        if (response.success && response.data) {
+        if (!response.error && response.data) {
           this.commercialShips = response.data;
         }
         this.loadingData = false;
