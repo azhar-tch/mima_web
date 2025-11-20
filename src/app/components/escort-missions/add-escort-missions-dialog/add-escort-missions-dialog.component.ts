@@ -18,6 +18,8 @@ import { AgentsService } from '../../../services/agents/agents.service';
 })
 export class AddEscortMissionsDialogComponent implements OnInit {
   readonly X = X;
+  readonly EscortType = EscortType;
+  readonly escortTypes = Object.values(EscortType);
 
   @Output() close = new EventEmitter<void>();
   @Output() add = new EventEmitter<EscortMissionRequest>();
