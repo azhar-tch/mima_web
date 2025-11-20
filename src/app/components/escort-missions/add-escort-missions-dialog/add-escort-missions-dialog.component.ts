@@ -7,6 +7,7 @@ import { MissionStatus, EscortType } from '../../../models/enums';
 import { CommercialShipsService } from '../../../services/commercial-ships/commercial-ships.service';
 import { NavalVesselsService } from '../../../services/naval-vessels/naval-vessels.service';
 import { SecurityAgenciesService } from '../../../services/security-agencies/security-agencies.service';
+import { AgentsService } from '../../../services/agents/agents.service';
 
 @Component({
   selector: 'app-add-escort-missions-dialog',
@@ -47,12 +48,15 @@ export class AddEscortMissionsDialogComponent implements OnInit {
   commercialShips: CommercialShip[] = [];
   navalVessels: NavalVessel[] = [];
   securityAgencies: SecurityAgency[] = [];
+  agents: { trackingId: string; firstName: string; lastName: string }[] = [];
+  agentSearchTerm: string = '';
   loadingData = false;
 
   constructor(
     private commercialShipsService: CommercialShipsService,
     private navalVesselsService: NavalVesselsService,
-    private securityAgenciesService: SecurityAgenciesService
+    private securityAgenciesService: SecurityAgenciesService,
+    private agentsService: AgentsService
   ) {}
 
   ngOnInit() {
@@ -95,6 +99,33 @@ export class AddEscortMissionsDialogComponent implements OnInit {
         this.loadingData = false;
       }
     });
+
+    // Charger les agents
+    this.loadAgents();
+  }
+
+  loadAgents(searchTerm?: string) {
+    this.agentsService.searchAgents(searchTerm).subscribe({
+      next: (res) => {
+        this.agents = (res.data || []).map(agent => ({
+          trackingId: agent.trackingId,
+          firstName: agent.firstName,
+          lastName: agent.lastName
+        }));
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des agents', err);
+      }
+    });
+  }
+
+  onAgentSearch() {
+    this.loadAgents(this.agentSearchTerm);
+  }
+
+  clearAgentSearch() {
+    this.agentSearchTerm = '';
+    this.loadAgents();
   }
 
   handleReset() {
@@ -117,7 +148,9 @@ export class AddEscortMissionsDialogComponent implements OnInit {
       incidents: '',
       observations: ''
     };
+    this.agentSearchTerm = '';
     this.errors = {};
+    this.loadAgents(); // Recharger tous les agents
   }
 
   handleClose() {

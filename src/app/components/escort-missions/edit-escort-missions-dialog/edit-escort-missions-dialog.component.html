@@ -16,77 +16,222 @@
       </div>
     </div>
 
+    <!-- Form -->
     <div class="grid gap-4">
-      <!-- Numéro de mission -->
-      <div class="grid gap-2">
-        <label for="missionNumber" class="text-sm font-medium text-gray-700">Numéro de mission *</label>
-        <input
-          id="missionNumber"
-          type="text"
-          placeholder="Ex: ESC-2024-001"
-          [(ngModel)]="formData.missionNumber"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['missionNumber'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['missionNumber']" class="text-red-500 text-sm">{{ errors['missionNumber'] }}</p>
+      <!-- Basic Information -->
+      <div class="col-span-2 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations de base</h3>
       </div>
 
-      <!-- Date de début -->
-      <div class="grid gap-2">
-        <label for="startDate" class="text-sm font-medium text-gray-700">Date de début *</label>
-        <input
-          id="startDate"
-          type="date"
-          placeholder=""
-          [(ngModel)]="formData.startDate"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['startDate'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['startDate']" class="text-red-500 text-sm">{{ errors['startDate'] }}</p>
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Numéro de mission -->
+        <div class="grid gap-2 col-span-2">
+          <label for="missionNumber" class="text-sm font-medium text-gray-700">Numéro de mission *</label>
+          <input
+            id="missionNumber"
+            type="text"
+            placeholder="Ex: ESC-2024-001"
+            [(ngModel)]="formData.missionNumber"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['missionNumber'] ? 'border-red-500' : 'border-gray-300')"/>
+          <p *ngIf="errors['missionNumber']" class="text-red-500 text-sm">{{ errors['missionNumber'] }}</p>
+        </div>
+
+        <!-- Navire commercial -->
+        <div class="grid gap-2">
+          <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">Navire commercial</label>
+          <select
+            id="commercialShipTrackingId"
+            [(ngModel)]="formData.commercialShipTrackingId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner un navire</option>
+            <option *ngFor="let ship of commercialShips" [value]="ship.trackingId">
+              {{ ship.shipName }} ({{ ship.imoNumber }})
+            </option>
+          </select>
+        </div>
+
+        <!-- Agence de sécurité -->
+        <div class="grid gap-2">
+          <label for="securityAgencyTrackingId" class="text-sm font-medium text-gray-700">Agence de sécurité</label>
+          <select
+            id="securityAgencyTrackingId"
+            [(ngModel)]="formData.securityAgencyTrackingId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner une agence</option>
+            <option *ngFor="let agency of securityAgencies" [value]="agency.trackingId">
+              {{ agency.agencyName }} ({{ agency.agencyNumber }})
+            </option>
+          </select>
+        </div>
       </div>
 
-      <!-- Date de fin -->
-      <div class="grid gap-2">
-        <label for="endDate" class="text-sm font-medium text-gray-700">Date de fin</label>
-        <input
-          id="endDate"
-          type="date"
-          placeholder=""
-          [(ngModel)]="formData.endDate"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['endDate'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['endDate']" class="text-red-500 text-sm">{{ errors['endDate'] }}</p>
+      <!-- Naval Vessels -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Navires militaires</h3>
       </div>
 
-      <!-- Point de départ -->
-      <div class="grid gap-2">
-        <label for="departurePoint" class="text-sm font-medium text-gray-700">Point de départ *</label>
-        <input
-          id="departurePoint"
-          type="text"
-          placeholder=""
-          [(ngModel)]="formData.departurePoint"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['departurePoint'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['departurePoint']" class="text-red-500 text-sm">{{ errors['departurePoint'] }}</p>
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Navire naval principal -->
+        <div class="grid gap-2">
+          <label for="navalVesselTrackingId" class="text-sm font-medium text-gray-700">Navire naval principal</label>
+          <select
+            id="navalVesselTrackingId"
+            [(ngModel)]="formData.navalVesselTrackingId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner un navire naval</option>
+            <option *ngFor="let vessel of navalVessels" [value]="vessel.trackingId">
+              {{ vessel.vesselName }} ({{ vessel.vesselNumber }})
+            </option>
+          </select>
+        </div>
+
+        <!-- Navire secondaire -->
+        <div class="grid gap-2">
+          <label for="secondaryVesselTrackingId" class="text-sm font-medium text-gray-700">Navire secondaire</label>
+          <select
+            id="secondaryVesselTrackingId"
+            [(ngModel)]="formData.secondaryVesselTrackingId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner un navire secondaire</option>
+            <option *ngFor="let vessel of navalVessels" [value]="vessel.trackingId">
+              {{ vessel.vesselName }} ({{ vessel.vesselNumber }})
+            </option>
+          </select>
+        </div>
+
+        <!-- Commandant -->
+        <div class="grid gap-2 col-span-2">
+          <label class="text-sm font-medium text-gray-700">Commandant</label>
+
+          <!-- Champ de recherche -->
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Rechercher un agent par nom, prénom, matricule..."
+              [(ngModel)]="agentSearchTerm"
+              (ngModelChange)="onAgentSearch()"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            />
+            <span *ngIf="agentSearchTerm"
+                  (click)="clearAgentSearch()"
+                  class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer">
+              ✕
+            </span>
+          </div>
+
+          <!-- Dropdown des agents -->
+          <select
+            id="commanderTrackingId"
+            [(ngModel)]="formData.commanderTrackingId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner un commandant</option>
+            <option *ngFor="let agent of agents" [value]="agent.trackingId">
+              {{ agent.firstName }} {{ agent.lastName }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Vedettes -->
+        <div class="grid gap-2">
+          <label for="vedettes" class="text-sm font-medium text-gray-700">Vedettes</label>
+          <input
+            id="vedettes"
+            type="text"
+            placeholder="Liste des vedettes"
+            [(ngModel)]="formData.vedettes"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
       </div>
 
-      <!-- Point d'arrivée -->
-      <div class="grid gap-2">
-        <label for="arrivalPoint" class="text-sm font-medium text-gray-700">Point d'arrivée</label>
-        <input
-          id="arrivalPoint"
-          type="text"
-          placeholder=""
-          [(ngModel)]="formData.arrivalPoint"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['arrivalPoint'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['arrivalPoint']" class="text-red-500 text-sm">{{ errors['arrivalPoint'] }}</p>
+      <!-- Mission Details -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Détails de la mission</h3>
       </div>
 
-      <!-- Zone d'escorte -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Date de début -->
+        <div class="grid gap-2">
+          <label for="startDate" class="text-sm font-medium text-gray-700">Date de début *</label>
+          <input
+            id="startDate"
+            type="date"
+            [(ngModel)]="formData.startDate"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['startDate'] ? 'border-red-500' : 'border-gray-300')"/>
+          <p *ngIf="errors['startDate']" class="text-red-500 text-sm">{{ errors['startDate'] }}</p>
+        </div>
+
+        <!-- Date de fin -->
+        <div class="grid gap-2">
+          <label for="endDate" class="text-sm font-medium text-gray-700">Date de fin</label>
+          <input
+            id="endDate"
+            type="date"
+            [(ngModel)]="formData.endDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Point de départ -->
+        <div class="grid gap-2">
+          <label for="departurePoint" class="text-sm font-medium text-gray-700">Point de départ *</label>
+          <input
+            id="departurePoint"
+            type="text"
+            placeholder="Lieu de départ"
+            [(ngModel)]="formData.departurePoint"
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['departurePoint'] ? 'border-red-500' : 'border-gray-300')"/>
+          <p *ngIf="errors['departurePoint']" class="text-red-500 text-sm">{{ errors['departurePoint'] }}</p>
+        </div>
+
+        <!-- Point d'arrivée -->
+        <div class="grid gap-2">
+          <label for="arrivalPoint" class="text-sm font-medium text-gray-700">Point d'arrivée</label>
+          <input
+            id="arrivalPoint"
+            type="text"
+            placeholder="Lieu d'arrivée"
+            [(ngModel)]="formData.arrivalPoint"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Distance -->
+        <div class="grid gap-2">
+          <label for="distance" class="text-sm font-medium text-gray-700">Distance (nm)</label>
+          <input
+            id="distance"
+            type="number"
+            step="0.01"
+            placeholder="0.00"
+            [(ngModel)]="formData.distance"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Zone d'escorte -->
+        <div class="grid gap-2">
+          <label for="escortZone" class="text-sm font-medium text-gray-700">Zone d'escorte</label>
+          <input
+            id="escortZone"
+            type="text"
+            placeholder="Zone maritime"
+            [(ngModel)]="formData.escortZone"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div class="col-span-2 mt-4 mb-2">
+        <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations complémentaires</h3>
+      </div>
+
+      <!-- Incidents -->
       <div class="grid gap-2">
-        <label for="escortZone" class="text-sm font-medium text-gray-700">Zone d'escorte</label>
-        <input
-          id="escortZone"
-          type="text"
-          placeholder=""
-          [(ngModel)]="formData.escortZone"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['escortZone'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['escortZone']" class="text-red-500 text-sm">{{ errors['escortZone'] }}</p>
+        <label for="incidents" class="text-sm font-medium text-gray-700">Incidents</label>
+        <textarea
+          id="incidents"
+          placeholder="Décrire tout incident survenu"
+          [(ngModel)]="formData.incidents"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="2"
+        ></textarea>
       </div>
 
       <!-- Observations -->
@@ -94,12 +239,11 @@
         <label for="observations" class="text-sm font-medium text-gray-700">Observations</label>
         <textarea
           id="observations"
-          placeholder=""
+          placeholder="Observations générales"
           [(ngModel)]="formData.observations"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['observations'] ? 'border-red-500' : 'border-gray-300')"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="3"
         ></textarea>
-        <p *ngIf="errors['observations']" class="text-red-500 text-sm">{{ errors['observations'] }}</p>
       </div>
     </div>
 
