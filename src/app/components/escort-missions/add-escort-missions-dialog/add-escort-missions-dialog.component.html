@@ -39,26 +39,32 @@
           <p *ngIf="errors['missionNumber']" class="text-red-500 text-sm">{{ errors['missionNumber'] }}</p>
         </div>
 
-        <!-- ID Navire commercial -->
+        <!-- Navire commercial -->
         <div class="grid gap-2">
-          <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial</label>
-          <input
+          <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">Navire commercial</label>
+          <select
             id="commercialShipTrackingId"
-            type="text"
-            placeholder="UUID du navire"
             [(ngModel)]="formData.commercialShipTrackingId"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner un navire</option>
+            <option *ngFor="let ship of commercialShips" [value]="ship.trackingId">
+              {{ ship.shipName }} ({{ ship.imoNumber }})
+            </option>
+          </select>
         </div>
 
-        <!-- ID Agence de sécurité -->
+        <!-- Agence de sécurité -->
         <div class="grid gap-2">
-          <label for="securityAgencyTrackingId" class="text-sm font-medium text-gray-700">ID Agence de sécurité</label>
-          <input
+          <label for="securityAgencyTrackingId" class="text-sm font-medium text-gray-700">Agence de sécurité</label>
+          <select
             id="securityAgencyTrackingId"
-            type="text"
-            placeholder="UUID de l'agence"
             [(ngModel)]="formData.securityAgencyTrackingId"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner une agence</option>
+            <option *ngFor="let agency of securityAgencies" [value]="agency.trackingId">
+              {{ agency.agencyName }} ({{ agency.agencyNumber }})
+            </option>
+          </select>
         </div>
       </div>
 
@@ -68,26 +74,32 @@
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <!-- ID Navire naval -->
+        <!-- Navire naval principal -->
         <div class="grid gap-2">
-          <label for="navalVesselTrackingId" class="text-sm font-medium text-gray-700">ID Navire naval principal</label>
-          <input
+          <label for="navalVesselTrackingId" class="text-sm font-medium text-gray-700">Navire naval principal</label>
+          <select
             id="navalVesselTrackingId"
-            type="text"
-            placeholder="UUID du navire naval"
             [(ngModel)]="formData.navalVesselTrackingId"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner un navire naval</option>
+            <option *ngFor="let vessel of navalVessels" [value]="vessel.trackingId">
+              {{ vessel.vesselName }} ({{ vessel.vesselNumber }})
+            </option>
+          </select>
         </div>
 
-        <!-- ID Navire secondaire -->
+        <!-- Navire secondaire -->
         <div class="grid gap-2">
-          <label for="secondaryVesselTrackingId" class="text-sm font-medium text-gray-700">ID Navire secondaire</label>
-          <input
+          <label for="secondaryVesselTrackingId" class="text-sm font-medium text-gray-700">Navire secondaire</label>
+          <select
             id="secondaryVesselTrackingId"
-            type="text"
-            placeholder="UUID du navire secondaire"
             [(ngModel)]="formData.secondaryVesselTrackingId"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner un navire secondaire</option>
+            <option *ngFor="let vessel of navalVessels" [value]="vessel.trackingId">
+              {{ vessel.vesselName }} ({{ vessel.vesselNumber }})
+            </option>
+          </select>
         </div>
 
         <!-- ID Commandant -->

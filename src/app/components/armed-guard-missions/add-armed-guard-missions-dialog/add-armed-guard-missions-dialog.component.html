@@ -33,6 +33,36 @@
         <p *ngIf="errors['missionNumber']" class="text-red-500 text-sm">{{ errors['missionNumber'] }}</p>
       </div>
 
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Navire commercial -->
+        <div class="grid gap-2">
+          <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">Navire commercial</label>
+          <select
+            id="commercialShipTrackingId"
+            [(ngModel)]="formData.commercialShipTrackingId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner un navire</option>
+            <option *ngFor="let ship of commercialShips" [value]="ship.trackingId">
+              {{ ship.shipName }} ({{ ship.imoNumber }})
+            </option>
+          </select>
+        </div>
+
+        <!-- Agence de sécurité -->
+        <div class="grid gap-2">
+          <label for="securityAgencyTrackingId" class="text-sm font-medium text-gray-700">Agence de sécurité</label>
+          <select
+            id="securityAgencyTrackingId"
+            [(ngModel)]="formData.securityAgencyTrackingId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner une agence</option>
+            <option *ngFor="let agency of securityAgencies" [value]="agency.trackingId">
+              {{ agency.agencyName }} ({{ agency.agencyNumber }})
+            </option>
+          </select>
+        </div>
+      </div>
+
       <!-- Date d'embarquement -->
       <div class="grid gap-2">
         <label for="embarkationDate" class="text-sm font-medium text-gray-700">Date d'embarquement *</label>

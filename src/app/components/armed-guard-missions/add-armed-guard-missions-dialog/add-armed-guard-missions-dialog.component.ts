@@ -1,9 +1,11 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { ArmedGuardMissionRequest } from '../../../models/Maritime';
+import { ArmedGuardMissionRequest, CommercialShip, SecurityAgency } from '../../../models/Maritime';
 import { MissionStatus } from '../../../models/enums';
+import { CommercialShipsService } from '../../../services/commercial-ships/commercial-ships.service';
+import { SecurityAgenciesService } from '../../../services/security-agencies/security-agencies.service';
 
 @Component({
   selector: 'app-add-armed-guard-missions-dialog',
@@ -12,7 +14,7 @@ import { MissionStatus } from '../../../models/enums';
   templateUrl: './add-armed-guard-missions-dialog.component.html',
   styleUrl: './add-armed-guard-missions-dialog.component.css'
 })
-export class AddArmedGuardMissionsDialogComponent {
+export class AddArmedGuardMissionsDialogComponent implements OnInit {
   readonly X = X;
 
   @Output() close = new EventEmitter<void>();
@@ -35,6 +37,48 @@ export class AddArmedGuardMissionsDialogComponent {
   };
 
   errors: Record<string, string> = {};
+
+  // Listes pour les dropdowns
+  commercialShips: CommercialShip[] = [];
+  securityAgencies: SecurityAgency[] = [];
+  loadingData = false;
+
+  constructor(
+    private commercialShipsService: CommercialShipsService,
+    private securityAgenciesService: SecurityAgenciesService
+  ) {}
+
+  ngOnInit() {
+    this.loadDropdownData();
+  }
+
+  loadDropdownData() {
+    this.loadingData = true;
+
+    // Charger les navires commerciaux
+    this.commercialShipsService.list().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.commercialShips = response.data;
+        }
+      },
+      error: (error) => console.error('Erreur lors du chargement des navires commerciaux:', error)
+    });
+
+    // Charger les agences de sécurité
+    this.securityAgenciesService.list().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.securityAgencies = response.data;
+        }
+        this.loadingData = false;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des agences de sécurité:', error);
+        this.loadingData = false;
+      }
+    });
+  }
 
   handleReset() {
     this.formData = {

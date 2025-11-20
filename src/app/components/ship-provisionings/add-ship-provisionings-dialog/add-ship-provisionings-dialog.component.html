@@ -27,15 +27,18 @@
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <!-- ID Navire commercial -->
+        <!-- Navire commercial -->
         <div class="grid gap-2">
-          <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">ID Navire commercial *</label>
-          <input
+          <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">Navire commercial *</label>
+          <select
             id="commercialShipTrackingId"
-            type="text"
-            placeholder="Ex: UUID du navire"
             [(ngModel)]="formData.commercialShipTrackingId"
-            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')"/>
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['commercialShipTrackingId'] ? 'border-red-500' : 'border-gray-300')">
+            <option value="">Sélectionner un navire</option>
+            <option *ngFor="let ship of commercialShips" [value]="ship.trackingId">
+              {{ ship.shipName }} ({{ ship.imoNumber }})
+            </option>
+          </select>
           <p *ngIf="errors['commercialShipTrackingId']" class="text-red-500 text-sm">{{ errors['commercialShipTrackingId'] }}</p>
         </div>
 

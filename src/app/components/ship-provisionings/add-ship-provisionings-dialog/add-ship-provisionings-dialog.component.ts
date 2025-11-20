@@ -1,8 +1,9 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { ShipProvisioningRequest } from '../../../models/Maritime';
+import { ShipProvisioningRequest, CommercialShip } from '../../../models/Maritime';
+import { CommercialShipsService } from '../../../services/commercial-ships/commercial-ships.service';
 
 @Component({
   selector: 'app-add-ship-provisionings-dialog',
@@ -11,7 +12,7 @@ import { ShipProvisioningRequest } from '../../../models/Maritime';
   templateUrl: './add-ship-provisionings-dialog.component.html',
   styleUrl: './add-ship-provisionings-dialog.component.css'
 })
-export class AddShipProvisioningsDialogComponent {
+export class AddShipProvisioningsDialogComponent implements OnInit {
   readonly X = X;
 
   @Output() close = new EventEmitter<void>();
@@ -42,6 +43,32 @@ export class AddShipProvisioningsDialogComponent {
   };
 
   errors: Record<string, string> = {};
+
+  // Liste pour les dropdowns
+  commercialShips: CommercialShip[] = [];
+  loadingData = false;
+
+  constructor(private commercialShipsService: CommercialShipsService) {}
+
+  ngOnInit() {
+    this.loadDropdownData();
+  }
+
+  loadDropdownData() {
+    this.loadingData = true;
+    this.commercialShipsService.list().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.commercialShips = response.data;
+        }
+        this.loadingData = false;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des navires commerciaux:', error);
+        this.loadingData = false;
+      }
+    });
+  }
 
   handleReset() {
     this.formData = {
