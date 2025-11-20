@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { EscortMission, EscortMissionRequest, CommercialShip, NavalVessel, SecurityAgency } from '../../../models/Maritime';
-import { EscortType } from '../../../models/enums';
+import { EscortType, MissionStatus } from '../../../models/enums';
 import { CommercialShipsService } from '../../../services/commercial-ships/commercial-ships.service';
 import { NavalVesselsService } from '../../../services/naval-vessels/naval-vessels.service';
 import { SecurityAgenciesService } from '../../../services/security-agencies/security-agencies.service';
@@ -19,7 +19,15 @@ import { AgentsService } from '../../../services/agents/agents.service';
 export class EditEscortMissionsDialogComponent implements OnInit {
   readonly X = X;
   readonly EscortType = EscortType;
+  readonly MissionStatus = MissionStatus;
   readonly escortTypes = Object.values(EscortType);
+
+  statusOptions = [
+    { value: MissionStatus.PLANNED, label: 'Planifiée' },
+    { value: MissionStatus.IN_PROGRESS, label: 'En cours' },
+    { value: MissionStatus.COMPLETED, label: 'Terminée' },
+    { value: MissionStatus.CANCELLED, label: 'Annulée' }
+  ];
 
   @Input() item!: EscortMission;
   @Output() close = new EventEmitter<void>();

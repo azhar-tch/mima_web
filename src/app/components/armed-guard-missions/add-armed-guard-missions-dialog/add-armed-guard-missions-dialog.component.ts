@@ -16,6 +16,14 @@ import { SecurityAgenciesService } from '../../../services/security-agencies/sec
 })
 export class AddArmedGuardMissionsDialogComponent implements OnInit {
   readonly X = X;
+  readonly MissionStatus = MissionStatus;
+
+  statusOptions = [
+    { value: MissionStatus.PLANNED, label: 'Planifiée' },
+    { value: MissionStatus.IN_PROGRESS, label: 'En cours' },
+    { value: MissionStatus.COMPLETED, label: 'Terminée' },
+    { value: MissionStatus.CANCELLED, label: 'Annulée' }
+  ];
 
   @Output() close = new EventEmitter<void>();
   @Output() add = new EventEmitter<ArmedGuardMissionRequest>();

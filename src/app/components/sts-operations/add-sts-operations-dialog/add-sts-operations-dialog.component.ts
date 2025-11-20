@@ -1,8 +1,10 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
-import { STSOperationRequest } from '../../../models/Maritime';
+import { STSOperationRequest, CommercialShip, NavalVessel } from '../../../models/Maritime';
+import { CommercialShipsService } from '../../../services/commercial-ships/commercial-ships.service';
+import { NavalVesselsService } from '../../../services/naval-vessels/naval-vessels.service';
 
 @Component({
   selector: 'app-add-sts-operations-dialog',
@@ -11,7 +13,7 @@ import { STSOperationRequest } from '../../../models/Maritime';
   templateUrl: './add-sts-operations-dialog.component.html',
   styleUrl: './add-sts-operations-dialog.component.css'
 })
-export class AddStsOperationsDialogComponent {
+export class AddStsOperationsDialogComponent implements OnInit {
   readonly X = X;
 
   @Output() close = new EventEmitter<void>();
@@ -52,6 +54,48 @@ export class AddStsOperationsDialogComponent {
   };
 
   errors: Record<string, string> = {};
+
+  // Listes pour les dropdowns
+  commercialShips: CommercialShip[] = [];
+  navalVessels: NavalVessel[] = [];
+  loadingData = false;
+
+  constructor(
+    private commercialShipsService: CommercialShipsService,
+    private navalVesselsService: NavalVesselsService
+  ) {}
+
+  ngOnInit() {
+    this.loadDropdownData();
+  }
+
+  loadDropdownData() {
+    this.loadingData = true;
+
+    // Charger les navires commerciaux
+    this.commercialShipsService.list().subscribe({
+      next: (response) => {
+        if (!response.error && response.data) {
+          this.commercialShips = response.data;
+        }
+      },
+      error: (error) => console.error('Erreur lors du chargement des navires commerciaux:', error)
+    });
+
+    // Charger les navires navals
+    this.navalVesselsService.list().subscribe({
+      next: (response) => {
+        if (!response.error && response.data) {
+          this.navalVessels = response.data;
+        }
+        this.loadingData = false;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des navires navals:', error);
+        this.loadingData = false;
+      }
+    });
+  }
 
   handleReset() {
     this.formData = {

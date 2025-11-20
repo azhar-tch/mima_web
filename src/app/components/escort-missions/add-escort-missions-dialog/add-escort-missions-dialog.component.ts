@@ -19,7 +19,15 @@ import { AgentsService } from '../../../services/agents/agents.service';
 export class AddEscortMissionsDialogComponent implements OnInit {
   readonly X = X;
   readonly EscortType = EscortType;
+  readonly MissionStatus = MissionStatus;
   readonly escortTypes = Object.values(EscortType);
+
+  statusOptions = [
+    { value: MissionStatus.PLANNED, label: 'Planifiée' },
+    { value: MissionStatus.IN_PROGRESS, label: 'En cours' },
+    { value: MissionStatus.COMPLETED, label: 'Terminée' },
+    { value: MissionStatus.CANCELLED, label: 'Annulée' }
+  ];
 
   @Output() close = new EventEmitter<void>();
   @Output() add = new EventEmitter<EscortMissionRequest>();
