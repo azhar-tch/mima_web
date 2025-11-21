@@ -13,6 +13,7 @@ import { ProfilComponent } from './components/profil/profil.component';
 import { AuthGuard } from './guards/auth.guard';
 import { DutiesComponent } from './components/duties/duties.component';
 import { HistoriesComponent } from './components/histories/histories.component';
+import { RulesManagementComponent } from './components/rules-management/rules-management.component';
 
 // System 4 - HR Reference Data
 import { HrGradesComponent } from './components/hr-grades/hr-grades.component';
@@ -100,6 +101,10 @@ export const routes: Routes = [
       {
         path: 'histories',
         component: HistoriesComponent
+      },
+      {
+        path: 'rules-management',
+        component: RulesManagementComponent
       },
 
       // System 4 - HR Reference Data
