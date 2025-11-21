@@ -29,7 +29,8 @@ import {
   AlertTriangle,
   Boxes,
   FileCheck,
-  DollarSign
+  DollarSign,
+  UserCog
 } from 'lucide-angular';
 
 @Component({
@@ -70,6 +71,7 @@ export class SideBarComponent {
   readonly Boxes = Boxes;
   readonly FileCheck = FileCheck;
   readonly DollarSign = DollarSign;
+  readonly UserCog = UserCog;
 
   navSections = [
     {
@@ -82,6 +84,7 @@ export class SideBarComponent {
         { label: 'Gardes', icon: 'Shield', href: '/duties' },
         { label: 'Absences', icon: 'Calendar', href: '/absences' },
         { label: 'Règles', icon: 'FileText', href: '/managementRules' },
+        { label: 'Gestion Rôles', icon: 'UserCog', href: '/rules-management' },
         { label: 'Historique', icon: 'BarChart3', href: '/histories' },
         { label: 'Notifications', icon: 'Bell', href: '/notifications' },
       ]
@@ -160,6 +163,7 @@ export class SideBarComponent {
       'Boxes': this.Boxes,
       'FileCheck': this.FileCheck,
       'DollarSign': this.DollarSign,
+      'UserCog': this.UserCog,
     };
     return iconMap[iconName];
   }
