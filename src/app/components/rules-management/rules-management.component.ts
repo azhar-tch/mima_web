@@ -33,6 +33,7 @@ export class RulesManagementComponent implements OnInit {
 
   isLoading = false;
   isSaving: { [key: string]: boolean } = {};
+  editingUserId: string | null = null;
 
   constructor(
     private usersService: UsersService,
@@ -99,8 +100,17 @@ export class RulesManagementComponent implements OnInit {
     this.applyFilters();
   }
 
+  startEditingRole(userId: string): void {
+    this.editingUserId = userId;
+  }
+
+  cancelEditingRole(): void {
+    this.editingUserId = null;
+  }
+
   updateUserRole(user: UsersResponse, newRuleTrackingId: string): void {
     if (user.ruleTrackingId === newRuleTrackingId) {
+      this.cancelEditingRole();
       return; // Pas de changement
     }
 
@@ -129,11 +139,13 @@ export class RulesManagementComponent implements OnInit {
           this.toastService.success(`Rôle mis à jour pour ${user.firstName} ${user.lastName}`);
         }
         this.isSaving[user.trackingId] = false;
+        this.cancelEditingRole();
       },
       error: (error) => {
         console.error('Erreur lors de la mise à jour du rôle:', error);
         this.toastService.error('Erreur lors de la mise à jour du rôle');
         this.isSaving[user.trackingId] = false;
+        this.cancelEditingRole();
         // Recharger les données pour revenir à l'état précédent
         this.loadData();
       }
