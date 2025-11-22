@@ -137,6 +137,21 @@ export class AddShipIncidentsDialogComponent implements OnInit {
     if (!this.formData.incidentDate || (typeof this.formData.incidentDate === 'string' && !this.formData.incidentDate.trim())) {
       newErrors['incidentDate'] = "Date de l'incident est requis";
     }
+    if (!this.formData.eventType || (typeof this.formData.eventType === 'string' && !this.formData.eventType.trim())) {
+      newErrors['eventType'] = "Type d'événement est requis";
+    }
+    if (!this.formData.incidentType || (typeof this.formData.incidentType === 'string' && !this.formData.incidentType.trim())) {
+      newErrors['incidentType'] = "Type d'incident est requis";
+    }
+    if (!this.formData.location || (typeof this.formData.location === 'string' && !this.formData.location.trim())) {
+      newErrors['location'] = 'Localisation est requise';
+    }
+    if (!this.formData.description || (typeof this.formData.description === 'string' && !this.formData.description.trim())) {
+      newErrors['description'] = 'Description est requise';
+    }
+    if (!this.formData.immediateMeasures || (typeof this.formData.immediateMeasures === 'string' && !this.formData.immediateMeasures.trim())) {
+      newErrors['immediateMeasures'] = 'Mesures immédiates sont requises';
+    }
 
     this.errors = newErrors;
     return Object.keys(newErrors).length === 0;

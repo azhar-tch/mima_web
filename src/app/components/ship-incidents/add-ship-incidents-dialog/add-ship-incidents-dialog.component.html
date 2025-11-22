@@ -55,35 +55,43 @@
       <div class="grid grid-cols-3 gap-4">
         <!-- Type d'événement -->
         <div class="grid gap-2">
-          <label for="eventType" class="text-sm font-medium text-gray-700">Type d'événement</label>
-          <input
+          <label for="eventType" class="text-sm font-medium text-gray-700">Type d'événement *</label>
+          <select
             id="eventType"
-            type="text"
-            placeholder="Ex: Collision, Échouement"
             [(ngModel)]="formData.eventType"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['eventType'] ? 'border-red-500' : 'border-gray-300')">
+            <option value="">-- Sélectionner --</option>
+            <option value="INCIDENT">Incident</option>
+            <option value="ASSISTANCE">Assistance</option>
+          </select>
+          <p *ngIf="errors['eventType']" class="text-red-500 text-sm">{{ errors['eventType'] }}</p>
         </div>
 
         <!-- Type d'incident -->
         <div class="grid gap-2">
-          <label for="incidentType" class="text-sm font-medium text-gray-700">Type d'incident</label>
+          <label for="incidentType" class="text-sm font-medium text-gray-700">Type d'incident *</label>
           <input
             id="incidentType"
             type="text"
-            placeholder="Ex: Technique, Humain"
+            placeholder="Ex: Collision, Échouement"
             [(ngModel)]="formData.incidentType"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['incidentType'] ? 'border-red-500' : 'border-gray-300')"/>
+          <p *ngIf="errors['incidentType']" class="text-red-500 text-sm">{{ errors['incidentType'] }}</p>
         </div>
 
         <!-- Gravité -->
         <div class="grid gap-2">
           <label for="severity" class="text-sm font-medium text-gray-700">Gravité</label>
-          <input
+          <select
             id="severity"
-            type="text"
-            placeholder="Ex: Mineur, Majeur, Critique"
             [(ngModel)]="formData.severity"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">-- Sélectionner --</option>
+            <option value="FAIBLE">Faible</option>
+            <option value="MOYENNE">Moyenne</option>
+            <option value="GRAVE">Grave</option>
+            <option value="CRITIQUE">Critique</option>
+          </select>
         </div>
       </div>
 
@@ -94,13 +102,14 @@
 
       <!-- Localisation -->
       <div class="grid gap-2">
-        <label for="location" class="text-sm font-medium text-gray-700">Localisation</label>
+        <label for="location" class="text-sm font-medium text-gray-700">Localisation *</label>
         <input
           id="location"
           type="text"
           placeholder="Description du lieu"
           [(ngModel)]="formData.location"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['location'] ? 'border-red-500' : 'border-gray-300')"/>
+        <p *ngIf="errors['location']" class="text-red-500 text-sm">{{ errors['location'] }}</p>
       </div>
 
       <div class="grid grid-cols-3 gap-4">
@@ -147,14 +156,15 @@
 
       <!-- Description -->
       <div class="grid gap-2">
-        <label for="description" class="text-sm font-medium text-gray-700">Description de l'incident</label>
+        <label for="description" class="text-sm font-medium text-gray-700">Description de l'incident *</label>
         <textarea
           id="description"
           placeholder="Description détaillée de l'incident"
           [(ngModel)]="formData.description"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['description'] ? 'border-red-500' : 'border-gray-300')"
           rows="3"
         ></textarea>
+        <p *ngIf="errors['description']" class="text-red-500 text-sm">{{ errors['description'] }}</p>
       </div>
 
       <!-- Causes -->
@@ -262,14 +272,15 @@
 
       <!-- Mesures immédiates -->
       <div class="grid gap-2">
-        <label for="immediateMeasures" class="text-sm font-medium text-gray-700">Mesures immédiates prises</label>
+        <label for="immediateMeasures" class="text-sm font-medium text-gray-700">Mesures immédiates prises *</label>
         <textarea
           id="immediateMeasures"
           placeholder="Mesures d'urgence et d'intervention immédiate"
           [(ngModel)]="formData.immediateMeasures"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['immediateMeasures'] ? 'border-red-500' : 'border-gray-300')"
           rows="2"
         ></textarea>
+        <p *ngIf="errors['immediateMeasures']" class="text-red-500 text-sm">{{ errors['immediateMeasures'] }}</p>
       </div>
 
       <!-- Section: Résolution et suivi -->
