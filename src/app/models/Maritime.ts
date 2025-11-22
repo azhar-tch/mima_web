@@ -432,7 +432,6 @@ export interface ShipIncidentRequest {
   immediateMeasures?: string;
   resolutionDate?: string;
   status?: string;
-  isResolved?: boolean;
   reportEstablished?: boolean;
   reportReference?: string;
   notifiedAuthorities?: string;
