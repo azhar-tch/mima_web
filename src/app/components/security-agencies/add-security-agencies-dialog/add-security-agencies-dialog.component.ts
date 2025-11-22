@@ -31,8 +31,7 @@ export class AddSecurityAgenciesDialogComponent {
     registrationNumber: '',
     licenseNumber: '',
     website: '',
-    observations: '',
-    isActive: undefined
+    observations: ''
   };
 
   errors: Record<string, string> = {};
@@ -52,8 +51,7 @@ export class AddSecurityAgenciesDialogComponent {
       registrationNumber: '',
       licenseNumber: '',
       website: '',
-      observations: '',
-      isActive: undefined
+      observations: ''
     };
     this.errors = {};
   }

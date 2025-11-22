@@ -43,8 +43,7 @@ export class AddPersonnelAllowancesDialogComponent {
     riskAllowance: undefined,
     seaAllowance: undefined,
     currency: '',
-    observations: '',
-    isActive: undefined
+    observations: ''
   };
 
   errors: Record<string, string> = {};
@@ -59,8 +58,7 @@ export class AddPersonnelAllowancesDialogComponent {
       riskAllowance: undefined,
       seaAllowance: undefined,
       currency: '',
-      observations: '',
-      isActive: undefined
+      observations: ''
     };
     this.errors = {};
   }
