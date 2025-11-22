@@ -1,7 +1,10 @@
 <div class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
   <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
 
+  <!-- Dialog Content -->
   <div class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+    <!-- Header -->
     <div class="mb-4">
       <div class="flex items-center justify-between">
         <div>
@@ -16,6 +19,7 @@
       </div>
     </div>
 
+    <!-- Form -->
     <div class="grid gap-4">
       <!-- Numéro de mission -->
       <div class="grid gap-2">
@@ -27,6 +31,36 @@
           [(ngModel)]="formData.missionNumber"
           [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['missionNumber'] ? 'border-red-500' : 'border-gray-300')"/>
         <p *ngIf="errors['missionNumber']" class="text-red-500 text-sm">{{ errors['missionNumber'] }}</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Navire commercial -->
+        <div class="grid gap-2">
+          <label for="commercialShipTrackingId" class="text-sm font-medium text-gray-700">Navire commercial</label>
+          <select
+            id="commercialShipTrackingId"
+            [(ngModel)]="formData.commercialShipTrackingId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner un navire</option>
+            <option *ngFor="let ship of commercialShips" [value]="ship.trackingId">
+              {{ ship.shipName }} ({{ ship.imoNumber }})
+            </option>
+          </select>
+        </div>
+
+        <!-- Agence de sécurité -->
+        <div class="grid gap-2">
+          <label for="securityAgencyTrackingId" class="text-sm font-medium text-gray-700">Agence de sécurité</label>
+          <select
+            id="securityAgencyTrackingId"
+            [(ngModel)]="formData.securityAgencyTrackingId"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Sélectionner une agence</option>
+            <option *ngFor="let agency of securityAgencies" [value]="agency.trackingId">
+              {{ agency.agencyName }} ({{ agency.agencyNumber }})
+            </option>
+          </select>
+        </div>
       </div>
 
       <!-- Date d'embarquement -->
@@ -77,16 +111,39 @@
         <p *ngIf="errors['disembarkationPort']" class="text-red-500 text-sm">{{ errors['disembarkationPort'] }}</p>
       </div>
 
-      <!-- Nombre de personnel -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Nombre de jours -->
+        <div class="grid gap-2">
+          <label for="daysCount" class="text-sm font-medium text-gray-700">Nombre de jours</label>
+          <input
+            id="daysCount"
+            type="number"
+            placeholder="0"
+            [(ngModel)]="formData.daysCount"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+
+        <!-- Nombre de personnel -->
+        <div class="grid gap-2">
+          <label for="personnelCount" class="text-sm font-medium text-gray-700">Nombre de personnel</label>
+          <input
+            id="personnelCount"
+            type="number"
+            placeholder="Ex: 4"
+            [(ngModel)]="formData.personnelCount"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        </div>
+      </div>
+
+      <!-- Zone de patrouille -->
       <div class="grid gap-2">
-        <label for="personnelCount" class="text-sm font-medium text-gray-700">Nombre de personnel</label>
+        <label for="patrolZone" class="text-sm font-medium text-gray-700">Zone de patrouille</label>
         <input
-          id="personnelCount"
-          type="number"
-          placeholder="Ex: 4"
-          [(ngModel)]="formData.personnelCount" min="0" step="0.01"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['personnelCount'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['personnelCount']" class="text-red-500 text-sm">{{ errors['personnelCount'] }}</p>
+          id="patrolZone"
+          type="text"
+          placeholder="Zone maritime"
+          [(ngModel)]="formData.patrolZone"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
       </div>
 
       <!-- Statut -->
@@ -101,20 +158,32 @@
         </select>
       </div>
 
+      <!-- Incidents -->
+      <div class="grid gap-2">
+        <label for="incidents" class="text-sm font-medium text-gray-700">Incidents</label>
+        <textarea
+          id="incidents"
+          placeholder="Décrire tout incident survenu"
+          [(ngModel)]="formData.incidents"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="2"
+        ></textarea>
+      </div>
+
       <!-- Observations -->
       <div class="grid gap-2">
         <label for="observations" class="text-sm font-medium text-gray-700">Observations</label>
         <textarea
           id="observations"
-          placeholder=""
+          placeholder="Observations générales"
           [(ngModel)]="formData.observations"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['observations'] ? 'border-red-500' : 'border-gray-300')"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="3"
         ></textarea>
-        <p *ngIf="errors['observations']" class="text-red-500 text-sm">{{ errors['observations'] }}</p>
       </div>
     </div>
 
+    <!-- Footer -->
     <div class="flex justify-end gap-3 mt-6">
       <button
         (click)="handleClose()"
