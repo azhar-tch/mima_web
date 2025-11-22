@@ -20,7 +20,6 @@ export class AddStsOperationsDialogComponent implements OnInit {
   @Output() add = new EventEmitter<STSOperationRequest>();
 
   formData: STSOperationRequest = {
-    operationNumber: '',
     motherVesselTrackingId: '',
     receivingVesselTrackingId: '',
     startDate: '',
@@ -99,7 +98,6 @@ export class AddStsOperationsDialogComponent implements OnInit {
 
   handleReset() {
     this.formData = {
-      operationNumber: '',
       motherVesselTrackingId: '',
       receivingVesselTrackingId: '',
       startDate: '',
@@ -141,9 +139,6 @@ export class AddStsOperationsDialogComponent implements OnInit {
 
   validateForm(): boolean {
     const newErrors: Record<string, string> = {};
-    if (!this.formData.operationNumber || (typeof this.formData.operationNumber === 'string' && !this.formData.operationNumber.trim())) {
-      newErrors['operationNumber'] = "Numéro d'opération est requis";
-    }
     if (!this.formData.startDate || (typeof this.formData.startDate === 'string' && !this.formData.startDate.trim())) {
       newErrors['startDate'] = "Date et heure de début est requis";
     }

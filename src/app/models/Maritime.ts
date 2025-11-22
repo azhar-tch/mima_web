@@ -541,7 +541,6 @@ export interface STSOperation {
 }
 
 export interface STSOperationRequest {
-  operationNumber: string;
   motherVesselTrackingId?: string;
   receivingVesselTrackingId?: string;
   startDate: string;

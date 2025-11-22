@@ -1,7 +1,7 @@
 <div class="fixed inset-0 z-50 flex items-center justify-center">
   <div class="fixed inset-0 bg-black/50" (click)="handleClose()"></div>
 
-  <div class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
+  <div class="relative bg-white rounded-lg shadow-lg max-w-5xl w-full mx-4 p-6 z-50 max-h-[90vh] overflow-y-auto">
     <div class="mb-4">
       <div class="flex items-center justify-between">
         <div>
@@ -21,18 +21,6 @@
       <!-- Section: Informations de base -->
       <div class="col-span-2 mt-2 mb-2">
         <h3 class="text-lg font-semibold text-gray-900 border-b pb-2">Informations de base</h3>
-      </div>
-
-      <!-- Numéro d'opération -->
-      <div class="grid gap-2">
-        <label for="operationNumber" class="text-sm font-medium text-gray-700">Numéro d'opération *</label>
-        <input
-          id="operationNumber"
-          type="text"
-          placeholder="Ex: STS-2024-001"
-          [(ngModel)]="formData.operationNumber"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['operationNumber'] ? 'border-red-500' : 'border-gray-300')"/>
-        <p *ngIf="errors['operationNumber']" class="text-red-500 text-sm">{{ errors['operationNumber'] }}</p>
       </div>
 
       <!-- Navire source -->
