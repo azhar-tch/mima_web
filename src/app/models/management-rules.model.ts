@@ -43,13 +43,6 @@ export enum SeverityLevel {
   CRITICAL = 'CRITICAL'
 }
 
-export enum AlertStatus {
-  ACTIVE = 'ACTIVE',
-  RESOLVED = 'RESOLVED',
-  OVERRIDDEN = 'OVERRIDDEN',
-  DISMISSED = 'DISMISSED'
-}
-
 export interface RuleViolation {
   ruleType: RuleType;
   severity: SeverityLevel;
@@ -60,31 +53,6 @@ export interface RuleViolation {
   detectionDate: string;
   details?: string;
   canBeOverridden: boolean;
-}
-
-export interface RuleViolationAlert {
-  trackingId: string;
-  ruleType: RuleType;
-  severity: SeverityLevel;
-  message: string;
-  agent: {
-    trackingId: string;
-    firstName: string;
-    lastName: string;
-    registrationNo: string;
-  };
-  missionTrackingId?: string;
-  details?: string;
-  status: AlertStatus;
-  canBeOverridden: boolean;
-  resolvedDate?: string;
-  resolvedBy?: {
-    trackingId: string;
-    username: string;
-  };
-  resolutionComment?: string;
-  createDate: string;
-  updateDate?: string;
 }
 
 export interface ValidationResult {
@@ -114,11 +82,4 @@ export const SEVERITY_LEVEL_COLORS: Record<SeverityLevel, string> = {
   [SeverityLevel.WARNING]: 'yellow',
   [SeverityLevel.ERROR]: 'orange',
   [SeverityLevel.CRITICAL]: 'red'
-};
-
-export const ALERT_STATUS_LABELS: Record<AlertStatus, string> = {
-  [AlertStatus.ACTIVE]: 'Active',
-  [AlertStatus.RESOLVED]: 'Résolue',
-  [AlertStatus.OVERRIDDEN]: 'Annulée',
-  [AlertStatus.DISMISSED]: 'Rejetée'
 };

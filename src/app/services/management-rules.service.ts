@@ -60,14 +60,12 @@ export class ManagementRulesService {
     agentTrackingId: string,
     startDate: string,
     endDate: string,
-    currentMissionTrackingId?: string,
-    createAlerts: boolean = false
+    currentMissionTrackingId?: string
   ): Observable<any> {
     let params = new HttpParams()
       .set('agentTrackingId', agentTrackingId)
       .set('startDate', startDate)
-      .set('endDate', endDate)
-      .set('createAlerts', createAlerts.toString());
+      .set('endDate', endDate);
 
     if (currentMissionTrackingId) {
       params = params.set('currentMissionTrackingId', currentMissionTrackingId);
