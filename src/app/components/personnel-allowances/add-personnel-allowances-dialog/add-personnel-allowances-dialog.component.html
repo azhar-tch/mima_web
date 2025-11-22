@@ -36,12 +36,13 @@
       <!-- Grade maritime -->
       <div class="grid gap-2">
         <label for="maritimeRank" class="text-sm font-medium text-gray-700">Grade maritime *</label>
-        <input
+        <select
           id="maritimeRank"
-          type="text"
-          placeholder="Ex: Commandant"
           [(ngModel)]="formData.maritimeRank"
-          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['maritimeRank'] ? 'border-red-500' : 'border-gray-300')"/>
+          [class]="'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ' + (errors['maritimeRank'] ? 'border-red-500' : 'border-gray-300')">
+          <option value="">Sélectionner un grade</option>
+          <option *ngFor="let rank of maritimeRanks" [value]="rank.value">{{ rank.label }}</option>
+        </select>
         <p *ngIf="errors['maritimeRank']" class="text-red-500 text-sm">{{ errors['maritimeRank'] }}</p>
       </div>
 
