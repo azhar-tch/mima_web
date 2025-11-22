@@ -5,6 +5,8 @@ import { LucideAngularModule, X, MapPin } from 'lucide-angular';
 import { MissionsRequest } from '../../../models/Missions';
 import { UnitsService } from '../../../services/units/units.service';
 import { AgentsService } from '../../../services/agents/agents.service';
+import { AgentsResponse } from '../../../models/Agents';
+import { MarinerStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-add-mission-dialog',
@@ -22,10 +24,11 @@ export class AddMissionDialogComponent implements OnInit {
   @Output() add = new EventEmitter<MissionsRequest>();
 
   units: { trackingId: string; name: string }[] = [];
-  agents: { trackingId: string; firstName: string; lastName: string }[] = [];
+  agents: AgentsResponse[] = [];
   selectedUnitIds: string[] = [];
   selectedAgentIds: string[] = [];
   agentSearchTerm: string = '';
+  MarinerStatus = MarinerStatus;
 
   formData: MissionsRequest = {
     type: '',
@@ -66,16 +69,42 @@ export class AddMissionDialogComponent implements OnInit {
   loadAgents(searchTerm?: string) {
     this.agentsService.searchAgents(searchTerm).subscribe({
       next: (res) => {
-        this.agents = (res.data || []).map(agent => ({
-          trackingId: agent.trackingId,
-          firstName: agent.firstName,
-          lastName: agent.lastName
-        }));
+        this.agents = res.data || [];
       },
       error: (err) => {
         console.error('Erreur lors du chargement des agents', err);
       }
     });
+  }
+
+  getStatusLabel(status: MarinerStatus): string {
+    switch (status) {
+      case MarinerStatus.DISPONIBLE: return 'Disponible';
+      case MarinerStatus.EN_MER: return 'En mer';
+      case MarinerStatus.EN_GARDE: return 'En garde';
+      case MarinerStatus.PERMISSION: return 'En permission';
+      case MarinerStatus.ABSENT: return 'Absent';
+      case MarinerStatus.EN_FORMATION: return 'En formation';
+      case MarinerStatus.INDISPONIBLE: return 'Indisponible';
+      default: return status;
+    }
+  }
+
+  getStatusBadgeClass(status: MarinerStatus): string {
+    switch (status) {
+      case MarinerStatus.DISPONIBLE: return 'bg-green-100 text-green-800';
+      case MarinerStatus.EN_MER: return 'bg-blue-100 text-blue-800';
+      case MarinerStatus.EN_GARDE: return 'bg-purple-100 text-purple-800';
+      case MarinerStatus.PERMISSION: return 'bg-yellow-100 text-yellow-800';
+      case MarinerStatus.ABSENT: return 'bg-red-100 text-red-800';
+      case MarinerStatus.EN_FORMATION: return 'bg-indigo-100 text-indigo-800';
+      case MarinerStatus.INDISPONIBLE: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  }
+
+  isAgentAvailable(agent: AgentsResponse): boolean {
+    return agent.status === MarinerStatus.DISPONIBLE;
   }
 
   onAgentSearch() {

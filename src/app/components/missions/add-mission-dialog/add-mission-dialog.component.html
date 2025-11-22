@@ -171,11 +171,20 @@
               type="checkbox"
               [id]="'agent-' + agent.trackingId"
               [checked]="selectedAgentIds.includes(agent.trackingId)"
+              [disabled]="!isAgentAvailable(agent)"
               (change)="onAgentChange($event, agent.trackingId)"
-              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              [class]="'w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 ' + (!isAgentAvailable(agent) ? 'opacity-50 cursor-not-allowed' : '')"
             />
-            <label [for]="'agent-' + agent.trackingId" class="ml-2 text-sm text-gray-700 cursor-pointer">
-              {{ agent.firstName }} {{ agent.lastName }}
+            <label
+              [for]="'agent-' + agent.trackingId"
+              [class]="'ml-2 text-sm flex items-center gap-2 ' + (isAgentAvailable(agent) ? 'text-gray-700 cursor-pointer' : 'text-gray-400 cursor-not-allowed')"
+            >
+              <span>{{ agent.firstName }} {{ agent.lastName }}</span>
+              <span
+                [class]="'px-2 py-0.5 text-xs rounded-full ' + getStatusBadgeClass(agent.status)"
+              >
+                {{ getStatusLabel(agent.status) }}
+              </span>
             </label>
           </div>
         </div>

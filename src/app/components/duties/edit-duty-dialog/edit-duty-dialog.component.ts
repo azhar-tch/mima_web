@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { DutiesResponse, DutiesRequest } from '../../../models/Duties';
-import { DutyType, DutyStatus } from '../../../models/enums';
+import { DutyType, DutyStatus, MarinerStatus } from '../../../models/enums';
 import { AgentsService } from '../../../services/agents/agents.service';
 import { UnitsService } from '../../../services/units/units.service';
 import { AgentsResponse } from '../../../models/Agents';
@@ -20,6 +20,7 @@ export class EditDutyDialogComponent implements OnInit, OnChanges {
   readonly X = X;
   readonly DutyType = DutyType;
   readonly DutyStatus = DutyStatus;
+  readonly MarinerStatus = MarinerStatus;
 
   @Input() duty: DutiesResponse | null = null;
   @Output() close = new EventEmitter<void>();
@@ -185,5 +186,22 @@ export class EditDutyDialogComponent implements OnInit, OnChanges {
       case DutyType.STANDBY: return 'Astreinte';
       default: return type;
     }
+  }
+
+  getStatusLabel(status: MarinerStatus): string {
+    switch (status) {
+      case MarinerStatus.DISPONIBLE: return 'Disponible';
+      case MarinerStatus.EN_MER: return 'En mer';
+      case MarinerStatus.EN_GARDE: return 'En garde';
+      case MarinerStatus.PERMISSION: return 'En permission';
+      case MarinerStatus.ABSENT: return 'Absent';
+      case MarinerStatus.EN_FORMATION: return 'En formation';
+      case MarinerStatus.INDISPONIBLE: return 'Indisponible';
+      default: return status;
+    }
+  }
+
+  isAgentAvailable(agent: AgentsResponse): boolean {
+    return agent.status === MarinerStatus.DISPONIBLE;
   }
 }

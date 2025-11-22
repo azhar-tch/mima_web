@@ -41,8 +41,14 @@
           [class.border-red-500]="errors['agentTrackingId']"
         >
           <option value="">Sélectionner un agent</option>
-          <option *ngFor="let agent of availableAgents" [value]="agent.trackingId">
+          <option
+            *ngFor="let agent of availableAgents"
+            [value]="agent.trackingId"
+            [disabled]="!isAgentAvailable(agent)"
+            [class]="!isAgentAvailable(agent) ? 'text-gray-400' : ''"
+          >
             {{ agent.firstName }} {{ agent.lastName }} - {{ agent.registrationNo }}
+            {{ !isAgentAvailable(agent) ? '(' + getStatusLabel(agent.status) + ')' : '' }}
           </option>
         </select>
         <p *ngIf="errors['agentTrackingId']" class="text-red-500 text-xs mt-1">{{ errors['agentTrackingId'] }}</p>

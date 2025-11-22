@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { AbsencesRequest } from '../../../models/Absences';
-import { AbsenceType } from '../../../models/enums';
+import { AbsenceType, MarinerStatus } from '../../../models/enums';
 import { AgentsService } from '../../../services/agents/agents.service';
 import { AgentsResponse } from '../../../models/Agents';
 
@@ -17,6 +17,7 @@ import { AgentsResponse } from '../../../models/Agents';
 export class AddAbsenceDialogComponent implements OnInit {
   readonly X = X;
   readonly AbsenceType = AbsenceType;
+  readonly MarinerStatus = MarinerStatus;
 
   @Output() close = new EventEmitter<void>();
   @Output() add = new EventEmitter<AbsencesRequest>();
@@ -150,5 +151,22 @@ export class AddAbsenceDialogComponent implements OnInit {
       case AbsenceType.FAMILY_EMERGENCY: return 'Urgence familiale';
       default: return type;
     }
+  }
+
+  getStatusLabel(status: MarinerStatus): string {
+    switch (status) {
+      case MarinerStatus.DISPONIBLE: return 'Disponible';
+      case MarinerStatus.EN_MER: return 'En mer';
+      case MarinerStatus.EN_GARDE: return 'En garde';
+      case MarinerStatus.PERMISSION: return 'En permission';
+      case MarinerStatus.ABSENT: return 'Absent';
+      case MarinerStatus.EN_FORMATION: return 'En formation';
+      case MarinerStatus.INDISPONIBLE: return 'Indisponible';
+      default: return status;
+    }
+  }
+
+  isAgentAvailable(agent: AgentsResponse): boolean {
+    return agent.status === MarinerStatus.DISPONIBLE;
   }
 }
