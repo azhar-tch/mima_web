@@ -19,6 +19,7 @@
         [routerLink]="item.href"
         routerLinkActive="bg-sidebar-primary/20 text-sidebar-primary"
         class="flex items-center gap-3 px-4 py-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-primary/10 transition-colors group"
+        [class.hidden]="item.label === 'Gestion Rôles' && !isAdmin()"
       >
         <lucide-icon [img]="getIcon(item.icon)" class="w-5 h-5"></lucide-icon>
         <span class="text-sm font-medium">{{ item.label }}</span>
@@ -59,6 +60,7 @@
         (click)="closeMobileSidebar()"
         routerLinkActive="bg-sidebar-primary/20 text-sidebar-primary"
         class="flex items-center gap-3 px-4 py-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-primary/10 transition-colors group"
+        [class.hidden]="item.label === 'Gestion Rôles' && !isAdmin()"
       >
         <lucide-icon [img]="getIcon(item.icon)" class="w-5 h-5"></lucide-icon>
         <span class="text-sm font-medium">{{ item.label }}</span>

@@ -43,6 +43,7 @@ import {
 export class SideBarComponent {
   isProfileOpen = false;
   isMobileSidebarOpen = false;
+  currentUserRole: string | undefined;
 
   // Lucide icons
   readonly LayoutDashboard = LayoutDashboard;
@@ -123,7 +124,11 @@ export class SideBarComponent {
   // Keep for backward compatibility
   navItems = this.navSections[0].items;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    // Récupérer le rôle de l'utilisateur connecté
+    const currentUser = this.authService.getCurrentUser();
+    this.currentUserRole = currentUser?.rule;
+  }
 
   toggleProfile() {
     this.isProfileOpen = !this.isProfileOpen;
@@ -166,5 +171,9 @@ export class SideBarComponent {
       'UserCog': this.UserCog,
     };
     return iconMap[iconName];
+  }
+
+  isAdmin(): boolean {
+    return this.currentUserRole === 'ADMIN';
   }
 }
